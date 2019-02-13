@@ -6,7 +6,6 @@ docker-compose. Production is used in Heroku as well as Zeit now. You may change
 DO NOT HARD CODE YOUR PRODUCTION URLS EVER. Either use creds.ini or use environment variables.
 """
 import os
-from api.core import get_pg_url
 
 # more configuration options here http://flask.pocoo.org/docs/1.0/config/
 class Config:
@@ -16,11 +15,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    url = (
-        get_pg_url()
-        if get_pg_url()
-        else "postgresql://testusr:password@127.0.0.1:5432/testdb"  # TODO set the URI to get_pg_url() once you have `creds.ini` setup
-    )
+    url = "postgresql://testusr:password@127.0.0.1:5432/testdb"
     SQLALCHEMY_DATABASE_URI = url
     DEBUG = True
 
