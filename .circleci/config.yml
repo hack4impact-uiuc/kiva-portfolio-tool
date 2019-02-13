@@ -1,5 +1,26 @@
 version: 2
 jobs:
+  backend_format:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          command: |
+            cd backend
+            pip install -r requirements-dev.txt --user
+            /home/circleci/.local/bin/black . --check 
+  backend_test:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          command: |
+            cd backend
+            pip install -r requirements.txt --user
+            pip install -r requirements-dev.txt --user
+            /home/circleci/.local/bin/pytest
   frontend_format:
     docker:
       - image: node:8.4.0
@@ -26,3 +47,5 @@ workflows:
     jobs:
       - frontend_test
       - frontend_format
+      - backend_format
+      - backend_test
