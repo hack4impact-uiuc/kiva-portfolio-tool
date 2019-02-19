@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { Route, withRouter } from 'react-router'
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
 import { DocumentList } from './components'
-import registerServiceWorker from './registerServiceWorker'
-import './styles/htmlstyles.scss'
+import ServiceWorker from './serviceWorker.js'
+//import './styles/htmlstyles.scss'
 
 class ScrollToTop extends Component {
   /*
@@ -29,16 +29,11 @@ class ScrollToTop extends Component {
     return this.props.children
   }
 }
-const TopScroll = withRouter(ScrollToTop)
 
 ReactDOM.render(
-  <Route onUpdate={() => window.scrollTo(0, 0)} history={history}>
-    <TopScroll>
-      <div className="heightDef">
-        <Route exact path="/" component={DocumentList} />
-      </div>
-    </TopScroll>
-  </Route>,
+  <Router onUpdate={() => window.scrollTo(0, 0)}>
+    <Route exact path="/" component={DocumentList} />
+  </Router>,
   document.getElementById('root')
 )
-registerServiceWorker()
+//ServiceWorker()
