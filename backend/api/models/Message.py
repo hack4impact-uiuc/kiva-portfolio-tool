@@ -9,8 +9,8 @@ class Message(Mixin, db.Model):
 
     __tablename__ = "message"
 
-    pm_id = db.Column(db.String, db.ForeignKey("PortfolioManager.id"), nullable=True)
-    fp_id = db.Column(db.String, db.ForeignKey("FieldPartner.id"), nullable=True)
+    pm_id = db.Column(db.String, db.ForeignKey("PortfolioManager.id"))
+    fp_id = db.Column(db.String, db.ForeignKey("FieldPartner.id"))
     to_fp = db.Column(db.Boolean)  # true if send to fp; false if send to pm
     doc_id = db.Column(db.Integer, unique=True)
     status = db.Column(db.String, unique=True)
