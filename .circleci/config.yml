@@ -24,7 +24,7 @@ jobs:
             pip install -r requirements-dev.txt
             pip list
             type -a pytest
-            python3 -m pytest tests
+            pytest tests
   frontend_format:
     docker:
       - image: node:8.4.0
