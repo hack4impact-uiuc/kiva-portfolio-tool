@@ -5,7 +5,8 @@ from .Email import Email
 from .Person import Person
 from .Message import Message
 from .base import db
+from .Document import Document
 
-__all__ = ["Email", "Person", "db", "Message"]
+__all__ = ["Email", "Person", "db", "Document", "Message"]
 
 # You must import all of the new Models you create to this page
