@@ -28,6 +28,7 @@ def get_messages():
     messages = Message.query.all()
     return create_response(data={"messages": serialize_list(messages)})
 
+
 # function that is called when you visit /documetns
 @main.route("/documents", methods=["GET"])
 def get_document():
