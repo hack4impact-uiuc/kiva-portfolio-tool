@@ -9,13 +9,9 @@ class Message(Mixin, db.Model):
 
     __tablename__ = "message"
 
-    pm_id = db.Column(
-        db.String, db.ForeignKey("PortfolioManager.id"), nullable=True
-    )
-    fp_id = db.Column(
-        db.String, db.ForeignKey("FieldPartner.id"), nullable=True
-    )
-    to_fp = db.Column(db.Boolean)   # true if send to fp; false if send to pm
+    pm_id = db.Column(db.String, db.ForeignKey("PortfolioManager.id"), nullable=True)
+    fp_id = db.Column(db.String, db.ForeignKey("FieldPartner.id"), nullable=True)
+    to_fp = db.Column(db.Boolean)  # true if send to fp; false if send to pm
     doc_id = db.Column(db.Integer, unique=True)
     status = db.Column(db.String, unique=True)
     comment = db.Column(db.String, nullable=True)
@@ -42,7 +38,7 @@ class Message(Mixin, db.Model):
 
     def get_doc_id(self):
         return self.doc_id
-    
+
     def get_status(self):
         return self.status
 
@@ -50,7 +46,9 @@ class Message(Mixin, db.Model):
         self.status = new_status
 
     def get_comment(self):
-        return self.comment   
+        return self.comment
 
     def set_comment(self, comment):
-        self.comment += ('\n' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + comment)
+        self.comment += (
+            "\n" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + comment
+        )
