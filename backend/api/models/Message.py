@@ -1,6 +1,8 @@
 from api.core import Mixin
 from .base import db
 
+import datetime
+
 # Note that we use sqlite for our tests, so you can't use Postgres Arrays
 class Message(Mixin, db.Model):
     """Message Table."""
@@ -24,7 +26,7 @@ class Message(Mixin, db.Model):
         self.to_fp = to_fp
         self.doc_id = doc_id
         self.status = status
-        self.comment = comment
+        self.comment = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + comment
 
     def __repr__(self):
         return f"<Message {self.comment}>"
@@ -44,5 +46,11 @@ class Message(Mixin, db.Model):
     def get_status(self):
         return self.status
 
+    def set_status(self, new_status):
+        self.status = new_status
+
     def get_comment(self):
         return self.comment   
+
+    def set_comment(self, comment):
+        self.comment += ('\n' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + comment)
