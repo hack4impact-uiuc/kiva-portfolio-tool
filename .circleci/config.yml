@@ -12,7 +12,7 @@ jobs:
             /home/circleci/.local/bin/black . --check 
   backend_test:
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.7
     steps:
       - checkout
       - run:
@@ -20,6 +20,7 @@ jobs:
             cd backend
             pip install -r requirements.txt --user
             pip install -r requirements-dev.txt --user
+            pip list
             python3 -m pytest tests
   frontend_format:
     docker:
