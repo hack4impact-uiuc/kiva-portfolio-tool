@@ -8,7 +8,8 @@ class Document(Mixin, db.Model):
 
     __tablename__ = "documents"
 
-    fileID = db.Column(db.String, unique=True, primary_key=True)
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    fileID = db.Column(db.String, unique=True)
     userID = db.Column(
         db.String, unique=True
     )  # , db.ForeignKey("user.id",ondelete="SET NULL")
@@ -16,13 +17,13 @@ class Document(Mixin, db.Model):
     status = db.Column(db.String, unique=False)  # db.Enum
     docType = db.Column(db.String, unique=False)  # db.Enum
     docName = db.Column(db.String, unique=False)
-    latest = db.Column(db.Integer, unique=False)
-    description = db.Column(db.Integer, unique=False, nullable=True)
+    latest = db.Column(db.Boolean, unique=False)
+    description = db.Column(db.String, unique=False, nullable=True)
 
     def __init__(
         self, fileID, userID, date, status, docType, docName, latest, description
     ):
-        self.fileId = fileID
+        self.fileID = fileID
         self.userID = userID
         self.date = date
         self.status = status
