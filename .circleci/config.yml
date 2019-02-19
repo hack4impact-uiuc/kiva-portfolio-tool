@@ -16,11 +16,19 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install postgres
+          command: |
+            sudo apt-get -y update && sudo apt-get install postgresql
+      - run:
           command: |
             cd backend
-            pip install -r requirements.txt --user
-            pip install -r requirements-dev.txt --user
-            /home/circleci/.local/bin/pytest
+            virtualenv venv
+            source venv/bin/activate
+            pip install -r requirements.txt 
+            pip install -r requirements-dev.txt
+            pip list
+            type -a pytest
+            pytest tests
   frontend_format:
     docker:
       - image: node:8.4.0
