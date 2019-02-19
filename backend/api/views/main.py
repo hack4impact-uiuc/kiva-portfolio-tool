@@ -1,5 +1,5 @@
 from flask import Blueprint
-from api.models import Person
+from api.models import Person, Document
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -20,3 +20,10 @@ def index():
 def get_persons():
     persons = Person.query.all()
     return create_response(data={"persons": serialize_list(persons)})
+
+
+# function that is called when you visit /documetns
+@main.route("/documents", methods=["GET"])
+def get_document():
+    docs = Document.query.all()
+    return create_response(data={"documents": serialize_list(docs)})
