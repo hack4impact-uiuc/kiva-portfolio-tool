@@ -34,6 +34,7 @@ def test_get_person(client):
     assert len(ret_dict["result"]["persons"]) == 1
     assert ret_dict["result"]["persons"][0]["name"] == "Tim"
 
+
 def test_get_document(client):
     rs = client.get("/documents")
 
@@ -43,7 +44,16 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"] == []
 
     # create Person and test whether it returns a person
-    temp_document = Document(fileID='DunDunDun', userID="WompWomp", date=date.fromordinal(730920), status = MyEnum.two, docType=MyEnum.one, docName="MyDoc.docx", latest=True, description="Yeet")
+    temp_document = Document(
+        fileID="DunDunDun",
+        userID="WompWomp",
+        date=date.fromordinal(730920),
+        status=MyEnum.two,
+        docType=MyEnum.one,
+        docName="MyDoc.docx",
+        latest=True,
+        description="Yeet",
+    )
     db.session.add(temp_document)
     db.session.commit()
 
