@@ -10,9 +10,9 @@ class DocumentListItem extends Component {
     return (
       <div>
         <div>{this.props.fileName ? this.props.fileName : 'empty'}</div>
-        <div>{this.props.docStatus}</div>
+        <div>{this.props.status}</div>
         <div>{this.props.docType}</div>
-        <div>{this.props.uploadTime ? this.props.uploadTime : ''}</div>
+        <div>{this.props.uploadDate ? this.props.uploadDate : ''}</div>
       </div>
     )
   }
