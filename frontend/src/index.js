@@ -1,12 +1,44 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import './styles/index.css'
-import App from './components/App'
-import * as serviceWorker from './serviceWorker'
+import { Route, withRouter } from 'react-router'
+import { DocumentList } from './components'
+import registerServiceWorker from './registerServiceWorker'
+import './styles/htmlstyles.scss'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+class ScrollToTop extends Component {
+  /*
+    componentDidUpdate(prevProps) {
+        if (
+            this.props.location !== prevProps.location &&
+            !(
+                this.props.location.pathname === '/results' &&
+                prevProps.location.pathname === '/description'
+            ) &&
+            !(
+                this.props.location.pathname === '/description' &&
+                prevProps.location.pathname === '/results'
+            ) &&
+            !(this.props.location.pathname === '/' && this.props.location.hash !== '')
+        ) {
+            window.scrollTo(0, 0)
+        }
+    }
+    */
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister()
+  render() {
+    return this.props.children
+  }
+}
+const TopScroll = withRouter(ScrollToTop)
+
+ReactDOM.render(
+  <Route onUpdate={() => window.scrollTo(0, 0)} history={history}>
+    <TopScroll>
+      <div className="heightDef">
+        <Route exact path="/" component={DocumentList} />
+      </div>
+    </TopScroll>
+  </Route>,
+  document.getElementById('root')
+)
+registerServiceWorker()

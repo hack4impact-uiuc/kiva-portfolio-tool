@@ -7,9 +7,7 @@ class DocumentListItem extends Component {
     this.state = {}
   }
   render() {
-    return (
-      <div></div>
-    )
+    return <div />
   }
 }
 
