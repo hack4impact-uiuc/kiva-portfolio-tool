@@ -20,7 +20,7 @@ jobs:
             cd backend
             pip install -r requirements.txt --user
             pip install -r requirements-dev.txt --user
-            pytest tests
+            /home/circleci/.local/bin/pytest tests
   frontend_format:
     docker:
       - image: node:8.4.0
