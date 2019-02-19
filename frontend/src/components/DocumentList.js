@@ -1,9 +1,9 @@
 import React from 'react'
 import { Container, Row, Table, Col, FormGroup, Label, Input } from 'reactstrap'
-import Link from 'next/link'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { addFilter, removeFilter } from '../actions'
+//import Link from 'next/link'
+//import { connect } from 'react-redux'
+//import { bindActionCreators } from 'redux'
+//import { addFilter, removeFilter } from '../actions'
 //import { getCandidates, setCandidateStatus } from '../utils/api'
 //import CandidateStatus from '../components/candidateStatus'
 //import CandidateLinksBadge from '../components/candidateLinksBadge'
@@ -17,7 +17,7 @@ import { selectByEnum } from '../utils/enums'
 import Nav from '../components/nav'
 
 type Props = {}
-
+/*
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
@@ -35,7 +35,7 @@ const mapStateToProps = state => ({
   filters: state.documentListPage.filters,
   sort: state.documentListPage.sort
 })
-
+*/
 var sortByProperty = function(property) {
   return function(x, y) {
     return x[property] === y[property] ? 0 : x[property] > y[property] ? 1 : -1
@@ -47,8 +47,8 @@ var sortByMultipleProperties = function(property1, property2) {
     return x[property1][property2] === y[property1][property2]
       ? 0
       : x[property1][property2] > y[property1][property2]
-        ? 1
-        : -1
+      ? 1
+      : -1
   }
 }
 
@@ -64,10 +64,12 @@ class DocumentList extends React.Component<Props> {
     }
   }
   async componentDidMount() {
+    /*
     const res = await getDocuments()
     this.setState({
       documents: res.result === undefined ? [] : res.result
     })
+    */
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,6 +83,7 @@ class DocumentList extends React.Component<Props> {
     })
   }
   handleChange = e => {
+    /*
     let newDocuments = this.state.documents.map(doc => {
       if (doc._id === e.target.name) {
         doc.status = e.target.value
@@ -89,6 +92,7 @@ class DocumentList extends React.Component<Props> {
     })
     setDocumentStatus(e.target.name, e.target.value)
     this.setState({ documents: newDocuments })
+    */
   }
 
   render() {
@@ -159,16 +163,14 @@ class DocumentList extends React.Component<Props> {
                               <th scope="row">{key + 1}</th>
                               {selects.includes('Name') ? (
                                 <td>
-                                  <Link
-                                    href={{ pathname: '/document', query: { id: doc._id } }}
-                                  >
+                                  <Link href={{ pathname: '/document', query: { id: doc._id } }}>
                                     <a className="regular-anchor">{doc.name}</a>
                                   </Link>
                                 </td>
                               ) : (
                                 <> </>
                               )}
-                              {selects.includes('Status') ? (
+                              {/*selects.includes('Status') ? (
                                 <td>
                                   <h6>
                                     <DocumentStatus status={doc.status} />
@@ -176,7 +178,7 @@ class DocumentList extends React.Component<Props> {
                                 </td>
                               ) : (
                                 <> </>
-                              )}
+                              )*/}
 
                               {selects.includes('Document Type') ? <td>{doc.type}</td> : <> </>}
                               {selects.includes('Last Uploaded') ? (
@@ -184,16 +186,16 @@ class DocumentList extends React.Component<Props> {
                               ) : (
                                 <> </>
                               )}
+                              {/*
                               <td>
                                 <ChangeStatus
                                   documentID={doct._id}
                                   handleChange={this.handleChange}
                                 />
                               </td>
+                              */}
                               <td>
-                                <Link
-                                  href={{ pathname: '/document', query: { id: doc._id } }}
-                                >
+                                <Link href={{ pathname: '/document', query: { id: doc._id } }}>
                                   <a>
                                     <img height="10" src="/static/icons/external-icon.png" />
                                   </a>
@@ -218,8 +220,10 @@ class DocumentList extends React.Component<Props> {
     )
   }
 }
-
+/*
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(DocumentList)
+*/
+export default DocumentList
