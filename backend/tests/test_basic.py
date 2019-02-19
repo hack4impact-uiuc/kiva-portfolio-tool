@@ -1,4 +1,13 @@
 from api.models import db, Person, Document
+from datetime import date
+import enum
+
+
+class MyEnum(enum.Enum):
+    one = 1
+    two = 2
+    three = 3
+
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
