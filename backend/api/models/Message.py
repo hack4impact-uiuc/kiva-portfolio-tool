@@ -32,7 +32,9 @@ class Message(Mixin, db.Model):
         self.to_fp = to_fp
         self.doc_id = doc_id
         self.status = status
-        self.comment = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + comment
+        self.comment = (
+            datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ": " + comment
+        )
 
     def __repr__(self):
         return f"<Message {self.comment}>"
