@@ -14,8 +14,8 @@ const Constants = {
     { value: 'Type 6' },
     { value: 'Type 7' },
     { value: 'Type 8' },
-    { value: 'Type 19' },
-    { value: 'Type 1' }
+    { value: 'Type 9' },
+    { value: 'Type 110' }
   ]
 }
 
