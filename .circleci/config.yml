@@ -12,7 +12,7 @@ jobs:
             /home/circleci/.local/bin/black . --check 
   backend_test:
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.6
     steps:
       - checkout
       - run:
