@@ -26,7 +26,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "jest": "^24.1.0",
     "react-test-renderer": "^16.8.2",
     "react-testing-library": "^5.9.0"
   }
