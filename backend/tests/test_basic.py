@@ -1,12 +1,27 @@
 from api.models import db, Person, Document
 from datetime import date
 import enum
+from sqlalchemy import Integer, Enum
+import json
 
+# class MyEnum(enum.Enum):
+#     one = 'one'
+#     two = 'two'
+#     three = 'three'
 
-class MyEnum(enum.Enum):
-    one = 1
-    two = 2
-    three = 3
+# class EnumEncoder(json.JSONEncoder):
+#     def default(self, obj):
+#         if type(obj) in MyEnum.values():
+#             return {"__enum__": str(obj)}
+#         return json.JSONEncoder.default(self, obj)
+
+# def as_enum(d):
+#     if "__enum__" in d:
+#         name, member = d["__enum__"].split(".")
+#         return getattr(MyEnum[name], member)
+#     else:
+#         return d
+# ret_dict = json.dumps(rs, cls=EnumEncoder)
 
 
 # client passed from client - look into pytest for more info about fixtures
@@ -43,14 +58,14 @@ def test_get_document(client):
     assert ret_dict["success"] == True
     assert ret_dict["result"]["documents"] == []
 
-    # create Person and test whether it returns a person
+    # create Document and test whether it returns a Document
     temp_document = Document(
         fileID="DunDunDun",
         userID="WompWomp",
         date=date.fromordinal(730920),
-        status="MyEnum.two",
-        docType="MyEnum.one",
-        docName="MyDoc.docx",
+        status="Pending",
+        docClass="I-9's",
+        fileName="MyDoc.docx",
         latest=True,
         description="Yeet",
     )
