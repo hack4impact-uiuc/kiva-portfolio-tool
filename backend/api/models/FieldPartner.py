@@ -12,7 +12,7 @@ class FieldPartner(Mixin, db.Model):
     email = db.Column(db.String)
     org_name = db.Column(db.String)
     pm_id = db.Column(db.String, db.ForeignKey("PortfolioManager.id"))
-    app_status = db.Colulmn(db.Enum)
+    app_status = db.Colulmn(db.String)
 
     def __init__(self, email, org_name, app_status):
         self.email = email
