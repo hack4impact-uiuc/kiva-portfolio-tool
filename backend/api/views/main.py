@@ -24,6 +24,7 @@ def get_persons():
 
 """
 Template for different endpoints -> both GET and POST
+To write these, make sure to create a new .py. Add a new blueprint to the file and the __init__.py
 
 # Getting all the information in the specified data table
 # To specify specific data you want to call from the class you specified, call methods accordingly and input parameter: data = {}, status = 200, message="ex: success"
@@ -38,7 +39,6 @@ def add_<yourclassname>():
     new_data = dataclassname(sample_args ...)
     return create_response(status=200, message="success")
 """
-
 
 # function that is called when you visit /persons
 @main.route("/messages", methods=["GET"])
