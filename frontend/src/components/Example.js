@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 
 class Example extends React.Component {
 
+    // wont be guaranteed that we'll use this, but this just specifies the expected
+    // object type to be passed in to use
     static propTypes = {
       item: PropTypes.object,
       removeItem: PropTypes.func,
@@ -12,7 +14,7 @@ class Example extends React.Component {
   
     onClickClose = () => {
       const {index, removeItem} = this.props;
-      removeItem(index);
+      removeItem(index); // calls function passed in by props on the index, also passed in by props
     };
   
     onClickDone = () => {
