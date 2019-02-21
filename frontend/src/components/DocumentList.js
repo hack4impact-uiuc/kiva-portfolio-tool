@@ -107,7 +107,7 @@ class DocumentList extends React.Component<Props> {
       case 'Name':
         filteredDocuments = filteredDocuments.sort(sortByProperty('name'))
         break
-      /* case 'Document Type':
+        /* case 'Document Type':
         filteredDocuments = filteredDocuments.sort(sortByProperty('type')) */
         break
       case 'Status':
@@ -225,4 +225,3 @@ export default connect(
 )(DocumentList)
 */
 export default DocumentList
-  
