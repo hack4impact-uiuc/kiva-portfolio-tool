@@ -1,21 +1,19 @@
 import React from 'react'
-import { Container, Row, Table, Col, FormGroup, Label, Input } from 'reactstrap'
-//import Link from 'next/link'
+import { Container, Row, Table, Col, FormGroup, Label, Input, Nav } from 'reactstrap'
+import { Link } from 'react-router-dom'
 //import { connect } from 'react-redux'
 //import { bindActionCreators } from 'redux'
 //import { addFilter, removeFilter } from '../actions'
 //import { getCandidates, setCandidateStatus } from '../utils/api'
 //import CandidateStatus from '../components/candidateStatus'
 //import CandidateLinksBadge from '../components/candidateLinksBadge'
-import FilterComponent from '../components/filterComponent'
-import ChangeStatus from '../components/changeStatus'
-import ErrorMessage from '../components/errorMessage'
+// import FilterComponent from '../components/filterComponent'
+// import ChangeStatus from '../components/changeStatus'
+// import ErrorMessage from '../components/errorMessage'
 // import { avgInterviewScore, compareByAvgInterviewScore, getNumOfInterviews } from '../utils/core'
 import { Constants } from '../utils/Constants'
 import { MockData } from '../utils/MockData'
-import { selectByEnum } from '../utils/enums'
-import Nav from '../components/nav'
-
+// import { selectByEnum } from '../utils/enums'
 type Props = {}
 /*
 const mapDispatchToProps = dispatch => {
@@ -96,9 +94,9 @@ class DocumentList extends React.Component<Props> {
   }
 
   render() {
-    if (this.state.documents === undefined) {
+    /* if (this.state.documents === undefined) {
       return <ErrorMessage code="404" message="Documents is undefined. Check backend." />
-    }
+    } */
     let filteredDocuments = this.state.documents
       .filter(x => this.state.filters.statuses.includes(x.status))
       .filter(x => this.state.filters.types.includes(x.type))
@@ -109,8 +107,8 @@ class DocumentList extends React.Component<Props> {
       case 'Name':
         filteredDocuments = filteredDocuments.sort(sortByProperty('name'))
         break
-      case 'Document Type':
-        filteredDocuments = filteredDocuments.sort(sortByProperty('type'))
+      /* case 'Document Type':
+        filteredDocuments = filteredDocuments.sort(sortByProperty('type')) */
         break
       case 'Status':
         filteredDocuments = filteredDocuments.sort(sortByProperty('status'))
@@ -126,9 +124,9 @@ class DocumentList extends React.Component<Props> {
         <div className="page-content-wrapper">
           <Container fluid>
             <Row>
-              <Col lg="2" sm="3" className="ml-2">
+              {/* <Col lg="2" sm="3" className="ml-2">
                 <FilterComponent />
-              </Col>
+              </Col> */}
               <Col lg="7" sm="8">
                 <Container>
                   <Row>
@@ -227,3 +225,4 @@ export default connect(
 )(DocumentList)
 */
 export default DocumentList
+  
