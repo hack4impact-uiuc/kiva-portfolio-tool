@@ -33,4 +33,19 @@ def get_messages():
 @main.route("/documents", methods=["GET"])
 def get_document():
     docs = Document.query.all()
-    return create_response(data={"documents": serialize_list(docs)})
+    pending = [i for i in docs if i.status == "Pending"]
+    verified = [i for i in docs if i.status == "Verified"]
+    missing = [i for i in docs if i.status == "Missing"]
+    rejected = [i for i in docs if i.status == "Rejected"]
+    logger.info(pending)
+    # return create_response(data={"documents": serialize_list(docs)})
+    return create_response(
+        data={
+            "documents": {
+                "Pending": serialize_list(pending),
+                "Verified": serialize_list(verified),
+                "Missing": serialize_list(missing),
+                "Rejected": serialize_list(rejected),
+            }
+        }
+    )
