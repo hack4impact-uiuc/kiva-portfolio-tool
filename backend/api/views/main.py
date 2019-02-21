@@ -22,6 +22,24 @@ def get_persons():
     return create_response(data={"persons": serialize_list(persons)})
 
 
+"""
+Template for different endpoints -> both GET and POST
+
+# Getting all the information in the specified data table
+# To specify specific data you want to call from the class you specified, call methods accordingly and input parameter: data = {}, status = 200, message="ex: success"
+@main.route("/<yourclassname>", methods=["GET"])
+def get_<yourclassname>():
+    sample_var = <yourclassname>.query.all()
+    return create_response(data={"<yourclassname>": serialize_list(messages)})
+
+@main.route("/<yourclassname>", methods=["POST"])
+def add_<yourclassname>():
+    sample_args = request.args
+    new_data = dataclassname(sample_args ...)
+    return create_response(status=200, message="success")
+"""
+
+
 # function that is called when you visit /persons
 @main.route("/messages", methods=["GET"])
 def get_messages():
