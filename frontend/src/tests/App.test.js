@@ -11,12 +11,10 @@ it('renders without crashing', () => {
 
 test('Basic whole app rendering with snapshot', () => {
   // create component to be tested
-  const component = renderer.create(
-    <App></App>,
-  );
+  const component = renderer.create(<App />)
 
   // change react component into pure javascript to compare to snapshot
   // checks if the component is the same as the snapshot (nothing unexpected happened)
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
+  let tree = component.toJSON()
+  expect(tree).toMatchSnapshot()
+})
