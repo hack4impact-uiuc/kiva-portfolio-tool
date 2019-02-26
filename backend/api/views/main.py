@@ -40,13 +40,6 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-# function that is called when you visit /persons
-@main.route("/messages", methods=["GET"])
-def get_messages():
-    messages = Message.query.all()
-    return create_response(data={"messages": serialize_list(messages)})
-
-
 # function that is called when you visit /documetns
 @main.route("/documents", methods=["GET"])
 def get_document():
