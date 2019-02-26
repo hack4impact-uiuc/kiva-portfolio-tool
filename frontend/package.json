@@ -11,17 +11,8 @@
     "react-dom": "^16.8.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "react-scripts": "2.1.4",
     "reactstrap": "^7.1.0"
-=======
-    "react-scripts": "2.1.4"
->>>>>>> update index
-=======
-    "react-scripts": "2.1.4",
-    "reactstrap": "^7.1.0"
->>>>>>> reactstrap
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
