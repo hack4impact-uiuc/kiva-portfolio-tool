@@ -18,16 +18,9 @@ def test_index(client):
 
 def test_get_document(client):
     rs = client.get("/document")
-
-    assert rs.status_code == 200
+    assert rs.status_code == 403
     ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-    assert ret_dict["result"]["documents"] == {
-        "Missing": [],
-        "Pending": [],
-        "Rejected": [],
-        "Verified": [],
-    }
+    assert ret_dict["success"] == False
 
     # create Person and test whether it returns a person
     temp_document = Document(
@@ -44,7 +37,9 @@ def test_get_document(client):
     db.session.commit()
 
     rs = client.get("/document")
+    assert rs.status_code == 200
     ret_dict = rs.json
+    assert ret_dict["success"] == True
     assert len(ret_dict["result"]["documents"]) == 4
     assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
     assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
@@ -66,5 +61,3 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
     assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
     assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
-
-
