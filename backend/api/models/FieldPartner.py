@@ -5,14 +5,14 @@ from .base import db
 class FieldPartner(Mixin, db.Model):
     """Field Partner Table."""
 
-    __tablename__ = "field partner table"
+    __tablename__ = "field_partner"
 
     """FP ids start with f"""
     id = db.Column(db.String, unique=True, primary_key=True)
     email = db.Column(db.String)
     org_name = db.Column(db.String)
-    pm_id = db.Column(db.String, db.ForeignKey("PortfolioManager.id"))
-    app_status = db.Colulmn(db.String)
+    pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
+    app_status = db.Column(db.String)
 
     def __init__(self, email, org_name, app_status):
         self.email = email
