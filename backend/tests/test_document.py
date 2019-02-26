@@ -17,19 +17,19 @@ def test_index(client):
 
 
 def test_get_document(client):
-    rs = client.get("/documents")
+    rs = client.get("/document")
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["documents"] == []
+    assert ret_dict["result"]["documents"] == {'Missing': [], 'Pending': [], 'Rejected': [], 'Verified': []}
 
     # create Person and test whether it returns a person
     temp_document = Document(
         fileID="DunDunDun",
         userID="WompWomp",
         date=date.fromordinal(730920),
-        status="MyEnum.two",
+        status="Missing",
         docType="MyEnum.one",
         docName="MyDoc.docx",
         latest=True,
@@ -38,7 +38,29 @@ def test_get_document(client):
     db.session.add(temp_document)
     db.session.commit()
 
-    rs = client.get("/documents")
+    rs = client.get("/document")
     ret_dict = rs.json
-    assert len(ret_dict["result"]["documents"]) == 1
-    assert ret_dict["result"]["documents"][0]["fileID"] == "DunDunDun"
+    assert len(ret_dict["result"]["documents"]) == 4
+    assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
+
+    rs = client.get("/document?description=Ye")
+    ret_dict = rs.json
+    assert len(ret_dict["result"]["documents"]) == 4
+    assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
+
+    rs = client.get("/document?uid=WompWomp")
+    ret_dict = rs.json
+    assert len(ret_dict["result"]["documents"]) == 4
+    assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
+
+    rs = client.get("/document?fid=jalkdf")
+    ret_dict = rs.json
+    assert len(ret_dict["result"]["documents"]) == 4
+    for i in ret_dict["result"]["documents"]:
+        assert len(ret_dict["result"]["documents"][i]) == 0
