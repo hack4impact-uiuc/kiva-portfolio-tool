@@ -30,6 +30,8 @@ docker run -e POSTGRES_USER=testusr -e POSTGRES_PASSWORD=password -e POSTGRES_DB
 
 Another option is to create a postgres instance on a cloud service like elephantsql and connect it to this app. Remember to change the postgres url and don't hard code it in!
 
+**If you're running postgres locally through brew, start your postgres using:** `brew services start postgresql`
+
 Then, start your virtual environment
 
 ```
