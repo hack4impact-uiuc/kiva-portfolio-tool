@@ -48,7 +48,7 @@ const MockData = {
     {
       status: 'Approved',
       docClass: 'Organizational Chart',
-      fileName: 'org_chard.pdf',
+      fileName: 'org_chart.pdf',
       uploadDate: '1/23/2019'
     }
   ]
