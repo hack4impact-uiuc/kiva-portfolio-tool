@@ -22,7 +22,12 @@ def test_get_document(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["documents"] == {'Missing': [], 'Pending': [], 'Rejected': [], 'Verified': []}
+    assert ret_dict["result"]["documents"] == {
+        "Missing": [],
+        "Pending": [],
+        "Rejected": [],
+        "Verified": [],
+    }
 
     # create Person and test whether it returns a person
     temp_document = Document(
