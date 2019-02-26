@@ -1,8 +1,8 @@
 from api.core import Mixin
 from .base import db
 from sqlalchemy.dialects.postgresql import ARRAY
+import uuid
 
-# Note that we use sqlite for our tests, so you can't use Postgres Arrays
 class PortfolioManager(Mixin, db.Model):
     """Portfolio Manager Table."""
 
@@ -15,6 +15,7 @@ class PortfolioManager(Mixin, db.Model):
     list_of_fps = db.Column(ARRAY(db.String), nullable=True)
 
     def __init__(self, email, name, list_of_fps):
+        self.id = "p" + str(uuid.uuid4())
         self.email = email
         self.name = name
         self.list_of_fps = list_of_fps

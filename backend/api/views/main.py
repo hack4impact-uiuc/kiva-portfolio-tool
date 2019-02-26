@@ -39,10 +39,10 @@ def get_document():
 @main.route("/field_partner", methods=["GET"])
 def get_field_partner():
     field_partner = FieldPartner.query.all()
-    return create_response(data={"field partners": serialize_list(field_partner)})
+    return create_response(data={"field_partner": serialize_list(field_partner)})
 
 # function that is called when you visit /portfoliomanager
 @main.route("/portfolio_manager", methods=["GET"])
 def get_portfolio_manager():
     portfolio_manager = PortfolioManager.query.all()
-    return create_response(data={"portfolio manager": serialize_list(portfolio_manager)})
+    return create_response(data={"portfolio_manager": serialize_list(portfolio_manager)})

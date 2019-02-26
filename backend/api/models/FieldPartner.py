@@ -1,7 +1,7 @@
 from api.core import Mixin
 from .base import db
+import uuid
 
-# Note that we use sqlite for our tests, so you can't use Postgres Arrays
 class FieldPartner(Mixin, db.Model):
     """Field Partner Table."""
 
@@ -14,9 +14,11 @@ class FieldPartner(Mixin, db.Model):
     pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
     app_status = db.Column(db.String)
 
-    def __init__(self, email, org_name, app_status):
+    def __init__(self, email, org_name, pm_id, app_status):
+        self.id = "f" + str(uuid.uuid4())
         self.email = email
         self.org_name = org_name
+        self.pm_id = pm_id
         self.app_status = app_status
 
     def __repr__(self):
