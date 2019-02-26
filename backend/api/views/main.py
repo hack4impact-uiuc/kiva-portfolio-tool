@@ -36,26 +36,24 @@ def get_messages():
 #     return create_response(data={"documents": serialize_list(docs)})
 
 # function that is called when you visit /documetns
-@main.route("/document", methods=["GET"])
+@main.route("/documents", methods=["GET"])
 def get_document():
     kwargs = {}
-    kwargs['fileID'] = request.args.get('fid')
-    kwargs['userID'] = request.args.get('uid')
-    kwargs['date'] = request.args.get('date')
-    kwargs['status'] = request.args.get('status')
-    kwargs['docType'] = request.args.get('docType')
-    kwargs['docName'] = request.args.get('docName')
-    kwargs['latest'] = request.args.get('latest')
-    kwargs['description'] = request.args.get('description')
+    kwargs["fileID"] = request.args.get("fid")
+    kwargs["userID"] = request.args.get("uid")
+    kwargs["date"] = request.args.get("date")
+    kwargs["status"] = request.args.get("status")
+    kwargs["docType"] = request.args.get("docType")
+    kwargs["docName"] = request.args.get("docName")
+    kwargs["latest"] = request.args.get("latest")
+    kwargs["description"] = request.args.get("description")
     kwargs = {k: v for k, v in kwargs.items() if v is not None}
-    if len(kwargs) == 0: 
+    if len(kwargs) == 0:
         docs = Document.query.all()
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Verified"]
         missing = [i for i in docs if i.status == "Missing"]
         rejected = [i for i in docs if i.status == "Rejected"]
-        logger.info(pending)
-        # return create_response(data={"documents": serialize_list(docs)})
         return create_response(
             data={
                 "documents": {
@@ -66,20 +64,20 @@ def get_document():
                 }
             }
         )
-        return create_response(data={"documents": serialize_list(kwargs)})
+        return create_response(data={"documents": serialize_list(docs)})
     else:
-        return create_response(data={"documents": kwargs})
-
-# # function that is called when you visit /documetns
-# @main.route("/document/<date>", methods=["GET"])
-# def get_document():
-#     docs = Document.query.all()
-#     return create_response(data={"documents": serialize_list(docs)})
-
-# # function that is called when you visit /documetns
-# @main.route("/document/<status>", methods=["GET"])
-# def get_document():
-#     docs = Document.query.all()
-#     return create_response(data={"documents": serialize_list(docs)})
-
-# docs = Document.query.all()
+        docs = Document.query.filter_by(**kwargs)
+        pending = [i for i in docs if i.status == "Pending"]
+        verified = [i for i in docs if i.status == "Verified"]
+        missing = [i for i in docs if i.status == "Missing"]
+        rejected = [i for i in docs if i.status == "Rejected"]
+        return create_response(
+            data={
+                "documents": {
+                    "Pending": serialize_list(pending),
+                    "Verified": serialize_list(verified),
+                    "Missing": serialize_list(missing),
+                    "Rejected": serialize_list(rejected),
+                }
+            }
+        )
