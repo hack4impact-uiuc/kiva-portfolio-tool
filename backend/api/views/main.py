@@ -29,11 +29,6 @@ def get_messages():
     return create_response(data={"messages": serialize_list(messages)})
 
 
-# function that is called when you visit /documetns
-# @main.route("/documents", methods=["GET"])
-# def get_document():
-#     docs = Document.query.all()
-#     return create_response(data={"documents": serialize_list(docs)})
 
 # function that is called when you visit /documetns
 @main.route("/document", methods=["GET"])
@@ -54,11 +49,14 @@ def get_document():
             docs = [i for i in docs if description in i.description]
         if date is not None:
             docs = [i for i in docs if date in str(i.date)]
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="Query was incorrect")
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Verified"]
         missing = [i for i in docs if i.status == "Missing"]
         rejected = [i for i in docs if i.status == "Rejected"]
         return create_response(
+            status = 200,
             data={
                 "documents": {
                     "Pending": serialize_list(pending),
@@ -68,18 +66,20 @@ def get_document():
                 }
             }
         )
-        return create_response(data={"documents": serialize_list(docs)})
     else:
         docs = Document.query.filter_by(**kwargs)
         if description is not None:
             docs = [i for i in docs if description in i.description]
         if date is not None:
             docs = [i for i in docs if date in str(i.date)]
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="Query was incorrect")
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Verified"]
         missing = [i for i in docs if i.status == "Missing"]
         rejected = [i for i in docs if i.status == "Rejected"]
         return create_response(
+            status=200,
             data={
                 "documents": {
                     "Pending": serialize_list(pending),
@@ -89,3 +89,8 @@ def get_document():
                 }
             }
         )
+
+# function that is called when you visit /documetns
+@main.route("/document/new", methods=["POST"])
+def create_new_document():
+    pass

@@ -50,6 +50,9 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
     assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
 
+    rs = client.get("/document?fid=jalkdf")
+    assert rs.status_code == 403
+
     rs = client.get("/document?description=Ye")
     ret_dict = rs.json
     assert len(ret_dict["result"]["documents"]) == 4
@@ -64,8 +67,4 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
     assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
 
-    rs = client.get("/document?fid=jalkdf")
-    ret_dict = rs.json
-    assert len(ret_dict["result"]["documents"]) == 4
-    for i in ret_dict["result"]["documents"]:
-        assert len(ret_dict["result"]["documents"][i]) == 0
+
