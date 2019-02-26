@@ -8,12 +8,10 @@ class DocumentListItem extends Component {
   }
   render() {
     return (
-      <div>
-        <div>{this.props.fileName ? this.props.fileName : 'empty'}</div>
-        <div>{this.props.status}</div>
-        <div>{this.props.docType}</div>
-        <div>{this.props.uploadDate ? this.props.uploadDate : ''}</div>
-      </div>
+      <tr>
+        <td>{this.props.docClass}</td>
+        <td>{this.props.fileName ? this.props.fileName : 'N/A'}</td>
+      </tr>
     )
   }
 }
