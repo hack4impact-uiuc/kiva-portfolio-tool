@@ -1,10 +1,10 @@
 import React, { Component }  from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from 'reactstrap'
-import { bindActionCreators } from 'redux'
-import { login, beginLoading, endLoading } from '../redux/modules/verification'
+import { Alert, Button } from 'reactstrap'
+// import { bindActionCreators } from 'redux'
+//import { login, beginLoading, endLoading } from '../redux/modules/verification'
 
-const mapStateToProps = state => ({
+/* const mapStateToProps = state => ({
   verified: state.verification.verified
 })
 
@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => {
     },
     dispatch
   )
-}
+} */
 
 
 
@@ -27,7 +27,9 @@ class LoginPage extends Component {
 
 		this.state = {
 			password: '',
-			email: ''
+			email: '',
+			verified: false,
+			pm: false
 		}
 	}
 
@@ -40,9 +42,12 @@ class LoginPage extends Component {
 	}
 
 	verify = event => {
-		this.props.login(this.state.password)
+		this.setState({ verified: this.state.email === "portfolioManager@kiva.com" && this.state.password === "kiva"})
+		this.setState({ pm: this.state.email === "portfolioManager@kiva.com"})
+		/*this.props.login(this.state.password)
 		this.props.beginLoading()
 		this.props.endLoading()
+	*/
 	}
 
 	render() {
@@ -52,7 +57,7 @@ class LoginPage extends Component {
 				>
 					<p>Kiva</p>
 				</div>
-				<form onSubmit={this.verify>
+				<form onSubmit={this.verify}>
 					<span> Email: </span>
 					<input onChange={this.updateEmail} />
 					<br></br>
@@ -62,13 +67,14 @@ class LoginPage extends Component {
 					<Button type="submit" onClick={this.verify}>
 						Sign In
 					</Button>
+					<Alert color="success" isOpen={this.state.verified && this.state.pm}>
+						{this.state.verified && this.state.pm ? 'Successful Login!' : 'Failed to Login' }
+					</Alert>
 				</form>
 			</div>
 		)
 	}
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginPage)
+
+export default LoginPage

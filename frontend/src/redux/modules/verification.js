@@ -1,7 +1,6 @@
-
 const initialState = {
-	verified: false,
-	loading: false
+  verified: false,
+  loading: false
 }
 
 export default function reducer(state = initialState, action) {
