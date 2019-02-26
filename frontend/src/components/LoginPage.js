@@ -1,7 +1,8 @@
 import React, { Component }  from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'reactstrap'
-import {bindActionCreators} from 'redux'
+import { bindActionCreators } from 'redux'
+import { login, beginLoading, endLoading } from '../redux/modules/verification'
 
 const mapStateToProps = state => ({
   verified: state.verification.verified
@@ -17,6 +18,8 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
+
+
 
 class LoginPage extends Component {
 	constructor(props) {
@@ -36,6 +39,11 @@ class LoginPage extends Component {
 		this.setState({ email: event.target.value })
 	}
 
+	verify = event => {
+		this.props.login(this.state.password)
+		this.props.beginLoading()
+		this.props.endLoading()
+	}
 
 	render() {
 		return (
@@ -44,15 +52,17 @@ class LoginPage extends Component {
 				>
 					<p>Kiva</p>
 				</div>
+				<form onSubmit={this.verify>
 					<span> Email: </span>
 					<input onChange={this.updateEmail} />
-				<br></br>
+					<br></br>
 					<span> Password: </span>
 					<input onChange={this.updatePassword} />
-				<br></br>
-				<Button type="submit">
-					Sign In
-				</Button>
+					<br></br>
+					<Button type="submit" onClick={this.verify}>
+						Sign In
+					</Button>
+				</form>
 			</div>
 		)
 	}
