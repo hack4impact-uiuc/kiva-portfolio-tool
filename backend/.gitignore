@@ -11,3 +11,4 @@ postgres-data/
 api.log
 test.db
 creds.ini
+secret.py
