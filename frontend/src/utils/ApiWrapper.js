@@ -13,7 +13,7 @@ export const getDocuments = (userID, status) => {
         status /* + '&key=' + BACKEND_KEY */
     )
     .then(response => {
-      return response.data.result.documents
+      return response
     })
     .catch(error => {
       console.log('ERROR: ', error)
@@ -27,7 +27,7 @@ export const getDocumentsByName = (fileName, docClass) => {
       BACKEND_URL + '/search/documents?name=' + fileName + '&docClass=' + docClass
     ) /* + '&key=' + BACKEND_KEY )*/
     .then(response => {
-      return response.data.result.documents
+      return response
     })
     .catch(error => {
       console.log('ERROR: ', error)
@@ -36,11 +36,11 @@ export const getDocumentsByName = (fileName, docClass) => {
 }
 
 export const getAllDocuments = () => {
-  let requestString = BACKEND_URL + '/documents/all?'
+  let requestString = BACKEND_URL + '/documents'
   return axios
     .get(requestString)
     .then(response => {
-      return response.data.result.documents
+      return response
     })
     .catch(error => {
       console.log('ERROR: ', error)
