@@ -65,15 +65,14 @@ export default function reducer(state = resultsState, action) {
         ...state,
         games: {
           ...state.games,
-          [state.currentConsole]: state.games[state.currentConsole].map(
-            item =>
-              item.id === action.payload.gameId
-                ? {
-                    ...item,
-                    description: action.payload.newDescription,
-                    image: action.payload.newImageURL
-                  }
-                : item
+          [state.currentConsole]: state.games[state.currentConsole].map(item =>
+            item.id === action.payload.gameId
+              ? {
+                  ...item,
+                  description: action.payload.newDescription,
+                  image: action.payload.newImageURL
+                }
+              : item
           )
         }
       }
