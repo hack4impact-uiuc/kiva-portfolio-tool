@@ -28,8 +28,8 @@ def test_get_document(client):
         userID="WompWomp",
         date=date.fromordinal(730920),
         status="Missing",
-        docType="MyEnum.one",
-        docName="MyDoc.docx",
+        docClass="MyEnum.one",
+        fileName="MyDoc.docx",
         latest=True,
         description="Yeet",
     )
