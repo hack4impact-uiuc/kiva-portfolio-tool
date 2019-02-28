@@ -31,7 +31,7 @@ class Document(Mixin, db.Model):
         date=None,
         status="Missing",
         fileName=None,
-        latest=False,
+        latest=None,
         description=None,
     ):
         self.fileID = fileID

@@ -114,6 +114,7 @@ def create_new_document():
     if "docClass" not in data:
         return create_response(status=422, message="No Document Class provided for new Document")
     sample_args = request.args
-    new_data = Document(sample_args)
+    new_data = Document(**data)
     db.session.add(new_data)
+    db.session.commit()
     return create_response(status=200, message="success")

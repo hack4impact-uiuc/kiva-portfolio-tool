@@ -41,9 +41,9 @@ def test_get_document(client):
     ret_dict = rs.json
     assert ret_dict["success"] == True
     assert len(ret_dict["result"]["documents"]) == 4
-    assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
-    assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
-    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Pending"
+    assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
     rs = client.get("/document?fid=jalkdf")
     assert rs.status_code == 403
@@ -51,13 +51,13 @@ def test_get_document(client):
     rs = client.get("/document?description=Ye")
     ret_dict = rs.json
     assert len(ret_dict["result"]["documents"]) == 4
-    assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
-    assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
-    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Pending"
+    assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
     rs = client.get("/document?uid=WompWomp")
     ret_dict = rs.json
     assert len(ret_dict["result"]["documents"]) == 4
-    assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
-    assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
-    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Pending"
+    assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
