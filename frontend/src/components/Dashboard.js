@@ -7,6 +7,7 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
+      isPM: false,
       documents: MockData
     }
   }
@@ -17,7 +18,7 @@ class Dashboard extends React.Component {
         {Object.keys(this.state.documents).map(key => {
           return (
             <p>
-              <DocumentList documents={this.state.documents[key]} status={key} />
+              <DocumentList isPM={this.state.isPM} documents={this.state.documents[key]} status={key} />
             </p>
           )
         })}

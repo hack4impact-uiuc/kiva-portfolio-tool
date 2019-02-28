@@ -9,10 +9,16 @@ body {
 
   .table {
     width: 50%;
-    margin: 0 0 5% 5%;
+    margin: auto;
+    margin-top: 2%;
+    border: 1px solid #d8d8d8;
 
     td {
-      width: 50%;
+      width: 40%;
+    }
+    
+    td .interaction {
+      width: auto;
     }
   }
   
