@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from api.models import Person, Document, Message
+from api.models import Person, Document, Message, db
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -56,14 +56,14 @@ def get_document():
     if len(kwargs) == 0:
         docs = Document.query.all()
         if description is not None:
-            docs = [i for i in docs if description in i.description]
+            docs = [i for i in docs if description.lower() in i.description.lower()]
         if date is not None:
-            docs = [i for i in docs if date in str(i.date)]
+            docs = [i for i in docs if date.lower() in str(i.date).lower()]
         if len(serialize_list(docs)) == 0:
             return create_response(status=403, message="Query was incorrect")
 
         pending = [i for i in docs if i.status == "Pending"]
-        verified = [i for i in docs if i.status == "Verified"]
+        verified = [i for i in docs if i.status == "Approved"]
         missing = [i for i in docs if i.status == "Missing"]
         rejected = [i for i in docs if i.status == "Rejected"]
         return create_response(
@@ -71,7 +71,7 @@ def get_document():
             data={
                 "documents": {
                     "Pending": serialize_list(pending),
-                    "Verified": serialize_list(verified),
+                    "Approved": serialize_list(verified),
                     "Missing": serialize_list(missing),
                     "Rejected": serialize_list(rejected),
                 }
@@ -80,14 +80,14 @@ def get_document():
     else:
         docs = Document.query.filter_by(**kwargs)
         if description is not None:
-            docs = [i for i in docs if description in i.description]
+            docs = [i for i in docs if description.lower() in i.description.lower()]
         if date is not None:
-            docs = [i for i in docs if date in str(i.date)]
+            docs = [i for i in docs if date.lower() in str(i.date).lower()]
         if len(serialize_list(docs)) == 0:
             return create_response(status=403, message="Query was incorrect")
 
         pending = [i for i in docs if i.status == "Pending"]
-        verified = [i for i in docs if i.status == "Verified"]
+        verified = [i for i in docs if i.status == "Approved"]
         missing = [i for i in docs if i.status == "Missing"]
         rejected = [i for i in docs if i.status == "Rejected"]
         return create_response(
@@ -95,7 +95,7 @@ def get_document():
             data={
                 "documents": {
                     "Pending": serialize_list(pending),
-                    "Verified": serialize_list(verified),
+                    "Approved": serialize_list(verified),
                     "Missing": serialize_list(missing),
                     "Rejected": serialize_list(rejected),
                 }
@@ -107,23 +107,13 @@ def get_document():
 @main.route("/document/new", methods=["POST"])
 def create_new_document():
     data = request.get_json()
-    if 'name' not in data:
-        return create_response(status=422, message="No name provided for new show")
-    if 'name' not in data:
-        return create_response(status=422, message="No name provided for new show")
-    if 'name' not in data:
-        return create_response(status=422, message="No name provided for new show")
-    if 'name' not in data:
-        return create_response(status=422, message="No name provided for new show")
-    if 'name' not in data:
-        return create_response(status=422, message="No name provided for new show")
-    if 'name' not in data:
-        return create_response(status=422, message="No name provided for new show")
-    if 'name' not in data:
-        return create_response(status=422, message="No name provided for new show")
-    new_item = {
-        "name": data['name'],
-        "episodes_seen": data['episodes_seen']
-    }
-    return create_response(db.create('shows', new_item), message="New Item Added to DB", status=201)
-
+    if "userID" not in data:
+        return create_response(status=422, message="No UserID provided for new Document")
+    if "status" not in data:
+        return create_response(status=422, message="No Status provided for new Document")
+    if "docClass" not in data:
+        return create_response(status=422, message="No Document Class provided for new Document")
+    sample_args = request.args
+    new_data = Document(sample_args)
+    db.session.add(new_data)
+    return create_response(status=200, message="success")

@@ -15,7 +15,7 @@ class Document(Mixin, db.Model):
     )  # , db.ForeignKey("user.id",ondelete="SET NULL")
     date = db.Column(db.DateTime, unique=False, nullable=True)
     status = db.Column(
-        db.Enum("Pending", "Verified", "Missing", "Rejected", name="status"),
+        db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
         unique=False,
     )  # db.Enum
     docClass = db.Column(db.String, unique=False)  # db.Enum
@@ -24,7 +24,15 @@ class Document(Mixin, db.Model):
     description = db.Column(db.String, unique=False, nullable=True)
 
     def __init__(
-        self, fileID, userID, date, status, docClass, fileName, latest, description
+        self,
+        userID,
+        docClass,
+        fileID=None,
+        date=None,
+        status="Missing",
+        fileName=None,
+        latest=False,
+        description=None,
     ):
         self.fileID = fileID
         self.userID = userID

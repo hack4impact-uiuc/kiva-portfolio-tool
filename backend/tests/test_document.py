@@ -27,7 +27,7 @@ def test_get_document(client):
         fileID="DunDunDun",
         userID="WompWomp",
         date=date.fromordinal(730920),
-        status="Missing",
+        status="Pending",
         docClass="MyEnum.one",
         fileName="MyDoc.docx",
         latest=True,
@@ -43,7 +43,7 @@ def test_get_document(client):
     assert len(ret_dict["result"]["documents"]) == 4
     assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
     assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
-    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
+    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Pending"
 
     rs = client.get("/document?fid=jalkdf")
     assert rs.status_code == 403
@@ -53,11 +53,11 @@ def test_get_document(client):
     assert len(ret_dict["result"]["documents"]) == 4
     assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
     assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
-    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
+    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Pending"
 
     rs = client.get("/document?uid=WompWomp")
     ret_dict = rs.json
     assert len(ret_dict["result"]["documents"]) == 4
     assert ret_dict["result"]["documents"]["Missing"][0]["fileID"] == "DunDunDun"
     assert ret_dict["result"]["documents"]["Missing"][0]["userID"] == "WompWomp"
-    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Missing"
+    assert ret_dict["result"]["documents"]["Missing"][0]["status"] == "Pending"
