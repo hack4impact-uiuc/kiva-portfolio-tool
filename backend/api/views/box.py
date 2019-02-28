@@ -9,10 +9,13 @@ from boxsdk.exception import BoxAPIException
 Authenticate the user using the client id, secret, and access token.
 ### Return box client
 """
+
+
 def auth_user():
     oauth2 = OAuth2(CLIENT_ID, CLIENT_SECRET, access_token=ACCESS_TOKEN)
     client = Client(oauth2)
     return client
+
 
 """
 Get user information
@@ -37,29 +40,39 @@ Example:
     }
 ### Return JSON
 """
+
+
 def get_user_information(client, user_id):
-    info = client.user(user_id = user_id).get()
+    info = client.user(user_id=user_id).get()
     return info
+
 
 """
 Upload the file with the given content and file.
 ### Return the id of the file if successful
 ### Return None if otherwise
 """
+
+
 def upload_file(client, content, file):
     stream = StringIO()
     stream.write(content)
     stream.seek(0)
     try:
-        box_file = client.folder('0').upload_stream(stream, 'file', preflight_check=True)
+        box_file = client.folder("0").upload_stream(
+            stream, "file", preflight_check=True
+        )
         return box_file.id
     except BoxAPIException:
         return None
+
 
 """
 Find files with the same content
 ### Return a list of file names
 """
+
+
 def find_files_by_content(client, content_query):
     result = client.search().query(content_query)
     output = []
@@ -68,4 +81,3 @@ def find_files_by_content(client, content_query):
         output.append(i)
 
     return output
-
