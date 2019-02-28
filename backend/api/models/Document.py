@@ -9,15 +9,15 @@ class Document(Mixin, db.Model):
     __tablename__ = "documents"
 
     id = db.Column(db.Integer, unique=True, primary_key=True)
-    fileID = db.Column(db.String, unique=True)
+    fileID = db.Column(db.String, unique=True, nullable=True)
     userID = db.Column(
-        db.String, unique=True
+        db.String, unique=False
     )  # , db.ForeignKey("user.id",ondelete="SET NULL")
-    date = db.Column(db.DateTime, unique=False)
+    date = db.Column(db.DateTime, unique=False, nullable=True)
     status = db.Column(db.String, unique=False)  # db.Enum
     docType = db.Column(db.String, unique=False)  # db.Enum
-    docName = db.Column(db.String, unique=False)
-    latest = db.Column(db.Boolean, unique=False)
+    docName = db.Column(db.String, unique=False, nullable=True)
+    latest = db.Column(db.Boolean, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
 
     def __init__(
