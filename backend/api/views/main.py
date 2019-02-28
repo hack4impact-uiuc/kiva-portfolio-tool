@@ -95,4 +95,24 @@ def get_document():
 # function that is called when you visit /documetns
 @main.route("/document/new", methods=["POST"])
 def create_new_document():
-    pass
+    data = request.get_json()
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    if 'name' not in data:
+        return create_response(status=422, message="No name provided for new show")
+    new_item = {
+        "name": data['name'],
+        "episodes_seen": data['episodes_seen']
+    }
+    return create_response(db.create('shows', new_item), message="New Item Added to DB", status=201)
+
