@@ -35,34 +35,49 @@ def recreate_db():
     db.create_all()
 
     create_mock_document(
-        id=0, requirement="Board of Directors", name=None, status="Missing"
+        user_id=1, requirement="Board of Directors", name=None, status="Missing"
     )
     create_mock_document(
-        id=1, requirement="Auditor Letter", name=None, status="Missing"
+        user_id=1, requirement="Auditor Letter", name=None, status="Missing"
     )
     create_mock_document(
-        id=2,
+        file_id=2,
+        user_id=1,
         requirement="Income Statement",
         name="income_statement.pdf",
         status="Pending",
     )
     create_mock_document(
-        id=3, requirement="Balance Sheet", name="balance_sheet.pdf", status="Pending"
+        file_id=3,
+        user_id=1,
+        requirement="Balance Sheet",
+        name="balance_sheet.pdf",
+        status="Pending",
     )
     create_mock_document(
-        id=4, requirement="Strategic Plan", name="strategic_plan.pdf", status="Rejected"
+        file_id=4,
+        user_id=1,
+        requirement="Strategic Plan",
+        name="strategic_plan.pdf",
+        status="Rejected",
     )
     create_mock_document(
-        id=5, requirement="Annual Plan", name="annual_plan.pdf", status="Rejected"
+        file_id=5,
+        user_id=1,
+        requirement="Annual Plan",
+        name="annual_plan.pdf",
+        status="Rejected",
     )
     create_mock_document(
-        id=6,
+        user_id=1,
+        file_id=6,
         requirement="Financial Projections",
         name="financial_proj.pdf",
         status="Approved",
     )
     create_mock_document(
-        id=7,
+        user_id=1,
+        file_id=7,
         requirement="Organizational Chart",
         name="org_chart.pdf",
         status="Approved",
@@ -71,11 +86,11 @@ def recreate_db():
     db.session.commit()
 
 
-def create_mock_document(id, requirement, name, status):
+def create_mock_document(file_id, user_id, requirement, name, status):
     if name is not None:
         d = Document(
-            fileID=str(id),
-            userID=str(id),
+            fileID=str(file_id),
+            userID=str(user_id),
             date=datetime.today(),
             status=status,
             docType=requirement,
@@ -85,8 +100,7 @@ def create_mock_document(id, requirement, name, status):
         )
     else:
         d = Document(
-            fileID=str(id),
-            userID=str(id),
+            userID=str(user_id),
             date=None,
             status=status,
             docType=requirement,
