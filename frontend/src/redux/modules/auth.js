@@ -1,3 +1,7 @@
+/*
+EXAMPLE CODE
+*/
+
 import { ADMIN_KEY } from '../../keys'
 
 const LOGIN = 'auth/login'

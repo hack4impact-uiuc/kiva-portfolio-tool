@@ -1,3 +1,6 @@
+/*
+EXAMPLE CODE
+*/
 // @flow
 const SAVE_SEARCH = 'results/SAVE_SEARCH'
 const UPDATE_RESULTS = 'results/UPDATE_RESULTS'

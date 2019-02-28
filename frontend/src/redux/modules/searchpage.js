@@ -1,3 +1,6 @@
+/*
+EXAMPLE CODE
+*/
 // @flow
 const UPDATE_FIELD = 'searchpage/UPDATE_FIELD'
 const UPDATE_IMAGE_STATE = 'searchpage/UPDATE_IMAGE_STATE'
