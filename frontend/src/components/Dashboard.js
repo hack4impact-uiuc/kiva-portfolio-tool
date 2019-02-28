@@ -21,17 +21,16 @@ class Dashboard extends React.Component {
       this.setState({
         documents: []
       }) */
-      const res = await getAllDocuments()
-      if(res.data) {
-        this.setState({
-          documents: res.data.documents
-        })
-      }
-      else{
-        this.setState({
-          documents: []
-        })
-      }
+    const res = await getAllDocuments()
+    if (res.data) {
+      this.setState({
+        documents: res.data.documents
+      })
+    } else {
+      this.setState({
+        documents: []
+      })
+    }
   }
 
   render() {
