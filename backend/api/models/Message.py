@@ -14,8 +14,8 @@ class Message(Mixin, db.Model):
     TODO: uncomment the foreign key and add it as a parameter when PortfolioManager and FieldPartner are added
     """
 
-    pm_id = db.Column(db.String)  # , db.ForeignKey("PortfolioManager.id")
-    fp_id = db.Column(db.String)  # , db.ForeignKey("FieldPartner.id")
+    pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
+    fp_id = db.Column(db.String, db.ForeignKey("field_partner.id"))
     to_fp = db.Column(db.Boolean)  # true if send to fp; false if send to pm
 
     """ 
