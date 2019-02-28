@@ -8,16 +8,30 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      documents: MockData
+      documents: []
     }
   }
 
   async componentDidMount() {
-    await getAllDocuments().then(results => {
+    /* await getAllDocuments().then(results => {
+      results ? 
       this.setState({
         documents: results
-      })
-    })
+      }) :
+      this.setState({
+        documents: []
+      }) */
+      const res = await getAllDocuments()
+      if(res.data) {
+        this.setState({
+          documents: res.data.documents
+        })
+      }
+      else{
+        this.setState({
+          documents: []
+        })
+      }
   }
 
   render() {
