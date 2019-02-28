@@ -2,6 +2,7 @@ from api.core import Mixin
 from .base import db
 import uuid
 
+
 class FieldPartner(Mixin, db.Model):
     """Field Partner Table."""
 

@@ -3,6 +3,7 @@ from .base import db
 from sqlalchemy.dialects.postgresql import ARRAY
 import uuid
 
+
 class PortfolioManager(Mixin, db.Model):
     """Portfolio Manager Table."""
 

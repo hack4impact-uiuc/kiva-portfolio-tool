@@ -1,5 +1,5 @@
 from flask import Blueprint
-from api.models import Person, Document, Message
+from api.models import Person, Document, Message, FieldPartner
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -45,3 +45,10 @@ def add_<yourclassname>():
 def get_document():
     docs = Document.query.all()
     return create_response(data={"documents": serialize_list(docs)})
+
+
+# function that is called when you visit /field_partner
+@main.route("/field_partner", methods=["GET"])
+def get_field_partner():
+    field_partner = FieldPartner.query.all()
+    return create_response(data={"field_partner": serialize_list(field_partner)})

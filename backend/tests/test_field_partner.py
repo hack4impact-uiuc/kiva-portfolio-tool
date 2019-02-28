@@ -21,9 +21,7 @@ def test_get_field_partner(client):
     helper_arr_fps.append("f234")
     helper_arr_fps.append("f345")
     helper_portfolio_manager = PortfolioManager(
-        email="test@gmail.com",
-        name="Tim",
-        list_of_fps=helper_arr_fps,
+        email="test@gmail.com", name="Tim", list_of_fps=helper_arr_fps
     )
 
     db.session.add(helper_portfolio_manager)
@@ -45,7 +43,6 @@ def test_get_field_partner(client):
     # fp_obj = FieldPartner.query.get("f1234")
     # print(type(fp_obj))
     assert len(ret_dict["result"]["field_partner"]) == 1
-    # assert ret_dict["result"]["field_partner"][0]["id"] == "f1234"
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
     # assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
