@@ -1,6 +1,7 @@
 import React from 'react'
 import MockData from '../utils/MockData'
 import DocumentList from './DocumentList'
+import { getAllDocuments } from '../utils/ApiWrapper'
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -9,6 +10,14 @@ class Dashboard extends React.Component {
     this.state = {
       documents: MockData
     }
+  }
+
+  async componentDidMount() {
+    await getAllDocuments().then(results => {
+      this.setState({
+        documents: results
+      })
+    })
   }
 
   render() {
