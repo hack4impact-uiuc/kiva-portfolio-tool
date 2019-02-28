@@ -1,3 +1,44 @@
+# Backend Documentation
+
+## Postgres Setup
+
+Follow the instructions for your operating system's setup in the [Flask Boilerplate Wiki](https://github.com/tko22/flask-boilerplate/wiki).
+
+## Database Setup
+
+The following should be run the first time you create the database as well as any time the structure of the database changes (i.e. changes to a file in `api/models`). Activate `venv` in the `backend` directory before running the following:
+
+```
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+```
+### Common Issues & Errors
+
+#### Issues
+
+* You may need to run the above using the `python3` instead of `python` if you haven't assigned `python` to execute with Python 3.
+
+* Make sure you're running them from exactly the `backend` directory.
+
+#### Errors
+
+> When I run db init, I get the following error message: "alembic.util.exc.CommandError: Directory migrations already exists"
+
+Delete `backend/migrations`. However, you'll likely also run into the next issue.
+
+> When I run db migrate, I get the following error" alembic.util.exc.CommandError: Can't locate revision identified by [hash]"
+
+Connect to Postgres and run the following: 
+
+```SQL
+\c cpdb
+
+DROP TABLE alembic_version;
+```
+
+## Anything below this line is from the Flask Boilerplate documentation.
+
 # Flask Boilerplate [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/tko22/flask-boilerplate&env=DATABASE_URL)
 
 This is an minimal but opinionated boilerplate meant for building out simple REST APIs. It is primarily used at [Hack4Impact UIUC](https://github.com/hack4impact-uiuc). This app is written in Python 3.6 with Postgres 10 as the chosen data persistence. The default way to deploy it is with Heroku or Zeit now but you can deploy it with another service, like AWS, Google Cloud, or DigitalOcean with Gunicorn and Nginx, but instructions for that are not provided. Included are simple examples and instructions developing with or without Docker are provided. I've also written a <a href="https://medium.freecodecamp.org/docker-development-workflow-a-guide-with-flask-and-postgres-db1a1843044a">blog post</a> about using Docker based on this repository.<br>
@@ -29,6 +70,8 @@ docker run -e POSTGRES_USER=testusr -e POSTGRES_PASSWORD=password -e POSTGRES_DB
 ```
 
 Another option is to create a postgres instance on a cloud service like elephantsql and connect it to this app. Remember to change the postgres url and don't hard code it in!
+
+**If you're running postgres locally through brew, start your postgres using:** `brew services start postgresql`
 
 Then, start your virtual environment
 

@@ -23,7 +23,7 @@ Obvious Fixes that do not introduce any new functionality or creative thinking d
 
 Just make a PR that follows the guidelines in the next section. 
 ## Pull Request Guidelines
-Pull Requests are the way concrete changes are made to the code, dependencies, documentation, and tools in `hack4impact-uiuc/childs-play-tool`. 
+Pull Requests are the way concrete changes are made to the code, dependencies, documentation, and tools in `hack4impact-uiuc/kiva-portfolio-tool`. 
 
 ### Process of Making Changes
 As a rule of thumb, try to keep your Pull Requests small instead of huge PRs with changes in 20 files. It is much easier to review smaller incremental changes.
@@ -31,7 +31,7 @@ As a rule of thumb, try to keep your Pull Requests small instead of huge PRs wit
 As a best practice, create local branches to work within. They should be created off of the `master` branch.
 
 #### Step 2: Code
-Please make sure to run `npm run format` in both `frontend/` and `pipenv run black .` in `backend/` folders before commiting to ensure that changes follow our code style. Our code style is [standard](https://github.com/standard/standard). Our frontend also uses Flow for prop typing, so remember to add those in if you are modifying props in components.
+Please make sure to run `npm run format` in both `frontend/` and `black .` in `backend/` folders before commiting to ensure that changes follow our code style. Our code style is [standard](https://github.com/standard/standard). Our frontend also uses Flow for prop typing, so remember to add those in if you are modifying props in components.
 
 ### Step 3: Commit
 Commits are how we keep track of code changes and thus should be explicit.
@@ -56,7 +56,20 @@ If your branch was already pushed to github, do this as well:
 git push --force-with-lease origin my-branch
 ```
 ### Step 5: Test
-A test suite will be coming soon :) You must always write tests for your features and changes.
+Testing is integrated with both the backend and frontend setups. Before your branch can be merged, there must be test cases that pass on CircleCI for the feature that you developed. This is to add a baseline guarantee of functional code as well as to ease performance and other testing later in the development pipeline.
+
+**Frontend**
+The frontend testing setup involves Jest and react-testing-library. The documentation for Jest can be found here: https://jestjs.io/docs/en/getting-started. Unfortunately, react-testing-library does not have very much documentation, but the repository itself as well as its examples can be found here: https://github.com/kentcdodds/react-testing-library.
+
+__Snapshot Testing__
+Snapshot testing involves keeping a record of previous working code to ensure that only expected changes are happening to components. The idea is to create working components, create a snapshot of the component, and use those snapshots to continue to test iterations of the object. Thus, the first time the component is tested a snapshot will be created, but subsequent tests will compare the result to the previous snapshot. These snapshots should be committed along with the branch/feature! This will allow the rest of the team to compare any changes with the snapshot and update the snapshot if necessary.
+
+__"Traditional Testing"__
+React-testing-library (RTL) will be used alongside Jest to create tests involving the component's functionality. Jest can be used to mock helper functions and react-testing-library provides the ability to fire events for your component and keep track of function metadata. Thus, most of the core functionality testing should be done using RTL.
+
+
+**Backend**
+Backend testing will involve the traditional pytest. To run these tests, make sure that you're in the `backend/` directory and run `pytest`. Any files in the backend directory that includes the pattern `test` will be discovered and its tests run. Be sure to test your endpoints as thoroughly as possible with appropriate edge cases as well as with Postman to ensure that they're working.
 
 ### Step 6: Opening your PR
 Push your branch to github and open a PR! From there, reference the issues related to your PR just like you did in your commits in the description section. Add the collaborators as reviewers, especially including the owner of the issue (unless it's yourself). Please fill out as many details and include Screenshots if your work is on the frontend. Then, add a `In Review` Label and add in into the relevant Projects Board.

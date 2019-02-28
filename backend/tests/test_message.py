@@ -1,4 +1,4 @@
-from api.models import db, Person, Message
+from api.models import db, Message
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
