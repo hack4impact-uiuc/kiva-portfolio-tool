@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from api.models import Person, Document, Message, db
+from api.models import Person, Document, Message, FieldPartner, db
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -108,20 +108,34 @@ def get_document():
 def create_new_document():
     data = request.get_json()
     if "userID" not in data:
-        return create_response(status=422, message="No UserID provided for new Document")
+        return create_response(
+            status=422, message="No UserID provided for new Document"
+        )
     if "status" not in data:
-        return create_response(status=422, message="No Status provided for new Document")
+        return create_response(
+            status=422, message="No Status provided for new Document"
+        )
     if "docClass" not in data:
-        return create_response(status=422, message="No Document Class provided for new Document")
+        return create_response(
+            status=422, message="No Document Class provided for new Document"
+        )
     sample_args = request.args
     new_data = Document(**data)
     db.session.add(new_data)
     db.session.commit()
     return create_response(status=200, message="success")
 
+
 # function that is called when you visit /documetns
 # @main.route("/document/update", methods=["PUT"])
 # def create_new_document():
 #     data = request.get_json()
-    
+
 #     return create_response(status=200, message="success")
+
+
+# function that is called when you visit /field_partner
+@main.route("/field_partner", methods=["GET"])
+def get_field_partner():
+    field_partner = FieldPartner.query.all()
+    return create_response(data={"field_partner": serialize_list(field_partner)})

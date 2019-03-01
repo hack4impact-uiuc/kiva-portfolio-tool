@@ -9,9 +9,9 @@ class Document(Mixin, db.Model):
     __tablename__ = "documents"
 
     id = db.Column(db.Integer, unique=True, primary_key=True)
-    fileID = db.Column(db.String, unique=True, nullable=True)
+    fileID = db.Column(db.String, unique=True)
     userID = db.Column(
-        db.String, unique=False
+        db.String, unique=True
     )  # , db.ForeignKey("user.id",ondelete="SET NULL")
     date = db.Column(db.DateTime, unique=False, nullable=True)
     status = db.Column(
