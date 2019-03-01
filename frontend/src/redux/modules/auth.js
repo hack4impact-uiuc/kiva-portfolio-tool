@@ -2,7 +2,7 @@
 EXAMPLE CODE
 */
 
-import { ADMIN_KEY } from '../../keys'
+//import { ADMIN_KEY } from '../../keys'
 
 const LOGIN = 'auth/login'
 const LOAD_UPDATES = 'auth/load_updates'
@@ -18,8 +18,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
       return {
-        ...state,
-        authenticated: action.value === ADMIN_KEY
+        ...state
+        //authenticated: action.value === ADMIN_KEY
       }
     case LOAD_UPDATES:
       return {
