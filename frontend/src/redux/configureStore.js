@@ -11,8 +11,5 @@ const composedMiddleware = compose(applyMiddleware(...middleware))
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export default function configureStore() {
-  return createStore(
-    reducer,
-    devtools(composedMiddleware)
-  )
+  return createStore(reducer, devtools(composedMiddleware))
 }
