@@ -8,11 +8,11 @@ import reducer from './modules/reducer'
 export const history = createHistory()
 const middleware = [thunk, routerMiddleware(history)]
 const composedMiddleware = compose(applyMiddleware(...middleware))
+const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 export default function configureStore() {
   return createStore(
     reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    composedMiddleware
+    devtools(composedMiddleware)
   )
 }

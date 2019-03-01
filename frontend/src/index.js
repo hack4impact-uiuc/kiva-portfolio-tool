@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { Route, withRouter } from 'react-router'
 import { ConnectedRouter } from 'react-router-redux'
 import configureStore, { history } from './redux/configureStore'
-import Dashboard from './components/Dashboard.js'
+import { Dashboard } from './components'
 
 const store = configureStore()
 
@@ -29,7 +29,6 @@ ReactDOM.render(
         </div>
       </TopScroll>
     </ConnectedRouter>
-    , document.getElementById('root')
-  </Provider>
+  </Provider>,
+  document.getElementById('root')
 )
-//ServiceWorker()
