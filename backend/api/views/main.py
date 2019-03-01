@@ -118,3 +118,10 @@ def create_new_document():
     db.session.add(new_data)
     db.session.commit()
     return create_response(status=200, message="success")
+
+# function that is called when you visit /documetns
+# @main.route("/document/update", methods=["PUT"])
+# def create_new_document():
+#     data = request.get_json()
+    
+#     return create_response(status=200, message="success")
