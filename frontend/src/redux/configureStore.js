@@ -10,6 +10,6 @@ const middleware = [thunk, routerMiddleware(history)]
 const composedMiddleware = compose(applyMiddleware(...middleware))
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-export default function configureStore(preloadedState) {
-  return createStore(createRootReducer(history), preloadedState, devtools(composedMiddleware))
+export default function configureStore() {
+  return createStore(createRootReducer(history), devtools(composedMiddleware))
 }
