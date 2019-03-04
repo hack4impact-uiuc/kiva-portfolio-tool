@@ -6,6 +6,7 @@ def test_index(client):
     rs = client.get("/")
     assert rs.status_code == 200
 
+fp_id = 0
 
 def test_get_field_partner(client):
     rs = client.get("/field_partner")
@@ -42,12 +43,9 @@ def test_get_field_partner(client):
     ret_dict = rs.json
     # fp_obj = FieldPartner.query.get("f1234")
     # print(type(fp_obj))
+    fp_id = temp_field_partner.id
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
-<<<<<<< HEAD
-    assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
-=======
     # assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
->>>>>>> ac485a6f2f56dde075be615cce9fdb531562cf8c
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
