@@ -3,9 +3,12 @@
 /.pnp
 .pnp.js
 
+<<<<<<< HEAD
 # track only scss files
 *.css
 
+=======
+>>>>>>> ac485a6f2f56dde075be615cce9fdb531562cf8c
 # testing
 /coverage
 

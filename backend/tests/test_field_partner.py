@@ -45,5 +45,9 @@ def test_get_field_partner(client):
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
+<<<<<<< HEAD
     assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
+=======
+    # assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
+>>>>>>> ac485a6f2f56dde075be615cce9fdb531562cf8c
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"

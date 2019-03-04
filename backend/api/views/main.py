@@ -54,9 +54,17 @@ def get_field_partner():
     return create_response(data={"field_partner": serialize_list(field_partner)})
 
 
-# # function that is called when you visit 
-# @main.route("/field_partner/<id>", methods=["GET"])
-# def get_field_partner(id):
-#     field_partner = FieldPartner.query.get(id)
-#     print(field_partner)
-#     return create_response(data={"field_partner": serialize_list(field_partner)})
+# function that is called when you visit /field_partner/<id> that gets a field partner by id
+@main.route("/field_partner/<id>", methods=["GET"])
+def get_field_partner(id):
+    field_partner = FieldPartner.query.get(id)
+    print(field_partner)
+    return create_response(data={"field_partner": serialize_list(field_partner)})
+
+
+# function that is called when you visit /field_partner/<email> that gets a field partner by email
+@main.route("/field_partner/<email>", methods=["GET"])
+def get_field_partner(email):
+    field_partner = FieldPartner.query.get(email)
+    print(field_partner)
+    return create_response(data={"field_partner": serialize_list(field_partner)})
