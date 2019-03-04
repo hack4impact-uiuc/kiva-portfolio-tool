@@ -22,9 +22,9 @@ class Dashboard extends React.Component {
         documents: []
       }) */
     const res = await getAllDocuments()
-    if (res.data) {
+    if (res) {
       this.setState({
-        documents: res.data.documents
+        documents: res
       })
     } else {
       this.setState({
@@ -36,13 +36,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        {Object.keys(this.state.documents).map(key => {
-          return (
-            <p>
-              <DocumentList documents={this.state.documents[key]} status={key} />
-            </p>
-          )
-        })}
+        <DocumentList documents={this.state.documents} status="Accepted" />
       </div>
     )
   }
