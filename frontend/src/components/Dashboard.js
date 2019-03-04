@@ -8,7 +8,8 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      documents: []
+      documents: [],
+      statuses: []
     }
   }
 
@@ -24,22 +25,35 @@ class Dashboard extends React.Component {
     const res = await getAllDocuments()
     if (res) {
       this.setState({
-        documents: res
+        documents: res,
+        statuses: ["Missing", "Pending", "Rejected", "Approved"]
       })
     } else {
       this.setState({
-        documents: []
+        documents: [],
+        statuses: []
       })
     }
   }
 
   render() {
     return (
-      <div>
-        <DocumentList documents={this.state.documents} status="Accepted" />
-      </div>
+      (this.state.documents.length > 0 && this.state.statuses.length > 0) ?
+        <div>
+          {(this.state.statuses).map(status => {
+            return (
+             <p>
+               <DocumentList documents={this.state.documents.filter(document => document.status == status)} status={status}/>
+             </p>
+            )
+          })}
+        </div>
+      :
+        null
     )
   }
 }
 
 export default Dashboard
+
+

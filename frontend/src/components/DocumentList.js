@@ -21,7 +21,7 @@ class DocumentList extends Component {
             <th>FILE</th>
           </tr>
           {this.state.documents.map(document => (
-            <DocumentListItem docClass={document.docClass} fileName={document.fileName} />
+            <DocumentListItem docClass={document.docType} fileName={document.docName} />
           ))}
         </tbody>
       </Table>
