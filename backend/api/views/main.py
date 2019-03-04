@@ -40,7 +40,7 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-# function that is called when you visit /documetns
+# function that is called when you visit /documents
 @main.route("/documents", methods=["GET"])
 def get_document():
     docs = Document.query.all()
@@ -52,3 +52,11 @@ def get_document():
 def get_field_partner():
     field_partner = FieldPartner.query.all()
     return create_response(data={"field_partner": serialize_list(field_partner)})
+
+
+# # function that is called when you visit 
+# @main.route("/field_partner/<id>", methods=["GET"])
+# def get_field_partner(id):
+#     field_partner = FieldPartner.query.get(id)
+#     print(field_partner)
+#     return create_response(data={"field_partner": serialize_list(field_partner)})
