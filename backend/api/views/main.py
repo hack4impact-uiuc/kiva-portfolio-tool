@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request, json
 from api.models import Person, Document, Message, FieldPartner, PortFolioManager
 from api.core import create_response, serialize_list, logger
 
@@ -92,15 +92,29 @@ def get_portfolio_manager(email):
     portfolio_manager_by_email = session.query(PortFolioManager).filter_by(email = email)
     return create_response(data={"portfolio_manager": serialize_list(portfolio_manager_by_email)})
 
-# function that is called when you visit /portfolio_manager/<fp_id>, adds an FP to the PM's list of FPs
-@main.route("/portfolio_manager/<fp_id>", methods=["POST"])
-def add_fp(fp_id):
-    new_fp = 
+# function that is called when you visit /portfolio_manager/<id>/add, adds an FP to the PM's list of FPs
+@main.route("/portfolio_manager/<id>/add", methods=["POST"])
+def add_fp(id):
+    pm = PortFolioManager.query.get(id)
+
+    email = request.get_json().get('email', '')
+    org_name = request.get_json().get('org_name', '')
+
+    new_fp = FieldPartner(
+        email=email,
+        org_name=org_name,
+        pm_id=pm.pm_id,
+        app_status="Not started",
+    )
+
+    added_fp = db.create("field_partner", new_fp)
+    return create_response(data={"field_partner": added_fp})
+
+# function that is called when you visit /portfolio_manager/<fp_id>, updates an FP's info from the PM's list of FPs
+@main.route("/portfolio_manager/<fp_id>", methods=["PUT"])
+def update_fp(fp_id):
+
 
 # function that is called when you visit /portfolio_manager/<fp_id>, deletes an FP to the PM's list of FPs
 @main.route("/portfolio_manager/<fp_id>", methods=["DELETE"])
 def delete_fp(fp_id):
-    
-# function that is called when you visit /portfolio_manager/<fp_id>, adds an FP to the PM's list of FPs
-@main.route("/portfolio_manager/<fp_id>", methods=["PUT"])
-def update_fp(fp_id):
