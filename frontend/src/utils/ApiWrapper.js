@@ -36,7 +36,7 @@ export const getDocumentsByName = (fileName, docClass) => {
 }
 
 export const getAllDocuments = () => {
-  let requestString = BACKEND_URL + '/documents'
+  let requestString = BACKEND_URL + '/document'
   return axios
     .get(requestString)
     .then(response => {

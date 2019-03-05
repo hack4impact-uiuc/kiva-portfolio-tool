@@ -93,8 +93,8 @@ def create_mock_document(user_id, requirement, name, status, file_id=None):
             userID=str(user_id),
             date=datetime.today(),
             status=status,
-            docType=requirement,
-            docName=name,
+            docClass=requirement,
+            fileName=name,
             latest=True,
             description="",
         )
@@ -104,8 +104,8 @@ def create_mock_document(user_id, requirement, name, status, file_id=None):
             userID=str(user_id),
             date=None,
             status=status,
-            docType=requirement,
-            docName=None,
+            docClass=requirement,
+            fileName=None,
             latest=None,
             description="",
         )

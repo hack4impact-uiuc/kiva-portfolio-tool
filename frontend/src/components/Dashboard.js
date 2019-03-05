@@ -2,7 +2,21 @@ import React from 'react'
 import MockData from '../utils/MockData'
 import DocumentList from './DocumentList'
 import { getAllDocuments } from '../utils/ApiWrapper'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
+const mapStateToProps = state => ({
+  isPM: state.user.isPM
+})
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      //put actions here
+    },
+    dispatch
+  )
+}
 class Dashboard extends React.Component {
   constructor(props) {
     super(props)
@@ -26,7 +40,7 @@ class Dashboard extends React.Component {
     if (res) {
       this.setState({
         documents: res,
-        statuses: ["Missing", "Pending", "Rejected", "Approved"]
+        statuses: ['Missing', 'Pending', 'Rejected', 'Approved']
       })
     } else {
       this.setState({
@@ -38,22 +52,20 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      (this.state.documents.length > 0 && this.state.statuses.length > 0) ?
-        <div>
-          {(this.state.statuses).map(status => {
-            return (
-             <p>
-               <DocumentList documents={this.state.documents.filter(document => document.status == status)} status={status}/>
-             </p>
-            )
-          })}
-        </div>
-      :
-        null
+      <div>
+        {Object.keys(this.state.documents).map(key => {
+          return (
+            <p>
+              <DocumentList documents={this.state.documents[key]} status={key} />
+            </p>
+          )
+        })}
+      </div>
     )
   }
 }
 
-export default Dashboard
-
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard)

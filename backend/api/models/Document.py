@@ -12,23 +12,34 @@ class Document(Mixin, db.Model):
     fileID = db.Column(db.String, unique=True, nullable=True)
     userID = db.Column(db.String)  # , db.ForeignKey("user.id",ondelete="SET NULL")
     date = db.Column(db.DateTime, unique=False, nullable=True)
-    status = db.Column(db.String, unique=False)  # db.Enum
-    docType = db.Column(db.String, unique=False)  # db.Enum
-    docName = db.Column(db.String, unique=False, nullable=True)
+    status = db.Column(
+        db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
+        unique=False,
+    )  # db.Enum
+    docClass = db.Column(db.String, unique=False)  # db.Enum
+    fileName = db.Column(db.String, unique=False)
     latest = db.Column(db.Boolean, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
 
     def __init__(
-        self, fileID, userID, date, status, docType, docName, latest, description
+        self,
+        userID,
+        docClass,
+        fileID=None,
+        date=None,
+        status="Missing",
+        fileName=None,
+        latest=None,
+        description=None,
     ):
         self.fileID = fileID
         self.userID = userID
         self.date = date
         self.status = status
-        self.docType = docType
-        self.docName = docName
+        self.docClass = docClass
+        self.fileName = fileName
         self.latest = latest
         self.description = description
 
     def __repr__(self):
-        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docType: {self.docType}>\n <docName {self.docName}>\n <latest {self.latest}>\n <description: {self.description}>\n"
+        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClass: {self.docClass}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n"
