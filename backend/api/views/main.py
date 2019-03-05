@@ -56,7 +56,12 @@ def get_document():
     if len(kwargs) == 0:
         docs = Document.query.all()
         if description is not None:
-            docs = [i for i in docs if i.description is not None and description.lower() in i.description.lower()]
+            docs = [
+                i
+                for i in docs
+                if i.description is not None
+                and description.lower() in i.description.lower()
+            ]
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
         if len(serialize_list(docs)) == 0:
@@ -80,7 +85,12 @@ def get_document():
     else:
         docs = Document.query.filter_by(**kwargs)
         if description is not None:
-            docs = [i for i in docs if i.description is not None and description.lower() in i.description.lower()]
+            docs = [
+                i
+                for i in docs
+                if i.description is not None
+                and description.lower() in i.description.lower()
+            ]
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
         if len(serialize_list(docs)) == 0:
@@ -131,24 +141,28 @@ def create_new_document():
 @main.route("/document/delete/<docClass>", methods=["DELETE"])
 def delete_document(docClass):
     logger.info(docClass)
-    db.session.delete(Document.query.filter((Document.docClass == str(docClass))).first())
+    db.session.delete(
+        Document.query.filter((Document.docClass == str(docClass))).first()
+    )
     db.session.commit()
     return create_response(status=200, message="success")
+
 
 # function that is called when you visit /documetns
 @main.route("/document/update/<docClass>", methods=["PUT"])
 def update_documents(docClass):
     doc = Document.query.filter((Document.docClass == docClass)).first()
     logger.info(doc.docClass)
-    doc.fileID = request.json.get('fileID', doc.fileID)
-    doc.date = request.json.get('date', doc.date)
-    doc.status = request.json.get('status', doc.status)
-    doc.docClass = request.json.get('docClass', doc.docClass)
-    doc.fileName = request.json.get('fileName', doc.fileName)
-    doc.latest = request.json.get('latest', doc.latest)
-    doc.description = request.json.get('description', doc.description)
+    doc.fileID = request.json.get("fileID", doc.fileID)
+    doc.date = request.json.get("date", doc.date)
+    doc.status = request.json.get("status", doc.status)
+    doc.docClass = request.json.get("docClass", doc.docClass)
+    doc.fileName = request.json.get("fileName", doc.fileName)
+    doc.latest = request.json.get("latest", doc.latest)
+    doc.description = request.json.get("description", doc.description)
     db.session.commit()
-    return create_response(status=200, message='success')
+    return create_response(status=200, message="success")
+
 
 # function that is called when you visit /field_partner
 @main.route("/field_partner", methods=["GET"])
