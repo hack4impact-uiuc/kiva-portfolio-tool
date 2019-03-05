@@ -40,13 +40,8 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-<<<<<<< HEAD
-# function that is called when you visit /documents
-@main.route("/documents", methods=["GET"])
-=======
 # function that is called when you visit /documetns
 @main.route("/document", methods=["GET"])
->>>>>>> f3001521b1180c091c2a8d1929d265a617b6a754
 def get_document():
     kwargs = {}
     kwargs["fileID"] = request.args.get("fid")
