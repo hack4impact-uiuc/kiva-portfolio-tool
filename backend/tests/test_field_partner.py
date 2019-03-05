@@ -7,6 +7,7 @@ def test_index(client):
     assert rs.status_code == 200
 
 fp_id = 0
+fp_email = ""
 
 def test_get_field_partner(client):
     rs = client.get("/field_partner")
@@ -44,8 +45,38 @@ def test_get_field_partner(client):
     # fp_obj = FieldPartner.query.get("f1234")
     # print(type(fp_obj))
     fp_id = temp_field_partner.id
+    fp_email = temp_field_partner.email
+
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
-    # assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
+    assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
+    assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
+
+def test_get_fp_by_id(client):
+    rs = client.get("/field_partner/" + fp_id)
+
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+    # assert ret_dict["result"]["field_partner"] == []
+
+    assert len(ret_dict["result"]["field_partner"]) == 1
+    assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
+    assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
+    assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
+    assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
+
+def test_get_fp_by_email(client):
+    rs = client.get("/field_partner/" + fp_email)
+
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+    # assert ret_dict["result"]["field_partner"] == []
+
+    assert len(ret_dict["result"]["field_partner"]) == 1
+    assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
+    assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
+    assert ret_dict["result"]["field_partner"][0]["pm_id"] == "p1234"
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
