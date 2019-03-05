@@ -89,7 +89,7 @@ def recreate_db():
 def create_mock_document(user_id, requirement, name, status, file_id=None):
     if name is not None:
         d = Document(
-            fileID=str(file_id),
+            fileID=file_id,
             userID=str(user_id),
             date=datetime.today(),
             status=status,
@@ -100,6 +100,7 @@ def create_mock_document(user_id, requirement, name, status, file_id=None):
         )
     else:
         d = Document(
+            fileID=file_id,
             userID=str(user_id),
             date=None,
             status=status,

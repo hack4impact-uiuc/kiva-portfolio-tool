@@ -1,6 +1,7 @@
 import React from 'react'
 import MockData from '../utils/MockData'
 import DocumentList from './DocumentList'
+import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -21,7 +22,31 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      documents: MockData
+      documents: [],
+      statuses: []
+    }
+  }
+
+  async componentDidMount() {
+    /* await getAllDocuments().then(results => {
+      results ? 
+      this.setState({
+        documents: results
+      }) :
+      this.setState({
+        documents: []
+      }) */
+    const res = await getAllDocuments()
+    if (res) {
+      this.setState({
+        documents: res,
+        statuses: ['Missing', 'Pending', 'Rejected', 'Approved']
+      })
+    } else {
+      this.setState({
+        documents: [],
+        statuses: []
+      })
     }
   }
 
