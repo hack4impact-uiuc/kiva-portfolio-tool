@@ -15,13 +15,13 @@ class DocumentListItem extends Component {
     }
   }
   render() {
-    const {isPM} = this.props;
+    const { isPM } = this.props
     return (
       <tr>
         <td>{this.state.docClass}</td>
         <td>{this.state.fileName ? this.state.fileName : 'N/A'}</td>
         <td class="interaction">
-          {this.state.fileName ? 'DOWNLOAD ' : '' }
+          {this.state.fileName ? 'DOWNLOAD ' : ''}
           {isPM ? 'APPROVE' : 'UPLOAD'}
         </td>
       </tr>
@@ -29,6 +29,4 @@ class DocumentListItem extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps
-)(DocumentListItem)
+export default connect(mapStateToProps)(DocumentListItem)
