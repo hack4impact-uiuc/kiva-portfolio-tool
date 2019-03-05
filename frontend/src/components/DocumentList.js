@@ -6,7 +6,6 @@ class DocumentList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isPM: this.props.isPM,
       documents: this.props.documents,
       status: this.props.status
     }
@@ -23,7 +22,7 @@ class DocumentList extends Component {
             <th></th>
           </tr>
           {this.state.documents.map(document => (
-            <DocumentListItem isPM={this.state.isPM} docClass={document.docClass} fileName={document.fileName} />
+            <DocumentListItem docClass={document.docClass} fileName={document.fileName} />
           ))}
         </tbody>
       </Table>
