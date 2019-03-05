@@ -1,12 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Dashboard from './components/Dashboard.js'
+import { Provider } from 'react-redux'
+import { Route, Switch } from 'react-router'
+import { ConnectedRouter } from 'connected-react-router'
+import configureStore, { history } from './redux/configureStore'
+import { Dashboard } from './components'
+
+const store = configureStore()
 
 ReactDOM.render(
-  <Router onUpdate={() => window.scrollTo(0, 0)}>
-    <Route exact path="/" component={Dashboard} />
-  </Router>,
+  <Provider store={store}>
+    <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
+      <Switch>
+        <Route exact path="/" component={Dashboard} />
+      </Switch>
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById('root')
 )
-//ServiceWorker()
