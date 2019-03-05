@@ -32,7 +32,7 @@ Delete `backend/migrations`. However, you'll likely also run into the next issue
 Connect to Postgres and run the following: 
 
 ```SQL
-\c cpdb
+\c testdb
 
 DROP TABLE alembic_version;
 ```

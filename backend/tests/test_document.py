@@ -17,28 +17,72 @@ def test_index(client):
 
 
 def test_get_document(client):
-    rs = client.get("/documents")
-
-    assert rs.status_code == 200
+    rs = client.get("/document")
+    assert rs.status_code == 403
     ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-    assert ret_dict["result"]["documents"] == []
+    assert ret_dict["success"] == False
 
     # create Person and test whether it returns a person
     temp_document = Document(
         fileID="DunDunDun",
         userID="WompWomp",
         date=date.fromordinal(730920),
-        status="MyEnum.two",
-        docType="MyEnum.one",
-        docName="MyDoc.docx",
+        status="Pending",
+        docClass="MyEnum.one",
+        fileName="MyDoc.docx",
         latest=True,
         description="Yeet",
     )
     db.session.add(temp_document)
     db.session.commit()
 
-    rs = client.get("/documents")
+    rs = client.get("/document")
+    assert rs.status_code == 200
     ret_dict = rs.json
-    assert len(ret_dict["result"]["documents"]) == 1
-    assert ret_dict["result"]["documents"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["success"] == True
+    assert len(ret_dict["result"]["documents"]) == 4
+    assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
+
+    rs = client.get("/document?fid=jalkdf")
+    assert rs.status_code == 403
+
+    rs = client.get("/document?description=Ye")
+    ret_dict = rs.json
+    assert len(ret_dict["result"]["documents"]) == 4
+    assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
+
+    rs = client.get("/document?uid=WompWomp")
+    ret_dict = rs.json
+    assert len(ret_dict["result"]["documents"]) == 4
+    assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
+    assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
+    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
+
+
+def test_post_document(client):
+    rs = client.post("/document/new")
+    assert rs.status_code == 500
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == False
+
+    rs = client.post(
+        "/document/new",
+        content_type="application/json",
+        json={"userID": 7, "status": "Missing", "docClass": "Post Document Test File"},
+    )
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+
+    rs = client.post(
+        "/document/new",
+        content_type="application/json",
+        json={"status": "Missing", "docClass": "Post Document Test File"},
+    )
+    assert rs.status_code == 422
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == False

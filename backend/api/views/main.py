@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import Person, Document, Message, FieldPartner, PortfolioManager
+from api.models import Person, Document, Message, FieldPartner, PortfolioManager, db
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -40,11 +40,104 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
+<<<<<<< HEAD
 # function that is called when you visit /documents
 @main.route("/documents", methods=["GET"])
+=======
+# function that is called when you visit /documetns
+@main.route("/document", methods=["GET"])
+>>>>>>> f3001521b1180c091c2a8d1929d265a617b6a754
 def get_document():
-    docs = Document.query.all()
-    return create_response(data={"documents": serialize_list(docs)})
+    kwargs = {}
+    kwargs["fileID"] = request.args.get("fid")
+    kwargs["userID"] = request.args.get("uid")
+    kwargs["status"] = request.args.get("status")
+    kwargs["docClass"] = request.args.get("docClass")
+    kwargs["fileName"] = request.args.get("fileName")
+    kwargs["latest"] = request.args.get("latest")
+    date = request.args.get("date")
+    description = request.args.get("description")
+    kwargs = {k: v for k, v in kwargs.items() if v is not None}
+    if len(kwargs) == 0:
+        docs = Document.query.all()
+        if description is not None:
+            docs = [i for i in docs if description.lower() in i.description.lower()]
+        if date is not None:
+            docs = [i for i in docs if date.lower() in str(i.date).lower()]
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="Query was incorrect")
+
+        pending = [i for i in docs if i.status == "Pending"]
+        verified = [i for i in docs if i.status == "Approved"]
+        missing = [i for i in docs if i.status == "Missing"]
+        rejected = [i for i in docs if i.status == "Rejected"]
+        return create_response(
+            status=200,
+            data={
+                "documents": {
+                    "Pending": serialize_list(pending),
+                    "Approved": serialize_list(verified),
+                    "Missing": serialize_list(missing),
+                    "Rejected": serialize_list(rejected),
+                }
+            },
+        )
+    else:
+        docs = Document.query.filter_by(**kwargs)
+        if description is not None:
+            docs = [i for i in docs if description.lower() in i.description.lower()]
+        if date is not None:
+            docs = [i for i in docs if date.lower() in str(i.date).lower()]
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="Query was incorrect")
+
+        pending = [i for i in docs if i.status == "Pending"]
+        verified = [i for i in docs if i.status == "Approved"]
+        missing = [i for i in docs if i.status == "Missing"]
+        rejected = [i for i in docs if i.status == "Rejected"]
+        return create_response(
+            status=200,
+            data={
+                "documents": {
+                    "Pending": serialize_list(pending),
+                    "Approved": serialize_list(verified),
+                    "Missing": serialize_list(missing),
+                    "Rejected": serialize_list(rejected),
+                }
+            },
+        )
+
+
+# function that is called when you visit /documetns
+@main.route("/document/new", methods=["POST"])
+def create_new_document():
+    data = request.get_json()
+    logger.info(data)
+    if "userID" not in data:
+        return create_response(
+            status=422, message="No UserID provided for new Document"
+        )
+    if "status" not in data:
+        return create_response(
+            status=422, message="No Status provided for new Document"
+        )
+    if "docClass" not in data:
+        return create_response(
+            status=422, message="No Document Class provided for new Document"
+        )
+    sample_args = request.args
+    new_data = Document(**data)
+    db.session.add(new_data)
+    db.session.commit()
+    return create_response(status=200, message="success")
+
+
+# function that is called when you visit /documetns
+# @main.route("/document/update", methods=["PUT"])
+# def create_new_document():
+#     data = request.get_json()
+
+#     return create_response(status=200, message="success")
 
 
 # function that is called when you visit /field_partner
