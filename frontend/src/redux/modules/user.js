@@ -1,5 +1,5 @@
 export const user = {
-  isPM: true
+  isPM: false
 }
 
 export default function reducer(state = user, action) {
