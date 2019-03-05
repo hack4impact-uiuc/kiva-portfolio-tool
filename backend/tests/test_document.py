@@ -61,3 +61,28 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
     assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
+
+
+def test_post_document(client):
+    rs = client.post("/document/new")
+    assert rs.status_code == 500
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == False
+
+    rs = client.post(
+        "/document/new",
+        content_type="application/json",
+        json={"userID": 7, "status": "Missing", "docClass": "Post Document Test File"},
+    )
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+
+    rs = client.post(
+        "/document/new",
+        content_type="application/json",
+        json={"status": "Missing", "docClass": "Post Document Test File"},
+    )
+    assert rs.status_code == 422
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == False

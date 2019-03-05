@@ -107,6 +107,7 @@ def get_document():
 @main.route("/document/new", methods=["POST"])
 def create_new_document():
     data = request.get_json()
+    logger.info(data)
     if "userID" not in data:
         return create_response(
             status=422, message="No UserID provided for new Document"
