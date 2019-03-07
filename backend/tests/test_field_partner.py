@@ -68,7 +68,7 @@ def test_get_fp_by_id(client):
 
     print(temp_field_partner)
     print(temp_field_partner.id)
-    url = "/field_partner/" + temp_field_partner.id
+    url = "/field_partner/get/id/" + temp_field_partner.id
     print(url)
     rs = client.get(url)
 
@@ -92,7 +92,7 @@ def test_get_fp_by_email(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    url = "/field_partner/" + temp_field_partner.email
+    url = "/field_partner/get/email/" + temp_field_partner.email
     rs = client.get(url)
 
     assert rs.status_code == 200
@@ -115,7 +115,7 @@ def test_get_fp_by_pm(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    url = "/field_partner_pm/" + helper_portfolio_manager.id
+    url = "/field_partner/get/pm/" + helper_portfolio_manager.id
     rs = client.get(url)
 
     assert rs.status_code == 200

@@ -135,28 +135,29 @@ def create_new_document():
 #     return create_response(status=200, message="success")
 
 
-# function that is called when you visit /field_partner
+# function that is called when you visit /field_partner, gets all the FPs
 @main.route("/field_partner", methods=["GET"])
 def get_field_partner():
     field_partner = FieldPartner.query.all()
     return create_response(data={"field_partner": serialize_list(field_partner)})
 
 
-# function that is called when you visit /field_partner/<id> that gets a field partner by id
-@main.route("/field_partner/<id>", methods=["GET"])
+# function that is called when you visit /field_partner/get/id/<id> that gets a field partner by id
+@main.route("/field_partner/get/id/<id>", methods=["GET"])
 def get_fp_by_id(id):
     field_partner_by_id = FieldPartner.query.get(id)
     return create_response(data={"field_partner": serialize_list(field_partner_by_id)})
 
-# function that is called when you visit /field_partner/<email>, gets an FP by email
-@main.route("/field_partner/<email>", methods=["GET"])
-def get_fp_by_email(email):
-    field_partner_by_email = session.query(FieldPartner).filter_by(email = email)
+# function that is called when you visit /field_partner/get/email/<email>, gets an FP by email
+@main.route("/field_partner/get/email/<email>", methods=["GET"])
+def get_fp_by_email(input_email):
+    # field_partner_by_email = session.query(FieldPartner).filter_by(email = str(input_email))
+    field_partner_by_email = FieldPartner.query.filter((FieldPartner.email == str(input_email))).first()
     return create_response(data={"field_partner": serialize_list(field_partner_by_email)})
 
 
-# function that is called when you visit /field_partner_pm/<pm_id>, filters FPs by PM IDs
-@main.route("/field_partner_pm/<pm_id>", methods=["GET"])
+# function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs
+@main.route("/field_partner/get/pm/<pm_id>", methods=["GET"])
 def get_fp_by_pm(pm_id):
     filed_partner_list = session.query(FieldPartner).filter_by(pm_id = pm_id)
     return create_response(data={"field_partner": serialize_list(filed_partner_list)})
@@ -183,26 +184,26 @@ def get_fp_by_pm(pm_id):
 #     return create_response(data={"portfolio_manager": serialize_list(portfolio_manager_by_email)})
 
 # function that is called when you visit /portfolio_manager/<id>/add, adds an FP to the PM's list of FPs
-@main.route("/portfolio_manager/<id>/add", methods=["POST"])
-def add_fp(id):
-    pm = PortFolioManager.query.get(id)
+# @main.route("/portfolio_manager/<id>/add", methods=["POST"])
+# def add_fp(id):
+#     pm = PortFolioManager.query.get(id)
 
-    email = request.get_json().get('email', '')
-    org_name = request.get_json().get('org_name', '')
+#     email = request.get_json().get('email', '')
+#     org_name = request.get_json().get('org_name', '')
 
-    new_fp = FieldPartner(
-        email=email,
-        org_name=org_name,
-        pm_id=pm.pm_id,
-        app_status="Not started",
-    )
+#     new_fp = FieldPartner(
+#         email=email,
+#         org_name=org_name,
+#         pm_id=pm.pm_id,
+#         app_status="Not started",
+#     )
 
-    added_fp = db.create("field_partner", new_fp)
-    return create_response(data={"field_partner": added_fp})
+#     added_fp = db.create("field_partner", new_fp)
+#     return create_response(data={"field_partner": added_fp})
 
-# function that is called when you visit /portfolio_manager/<id>/<fp_id>, updates an FP's info from the PM's list of FPs
-@main.route("/portfolio_manager/<id>/<fp_id>", methods=["PUT"])
-def update_fp(fp_id):
-    # new_email = request.get_json().get("email","")
-    # new_org_name = request.get_json().get("org_name","")
-    # update_app_status = request.get_json().get("app_status","")
+# # function that is called when you visit /portfolio_manager/<id>/<fp_id>, updates an FP's info from the PM's list of FPs
+# @main.route("/portfolio_manager/<id>/<fp_id>", methods=["PUT"])
+# def update_fp(fp_id):
+#     # new_email = request.get_json().get("email","")
+#     # new_org_name = request.get_json().get("org_name","")
+#     # update_app_status = request.get_json().get("app_status","")
