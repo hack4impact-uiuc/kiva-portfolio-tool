@@ -1,36 +1,33 @@
-/*
-EXAMPLE CODE
-*/
-
-//import { ADMIN_KEY } from '../../keys'
-
 const LOGIN = 'auth/login'
-const LOAD_UPDATES = 'auth/load_updates'
 const LOAD = 'auth/begin_loading'
+const LOAD_UPDATES = 'auth/load_updates'
 
 const initialState = {
-  authenticated: false,
-  updates: {},
-  loading: false
+  verified: false
+  // May need for later
+  /* loading: false
+  updates: {} */
 }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
       return {
-        ...state
-        //authenticated: action.value === ADMIN_KEY
+        ...state,
+        verified: action.value
+      }
+
+    // May need Load for later
+    /* case LOAD:
+      return {
+        ...state,
+        loading: action.value
       }
     case LOAD_UPDATES:
       return {
         ...state,
         updates: action.value
-      }
-    case LOAD:
-      return {
-        ...state,
-        loading: action.value
-      }
+      } */
     default:
       return state
   }
@@ -41,7 +38,8 @@ export const login = value => ({
   value
 })
 
-export const loadUpdates = value => ({
+// May need for later
+/* export const loadUpdates = value => ({
   type: LOAD_UPDATES,
   value
 })
@@ -54,4 +52,4 @@ export const beginLoading = () => ({
 export const endLoading = () => ({
   type: LOAD,
   value: false
-})
+}) */
