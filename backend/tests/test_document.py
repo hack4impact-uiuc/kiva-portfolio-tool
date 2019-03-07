@@ -86,3 +86,70 @@ def test_post_document(client):
     assert rs.status_code == 422
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
+
+
+def test_delete_document(client):
+    rs = client.post(
+        "/document/new",
+        content_type="application/json",
+        json={"userID": 8, "status": "Missing", "docClass": "Post Document Test File"},
+    )
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+
+    rs = client.delete("/document/delete/PostDocumentestFile")
+    assert rs.status_code == 500
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == False
+
+    rs = client.delete("/document/delete/Post%20Document%20Test%20File")
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+
+
+def test_put_document(client):
+    rs = client.post(
+        "/document/new",
+        content_type="application/json",
+        json={"userID": 9, "status": "Missing", "docClass": "Test File"},
+    )
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+
+    rs = client.put(
+        "/document/update/Postadfa",
+        content_type="application/json",
+        json={
+            "status": "Pending",
+            "docClass": "PostDocumentTestFile",
+            "description": "Super Duper LMAO",
+        },
+    )
+    assert rs.status_code == 500
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == False
+
+    rs = client.put(
+        "/document/update/Test%20File",
+        content_type="application/json",
+        json={
+            "status": "Pending",
+            "docClass": "PostDocumentTestFile",
+            "description": "Super Duper LMAO",
+        },
+    )
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+
+    rs = client.get("/document?description=LMAO")
+    ret_dict = rs.json
+    # logger.info(ret_dict)
+    assert (
+        ret_dict["result"]["documents"]["Pending"][0]["docClass"]
+        == "PostDocumentTestFile"
+    )
+    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
