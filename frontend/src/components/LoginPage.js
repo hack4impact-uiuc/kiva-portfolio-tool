@@ -1,4 +1,4 @@
-import React, { Component }  from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Popup } from 'react-popup'
@@ -22,28 +22,26 @@ const mapDispatchToProps = dispatch => {
     },
     dispatch
   )
-} 
-
-
+}
 
 class LoginPage extends Component {
-	constructor(props) {
-		super(props)
+  constructor(props) {
+    super(props)
 
-		this.state = {
-			password: '',
-			email: '',
-			valid: ['pm@kiva.com', 'fp@kiva.com', 'kiva']
-		}
-	}
+    this.state = {
+      password: '',
+      email: '',
+      valid: ['pm@kiva.com', 'fp@kiva.com', 'kiva']
+    }
+  }
 
-	updatePassword = event => {
-		this.setState({ password: event.target.value })
-	}
+  updatePassword = event => {
+    this.setState({ password: event.target.value })
+  }
 
-	updateEmail = event => {
-		this.setState({ email: event.target.value })
-	}
+  updateEmail = event => {
+    this.setState({ email: event.target.value })
+  }
 
 	verify = event => {
 
@@ -58,34 +56,31 @@ class LoginPage extends Component {
 		/* else{
 			alert('Email or password is invalid.\nPlease try again.')
 		} */
+  }
 
-	}
-
-	render() {
-		return (
-			<div>
-				<div style={{paddingLeft: '5%'}}
-				>
-					<p>Kiva</p>
-				</div>
-				<form onSubmit={this.verify}>
-					<span> Email: </span>
-					<input onChange={this.updateEmail} />
-					<br></br>
-					<span> Password: </span>
-					<input onChange={this.updatePassword} />
-					<br></br>
-					<Button type="submit" onClick={this.verify}>
-						Sign In
-					</Button>
-				</form>
-			</div>
-		)
-	}
+  render() {
+    return (
+      <div>
+        <div style={{ paddingLeft: '5%' }}>
+          <p>Kiva</p>
+        </div>
+        <form onSubmit={this.verify}>
+          <span> Email: </span>
+          <input onChange={this.updateEmail} />
+          <br />
+          <span> Password: </span>
+          <input onChange={this.updatePassword} />
+          <br />
+          <Button type="submit" onClick={this.verify}>
+            Sign In
+          </Button>
+        </form>
+      </div>
+    )
+  }
 }
 
-
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(LoginPage)

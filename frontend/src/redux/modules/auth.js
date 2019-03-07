@@ -1,10 +1,9 @@
-
 const LOGIN = 'auth/login'
 const LOAD = 'auth/begin_loading'
-const LOAD_UPDATES = 'auth/load_updates' 
+const LOAD_UPDATES = 'auth/load_updates'
 
 const initialState = {
-  verified: false,
+  verified: false
   // May need for later
   /* loading: false
   updates: {} */
