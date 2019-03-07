@@ -13,7 +13,7 @@ def create_pm():
     helper_arr_fps.append("f234")
     helper_arr_fps.append("f345")
     helper_portfolio_manager = PortfolioManager(
-        email="test@gmail.com", name="Tim", list_of_fps=helper_arr_fps
+        email="hello", name="Tim", list_of_fps=helper_arr_fps
     )
 
     return helper_portfolio_manager
@@ -75,13 +75,14 @@ def test_get_fp_by_id(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["field_partner"] == []
 
-    assert len(ret_dict["result"]["field_partner"]) == 1
-    assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
-    assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
-    assert ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
-    assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
+    print(ret_dict)
+
+    assert len(ret_dict["result"]["field_partner"]) == 5
+    assert ret_dict["result"]["field_partner"]["email"] == "test@gmail.com"
+    assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
+    assert ret_dict["result"]["field_partner"]["pm_id"] == helper_portfolio_manager.id
+    assert ret_dict["result"]["field_partner"]["app_status"] == "Completed"
 
 def test_get_fp_by_email(client):
     helper_portfolio_manager = create_pm()
@@ -98,7 +99,6 @@ def test_get_fp_by_email(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["field_partner"] == []
 
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
@@ -121,7 +121,6 @@ def test_get_fp_by_pm(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["field_partner"] == []
 
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
