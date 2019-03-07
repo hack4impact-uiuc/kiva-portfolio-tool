@@ -64,4 +64,3 @@ class Message(Mixin, db.Model):
         self.comment += (
             "\n" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + comment
         )
-

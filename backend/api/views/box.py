@@ -14,18 +14,23 @@ TODO:   AUTHENTICATE USERS USING JWT
         PUSH INFORMATION TO FRONTEND
 """
 
+
 def create_client():
     """
     Authenticate the user using the JWT.
     ### Return box client
     """
-    sdk = JWTAuth.from_settings_file('/171399529_73anvn29_config.json') 
+    sdk = JWTAuth.from_settings_file("/171399529_73anvn29_config.json")
     client = Client(sdk)
     return client
 
+
 SPACE = 1073741824
+
+
 def create_user(username):
     user = client.create_user(username, None, space_amount=SPACE)
+
 
 def get_user_information(client, user_id):
     """
@@ -66,45 +71,54 @@ def upload_file(client, file_path, file_name, folder_id):
     box_file = client.folder(folder_id).upload(file_path, file_name)
     return box_file
 
+
 def get_file_info(client, file_id):
     file_info = client.file(file_id).get()
-    
+
     return file_info
+
 
 def download_file(client, file_id):
     box_file = client.file(file_id).get()
-    output_file = open(box_file.name, 'wb')
+    output_file = open(box_file.name, "wb")
     box_file.download_to(output_file)
 
     return output_file
 
+
 def delete_file(client, file_id):
     client.file(file_id).delete()
 
+
 def add_comment(client, file_id, message):
     comment = client.file(file_id).add_comment(message)
-    
+
     return comment
+
 
 def get_comment(client, comment_id):
     comment = client.comment(comment_id).get()
 
     return comment
 
+
 def update_comment(client, comment_id, new_message):
     edited_comment = client.comment(comment_id).edit(new_message)
 
     return edited_comment
 
+
 def delete_comment(client, comment_id):
     client.comment(comment_id).delete()
 
+
 def create_link(client, file_id):
-    access_level = 'open'
+    access_level = "open"
     file = client.file(file_id)
     link = file.get_shared_link(access=access_level)
 
     return link
+
 
 def find_files_by_content(client, content_query):
     """
