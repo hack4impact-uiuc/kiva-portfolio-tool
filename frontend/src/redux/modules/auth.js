@@ -1,17 +1,11 @@
-/*
-EXAMPLE CODE
-*/
-
-//import { ADMIN_KEY } from '../../keys'
 
 const LOGIN = 'auth/login'
-const CHECK = 'auth/check'
 const LOAD = 'auth/begin_loading'
 const LOAD_UPDATES = 'auth/load_updates' 
 
 const initialState = {
   verified: false,
-  isPM: false,
+  // May need for later
   /* loading: false
   updates: {} */
 }
@@ -23,11 +17,8 @@ export default function reducer(state = initialState, action) {
         ...state,
         verified: action.value
       }
-    case CHECK:
-      return {
-        ...state,
-        isPM: action.value
-      }
+
+    // May need Load for later
     /* case LOAD:
       return {
         ...state,
@@ -48,11 +39,7 @@ export const login = value => ({
   value
 })
 
-export const check = value => ({
-  type: CHECK,
-  value
-})
-
+// May need for later
 /* export const loadUpdates = value => ({
   type: LOAD_UPDATES,
   value

@@ -4,18 +4,19 @@ import { Link } from 'react-router-dom'
 import { Popup } from 'react-popup'
 import { Alert, Button } from 'reactstrap'
 import { bindActionCreators } from 'redux'
-import { login, check } from '../redux/modules/auth'
+import { login } from '../redux/modules/auth'
+import { setUserType } from '../redux/modules/user'
 
 const mapStateToProps = state => ({
   verified: state.auth.verified,
-  isPM: state.auth.isPM
+  isPM: state.user.isPM
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       login,
-      check
+      setUserType
       /* beginLoading,
       endLoading */
     },
@@ -32,7 +33,7 @@ class LoginPage extends Component {
 		this.state = {
 			password: '',
 			email: '',
-			valid: ['pm@kiva.com', 'fm@kiva.com', 'kiva']
+			valid: ['pm@kiva.com', 'fp@kiva.com', 'kiva']
 		}
 	}
 
@@ -47,13 +48,13 @@ class LoginPage extends Component {
 	verify = event => {
 		/* this.props.beginLoading() */
 		this.props.login(this.state.valid.indexOf(this.state.email) > -1 && this.state.valid.indexOf(this.state.password) > -1)
-		this.props.check(this.state.email === "pm@kiva.com" && this.state.password === "kiva")
+		this.props.setUserType(this.state.email === "pm@kiva.com" && this.state.password === "kiva")
 		if (this.props.verified === true) {
 			this.props.history.push('/dashboard')
 		}
-		else{
+		/* else{
 			alert('Email or password is invalid.\nPlease try again.')
-		}
+		} */
 
 	}
 
