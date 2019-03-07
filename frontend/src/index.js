@@ -5,6 +5,8 @@ import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './redux/configureStore'
 import { Dashboard } from './components'
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import './styles/index.scss'
 
 const store = configureStore()
 
