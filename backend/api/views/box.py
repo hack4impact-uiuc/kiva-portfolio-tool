@@ -73,6 +73,9 @@ def upload_file(client, file_path, file_name, folder_id):
 
 
 def get_file_info(client, file_id):
+    """
+    get file info
+    """
     file_info = client.file(file_id).get()
 
     return file_info
