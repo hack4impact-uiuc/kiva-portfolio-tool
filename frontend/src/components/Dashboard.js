@@ -55,9 +55,11 @@ class Dashboard extends React.Component {
       <div>
         {Object.keys(this.state.documents).map(key => {
           return (
-            <p>
-              <DocumentList documents={this.state.documents[key]} status={key} />
-            </p>
+            <DocumentList
+              isPM={this.state.isPM}
+              documents={this.state.documents[key]}
+              status={key}
+            />
           )
         })}
       </div>

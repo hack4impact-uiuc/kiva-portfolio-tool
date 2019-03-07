@@ -8,6 +8,8 @@ import {
   Dashboard,
   LoginPage
  } from './components'
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import './styles/index.scss'
 
 const store = configureStore()
 
