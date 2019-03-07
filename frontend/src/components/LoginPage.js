@@ -1,23 +1,27 @@
 import React, { Component }  from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Popup } from 'react-popup'
 import { Alert, Button } from 'reactstrap'
-// import { bindActionCreators } from 'redux'
-//import { login, beginLoading, endLoading } from '../redux/modules/verification'
+import { bindActionCreators } from 'redux'
+import { login, check } from '../redux/modules/auth'
 
-/* const mapStateToProps = state => ({
-  verified: state.verification.verified
+const mapStateToProps = state => ({
+  verified: state.auth.verified,
+  isPM: state.auth.isPM
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       login,
-      beginLoading,
-      endLoading
+      check
+      /* beginLoading,
+      endLoading */
     },
     dispatch
   )
-} */
+} 
 
 
 
@@ -28,8 +32,7 @@ class LoginPage extends Component {
 		this.state = {
 			password: '',
 			email: '',
-			verified: false,
-			pm: false
+			valid: ['pm@kiva.com', 'fm@kiva.com', 'kiva']
 		}
 	}
 
@@ -42,12 +45,16 @@ class LoginPage extends Component {
 	}
 
 	verify = event => {
-		this.setState({ verified: this.state.email === "portfolioManager@kiva.com" && this.state.password === "kiva"})
-		this.setState({ pm: this.state.email === "portfolioManager@kiva.com"})
-		/*this.props.login(this.state.password)
-		this.props.beginLoading()
-		this.props.endLoading()
-	*/
+		/* this.props.beginLoading() */
+		this.props.login(this.state.valid.indexOf(this.state.email) > -1 && this.state.valid.indexOf(this.state.password) > -1)
+		this.props.check(this.state.email === "pm@kiva.com" && this.state.password === "kiva")
+		if (this.props.verified === true) {
+			this.props.history.push('/dashboard')
+		}
+		else{
+			alert('Email or password is invalid.\nPlease try again.')
+		}
+
 	}
 
 	render() {
@@ -67,9 +74,6 @@ class LoginPage extends Component {
 					<Button type="submit" onClick={this.verify}>
 						Sign In
 					</Button>
-					<Alert color="success" isOpen={this.state.verified && this.state.pm}>
-						{this.state.verified && this.state.pm ? 'Successful Login!' : 'Failed to Login' }
-					</Alert>
 				</form>
 			</div>
 		)
@@ -77,4 +81,7 @@ class LoginPage extends Component {
 }
 
 
-export default LoginPage
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(LoginPage)
