@@ -12,6 +12,8 @@ from boxsdk import Client
 TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
         PUSH INFORMATION TO FRONTEND
 """
+
+# One time authentication for the application
 _CRED_FILE = "/171399529_73anvn29_config.json"
 
 
@@ -25,6 +27,7 @@ def create_client():
     return client
 
 
+# enough space for user
 SPACE = 1073741824
 
 
