@@ -13,13 +13,13 @@ class PortfolioManager(Mixin, db.Model):
     id = db.Column(db.String, unique=True, primary_key=True)
     email = db.Column(db.String)
     name = db.Column(db.String)
-    list_of_fps = db.Column(ARRAY(db.String), nullable=True)
+    list_of_FPs = db.Column(ARRAY(db.String), nullable=True)
 
-    def __init__(self, email, name, list_of_fps):
+    def __init__(self, email, name, list_of_FPs):
         self.id = "p" + str(uuid.uuid4())
         self.email = email
         self.name = name
-        self.list_of_fps = list_of_fps
+        self.list_of_FPs = list_of_FPs
 
     def __repr__(self):
         return f"<Portfolio Manager\nID: {self.id}\nEmail: {self.email}\nName: {self.name}\nList of FPs: {self.list_of_fps}>"
