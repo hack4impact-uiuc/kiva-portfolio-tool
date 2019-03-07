@@ -161,8 +161,32 @@ def get_fp_by_pm(pm_id):
     field_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
     return create_response(data={"field_partner": serialize_list(field_partner_list)})
 
+# function that is called when you visit /field_partner/new, creates a new FP
+@main.route("/field_partner/new", methods=["POST"])
+def new_fp():
+    data = request.get_json()
+    logger.info(data)
+    if "email" not in data:
+        return create_response(
+            status=422, message="No email provided for new FP"
+        )
+    if "org_name" not in data:
+        return create_response(
+            status=422, message="No organization name provided for new FP"
+        )
+    if "pm_id" not in data:
+        return create_response(
+            status=422, message="No PM ID provided for new FP"
+        )
+    if "app_status" not in data:
+        return create_response(
+            status=422, message="No application status provided for new FP"
+        )
+    sample_args = request.args
+    new_fp = FieldPartner(**data)
+    return create_response(data={"field_partner": new_fp.to_dict()})
 
-# --------- all part of PM tests... not sure if should test -----------------------------------------
+# --------- PM endpoints. Will implement tests after MVP -------------------------------------
 
 # function that is called when you visit /portfolio_manager
 @main.route("/portfolio_manager", methods=["GET"])
@@ -182,24 +206,23 @@ def get_pm_by_email(email):
     portfolio_manager_by_email = PortfolioManager.query.filter(PortfolioManager.email == email)
     return create_response(data={"portfolio_manager": serialize_list(portfolio_manager_by_email)})
 
-# function that is called when you visit /portfolio_manager/add<id>, adds an FP to the PM's list of FPs
-# @main.route("/portfolio_manager/add/<id>", methods=["POST"])
-# def add_fp(id):
+# function that is called when you visit /portfolio_manager/add<id>, adds an existing FP to the PM's list of FPs
+@main.route("/portfolio_manager/add/<id>", methods=["POST"])
+def add_fp(id):
+    pm = PortFolioManager.query.get(id)
 
-#     pm = PortFolioManager.query.get(id)
+    email = request.get_json().get('email', '')
+    org_name = request.get_json().get('org_name', '')
 
-#     email = request.get_json().get('email', '')
-#     org_name = request.get_json().get('org_name', '')
+    new_fp = FieldPartner(
+        email=email,
+        org_name=org_name,
+        pm_id=pm.pm_id,
+        app_status="Not started",
+    )
 
-#     new_fp = FieldPartner(
-#         email=email,
-#         org_name=org_name,
-#         pm_id=pm.pm_id,
-#         app_status="Not started",
-#     )
-
-#     added_fp = db.create("field_partner", new_fp)
-#     return create_response(data={"field_partner": added_fp})
+    added_fp = db.create("field_partner", new_fp)
+    return create_response(data={"field_partner": added_fp})
 
 # # function that is called when you visit /portfolio_manager/<id>/<fp_id>, updates an FP's info from the PM's list of FPs
 # @main.route("/portfolio_manager/<id>/<fp_id>", methods=["PUT"])
