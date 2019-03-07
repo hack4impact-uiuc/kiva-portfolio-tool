@@ -149,38 +149,38 @@ def get_fp_by_id(id):
     return create_response(data={"field_partner": field_partner_by_id.to_dict()})
 
 # function that is called when you visit /field_partner/get/email/<email>, gets an FP by email
-@main.route("/field_partner/get/email/<input_email>", methods=["GET"])
-def get_fp_by_email(input_email):
-    field_partner_by_email = FieldPartner.query.filter(FieldPartner.email == input_email)
+@main.route("/field_partner/get/email/<email>", methods=["GET"])
+def get_fp_by_email(email):
+    field_partner_by_email = FieldPartner.query.filter(FieldPartner.email == email)
     return create_response(data={"field_partner": serialize_list(field_partner_by_email)})
 
 
 # function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs
 @main.route("/field_partner/get/pm/<pm_id>", methods=["GET"])
 def get_fp_by_pm(pm_id):
-    filed_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id)
+    field_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
     return create_response(data={"field_partner": serialize_list(field_partner_list)})
 
 
 # --------- all part of PM tests... not sure if should test -----------------------------------------
 
-# # function that is called when you visit /portfolio_manager
-# @main.route("/portfolio_manager", methods=["GET"])
-# def get_portfolio_manager():
-#     portfolio_manager = PortFolioManager.query.all()
-#     return create_response(data={"portfolio_manager": serialize_list(portfolio_manager)})
+# function that is called when you visit /portfolio_manager
+@main.route("/portfolio_manager", methods=["GET"])
+def get_portfolio_manager():
+    portfolio_manager = PortFolioManager.query.all()
+    return create_response(data={"portfolio_manager": serialize_list(portfolio_manager)})
 
-# # function that is called when you visit /portfolio_manager/<id> that gets a portfolio manager by id
-# @main.route("/portfolio_manager/<id>", methods=["GET"])
-# def get_pm_by_id(id):
-#     portfolio_manager_by_id = PortFolioManager.query.get(id)
-#     return create_response(data={"portfolio_manager": serialize_list(portfolio_manager_by_id)})
+# function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id
+@main.route("/portfolio_manager/get/id/<id>", methods=["GET"])
+def get_pm_by_id(id):
+    portfolio_manager_by_id = PortfolioManager.query.get(id)
+    return create_response(data={"portfolio_manager": portfolio_manager_by_id.to_dict()})
 
-# # function that is called when you visit /portfolio_manager/<email>, gets a PM by email
-# @main.route("/portfolio_manager_by_id/<email>", methods=["GET"])
-# def get_pm_by_email(email):
-#     portfolio_manager_by_email = session.query(PortFolioManager).filter_by(email = email)
-#     return create_response(data={"portfolio_manager": serialize_list(portfolio_manager_by_email)})
+# function that is called when you visit /portfolio_manager/<email>, gets a PM by email
+@main.route("/portfolio_manager_by_id/get/email/<email>", methods=["GET"])
+def get_pm_by_email(email):
+    portfolio_manager_by_email = PortfolioManager.query.filter(PortfolioManager.email == email)
+    return create_response(data={"portfolio_manager": serialize_list(portfolio_manager_by_email)})
 
 # function that is called when you visit /portfolio_manager/add<id>, adds an FP to the PM's list of FPs
 # @main.route("/portfolio_manager/add/<id>", methods=["POST"])

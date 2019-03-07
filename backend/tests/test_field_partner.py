@@ -123,6 +123,10 @@ def test_get_fp_by_pm(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
+    temp_field_partner1 = create_fp(helper_portfolio_manager)
+    db.session.add(temp_field_partner1)
+    db.session.commit()
+
     url = "/field_partner/get/pm/" + helper_portfolio_manager.id
     rs = client.get(url)
 
@@ -130,8 +134,13 @@ def test_get_fp_by_pm(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["field_partner"]) == 1
+    assert len(ret_dict["result"]["field_partner"]) == 2
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
     assert ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
+
+    assert ret_dict["result"]["field_partner"][1]["email"] == "test@gmail.com"
+    assert ret_dict["result"]["field_partner"][1]["org_name"] == "hack4impact"
+    assert ret_dict["result"]["field_partner"][1]["pm_id"] == helper_portfolio_manager.id
+    assert ret_dict["result"]["field_partner"][1]["app_status"] == "Completed"
