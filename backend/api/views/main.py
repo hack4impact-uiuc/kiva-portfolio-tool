@@ -149,18 +149,17 @@ def get_fp_by_id(id):
     return create_response(data={"field_partner": field_partner_by_id.to_dict()})
 
 # function that is called when you visit /field_partner/get/email/<email>, gets an FP by email
-@main.route("/field_partner/get/email/<email>", methods=["GET"])
+@main.route("/field_partner/get/email/<input_email>", methods=["GET"])
 def get_fp_by_email(input_email):
-    # field_partner_by_email = session.query(FieldPartner).filter_by(email = str(input_email))
-    field_partner_by_email = FieldPartner.query.filter((FieldPartner.email == str(input_email))).first()
-    return create_response(data={"field_partner": field_partner_by_email.to_dict()})
+    field_partner_by_email = FieldPartner.query.filter(FieldPartner.email == input_email)
+    return create_response(data={"field_partner": serialize_list(field_partner_by_email)})
 
 
 # function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs
 @main.route("/field_partner/get/pm/<pm_id>", methods=["GET"])
 def get_fp_by_pm(pm_id):
-    filed_partner_list = session.query(FieldPartner).filter_by(pm_id = pm_id)
-    return create_response(data={"field_partner": filed_partner_list.to_dict()})
+    filed_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id)
+    return create_response(data={"field_partner": serialize_list(field_partner_list)})
 
 
 # --------- all part of PM tests... not sure if should test -----------------------------------------

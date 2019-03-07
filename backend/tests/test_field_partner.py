@@ -58,6 +58,9 @@ def test_get_field_partner(client):
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
 
 def test_get_fp_by_id(client):
+    db.session.query(FieldPartner).delete()
+    db.session.query(PortfolioManager).delete()
+    
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -85,6 +88,9 @@ def test_get_fp_by_id(client):
     assert ret_dict["result"]["field_partner"]["app_status"] == "Completed"
 
 def test_get_fp_by_email(client):
+    db.session.query(FieldPartner).delete()
+    db.session.query(PortfolioManager).delete()
+
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -99,6 +105,8 @@ def test_get_fp_by_email(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
+
+    print(ret_dict)
 
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
