@@ -9,10 +9,10 @@ from boxsdk import JWTAuth
 from boxsdk import Client
 
 """
-TODO:   AUTHENTICATE USERS USING JWT
-        RETRIEVE INFORMATION FROM BACKEND TABLE
+TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
         PUSH INFORMATION TO FRONTEND
 """
+_CRED_FILE = "/171399529_73anvn29_config.json"
 
 
 def create_client():
@@ -20,7 +20,7 @@ def create_client():
     Authenticate the user using the JWT.
     ### Return box client
     """
-    sdk = JWTAuth.from_settings_file("/171399529_73anvn29_config.json")
+    sdk = JWTAuth.from_settings_file(_CRED_FILE)
     client = Client(sdk)
     return client
 

@@ -9,19 +9,10 @@ class Message(Mixin, db.Model):
 
     __tablename__ = "message"
 
-    """
-    temporarily removed ForeignKey
-    TODO: uncomment the foreign key and add it as a parameter when PortfolioManager and FieldPartner are added
-    """
-
     pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
     fp_id = db.Column(db.String, db.ForeignKey("field_partner.id"))
     to_fp = db.Column(db.Boolean)  # true if send to fp; false if send to pm
 
-    """ 
-    temporarily a primary key 
-    TODO: erase this primary key when PortfolioManager and FieldPartner are added
-    """
     doc_id = db.Column(db.Integer, unique=True, primary_key=True)
     status = db.Column(db.String, unique=True)
     comment = db.Column(db.String, nullable=True)
