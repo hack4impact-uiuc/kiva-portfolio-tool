@@ -4,6 +4,14 @@
 
 Follow the instructions for your operating system's setup in the [Flask Boilerplate Wiki](https://github.com/tko22/flask-boilerplate/wiki).
 
+If you are running on Windows and using WSL to develop, you'll also need to install Postgres on your Ubuntu distribution for your tests to pass locally.
+
+To do so, run the following in bash:
+
+```
+sudo apt-get install postgresql
+```
+
 ## Database Setup
 
 The following should be run the first time you create the database as well as any time the structure of the database changes (i.e. changes to a file in `api/models`). Activate `venv` in the `backend` directory before running the following:
