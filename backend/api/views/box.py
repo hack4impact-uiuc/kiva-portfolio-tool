@@ -2,7 +2,10 @@ from boxsdk import Client, OAuth2
 from boxsdk.network.default_network import DefaultNetwork
 from boxsdk.exception import BoxAPIException
 
-from boxsdk import JWTAuth, Client
+from boxsdk import JWTAuth
+
+from io import BytesIO
+
 
 from flask import Blueprint, request
 from api.models.Message import Message
@@ -25,18 +28,9 @@ TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
 """
 
 # One time authentication for the application
-_CRED_FILE = "/171399529_73anvn29_config.json"
-
-
-def create_client():
-    """
-    Authenticate the user using the JWT.
-    ### Return box client
-    """
-    sdk = JWTAuth.from_settings_file(_CRED_FILE)
-    client = Client(sdk)
-    return client
-
+_CRED_FILE = "api/views/171399529_73anvn29_config.json"
+sdk = JWTAuth.from_settings_file(_CRED_FILE)
+client = Client(sdk)
 
 # enough space for user allocation
 SPACE = 1073741824
@@ -44,7 +38,7 @@ SPACE = 1073741824
 
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
-    config = json.load(open("/171399529_73anvn29_config.json"))
+    config = json.load(open("api/views/171399529_73anvn29_config.json"))
 
     keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
 
@@ -102,7 +96,18 @@ def get_access_token():
     request = Request(authentication_url, params)
     response = urlopen(request).read()
     access_token = json.loads(response)["access_token"]
-    return create_response(data={"access_token": serialize_list(access_token)})
+    return create_response(data={"access_token": access_token})
+
+
+@box.route("/box/file", methods=["POST"])
+def upload_file():
+    data = request.files.get("file")
+    file_name = request.form.get("file_name")
+    id = upload_file(data, file_name)
+    if id is not None:
+        return create_response(status=200, data={"id": id}, message="success")
+    else:
+        return create_response(status=400, message="Duplicate file name")
 
 
 def create_user(username):
@@ -138,15 +143,24 @@ def get_user_information(client, user_id):
     return info
 
 
-def upload_file(client, file_path, file_name, folder_id):
+def upload_file(file, file_name):
     """
     Upload the file with the given content and file.
     ### Return the id of the file if successful
     ### Return None if otherwise
     """
 
-    box_file = client.folder(folder_id).upload(file_path, file_name)
-    return box_file
+    stream = BytesIO()
+    stream.write(file.read())
+
+    stream.seek(0)
+    try:
+        box_file = client.folder("0").upload_stream(
+            stream, file_name, preflight_check=True
+        )
+        return box_file.id
+    except BoxAPIException:
+        return None
 
 
 def get_file_info(client, file_id):
@@ -158,7 +172,7 @@ def get_file_info(client, file_id):
     return file_info
 
 
-def download_file(client, file_id):
+def download_file(file_id):
     box_file = client.file(file_id).get()
     output_file = open(box_file.name, "wb")
     box_file.download_to(output_file)

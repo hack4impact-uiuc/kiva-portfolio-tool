@@ -48,6 +48,25 @@ export const getAllDocuments = () => {
     })
 }
 
+export const sendFile = (file, file_name) => {
+  let data = new FormData()
+  data.append('file', file)
+  data.append('file_name', file_name)
+  return axios
+    .post(BACKEND_URL + '/box/file', data)
+    .then(response => {
+      return {
+        type: 'UPLOAD_FILE_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPLOAD_FILE_FAIL',
+        error
+      }
+    })
+}
 /* export const getIncompleteGames = () => {
   let requestString = BACKEND_URL + '/games/incomplete?key=' + BACKEND_KEY
   return axios
