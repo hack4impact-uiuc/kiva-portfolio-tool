@@ -1,6 +1,5 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-let BOX_URL = 'https://upload.box.com/api/2.0/files/content'
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -52,9 +51,8 @@ export const getAllDocuments = () => {
 export const sendFile = file => {
   let data = new FormData()
   data.append('file', file)
-  data.append('name', 'test')
   return axios
-    .post(BOX_URL)
+    .post(BACKEND_URL + '/box/file')
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',
