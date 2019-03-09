@@ -26,17 +26,8 @@ TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
 
 # One time authentication for the application
 _CRED_FILE = "/171399529_73anvn29_config.json"
-
-
-def create_client():
-    """
-    Authenticate the user using the JWT.
-    ### Return box client
-    """
-    sdk = JWTAuth.from_settings_file(_CRED_FILE)
-    client = Client(sdk)
-    return client
-
+sdk = JWTAuth.from_settings_file(_CRED_FILE)
+client = Client(sdk)
 
 # enough space for user allocation
 SPACE = 1073741824
@@ -103,6 +94,15 @@ def get_access_token():
     response = urlopen(request).read()
     access_token = json.loads(response)["access_token"]
     return create_response(data={"access_token": serialize_list(access_token)})
+
+
+@box.route("/box/file", methods=["POST"])
+def upload_file():
+    data = request.get_json()
+    file_name = data["file_name"]
+    print("hi")
+    box_file = upload_file(client, file_path, file_name, 0)
+    return create_response(status=200, message="success")
 
 
 def create_user(username):
