@@ -74,7 +74,7 @@ def test_get_fp_by_id(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    url = "/field_partner/id/" + temp_field_partner.id
+    url = "/field_partner/" + temp_field_partner.id
     rs = client.get(url)
 
     assert rs.status_code == 200

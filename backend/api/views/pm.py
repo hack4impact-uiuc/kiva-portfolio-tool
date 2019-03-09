@@ -14,7 +14,7 @@ def get_portfolio_manager():
     )
 
 
-@pm.route("/portfolio_manager/id/<id>", methods=["GET"])
+@pm.route("/portfolio_manager/<id>", methods=["GET"])
 def get_pm_by_id(id):
     """ function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id """
     portfolio_manager_by_id = PortfolioManager.query.get(id)
@@ -35,7 +35,7 @@ def get_pm_by_email(email):
 
 
 @pm.route("/portfolio_manager/all_fps/<id>", methods=["GET"])
-def get_all_fps_by_id(id):
+def get_all_fps(id):
     """ function that is called when you visit /portfolio_manager/all_fps/<id> that gets a portfolio manager by id """
     pm_by_id = PortfolioManager.query.get(id)
     return create_response(data={"list_of_fps": pm_by_id.list_of_fps})
