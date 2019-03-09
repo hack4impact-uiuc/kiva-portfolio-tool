@@ -1,11 +1,8 @@
 from boxsdk import Client, OAuth2
 from boxsdk.network.default_network import DefaultNetwork
-from pprint import pformat
-from StringIO import StringIO
 from boxsdk.exception import BoxAPIException
 
-from boxsdk import JWTAuth
-from boxsdk import Client
+from boxsdk import JWTAuth, Client
 
 from flask import Blueprint, request
 from api.models.Message import Message
@@ -20,7 +17,7 @@ from urllib.parse import urlencode
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 
-message = Blueprint("box", __name__)
+box = Blueprint("box", __name__)
 
 """
 TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
@@ -45,7 +42,7 @@ def create_client():
 SPACE = 1073741824
 
 
-@message.route("/box/token", methods=["GET"])
+@box.route("/box/token", methods=["GET"])
 def get_access_token():
     config = json.load(open("/171399529_73anvn29_config.json"))
 
