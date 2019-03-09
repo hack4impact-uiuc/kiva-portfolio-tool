@@ -2,9 +2,9 @@ from boxsdk import Client, OAuth2
 from boxsdk.network.default_network import DefaultNetwork
 from boxsdk.exception import BoxAPIException
 
-from boxsdk import JWTAuth, Client
+from boxsdk import JWTAuth
 
-# from StringIO import StringIO
+from io import StringIO
 
 from flask import Blueprint, request
 from api.models.Message import Message
@@ -95,15 +95,15 @@ def get_access_token():
     request = Request(authentication_url, params)
     response = urlopen(request).read()
     access_token = json.loads(response)["access_token"]
-    return create_response(data={"access_token": serialize_list(access_token)})
+    return create_response(data={"access_token": access_token})
 
 
 @box.route("/box/file", methods=["POST"])
 def upload_file():
     data = request.files.get("file")
-    file_name = "test"
+    file_name = request.form.get("file_name")
     box_file = upload_file(data, file_name)
-    return create_response(status=200, message="success")
+    return create_response(status=200, data={"box_file": box_file})
 
 
 def create_user(username):
@@ -139,19 +139,19 @@ def get_user_information(client, user_id):
     return info
 
 
-def upload_file(content, file):
+def upload_file(content, file_name):
     """
     Upload the file with the given content and file.
     ### Return the id of the file if successful
     ### Return None if otherwise
     """
 
-    # stream = StringIO()
-    # stream.write(content)
-    # stream.seek(0)
+    stream = StringIO()
+    stream.write('asdfasdfsa')
+    stream.seek(0)
     try:
         box_file = client.folder("0").upload_stream(
-            content, "file", preflight_check=True
+            stream, file_name, preflight_check=True
         )
         return box_file.id
     except BoxAPIException:
