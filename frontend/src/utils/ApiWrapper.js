@@ -48,6 +48,19 @@ export const getAllDocuments = () => {
     })
 }
 
+export const getAccessToken = () => {
+  let requestString = BACKEND_URL + '/box/token'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.access_token
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 /* export const getIncompleteGames = () => {
   let requestString = BACKEND_URL + '/games/incomplete?key=' + BACKEND_KEY
   return axios

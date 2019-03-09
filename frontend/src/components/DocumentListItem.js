@@ -14,6 +14,7 @@ class DocumentListItem extends Component {
     this.state = {
       docClass: this.props.docClass,
       fileName: this.props.fileName,
+      fileId: this.props.fileId,
       modal: false
     }
 
@@ -46,7 +47,7 @@ class DocumentListItem extends Component {
               UPLOAD
             </Button>
           )}
-          <DocumentPreview fileName={this.state.fileName} />
+          <DocumentPreview fileName={this.state.fileName} fileId={this.state.fileId} />
         </td>
       </tr>
     )

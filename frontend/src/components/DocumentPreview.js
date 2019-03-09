@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { ContentPreview } from 'box-ui-elements'
-import { IntlProvider } from 'react-intl' 
+import { IntlProvider } from 'react-intl'
+import { getAccessToken } from '../utils/ApiWrapper'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -12,7 +13,9 @@ class DocumentPreview extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fileName: this.props.fileName
+      fileName: this.props.fileName,
+      fileId: 418675740558,
+      accessToken: null
     }
 
     this.toggle = this.toggle.bind(this)
@@ -34,6 +37,19 @@ class DocumentPreview extends Component {
     }))
   }
 
+  async componentDidMount() {
+    const res = await getAccessToken()
+    if (res) {
+      this.setState({
+        accessToken: res
+      })
+    } else {
+      this.setState({
+        accessToken: null
+      })
+    }
+  }
+
   render() {
     const { isPM } = this.props
     return (
@@ -48,6 +64,21 @@ class DocumentPreview extends Component {
           <ModalBody>
             <IntlProvider locale="en" textComponent={React.Fragment}>
               <ContentPreview
+                  contentSidebarProps={{
+                      detailsSidebarProps: {
+                          hasAccessStats: true,
+                          hasClassification: true,
+                          hasNotices: true,
+                          hasProperties: true,
+                          hasRetentionPolicy: true,
+                          hasVersions: true,
+                      },           
+                      hasActivityFeed: true,
+                      hasMetadata: true,
+                      hasSkills: true,
+                  }}
+                  fileId={this.state.fileId}
+                  token={this.state.accessToken}
               />
             </IntlProvider>
           </ModalBody>
