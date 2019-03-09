@@ -51,6 +51,7 @@ export const getAllDocuments = () => {
 export const sendFile = file => {
   let data = new FormData()
   data.append('file', file)
+  data.append('file_name', 'test')
   return axios
     .post(BACKEND_URL + '/box/file')
     .then(response => {
