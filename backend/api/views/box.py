@@ -1,12 +1,23 @@
 from boxsdk import Client, OAuth2
 from boxsdk.network.default_network import DefaultNetwork
-from pprint import pformat
-from secret import CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN
-from StringIO import StringIO
 from boxsdk.exception import BoxAPIException
 
-from boxsdk import JWTAuth
-from boxsdk import Client
+from boxsdk import JWTAuth, Client
+
+from flask import Blueprint, request
+from api.models.Message import Message
+from api.core import create_response, serialize_list, logger
+
+import requests, json, jwt, os, time, secrets
+
+from urllib.request import urlopen
+from urllib.request import Request
+from urllib.parse import urlencode
+
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.serialization import load_pem_private_key
+
+box = Blueprint("box", __name__)
 
 """
 TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
@@ -27,8 +38,71 @@ def create_client():
     return client
 
 
-# enough space for user
+# enough space for user allocation
 SPACE = 1073741824
+
+
+@box.route("/box/token", methods=["GET"])
+def get_access_token():
+    config = json.load(open("/171399529_73anvn29_config.json"))
+
+    keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
+
+    appAuth = config["boxAppSettings"]["appAuth"]
+    privateKey = appAuth["privateKey"]
+    passphrase = appAuth["passphrase"]
+
+    # To decrypt the private key we use the cryptography library
+    key = load_pem_private_key(
+        data=privateKey.encode("utf8"),
+        password=passphrase.encode("utf8"),
+        backend=default_backend(),
+    )
+
+    authentication_url = "https://api.box.com/oauth2/token"
+
+    claims = {
+        "iss": config["boxAppSettings"]["clientID"],
+        "sub": config["enterpriseID"],
+        "box_sub_type": "enterprise",
+        "aud": authentication_url,
+        # This is an identifier that helps protect against
+        # replay attacks
+        "jti": secrets.token_hex(64),
+        # We give the assertion a lifetime of 45 seconds
+        # before it expires
+        "exp": round(time.time()) + 45,
+    }
+
+    # Rather than constructing the JWT assertion manually, we are
+    # using the pyjwt library.
+    assertion = jwt.encode(
+        claims,
+        key,
+        # The API support "RS256", "RS384", and "RS512" encryption
+        algorithm="RS512",
+        headers={"kid": keyId},
+    )
+
+    params = urlencode(
+        {
+            # This specifies that we are using a JWT assertion
+            # to authenticate
+            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+            # Our JWT assertion
+            "assertion": assertion,
+            # The OAuth 2 client ID and secret
+            "client_id": config["boxAppSettings"]["clientID"],
+            "client_secret": config["boxAppSettings"]["clientSecret"],
+        }
+    ).encode()
+
+    # Make the request, parse the JSON,
+    # and extract the access token
+    request = Request(authentication_url, params)
+    response = urlopen(request).read()
+    access_token = json.loads(response)["access_token"]
+    return create_response(data={"access_token": serialize_list(access_token)})
 
 
 def create_user(username):
