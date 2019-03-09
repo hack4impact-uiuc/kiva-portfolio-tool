@@ -37,7 +37,7 @@ SPACE = 1073741824
 
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
-    config = json.load(open("/171399529_73anvn29_config.json"))
+    config = json.load(open("api/views/171399529_73anvn29_config.json"))
 
     keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
 
