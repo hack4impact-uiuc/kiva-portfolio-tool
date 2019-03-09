@@ -16,7 +16,6 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/upload" component={Upload} />
       </Switch>
     </ConnectedRouter>
   </Provider>,
