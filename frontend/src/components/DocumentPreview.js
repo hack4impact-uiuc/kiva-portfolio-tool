@@ -45,7 +45,12 @@ class DocumentPreview extends Component {
         )}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody>Body text</ModalBody>
+          <ModalBody>
+            <IntlProvider locale="en" textComponent={React.Fragment}>
+              <ContentPreview
+              />
+            </IntlProvider>
+          </ModalBody>
           <ModalFooter>
             {isPM && (
               <div>
