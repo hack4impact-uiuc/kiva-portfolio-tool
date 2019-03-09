@@ -236,6 +236,7 @@ def update_app_status(id):
 
 # ------------------------- PM endpoints. Will implement tests after MVP -------------------------------------
 
+
 @main.route("/portfolio_manager", methods=["GET"])
 def get_portfolio_manager():
     """ function that is called when you visit /portfolio_manager """
