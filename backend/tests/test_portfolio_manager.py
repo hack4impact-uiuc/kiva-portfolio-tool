@@ -6,6 +6,7 @@ def test_index(client):
     rs = client.get("/")
     assert rs.status_code == 200
 
+
 def test_get_portfolio_manager(client):
     FieldPartner.query.delete()
     PortfolioManager.query.delete()
@@ -24,9 +25,7 @@ def test_get_portfolio_manager(client):
     temp_arr_fps.append("f234")
     temp_arr_fps.append("f345")
     temp_portfolio_manager = PortfolioManager(
-        email="test@gmail.com",
-        name="Tim",
-        list_of_fps=temp_arr_fps,
+        email="test@gmail.com", name="Tim", list_of_fps=temp_arr_fps
     )
     db.session.add(temp_portfolio_manager)
     db.session.commit()

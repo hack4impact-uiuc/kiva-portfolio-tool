@@ -4,8 +4,6 @@ from api.core import create_response, serialize_list, logger
 
 pm = Blueprint("pm", __name__)  # initialize blueprint
 
-# ------------------------- PM endpoints. Will implement tests after MVP -------------------------------------
-
 
 @pm.route("/portfolio_manager", methods=["GET"])
 def get_portfolio_manager():

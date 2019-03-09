@@ -7,12 +7,6 @@ from .Document import Document
 from .PortfolioManager import PortfolioManager
 from .FieldPartner import FieldPartner
 
-__all__ = [
-    "db",
-    "Document",
-    "Message",
-    "FieldPartner",
-    "PortfolioManager",
-]
+__all__ = ["db", "Document", "Message", "FieldPartner", "PortfolioManager"]
 
 # You must import all of the new Models you create to this page
