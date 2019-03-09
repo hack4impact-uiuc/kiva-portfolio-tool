@@ -1,6 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import db
-from api.models.PortfolioManager import PortfolioManager
+from api.models import PortfolioManager, db
 from api.core import create_response, serialize_list, logger
 
 pm = Blueprint("pm", __name__)  # initialize blueprint
@@ -11,7 +10,7 @@ pm = Blueprint("pm", __name__)  # initialize blueprint
 @pm.route("/portfolio_manager", methods=["GET"])
 def get_portfolio_manager():
     """ function that is called when you visit /portfolio_manager """
-    portfolio_manager = PortFolioManager.query.all()
+    portfolio_manager = PortfolioManager.query.all()
     return create_response(
         data={"portfolio_manager": serialize_list(portfolio_manager)}
     )
