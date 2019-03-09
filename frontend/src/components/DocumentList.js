@@ -12,6 +12,7 @@ class DocumentList extends Component {
   }
 
   render() {
+    console.log(this.state.documents)
     return (
       <Table>
         <caption>{this.state.status}</caption>

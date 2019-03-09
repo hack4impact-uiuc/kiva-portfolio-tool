@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { ContentPreview } from 'box-ui-elements'
+import { IntlProvider } from 'react-intl' 
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
