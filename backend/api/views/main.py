@@ -1,5 +1,5 @@
-from flask import Blueprint, request
-from api.models import Person, Document, Message, FieldPartner, db
+from flask import Blueprint, request, json
+from api.models import Document, Message, db
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -13,13 +13,6 @@ def index():
     # try using ipdb here :) you can inject yourself
     logger.info("Hello World!")
     return "<h1>Hello World!</h1>"
-
-
-# function that is called when you visit /persons
-@main.route("/persons", methods=["GET"])
-def get_persons():
-    persons = Person.query.all()
-    return create_response(data={"persons": serialize_list(persons)})
 
 
 """
@@ -162,10 +155,3 @@ def update_documents(docClass):
     doc.description = request.json.get("description", doc.description)
     db.session.commit()
     return create_response(status=200, message="success")
-
-
-# function that is called when you visit /field_partner
-@main.route("/field_partner", methods=["GET"])
-def get_field_partner():
-    field_partner = FieldPartner.query.all()
-    return create_response(data={"field_partner": serialize_list(field_partner)})

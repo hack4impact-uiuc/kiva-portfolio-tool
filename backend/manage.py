@@ -1,7 +1,7 @@
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from api import create_app
-from api.models import db, Document
+from api.models import db, Document, FieldPartner, PortfolioManager
 from datetime import datetime
 
 # sets up the app
