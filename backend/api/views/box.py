@@ -41,7 +41,7 @@ def create_client():
     return client
 
 
-# enough space for user
+# enough space for user allocation
 SPACE = 1073741824
 
 
