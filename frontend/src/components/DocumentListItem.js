@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'reactstrap'
+import DocumentPreview from './DocumentPreview'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -12,10 +13,19 @@ class DocumentListItem extends Component {
 
     this.state = {
       docClass: this.props.docClass,
-      fileName: this.props.fileName
+      fileName: this.props.fileName,
+      modal: false
     }
 
     this.handleDownloadClick = this.handleDownloadClick.bind(this)
+    this.handleUploadClick = this.handleUploadClick.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
+  }
+
+  toggleModal() {
+    this.setState(() => ({
+      modal: !this.state.modal
+    }))
   }
 
   handleDownloadClick() {
@@ -26,10 +36,6 @@ class DocumentListItem extends Component {
     // Upload click handling
   }
 
-  handleApproveClick() {
-    // Approve click handling
-  }
-
   render() {
     const { isPM } = this.props
     return (
@@ -37,22 +43,17 @@ class DocumentListItem extends Component {
         <td>{this.state.docClass}</td>
         <td>{this.state.fileName ? this.state.fileName : 'N/A'}</td>
         <td class="interaction">
-          {this.state.fileName ? (
+          {this.state.fileName && (
             <Button color="primary" onClick={this.handleDownloadClick}>
               DOWNLOAD
             </Button>
-          ) : (
-            ''
           )}
-          {isPM ? (
-            <Button color="primary" onClick={this.handleApproveClick}>
-              APPROVE
-            </Button>
-          ) : (
+          {!isPM && (
             <Button color="primary" onClick={this.handleUploadClick}>
               UPLOAD
             </Button>
           )}
+          <DocumentPreview fileName={this.state.fileName} />
         </td>
       </tr>
     )
