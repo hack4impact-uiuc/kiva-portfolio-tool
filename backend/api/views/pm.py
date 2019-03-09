@@ -1,33 +1,20 @@
 from flask import Blueprint, request, json
-<<<<<<< HEAD
-from api.models import FieldPartner, PortfolioManager, db
-=======
 from api.models import PortfolioManager, db
->>>>>>> ed621961f90c0c795f3d1a5b4e379460109ac0b6
 from api.core import create_response, serialize_list, logger
 
 pm = Blueprint("pm", __name__)  # initialize blueprint
 
-<<<<<<< HEAD
-# ------------------------- PM endpoints. Will implement tests after MVP -------------------------------------
-
-=======
->>>>>>> ed621961f90c0c795f3d1a5b4e379460109ac0b6
 
 @pm.route("/portfolio_manager", methods=["GET"])
 def get_portfolio_manager():
     """ function that is called when you visit /portfolio_manager """
-<<<<<<< HEAD
-    portfolio_manager = PortFolioManager.query.all()
-=======
     portfolio_manager = PortfolioManager.query.all()
->>>>>>> ed621961f90c0c795f3d1a5b4e379460109ac0b6
     return create_response(
         data={"portfolio_manager": serialize_list(portfolio_manager)}
     )
 
 
-@pm.route("/portfolio_manager/id/<id>", methods=["GET"])
+@pm.route("/portfolio_manager/<id>", methods=["GET"])
 def get_pm_by_id(id):
     """ function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id """
     portfolio_manager_by_id = PortfolioManager.query.get(id)
@@ -48,7 +35,7 @@ def get_pm_by_email(email):
 
 
 @pm.route("/portfolio_manager/all_fps/<id>", methods=["GET"])
-def get_all_fps_by_id(id):
+def get_all_fps(id):
     """ function that is called when you visit /portfolio_manager/all_fps/<id> that gets a portfolio manager by id """
     pm_by_id = PortfolioManager.query.get(id)
     return create_response(data={"list_of_fps": pm_by_id.list_of_fps})

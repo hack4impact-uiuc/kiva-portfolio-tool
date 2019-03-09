@@ -1,9 +1,5 @@
 from flask import Blueprint, request, json
-<<<<<<< HEAD
-from api.models import FieldPartner, PortfolioManager, db
-=======
 from api.models import FieldPartner, db
->>>>>>> ed621961f90c0c795f3d1a5b4e379460109ac0b6
 from api.core import create_response, serialize_list, logger
 
 import requests, json
@@ -18,7 +14,7 @@ def get_field_partner():
     return create_response(data={"field_partner": serialize_list(field_partner)})
 
 
-@fp.route("/field_partner/id/<id>", methods=["GET"])
+@fp.route("/field_partner/<id>", methods=["GET"])
 def get_fp_by_id(id):
     """ function that is called when you visit /field_partner/get/id/<id> that gets a field partner by id """
     field_partner_by_id = FieldPartner.query.get(id)
