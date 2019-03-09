@@ -48,12 +48,12 @@ export const getAllDocuments = () => {
     })
 }
 
-export const sendFile = file => {
+export const sendFile = (file, file_name) => {
   let data = new FormData()
   data.append('file', file)
-  data.append('file_name', 'file_test2.pdf')
+  data.append('file_name', file_name)
   return axios
-    .post(BACKEND_URL + '/box/file')
+    .post(BACKEND_URL + '/box/file', data)
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',
