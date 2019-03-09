@@ -36,9 +36,11 @@ class DocumentPreview extends Component {
     const { isPM } = this.props
     return (
       <>
-        <Button color="primary" onClick={this.toggle}>
-          {isPM ? 'REVIEW' : 'VIEW'}
-        </Button>
+        {this.state.fileName && (
+          <Button color="primary" onClick={this.toggle}>
+            {isPM ? 'REVIEW' : 'VIEW'}
+          </Button>
+        )}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody>Body text</ModalBody>

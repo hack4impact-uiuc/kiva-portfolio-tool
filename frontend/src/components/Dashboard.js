@@ -1,5 +1,4 @@
 import React from 'react'
-import MockData from '../utils/MockData'
 import DocumentList from './DocumentList'
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'

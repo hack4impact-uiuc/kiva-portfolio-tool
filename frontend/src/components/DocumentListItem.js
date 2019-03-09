@@ -19,13 +19,6 @@ class DocumentListItem extends Component {
 
     this.handleDownloadClick = this.handleDownloadClick.bind(this)
     this.handleUploadClick = this.handleUploadClick.bind(this)
-    this.toggleModal = this.toggleModal.bind(this)
-  }
-
-  toggleModal() {
-    this.setState(() => ({
-      modal: !this.state.modal
-    }))
   }
 
   handleDownloadClick() {
