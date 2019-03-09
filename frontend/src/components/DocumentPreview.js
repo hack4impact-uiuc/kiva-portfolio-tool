@@ -66,16 +66,16 @@ class DocumentPreview extends Component {
               <ContentPreview
                   contentSidebarProps={{
                       detailsSidebarProps: {
-                          hasAccessStats: true,
-                          hasClassification: true,
-                          hasNotices: true,
-                          hasProperties: true,
-                          hasRetentionPolicy: true,
+                          hasAccessStats: false,
+                          hasClassification: false,
+                          hasNotices: false,
+                          hasProperties: false,
+                          hasRetentionPolicy: false,
                           hasVersions: true,
                       },           
-                      hasActivityFeed: true,
-                      hasMetadata: true,
-                      hasSkills: true,
+                      hasActivityFeed: false,
+                      hasMetadata: false,
+                      hasSkills: false,
                   }}
                   fileId={this.state.fileId}
                   token={this.state.accessToken}
