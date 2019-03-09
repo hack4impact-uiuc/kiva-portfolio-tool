@@ -3,7 +3,8 @@ from boxsdk.network.default_network import DefaultNetwork
 from boxsdk.exception import BoxAPIException
 
 from boxsdk import JWTAuth, Client
-from StringIO import StringIO
+
+# from StringIO import StringIO
 
 from flask import Blueprint, request
 from api.models.Message import Message
@@ -100,9 +101,7 @@ def get_access_token():
 @box.route("/box/file", methods=["POST"])
 def upload_file():
     data = request.files.get("file")
-    print(data)
-    file_name ='test'
-    print("hi")
+    file_name = "test"
     box_file = upload_file(data, file_name)
     return create_response(status=200, message="success")
 
@@ -147,12 +146,12 @@ def upload_file(content, file):
     ### Return None if otherwise
     """
 
-    stream = StringIO()
-    stream.write(content)
-    stream.seek(0)
+    # stream = StringIO()
+    # stream.write(content)
+    # stream.seek(0)
     try:
         box_file = client.folder("0").upload_stream(
-            stream, "file", preflight_check=True
+            content, "file", preflight_check=True
         )
         return box_file.id
     except BoxAPIException:
