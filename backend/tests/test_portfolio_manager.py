@@ -6,6 +6,7 @@ def test_index(client):
     rs = client.get("/")
     assert rs.status_code == 200
 
+
 # create a Portfolio Manager for testing
 def create_pm():
     helper_arr_fps = []
@@ -17,6 +18,7 @@ def create_pm():
     )
 
     return helper_portfolio_manager
+
 
 def test_get_portfolio_manager(client):
     FieldPartner.query.delete()
@@ -39,7 +41,10 @@ def test_get_portfolio_manager(client):
     assert len(ret_dict["result"]["portfolio_manager"]) == 1
     assert ret_dict["result"]["portfolio_manager"][0]["email"] == "hello"
     assert ret_dict["result"]["portfolio_manager"][0]["name"] == "Tim"
-    assert ret_dict["result"]["portfolio_manager"][0]["list_of_fps"] == helper_portfolio_manager.list_of_fps
+    assert (
+        ret_dict["result"]["portfolio_manager"][0]["list_of_fps"]
+        == helper_portfolio_manager.list_of_fps
+    )
 
 
 def test_get_pm_by_id(client):
@@ -59,7 +64,10 @@ def test_get_pm_by_id(client):
     assert len(ret_dict["result"]["portfolio_manager"]) == 4
     assert ret_dict["result"]["portfolio_manager"]["email"] == "hello"
     assert ret_dict["result"]["portfolio_manager"]["name"] == "Tim"
-    assert ret_dict["result"]["portfolio_manager"]["list_of_fps"] == helper_portfolio_manager.list_of_fps
+    assert (
+        ret_dict["result"]["portfolio_manager"]["list_of_fps"]
+        == helper_portfolio_manager.list_of_fps
+    )
 
 
 def test_get_pm_by_email(client):
@@ -79,7 +87,11 @@ def test_get_pm_by_email(client):
     assert len(ret_dict["result"]["portfolio_manager"]) == 1
     assert ret_dict["result"]["portfolio_manager"][0]["email"] == "hello"
     assert ret_dict["result"]["portfolio_manager"][0]["name"] == "Tim"
-    assert ret_dict["result"]["portfolio_manager"][0]["list_of_fps"] == helper_portfolio_manager.list_of_fps
+    assert (
+        ret_dict["result"]["portfolio_manager"][0]["list_of_fps"]
+        == helper_portfolio_manager.list_of_fps
+    )
+
 
 def test_get_all_fps(client):
     db.session.query(PortfolioManager).delete()
@@ -96,8 +108,13 @@ def test_get_all_fps(client):
     assert ret_dict["success"] == True
 
     assert len(ret_dict["result"]["list_of_fps"]) == 3
-    assert ret_dict["result"]["list_of_fps"][0] == helper_portfolio_manager.list_of_fps[0]
-    assert ret_dict["result"]["list_of_fps"][2] == helper_portfolio_manager.list_of_fps[2]
+    assert (
+        ret_dict["result"]["list_of_fps"][0] == helper_portfolio_manager.list_of_fps[0]
+    )
+    assert (
+        ret_dict["result"]["list_of_fps"][2] == helper_portfolio_manager.list_of_fps[2]
+    )
+
 
 def test_new_pm(client):
     rs = client.post("/portfolio_manager/new")
@@ -113,11 +130,7 @@ def test_new_pm(client):
     rs = client.post(
         "/portfolio_manager/new",
         content_type="application/json",
-        json={
-            "email": "angad",
-            "name": "royuwu",
-            "list_of_fps": helper_arr_fps
-        },
+        json={"email": "angad", "name": "royuwu", "list_of_fps": helper_arr_fps},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -139,6 +152,7 @@ def test_new_pm(client):
     assert ret_dict["success"] == False
     assert ret_dict["message"] == "No list of FPs provided for new PM"
 
+
 def test_add_fp(client):
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
@@ -154,7 +168,12 @@ def test_add_fp(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    url = "/portfolio_manager/" + helper_portfolio_manager.id + "/" + temp_field_partner.id
+    url = (
+        "/portfolio_manager/"
+        + helper_portfolio_manager.id
+        + "/"
+        + temp_field_partner.id
+    )
     rs = client.put(url)
 
     assert rs.status_code == 200
