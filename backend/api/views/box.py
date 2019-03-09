@@ -107,7 +107,6 @@ def upload_file():
     return create_response(status=200, data={"box_file": box_file})
 
 
-
 def create_user(username):
     user = client.create_user(username, None, space_amount=SPACE)
 
@@ -149,7 +148,7 @@ def upload_file(file, file_name):
     """
 
     stream = StringIO()
-    stream.write('asdfasdfsa')
+    stream.write("asdfasdfsa")
 
     stream.seek(0)
     try:
