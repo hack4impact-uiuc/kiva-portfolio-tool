@@ -289,12 +289,25 @@ def new_pm():
 
 
 # function that is called when you visit /portfolio_manager/add/<pm_id>/<fp_id>, adds an existing FP to the PM's list of FPs
-@main.route("/portfolio_manager/add/<pm_id>/<fp_id>", methods=["PUT"])
+@main.route("/portfolio_manager/<pm_id>/<fp_id>", methods=["PUT"])
 def add_fp(pm_id, fp_id):
     pm = PortfolioManager.query.get(pm_id)
-
-    # Add conditions for if there's no FPs in list
-
     pm.list_of_fps = pm.list_of_fps + [fp_id]
     db.session.commit()
     return create_response(data={"list_of_fps": pm.list_of_fps})
+
+
+# function that is called when you visit /portfolio_manager/delete/<pm_id>/<fp_id>, removes an existing FP from the PM's list of FPs
+@main.route("/portfolio_manager/<pm_id>/<fp_id>", methods=["DELETE"])
+def delete_fp(pm_id, fp_id):
+    pm = PortfolioManager.query.get(pm_id)
+
+    if fp_id in pm.list_of_fps:
+        pm.list_of_fps.remove(fp_id)
+        print(pm)
+        db.session.commit()
+        return create_response(data={"list_of_fps": pm.list_of_fps})
+    return create_response(
+        status=422,
+        message="The FP is not in the given PM's list. Please check to make sure your IDs are correct and try again.",
+    )
