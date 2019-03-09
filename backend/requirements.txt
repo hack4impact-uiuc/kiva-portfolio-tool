@@ -9,3 +9,4 @@ psycopg2-binary==2.7.5
 sqlalchemy-utils==0.33.6
 sqlalchemy==1.1.14
 testing.postgresql==1.3.0
+boxsdk==2.2.1
