@@ -182,7 +182,9 @@ def get_fp_by_id(id):
 @main.route("/field_partner/email/<email>", methods=["GET"])
 def get_fp_by_email(email):
     field_partner_by_email = FieldPartner.query.filter(FieldPartner.email == email)
-    return create_response(data={"field_partner": serialize_list(field_partner_by_email)})
+    return create_response(
+        data={"field_partner": serialize_list(field_partner_by_email)}
+    )
 
 
 # function that is called when you visit _____, gets an FP's org name by ID
@@ -205,17 +207,13 @@ def new_fp():
     data = request.get_json()
     logger.info(data)
     if "email" not in data:
-        return create_response(
-            status=422, message="No email provided for new FP"
-        )
+        return create_response(status=422, message="No email provided for new FP")
     if "org_name" not in data:
         return create_response(
             status=422, message="No organization name provided for new FP"
         )
     if "pm_id" not in data:
-        return create_response(
-            status=422, message="No PM ID provided for new FP"
-        )
+        return create_response(status=422, message="No PM ID provided for new FP")
     if "app_status" not in data:
         return create_response(
             status=422, message="No application status provided for new FP"
@@ -227,13 +225,14 @@ def new_fp():
 
 # function that is called when you visit /field_partner/update/<id>, updates an FP's app status info
 @main.route("/field_partner/update/<id>", methods=["PUT"])
-def update_app_status(id):    
+def update_app_status(id):
     fp = FieldPartner.query.get(id)
-    fp.app_status = request.get_json().get("app_status","")
+    fp.app_status = request.get_json().get("app_status", "")
     ret = fp.to_dict()
 
     db.session.commit()
     return create_response(data={"field_partner": ret})
+
 
 # ------------------------- PM endpoints. Will implement tests after MVP -------------------------------------
 
@@ -241,21 +240,29 @@ def update_app_status(id):
 @main.route("/portfolio_manager", methods=["GET"])
 def get_portfolio_manager():
     portfolio_manager = PortFolioManager.query.all()
-    return create_response(data={"portfolio_manager": serialize_list(portfolio_manager)})
+    return create_response(
+        data={"portfolio_manager": serialize_list(portfolio_manager)}
+    )
 
 
 # function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id
 @main.route("/portfolio_manager/id/<id>", methods=["GET"])
 def get_pm_by_id(id):
     portfolio_manager_by_id = PortfolioManager.query.get(id)
-    return create_response(data={"portfolio_manager": portfolio_manager_by_id.to_dict()})
+    return create_response(
+        data={"portfolio_manager": portfolio_manager_by_id.to_dict()}
+    )
 
 
 # function that is called when you visit /portfolio_manager/<email>, gets a PM by email
 @main.route("/portfolio_manager/email/<email>", methods=["GET"])
 def get_pm_by_email(email):
-    portfolio_manager_by_email = PortfolioManager.query.filter(PortfolioManager.email == email)
-    return create_response(data={"portfolio_manager": serialize_list(portfolio_manager_by_email)})
+    portfolio_manager_by_email = PortfolioManager.query.filter(
+        PortfolioManager.email == email
+    )
+    return create_response(
+        data={"portfolio_manager": serialize_list(portfolio_manager_by_email)}
+    )
 
 
 # function that is called when you visit /portfolio_manager/all_fps/<id> that gets a portfolio manager by id
@@ -271,17 +278,11 @@ def new_pm():
     data = request.get_json()
     logger.info(data)
     if "email" not in data:
-        return create_response(
-            status=422, message="No email provided for new PM"
-        )
+        return create_response(status=422, message="No email provided for new PM")
     if "name" not in data:
-        return create_response(
-            status=422, message="No name provided for new PM"
-        )
+        return create_response(status=422, message="No name provided for new PM")
     if "list_of_fps" not in data:
-        return create_response(
-            status=422, message="No list of FPs provided for new PM"
-        )
+        return create_response(status=422, message="No list of FPs provided for new PM")
     sample_args = request.args
     new_pm = PortfolioManager(**data)
     return create_response(data={"portfolio_manager": new_pm.to_dict()})

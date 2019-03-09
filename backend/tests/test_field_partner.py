@@ -6,6 +6,7 @@ def test_index(client):
     rs = client.get("/")
     assert rs.status_code == 200
 
+
 # create a Portfolio Manager for testing
 def create_pm():
     helper_arr_fps = []
@@ -18,7 +19,8 @@ def create_pm():
 
     return helper_portfolio_manager
 
- # create Field Partner and test whether it returns a field parnter
+
+# create Field Partner and test whether it returns a field parnter
 def create_fp(helper_portfolio_manager):
     temp_field_partner = FieldPartner(
         email="test@gmail.com",
@@ -28,6 +30,7 @@ def create_fp(helper_portfolio_manager):
     )
 
     return temp_field_partner
+
 
 def test_get_field_partner(client):
     rs = client.get("/field_partner")
@@ -53,13 +56,16 @@ def test_get_field_partner(client):
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
-    assert ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
+    assert (
+        ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
+    )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
+
 
 def test_get_fp_by_id(client):
     db.session.query(FieldPartner).delete()
     db.session.query(PortfolioManager).delete()
-    
+
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -81,10 +87,11 @@ def test_get_fp_by_id(client):
     assert ret_dict["result"]["field_partner"]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["field_partner"]["app_status"] == "Completed"
 
+
 def test_get_org_by_id(client):
     db.session.query(FieldPartner).delete()
     db.session.query(PortfolioManager).delete()
-    
+
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -102,6 +109,7 @@ def test_get_org_by_id(client):
 
     assert len(ret_dict["result"]) == 1
     assert ret_dict["result"]["org_name"] == "hack4impact"
+
 
 def test_get_fp_by_email(client):
     db.session.query(FieldPartner).delete()
@@ -126,8 +134,11 @@ def test_get_fp_by_email(client):
     assert len(ret_dict["result"]["field_partner"]) == 1
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
-    assert ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
+    assert (
+        ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
+    )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
+
 
 def test_get_fp_by_pm(client):
     helper_portfolio_manager = create_pm()
@@ -152,13 +163,18 @@ def test_get_fp_by_pm(client):
     assert len(ret_dict["result"]["field_partner"]) == 2
     assert ret_dict["result"]["field_partner"][0]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
-    assert ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
+    assert (
+        ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
+    )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Completed"
 
     assert ret_dict["result"]["field_partner"][1]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][1]["org_name"] == "hack4impact"
-    assert ret_dict["result"]["field_partner"][1]["pm_id"] == helper_portfolio_manager.id
+    assert (
+        ret_dict["result"]["field_partner"][1]["pm_id"] == helper_portfolio_manager.id
+    )
     assert ret_dict["result"]["field_partner"][1]["app_status"] == "Completed"
+
 
 def test_new_fp(client):
     rs = client.post("/field_partner/new")
@@ -169,7 +185,12 @@ def test_new_fp(client):
     rs = client.post(
         "/field_partner/new",
         content_type="application/json",
-        json={"email": "santa", "org_name": "Kiva", "pm_id": "2", "app_status": "Not started"},
+        json={
+            "email": "santa",
+            "org_name": "Kiva",
+            "pm_id": "2",
+            "app_status": "Not started",
+        },
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -192,6 +213,7 @@ def test_new_fp(client):
     assert ret_dict["success"] == False
     assert ret_dict["message"] == "No PM ID provided for new FP"
 
+
 def test_update_app_status(client):
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
@@ -204,9 +226,7 @@ def test_update_app_status(client):
     url = "/field_partner/update/" + temp_field_partner.id
 
     rs = client.put(
-        url,
-        content_type="application/json",
-        json={"app_status": "Updated"},
+        url, content_type="application/json", json={"app_status": "Updated"}
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -216,4 +236,3 @@ def test_update_app_status(client):
     assert ret_dict["result"]["field_partner"]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
     assert ret_dict["result"]["field_partner"]["app_status"] == "Updated"
-
