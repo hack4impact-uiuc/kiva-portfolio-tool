@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import FieldPartner, PortfolioManager, db
+from api.models import FieldPartner, db
 from api.core import create_response, serialize_list, logger
 
 import requests, json

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, json
-from api.models import FieldPartner, PortfolioManager, db
+from api.models import db
+from api.models.PortfolioManager import PortfolioManager
 from api.core import create_response, serialize_list, logger
 
 pm = Blueprint("pm", __name__)  # initialize blueprint
