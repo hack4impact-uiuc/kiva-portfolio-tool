@@ -3,7 +3,7 @@ from boxsdk.network.default_network import DefaultNetwork
 from boxsdk.exception import BoxAPIException
 
 from boxsdk import JWTAuth, Client
-from io import StringIO
+from StringIO import StringIO
 
 from flask import Blueprint, request
 from api.models.Message import Message
