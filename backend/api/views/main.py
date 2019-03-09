@@ -1,5 +1,5 @@
-from flask import Blueprint, request
-from api.models import Person, Document, Message, FieldPartner, db
+from flask import Blueprint, request, json
+from api.models import Person, Document, Message, FieldPartner, PortfolioManager, db
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -164,8 +164,135 @@ def update_documents(docClass):
     return create_response(status=200, message="success")
 
 
-# function that is called when you visit /field_partner
 @main.route("/field_partner", methods=["GET"])
 def get_field_partner():
+    """ function that is called when you visit /field_partner, gets all the FPs """
     field_partner = FieldPartner.query.all()
     return create_response(data={"field_partner": serialize_list(field_partner)})
+
+
+@main.route("/field_partner/id/<id>", methods=["GET"])
+def get_fp_by_id(id):
+    """ function that is called when you visit /field_partner/get/id/<id> that gets a field partner by id """
+    field_partner_by_id = FieldPartner.query.get(id)
+    return create_response(data={"field_partner": field_partner_by_id.to_dict()})
+
+
+@main.route("/field_partner/email/<email>", methods=["GET"])
+def get_fp_by_email(email):
+    """ function that is called when you visit /field_partner/get/email/<email>, gets an FP by email """
+    field_partner_by_email = FieldPartner.query.filter(FieldPartner.email == email)
+    return create_response(
+        data={"field_partner": serialize_list(field_partner_by_email)}
+    )
+
+
+@main.route("/field_partner/org_name/<id>", methods=["GET"])
+def get_org_by_id(id):
+    """ function that is called when you visit _____, gets an FP's org name by ID """
+    fp_by_id = FieldPartner.query.get(id)
+    return create_response(data={"org_name": fp_by_id.org_name})
+
+
+@main.route("/field_partner/pm/<pm_id>", methods=["GET"])
+def get_fp_by_pm(pm_id):
+    """ function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs """
+    field_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
+    return create_response(data={"field_partner": serialize_list(field_partner_list)})
+
+
+@main.route("/field_partner/new", methods=["POST"])
+def new_fp():
+    """ function that is called when you visit /field_partner/new, creates a new FP """
+    data = request.get_json()
+    logger.info(data)
+    if "email" not in data:
+        return create_response(status=422, message="No email provided for new FP")
+    if "org_name" not in data:
+        return create_response(
+            status=422, message="No organization name provided for new FP"
+        )
+    if "pm_id" not in data:
+        return create_response(status=422, message="No PM ID provided for new FP")
+    if "app_status" not in data:
+        return create_response(
+            status=422, message="No application status provided for new FP"
+        )
+    sample_args = request.args
+    new_fp = FieldPartner(**data)
+    return create_response(data={"field_partner": new_fp.to_dict()})
+
+
+@main.route("/field_partner/update/<id>", methods=["PUT"])
+def update_app_status(id):
+    """ function that is called when you visit /field_partner/update/<id>, updates an FP's app status info """
+    fp = FieldPartner.query.get(id)
+    fp.app_status = request.get_json().get("app_status", "")
+    ret = fp.to_dict()
+
+    db.session.commit()
+    return create_response(data={"field_partner": ret})
+
+
+# ------------------------- PM endpoints. Will implement tests after MVP -------------------------------------
+
+
+@main.route("/portfolio_manager", methods=["GET"])
+def get_portfolio_manager():
+    """ function that is called when you visit /portfolio_manager """
+    portfolio_manager = PortFolioManager.query.all()
+    return create_response(
+        data={"portfolio_manager": serialize_list(portfolio_manager)}
+    )
+
+
+@main.route("/portfolio_manager/id/<id>", methods=["GET"])
+def get_pm_by_id(id):
+    """ function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id """
+    portfolio_manager_by_id = PortfolioManager.query.get(id)
+    return create_response(
+        data={"portfolio_manager": portfolio_manager_by_id.to_dict()}
+    )
+
+
+@main.route("/portfolio_manager/email/<email>", methods=["GET"])
+def get_pm_by_email(email):
+    """ function that is called when you visit /portfolio_manager/<email>, gets a PM by email """
+    portfolio_manager_by_email = PortfolioManager.query.filter(
+        PortfolioManager.email == email
+    )
+    return create_response(
+        data={"portfolio_manager": serialize_list(portfolio_manager_by_email)}
+    )
+
+
+@main.route("/portfolio_manager/all_fps/<id>", methods=["GET"])
+def get_all_fps_by_id(id):
+    """ function that is called when you visit /portfolio_manager/all_fps/<id> that gets a portfolio manager by id """
+    pm_by_id = PortfolioManager.query.get(id)
+    return create_response(data={"list_of_fps": pm_by_id.list_of_fps})
+
+
+@main.route("/portfolio_manager/new", methods=["POST"])
+def new_pm():
+    """ function that is called when you visit /portfolio_manager/new, creates a new PM """
+    data = request.get_json()
+    logger.info(data)
+    if "email" not in data:
+        return create_response(status=422, message="No email provided for new PM")
+    if "name" not in data:
+        return create_response(status=422, message="No name provided for new PM")
+    if "list_of_fps" not in data:
+        return create_response(status=422, message="No list of FPs provided for new PM")
+    sample_args = request.args
+    new_pm = PortfolioManager(**data)
+    return create_response(data={"portfolio_manager": new_pm.to_dict()})
+
+
+@main.route("/portfolio_manager/<pm_id>/<fp_id>", methods=["PUT"])
+def add_fp(pm_id, fp_id):
+    """ function that is called when you visit /portfolio_manager/add/<pm_id>/<fp_id>, adds an existing FP to the PM's list of FPs """
+    pm = PortfolioManager.query.get(pm_id)
+    pm.list_of_fps = pm.list_of_fps + [fp_id]
+    db.session.commit()
+    return create_response(data={"list_of_fps": pm.list_of_fps})
