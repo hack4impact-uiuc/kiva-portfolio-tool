@@ -48,6 +48,7 @@ export const getAllDocuments = () => {
     })
 }
 
+export const sendFile = file => {}
 /* export const getIncompleteGames = () => {
   let requestString = BACKEND_URL + '/games/incomplete?key=' + BACKEND_KEY
   return axios
