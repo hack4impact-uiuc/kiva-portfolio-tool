@@ -4,7 +4,7 @@ from boxsdk.exception import BoxAPIException
 
 from boxsdk import JWTAuth
 
-from io import StringIO
+from io import BytesIO
 
 
 from flask import Blueprint, request
@@ -103,9 +103,11 @@ def get_access_token():
 def upload_file():
     data = request.files.get("file")
     file_name = request.form.get("file_name")
-    box_file = upload_file(data, file_name)
-    return create_response(status=200, data={"box_file": box_file})
-
+    id = upload_file(data, file_name)
+    if id is not None:
+        return create_response(status=200, data={"id": id}, message="success")
+    else:
+        return create_response(status=400, message="Duplicate file name")
 
 
 def create_user(username):
@@ -148,15 +150,15 @@ def upload_file(file, file_name):
     ### Return None if otherwise
     """
 
-    stream = StringIO()
-    stream.write('asdfasdfsa')
+    stream = BytesIO()
+    stream.write(file.read())
 
     stream.seek(0)
     try:
         box_file = client.folder("0").upload_stream(
             stream, file_name, preflight_check=True
         )
-        return box_file
+        return box_file.id
     except BoxAPIException:
         return None
 
@@ -170,7 +172,7 @@ def get_file_info(client, file_id):
     return file_info
 
 
-def download_file(client, file_id):
+def download_file(file_id):
     box_file = client.file(file_id).get()
     output_file = open(box_file.name, "wb")
     box_file.download_to(output_file)
