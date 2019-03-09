@@ -1,5 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
+let BOX_URL = 'https://upload.box.com/api/2.0/files/content'
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -48,7 +49,25 @@ export const getAllDocuments = () => {
     })
 }
 
-export const sendFile = file => {}
+export const sendFile = file => {
+  let data = new FormData()
+  data.append('file', file)
+  data.append('name', 'test')
+  return axios
+    .post(BOX_URL)
+    .then(response => {
+      return {
+        type: 'UPLOAD_FILE_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPLOAD_FILE_FAIL',
+        error
+      }
+    })
+}
 /* export const getIncompleteGames = () => {
   let requestString = BACKEND_URL + '/games/incomplete?key=' + BACKEND_KEY
   return axios
