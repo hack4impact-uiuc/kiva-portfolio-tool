@@ -1,5 +1,9 @@
 from flask import Blueprint, request, json
+<<<<<<< HEAD
 from api.models import FieldPartner, PortfolioManager, db
+=======
+from api.models import FieldPartner, db
+>>>>>>> ed621961f90c0c795f3d1a5b4e379460109ac0b6
 from api.core import create_response, serialize_list, logger
 
 import requests, json
