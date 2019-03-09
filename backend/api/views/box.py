@@ -6,6 +6,7 @@ from boxsdk import JWTAuth
 
 from io import StringIO
 
+
 from flask import Blueprint, request
 from api.models.Message import Message
 from api.core import create_response, serialize_list, logger
@@ -106,6 +107,7 @@ def upload_file():
     return create_response(status=200, data={"box_file": box_file})
 
 
+
 def create_user(username):
     user = client.create_user(username, None, space_amount=SPACE)
 
@@ -139,7 +141,7 @@ def get_user_information(client, user_id):
     return info
 
 
-def upload_file(content, file_name):
+def upload_file(file, file_name):
     """
     Upload the file with the given content and file.
     ### Return the id of the file if successful
@@ -148,12 +150,13 @@ def upload_file(content, file_name):
 
     stream = StringIO()
     stream.write('asdfasdfsa')
+
     stream.seek(0)
     try:
         box_file = client.folder("0").upload_stream(
             stream, file_name, preflight_check=True
         )
-        return box_file.id
+        return box_file
     except BoxAPIException:
         return None
 
