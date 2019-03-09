@@ -25,7 +25,7 @@ TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
 """
 
 # One time authentication for the application
-_CRED_FILE = "/171399529_73anvn29_config.json"
+_CRED_FILE = "api/views/171399529_73anvn29_config.json"
 sdk = JWTAuth.from_settings_file(_CRED_FILE)
 client = Client(sdk)
 
@@ -98,8 +98,9 @@ def get_access_token():
 
 @box.route("/box/file", methods=["POST"])
 def upload_file():
-    data = request.get_json()
-    file_name = data["file_name"]
+    data = request.files.get("file")
+    print(data)
+    file_name ='test'
     print("hi")
     box_file = upload_file(client, file_path, file_name, 0)
     return create_response(status=200, message="success")
