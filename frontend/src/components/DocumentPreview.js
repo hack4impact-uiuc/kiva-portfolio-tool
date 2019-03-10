@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { ContentPreview } from 'box-ui-elements'
 import { IntlProvider } from 'react-intl'
-import { getAccessToken } from '../utils/ApiWrapper'
+import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -13,7 +13,8 @@ class DocumentPreview extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fileName: this.props.fileName,
+      id: this.props.document._id,
+      fileName: this.props.document.fileName,
       fileId: 418675740558,
       accessToken: null
     }
@@ -24,11 +25,13 @@ class DocumentPreview extends Component {
   }
 
   handleApproveClick() {
-    // Approve click handling
+    updateDocumentStatus(this.state.id, 'Approved')
+    this.toggle()
   }
 
   handleRejectClick() {
-    // Reject click handling
+    updateDocumentStatus(this.state.id, 'Rejected')
+    this.toggle()
   }
 
   toggle() {

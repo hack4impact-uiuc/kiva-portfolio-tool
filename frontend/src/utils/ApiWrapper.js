@@ -61,6 +61,23 @@ export const getAccessToken = () => {
     })
 }
 
+export const updateDocumentStatus = (id, status) => {
+  return axios
+    .put(BACKEND_URL + '/document/update/' + id + '/' + status)
+    .then (response => {
+      return {
+        type: 'UPDATE_DOC_STATUS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_DOC_STATUS_FAIL',
+        error
+      }
+    })
+}
+
 export const sendFile = (file, file_name) => {
   let data = new FormData()
   data.append('file', file)
@@ -80,6 +97,7 @@ export const sendFile = (file, file_name) => {
       }
     })
 }
+
 /* export const getIncompleteGames = () => {
   let requestString = BACKEND_URL + '/games/incomplete?key=' + BACKEND_KEY
   return axios

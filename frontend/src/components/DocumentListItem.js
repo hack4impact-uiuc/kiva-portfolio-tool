@@ -13,9 +13,7 @@ class DocumentListItem extends Component {
     super(props)
 
     this.state = {
-      docClass: this.props.docClass,
-      fileName: this.props.fileName,
-      fileId: this.props.fileId,
+      document: this.props.document,
       modal: false
     }
 
@@ -55,8 +53,8 @@ class DocumentListItem extends Component {
           </ModalFooter>
         </Modal>
         <tr>
-          <td>{this.state.docClass}</td>
-          <td>{this.state.fileName ? this.state.fileName : 'N/A'}</td>
+          <td>{this.state.document.docClass}</td>
+          <td>{this.state.document.fileName ? this.state.document.fileName : 'N/A'}</td>
           <td class="interaction">
             {this.state.fileName && (
               <Button color="primary" onClick={this.handleDownloadClick}>
@@ -68,7 +66,7 @@ class DocumentListItem extends Component {
                 UPLOAD
               </Button>
             )}
-            <DocumentPreview fileName={this.state.fileName} fileId={this.state.fileId} />
+            <DocumentPreview document={this.state.document} />
           </td>
         </tr>
       </>

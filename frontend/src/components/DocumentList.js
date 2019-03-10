@@ -24,6 +24,7 @@ class DocumentList extends Component {
           </tr>
           {this.state.documents.map(document => (
             <DocumentListItem
+              document={document}
               docClass={document.docClass}
               fileName={document.fileName}
               fileId={document.fileId}
