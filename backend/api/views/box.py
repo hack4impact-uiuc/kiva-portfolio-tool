@@ -106,10 +106,7 @@ def upload_file():
     file_name = request.form.get("file_name")
     box_file = upload_file(data, file_name)
     if box_file is not None:
-        print(box_file)
         file_id = box_file["id"]
-        file_name = box_file["name"]
-        doc_class = "file"
 
         new_data = Document(7, "Post Document Test File", file_id)
         db.session.add(new_data)
