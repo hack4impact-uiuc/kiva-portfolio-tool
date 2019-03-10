@@ -155,3 +155,14 @@ def update_documents(docClass):
     doc.description = request.json.get("description", doc.description)
     db.session.commit()
     return create_response(status=200, message="success")
+
+
+@main.route("/document/update/<id>/<status>", methods=["PUT"])
+def update_status(id, status):
+    """ function called when you visit /document/update/<id>/<status>. Updates a doc's status """
+    doc = Document.query.get(id)
+    doc.status = status
+    ret = doc.to_dict()
+
+    db.session.commit()
+    return create_response(data={"document": ret})
