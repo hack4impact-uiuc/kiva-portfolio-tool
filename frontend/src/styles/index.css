@@ -6,7 +6,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+body .table {
+  width: 50%;
+  margin: auto;
+  margin-top: 2%;
+  border: 1px solid #d8d8d8;
+}
+body .table td {
+  width: 40%;
+}
+body .table td .interaction {
+  width: auto;
+}
+body .table button {
+  margin: 1%;
+}
+body .modal-footer button {
+  margin-right: 1px;
 }

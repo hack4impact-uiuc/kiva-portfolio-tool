@@ -5,9 +5,28 @@ body {
       'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+  .table {
+    width: 50%;
+    margin: auto;
+    margin-top: 2%;
+    border: 1px solid #d8d8d8;
+
+    td {
+      width: 40%;
+    }
+    
+    td .interaction {
+      width: auto;
+    }
+
+    Button {
+      margin: 1%;
+    }
   }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+  .modal-footer Button {
+    margin-right: 1px;
   }
+}
   
