@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-<<<<<<< HEAD
-import { Button } from 'reactstrap'
 import DocumentPreview from './DocumentPreview'
-=======
 import { Button, Modal, ModalFooter } from 'reactstrap'
 import Upload from './Upload'
->>>>>>> master
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -44,8 +40,8 @@ class DocumentListItem extends Component {
   render() {
     const { isPM } = this.props
     return (
-      <div>
-      <Modal isOpen={this.state.modal} toggle={this.toggle}>
+      <>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <Upload />
           <ModalFooter>
             <Button
@@ -75,7 +71,7 @@ class DocumentListItem extends Component {
             <DocumentPreview fileName={this.state.fileName} fileId={this.state.fileId} />
           </td>
         </tr>
-      </div>
+        </>
     )
   }
 }

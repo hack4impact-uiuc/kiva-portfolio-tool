@@ -64,21 +64,21 @@ class DocumentPreview extends Component {
           <ModalBody>
             <IntlProvider locale="en" textComponent={React.Fragment}>
               <ContentPreview
-                  contentSidebarProps={{
-                      detailsSidebarProps: {
-                          hasAccessStats: false,
-                          hasClassification: false,
-                          hasNotices: false,
-                          hasProperties: false,
-                          hasRetentionPolicy: false,
-                          hasVersions: true,
-                      },           
-                      hasActivityFeed: false,
-                      hasMetadata: false,
-                      hasSkills: false,
-                  }}
-                  fileId={this.state.fileId}
-                  token={this.state.accessToken}
+                contentSidebarProps={{
+                  detailsSidebarProps: {
+                    hasAccessStats: false,
+                    hasClassification: false,
+                    hasNotices: false,
+                    hasProperties: false,
+                    hasRetentionPolicy: false,
+                    hasVersions: true
+                  },
+                  hasActivityFeed: false,
+                  hasMetadata: false,
+                  hasSkills: false
+                }}
+                fileId={this.state.fileId}
+                token={this.state.accessToken}
               />
             </IntlProvider>
           </ModalBody>
