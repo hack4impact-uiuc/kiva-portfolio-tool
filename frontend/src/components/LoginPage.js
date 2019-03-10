@@ -31,7 +31,7 @@ class LoginPage extends Component {
     this.state = {
       password: '',
       email: '',
-      valid: ['pm@kiva.com', 'fp@kiva.com', 'kiva']
+      valid: ['pm@kiva.org', 'fp@kiva.org', 'kiva']
     }
   }
 

@@ -20,6 +20,10 @@ jobs:
           command: |
             sudo apt-get -y update && sudo apt-get install postgresql
       - run:
+          name: Generate config
+          command: |
+            printenv CONFIG_DATA > "backend/api/views/171399529_73anvn29_config.json"
+      - run:
           command: |
             cd backend
             virtualenv venv
