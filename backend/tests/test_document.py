@@ -153,3 +153,29 @@ def test_put_document(client):
         == "PostDocumentTestFile"
     )
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
+
+
+def test_update_status(client):
+    temp_document = Document(
+        fileID="Navam",
+        userID="Why",
+        date=date.fromordinal(730920),
+        status="Pending",
+        docClass="MyEnum.one",
+        fileName="MyDoc.docx",
+        latest=True,
+        description="Yeet",
+    )
+    db.session.add(temp_document)
+    db.session.commit()
+
+    url = "/document/update/" + str(temp_document.id) + "/Missing"
+    rs = client.put(url)
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+
+    assert len(ret_dict["result"]) == 1
+    assert ret_dict["result"]["document"]["fileID"] == "Navam"
+    assert ret_dict["result"]["document"]["userID"] == "Why"
+    assert ret_dict["result"]["document"]["status"] == "Missing"
