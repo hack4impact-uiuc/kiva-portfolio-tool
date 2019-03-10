@@ -71,7 +71,7 @@ class DocumentListItem extends Component {
             <DocumentPreview fileName={this.state.fileName} fileId={this.state.fileId} />
           </td>
         </tr>
-        </>
+      </>
     )
   }
 }
