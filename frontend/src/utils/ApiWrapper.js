@@ -64,7 +64,7 @@ export const getAccessToken = () => {
 export const updateDocumentStatus = (id, status) => {
   return axios
     .put(BACKEND_URL + '/document/update/' + id + '/' + status)
-    .then (response => {
+    .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
         response
