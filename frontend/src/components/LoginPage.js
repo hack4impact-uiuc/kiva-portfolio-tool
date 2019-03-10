@@ -50,7 +50,7 @@ class LoginPage extends Component {
         this.state.valid.indexOf(this.state.password) > -1
     )
     // This should look at email/password to determine if they are a Portfolio Manager or Field Partner
-    this.props.setUserType(this.state.email === 'pm@kiva.com' && this.state.password === 'kiva')
+    this.props.setUserType(this.state.email === 'pm@kiva.org' && this.state.password === 'kiva')
     // If login was successful, then bring user to dashboard
     if (this.props.verified === true) {
       this.props.history.push('/dashboard')

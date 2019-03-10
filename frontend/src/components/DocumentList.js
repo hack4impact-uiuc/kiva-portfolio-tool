@@ -12,6 +12,7 @@ class DocumentList extends Component {
   }
 
   render() {
+    console.log(this.state.documents)
     return (
       <Table>
         <caption>{this.state.status}</caption>
@@ -22,7 +23,12 @@ class DocumentList extends Component {
             <th />
           </tr>
           {this.state.documents.map(document => (
-            <DocumentListItem docClass={document.docClass} fileName={document.fileName} />
+            <DocumentListItem
+              document={document}
+              docClass={document.docClass}
+              fileName={document.fileName}
+              fileId={document.fileId}
+            />
           ))}
         </tbody>
       </Table>

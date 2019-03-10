@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalFooter } from 'reactstrap'
 import Upload from './Upload'
 
@@ -12,13 +13,17 @@ class DocumentListItem extends Component {
     super(props)
 
     this.state = {
-      docClass: this.props.docClass,
-      fileName: this.props.fileName,
+      document: this.props.document,
       modal: false
     }
 
     this.handleDownloadClick = this.handleDownloadClick.bind(this)
+    this.handleUploadClick = this.handleUploadClick.bind(this)
     this.toggle = this.toggle.bind(this)
+  }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal })
   }
 
   handleDownloadClick() {
@@ -30,18 +35,10 @@ class DocumentListItem extends Component {
     this.setState({ modal: !this.state.modal })
   }
 
-  handleApproveClick() {
-    // Approve click handling
-  }
-
-  toggle = () => {
-    this.setState({ modal: !this.state.modal })
-  }
-
   render() {
     const { isPM } = this.props
     return (
-      <div>
+      <>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <Upload />
           <ModalFooter>
@@ -56,28 +53,23 @@ class DocumentListItem extends Component {
           </ModalFooter>
         </Modal>
         <tr>
-          <td>{this.state.docClass}</td>
-          <td>{this.state.fileName ? this.state.fileName : 'N/A'}</td>
+          <td>{this.state.document.docClass}</td>
+          <td>{this.state.document.fileName ? this.state.document.fileName : 'N/A'}</td>
           <td class="interaction">
-            {this.state.fileName ? (
+            {this.state.fileName && (
               <Button color="primary" onClick={this.handleDownloadClick}>
                 DOWNLOAD
               </Button>
-            ) : (
-              ''
             )}
-            {isPM ? (
-              <Button color="primary" onClick={this.handleApproveClick}>
-                APPROVE
-              </Button>
-            ) : (
-              <Button color="primary" onClick={this.toggle}>
+            {!isPM && (
+              <Button color="primary" onClick={this.handleUploadClick}>
                 UPLOAD
               </Button>
             )}
+            <DocumentPreview document={this.state.document} />
           </td>
         </tr>
-      </div>
+      </>
     )
   }
 }
