@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { ContentPreview } from 'box-ui-elements'
-import { IntlProvider } from 'react-intl'
 import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
-import messages from 'box-ui-elements/i18n/en-US'
 import 'box-ui-elements/dist/preview.css'
 
 const mapStateToProps = state => ({
@@ -67,9 +65,9 @@ class DocumentPreview extends Component {
               {isPM ? 'REVIEW' : 'VIEW'}
             </Button>
           )}
-          {/* <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody> */}
+          <ModalBody>
           <ContentPreview
             hasHeader
             fileId={this.state.fileId}
@@ -77,7 +75,7 @@ class DocumentPreview extends Component {
             language={'en-US'}
             messages={'messages'}
           />
-          {/* </ModalBody>
+          </ModalBody>
           <ModalFooter>
             {isPM && (
               <div>
@@ -93,10 +91,9 @@ class DocumentPreview extends Component {
               Close
             </Button>
           </ModalFooter>
-        </Modal> */}
+        </Modal>
         </>
-      ),
-      container
+      )
     )
   }
 }

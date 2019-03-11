@@ -3,13 +3,6 @@ from boxsdk import JWTAuth
 
 from io import StringIO
 
-CLIENT_ID = "oz5aszozl69l74ekct0wumlndid774o7"
-CLIENT_SECRET = "SDM9epCLegZvqwHQFFtyJJR89Lngljke"
-ACCESS_TOKEN = "OJQo2FSu6W8JR0jxZejnWbugFsuktoiN"
-
-# oauth2 = OAuth2(CLIENT_ID, CLIENT_SECRET, access_token=ACCESS_TOKEN)
-# client = Client(oauth2)
-
 _CRED_FILE = "171399529_73anvn29_config.json"
 sdk = JWTAuth.from_settings_file(_CRED_FILE)
 client = Client(sdk)
