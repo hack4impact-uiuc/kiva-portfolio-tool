@@ -24,3 +24,8 @@ body .table button {
 body .modal-footer button {
   margin-right: 1px;
 }
+
+.container {
+  height: 100%;
+  width: 100%;
+}

@@ -4,18 +4,21 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { ContentPreview } from 'box-ui-elements'
 import { IntlProvider } from 'react-intl'
 import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
+import messages from 'box-ui-elements/i18n/en-US'
+import 'box-ui-elements/dist/preview.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
+const container = document.querySelector('.container')
 class DocumentPreview extends Component {
   constructor(props) {
     super(props)
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: 418675740558,
+      fileId: 419072325627,
       accessToken: null
     }
 
@@ -55,36 +58,26 @@ class DocumentPreview extends Component {
 
   render() {
     const { isPM } = this.props
+
     return (
-      <>
-        {this.state.fileName && (
-          <Button color="primary" onClick={this.toggle}>
-            {isPM ? 'REVIEW' : 'VIEW'}
-          </Button>
-        )}
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+      (
+        <>
+          {this.state.fileName && (
+            <Button color="primary" onClick={this.toggle}>
+              {isPM ? 'REVIEW' : 'VIEW'}
+            </Button>
+          )}
+          {/* <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody>
-            <IntlProvider locale="en" textComponent={React.Fragment}>
-              <ContentPreview
-                contentSidebarProps={{
-                  detailsSidebarProps: {
-                    hasAccessStats: false,
-                    hasClassification: false,
-                    hasNotices: false,
-                    hasProperties: false,
-                    hasRetentionPolicy: false,
-                    hasVersions: true
-                  },
-                  hasActivityFeed: false,
-                  hasMetadata: false,
-                  hasSkills: false
-                }}
-                fileId={this.state.fileId}
-                token={this.state.accessToken}
-              />
-            </IntlProvider>
-          </ModalBody>
+          <ModalBody> */}
+          <ContentPreview
+            hasHeader
+            fileId={this.state.fileId}
+            token={this.state.accessToken}
+            language={'en-US'}
+            messages={'messages'}
+          />
+          {/* </ModalBody>
           <ModalFooter>
             {isPM && (
               <div>
@@ -100,8 +93,10 @@ class DocumentPreview extends Component {
               Close
             </Button>
           </ModalFooter>
-        </Modal>
-      </>
+        </Modal> */}
+        </>
+      ),
+      container
     )
   }
 }
