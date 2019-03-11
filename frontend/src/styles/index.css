@@ -1,23 +1,31 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-  body .table {
-    width: 50%;
-    margin: auto;
-    margin-top: 2%;
-    border: 1px solid #d8d8d8; }
-    body .table td {
-      width: 40%; }
-    body .table td .interaction {
-      width: auto; }
-    body .table Button {
-      margin: 1%; }
-  body .modal-footer Button {
-    margin-right: 1px; }
+  -moz-osx-font-smoothing: grayscale;
+}
+body .table {
+  width: 50%;
+  margin: auto;
+  margin-top: 2%;
+  border: 1px solid #d8d8d8;
+}
+body .table td {
+  width: 40%;
+}
+body .table td .interaction {
+  width: auto;
+}
+body .table button {
+  margin: 1%;
+}
+body .modal-footer button {
+  margin-right: 1px;
+}
 
 .container {
   height: 100%;
-  width: 100%; }
+  width: 100%;
+}

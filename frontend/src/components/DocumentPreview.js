@@ -58,23 +58,22 @@ class DocumentPreview extends Component {
     const { isPM } = this.props
 
     return (
-      (
-        <>
-          {this.state.fileName && (
-            <Button color="primary" onClick={this.toggle}>
-              {isPM ? 'REVIEW' : 'VIEW'}
-            </Button>
-          )}
-          <Modal isOpen={this.state.modal} toggle={this.toggle}>
+      <>
+        {this.state.fileName && (
+          <Button color="primary" onClick={this.toggle}>
+            {isPM ? 'REVIEW' : 'VIEW'}
+          </Button>
+        )}
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody>
-          <ContentPreview
-            hasHeader
-            fileId={this.state.fileId}
-            token={this.state.accessToken}
-            language={'en-US'}
-            messages={'messages'}
-          />
+            <ContentPreview
+              hasHeader
+              fileId={this.state.fileId}
+              token={this.state.accessToken}
+              language={'en-US'}
+              messages={'messages'}
+            />
           </ModalBody>
           <ModalFooter>
             {isPM && (
@@ -92,8 +91,7 @@ class DocumentPreview extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-        </>
-      )
+      </>
     )
   }
 }

@@ -47,11 +47,7 @@ class BoxPreview extends Component {
         //token={this.state.accessToken}
         language={language}
         messages={messages}
-        collection={[
-          this.state.fileId,
-          419072325627,
-            418980052676
-        ]}
+        collection={[this.state.fileId, 419072325627, 418980052676]}
       />
     )
   }
