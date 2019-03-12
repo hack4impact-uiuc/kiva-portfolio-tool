@@ -8,7 +8,8 @@ from io import BytesIO
 
 
 from flask import Blueprint, request
-from api.models.Message import Message
+from api.models import Document, Message, db
+
 from api.core import create_response, serialize_list, logger
 
 import requests, json, jwt, os, time, secrets
@@ -103,9 +104,14 @@ def get_access_token():
 def upload_file():
     data = request.files.get("file")
     file_name = request.form.get("file_name")
-    id = upload_file(data, file_name)
-    if id is not None:
-        return create_response(status=200, data={"id": id}, message="success")
+    box_file = upload_file(data, file_name)
+    if box_file is not None:
+        file_id = box_file["id"]
+
+        new_data = Document(7, "Post Document Test File", file_id)
+        db.session.add(new_data)
+        db.session.commit()
+        return create_response(status=200, message="success")
     else:
         return create_response(status=400, message="Duplicate file name")
 
@@ -158,7 +164,7 @@ def upload_file(file, file_name):
         box_file = client.folder("0").upload_stream(
             stream, file_name, preflight_check=True
         )
-        return box_file.id
+        return box_file
     except BoxAPIException:
         return None
 
