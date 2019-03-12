@@ -146,7 +146,7 @@ def create_new_document():
         return create_response(
             status=422, message="No Document Class provided for new Document"
         )
-    
+
     # Turns data into a Document and adds it to database
     new_data = Document(**data)
     db.session.add(new_data)
@@ -175,7 +175,7 @@ def update_documents(docClass):
 
     # for each item in a document:
     #   replace if updated item data provided
-    #   else keep old value    
+    #   else keep old value
     doc.fileID = request.json.get("fileID", doc.fileID)
     doc.date = request.json.get("date", doc.date)
     doc.status = request.json.get("status", doc.status)
@@ -185,6 +185,7 @@ def update_documents(docClass):
     doc.description = request.json.get("description", doc.description)
     db.session.commit()
     return create_response(status=200, message="success")
+
 
 # given id of document, can update its status to new status provided in url
 @main.route("/document/update/<id>/<status>", methods=["PUT"])
