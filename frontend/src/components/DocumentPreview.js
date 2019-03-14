@@ -5,17 +5,17 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { IntlProvider } from 'react-intl'
 import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
 
-import { ContentPreview } from 'box-ui-elements';
-import messages from 'box-ui-elements/i18n/en-US';
-import 'box-ui-elements/dist/preview.css';
-import './index.scss';
+import { ContentPreview } from 'box-ui-elements'
+import messages from 'box-ui-elements/i18n/en-US'
+import 'box-ui-elements/dist/preview.css'
+import './index.scss'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
-const container = document.querySelector('.container');
-const token = 'aRPU7COQG1ozVy1pyRonB5S2hKTv13OR';
-const language = 'en-US';
+const container = document.querySelector('.container')
+const token = 'aRPU7COQG1ozVy1pyRonB5S2hKTv13OR'
+const language = 'en-US'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
