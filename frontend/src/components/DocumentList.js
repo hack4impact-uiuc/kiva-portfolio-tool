@@ -12,10 +12,9 @@ class DocumentList extends Component {
   }
 
   render() {
-    console.log(this.state.documents)
     return (
       <Table>
-        <caption>{this.state.status}</caption>
+        <caption data-testid="status">{this.state.status}</caption>
         <tbody>
           <tr>
             <th>DOC NAME</th>
