@@ -1,9 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { ContentPreview } from 'box-ui-elements'
+//import { ContentPreview } from 'box-ui-elements'
 import { IntlProvider } from 'react-intl'
 import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
+
+import { ContentPreview } from 'box-ui-elements';
+import messages from 'box-ui-elements/i18n/en-US';
+import 'box-ui-elements/dist/preview.css';
+import './index.scss';
+
+// Not needed unless working with non "en" locales
+// addLocaleData(enLocaleData);
+
+const container = document.querySelector('.container');
+const token = 'aRPU7COQG1ozVy1pyRonB5S2hKTv13OR';
+const language = 'en-US';
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -15,7 +27,7 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: 418675740558,
+      fileId: 421186798979,
       accessToken: null
     }
 
@@ -65,25 +77,13 @@ class DocumentPreview extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody>
-            <IntlProvider locale="en" textComponent={React.Fragment}>
-              <ContentPreview
-                contentSidebarProps={{
-                  detailsSidebarProps: {
-                    hasAccessStats: false,
-                    hasClassification: false,
-                    hasNotices: false,
-                    hasProperties: false,
-                    hasRetentionPolicy: false,
-                    hasVersions: true
-                  },
-                  hasActivityFeed: false,
-                  hasMetadata: false,
-                  hasSkills: false
-                }}
-                fileId={this.state.fileId}
-                token={this.state.accessToken}
-              />
-            </IntlProvider>
+            <ContentPreview
+              hasHeader
+              fileId={this.state.fileId}
+              token={token}
+              language={language}
+              messages={messages}
+            />
           </ModalBody>
           <ModalFooter>
             {isPM && (
