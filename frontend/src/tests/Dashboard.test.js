@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16'
 import { shallowToJson } from 'enzyme-to-json'
 import { configure, shallow } from 'enzyme'
 
-beforeAll(()=>{
+beforeAll(() => {
   configure({ adapter: new Adapter() })
 })
 
