@@ -3,11 +3,27 @@ import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { ContentPreview } from 'box-ui-elements'
 import { IntlProvider } from 'react-intl'
-import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
+import { getAccessToken, updateDocumentStatus, getAllDocuments } from '../utils/ApiWrapper'
+import { bindActionCreators } from 'redux'
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+import Dashboard from './Dashboard'
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  documents: state.user.documents,
+  loading: state.user.loading
 })
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateDocuments,
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
 
 class DocumentPreview extends Component {
   constructor(props) {
@@ -26,11 +42,21 @@ class DocumentPreview extends Component {
 
   handleApproveClick() {
     updateDocumentStatus(this.state.id, 'Approved')
+    this.props.beginLoading()
+    getAllDocuments().then(res => {
+      this.props.updateDocuments(res)
+      this.props.endLoading()
+    })
     this.toggle()
   }
 
   handleRejectClick() {
     updateDocumentStatus(this.state.id, 'Rejected')
+    this.props.beginLoading()
+    getAllDocuments().then(results => {
+      this.props.updateDocuments(results)
+      this.props.endLoading()
+    })
     this.toggle()
   }
 
@@ -106,4 +132,7 @@ class DocumentPreview extends Component {
   }
 }
 
-export default connect(mapStateToProps)(DocumentPreview)
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(DocumentPreview)
