@@ -68,6 +68,19 @@ class DocumentPreview extends Component {
 
   render() {
     const { isPM } = this.props
+
+    const customStyles = {
+        // top: '50%',
+        // left: '50%',
+        // right: 'auto',
+        // bottom: 'auto',
+        // marginRight: '-50%',
+        // transform: 'translate(-50%, -50%)',
+        height: '500px', // <-- This sets the height
+        width: '500px',
+        overlfow: 'scroll' // <-- This tells the modal to scrol
+    };
+
     return (
       <>
         {this.state.fileName && (
@@ -77,11 +90,11 @@ class DocumentPreview extends Component {
         )}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody>
+          <ModalBody style={customStyles}>
 
-            <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
+            <Iframe url="https://app.box.com/s/j9sjip2y1v2v7v3vo999u0uel62twe0p"
               width="450px"
-              height="450px"
+              height="500px"
               allowFullScreen/>
           </ModalBody>
           <ModalFooter>
