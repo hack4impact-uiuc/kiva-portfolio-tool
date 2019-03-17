@@ -5,6 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { IntlProvider } from 'react-intl'
 import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
 
+import Iframe from 'react-iframe'
 import { ContentPreview } from 'box-ui-elements'
 import messages from 'box-ui-elements/i18n/en-US'
 import 'box-ui-elements/dist/preview.css'
@@ -77,13 +78,11 @@ class DocumentPreview extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody>
-            <ContentPreview
-              hasHeader
-              fileId={this.state.fileId}
-              token={token}
-              language={language}
-              messages={messages}
-            />
+
+            <Iframe url="http://www.youtube.com/embed/xDMP3i36naA"
+              width="450px"
+              height="450px"
+              allowFullScreen/>
           </ModalBody>
           <ModalFooter>
             {isPM && (
