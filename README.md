@@ -24,7 +24,9 @@ Then navigate into the newly cloned repository. Follow the READMEs in both the f
 
 ## Backend Resources
 [Database Schema](https://docs.google.com/document/d/1KIfpPRFF79QpSVBjARBpSYpPUxpMPimn_KEcjvi9qI8/edit?usp=sharing)
+
 Authentication documentation coming soon
+
 [Backend Boilerplate Documentation](https://github.com/tko22/flask-boilerplate/wiki)
 
 ## Workarounds
