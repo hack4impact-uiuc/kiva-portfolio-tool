@@ -30,12 +30,12 @@ Authentication documentation coming soon
 ## Workarounds
 Over the course of the 3 month timeline for building out this tool, we accumulated some technical debt that, with more time and resources, can be re-implemented with better practices:
 
-    * Box API Content Preview
-        * Box has various libraries that allow for previewing documents from an account. However, the React component was not functioning correctly when we attempted to integrate it with the dashboard.
-        * Instead, we retrieve an iframe link from the Box API and use the iframe to display documents.
+* Box API Content Preview
+    * Box has various libraries that allow for previewing documents from an account. However, the React component was not functioning correctly when we attempted to integrate it with the dashboard.
+    * Instead, we retrieve an iframe link from the Box API and use the iframe to display documents.
 
-    * Testing
-        * Although test cases are included for the backend database and endpoints and frontend components, they are by no means comprehensive. With the given timeframe, our focus was concentrated on developing all of the required features. As a result, the tests mostly cover basic cases and may overlook some edge cases.
+* Testing
+    * Although test cases are included for the backend database and endpoints and frontend components, they are by no means comprehensive. With the given timeframe, our focus was concentrated on developing all of the required features. As a result, the tests mostly cover basic cases and may overlook some edge cases.
 
 ## Team
 Special thanks to the team of developers and product designer that contributed to building the product:
