@@ -40,7 +40,10 @@ Over the course of the 3 month timeline for building out this tool, we accumulat
 ## Team
 Special thanks to the team of developers and product designer that contributed to building the product:
 
+### Product Designer
 Chloe Chan (chloegchan@gmail.com)
+
+### Software Developers
 Kelley Chau (kelleyc2@illinois.edu)
 Danielle Yang (dy6@illinois.edu)
 Jeffy Lin (jlin79@illinois.edu)
