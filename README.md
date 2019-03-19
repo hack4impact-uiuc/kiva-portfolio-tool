@@ -20,7 +20,8 @@ Then navigate into the newly cloned repository. Follow the READMEs in both the f
 [Product Requirements Document](https://docs.google.com/document/d/18AB0JTP9kXW2ywRGYXVPJkWVdHS9fCZ2O18cF_Ws7qI/edit?usp=sharing)
 
 ## Design Resources
-
+[Brand Assets (Courtesy of Kiva)](https://drive.google.com/drive/folders/1oo-Q-B_khVYbN4nrJADlI1S0dr823jQL)
+[Product Design Sketches, Models, etc.](https://drive.google.com/drive/folders/1fMjmDtsBPMLHSsE0fctPsorrGj-iIIkp?usp=sharing)
 
 ## Backend Resources
 [Database Schema](https://docs.google.com/document/d/1KIfpPRFF79QpSVBjARBpSYpPUxpMPimn_KEcjvi9qI8/edit?usp=sharing)
