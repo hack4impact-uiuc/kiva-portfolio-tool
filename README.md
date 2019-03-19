@@ -45,7 +45,11 @@ Chloe Chan (chloegchan@gmail.com)
 
 ### Software Developers
 Kelley Chau (kelleyc2@illinois.edu)
+
 Danielle Yang (dy6@illinois.edu)
+
 Jeffy Lin (jlin79@illinois.edu)
+
 Daniel Choi (dschoi3@illinois.edu)
+
 Navam Awasthi (uawasth2@illinois.edu)
