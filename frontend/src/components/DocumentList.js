@@ -21,15 +21,16 @@ class DocumentList extends Component {
             <th>FILE</th>
             <th />
           </tr>
-          {this.state.documents && this.state.documents.map((document, index) => (
-            <DocumentListItem
-              key={index}
-              document={document}
-              docClass={document.docClass}
-              fileName={document.fileName}
-              fileId={document.fileId}
-            />
-          ))}
+          {this.state.documents &&
+            this.state.documents.map((document, index) => (
+              <DocumentListItem
+                key={index}
+                document={document}
+                docClass={document.docClass}
+                fileName={document.fileName}
+                fileId={document.fileId}
+              />
+            ))}
         </tbody>
       </Table>
     )

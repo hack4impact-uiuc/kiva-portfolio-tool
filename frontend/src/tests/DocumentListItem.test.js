@@ -10,7 +10,7 @@ beforeAll(() => {
 })
 
 test('DocumentListItem renders correctly', () => {
-  const component = shallow(<DocumentListItem document={MockData.missing[0]}/>)
+  const component = shallow(<DocumentListItem document={MockData.missing[0]} />)
 
   let tree = shallowToJson(component)
   expect(tree).toMatchSnapshot()
