@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upload renders correctly 1`] = `
+<div
+  className="dropPageBackground"
+  style={
+    Object {
+      "paddingTop": "5%",
+    }
+  }
+>
+  <div
+    className="dropPage"
+  >
+    <section
+      className="droppedBox"
+    >
+      <div
+        className="dropZone"
+      >
+        <m
+          onDrop={[Function]}
+        >
+          <Component />
+        </m>
+      </div>
+      <aside>
+        <h4>
+          Files Dropped
+        </h4>
+        <ul
+          className="droppedFilesBackground"
+        />
+        <Button
+          className="right"
+          color="secondary"
+          disabled={true}
+          onClick={[Function]}
+          tag="button"
+        >
+          Upload File
+        </Button>
+        <Modal
+          autoFocus={true}
+          backdrop={true}
+          backdropTransition={
+            Object {
+              "mountOnEnter": true,
+              "timeout": 150,
+            }
+          }
+          centered={false}
+          fade={true}
+          isOpen={false}
+          keyboard={true}
+          modalTransition={
+            Object {
+              "timeout": 300,
+            }
+          }
+          onClosed={[Function]}
+          onOpened={[Function]}
+          role="dialog"
+          toggle={[Function]}
+          zIndex={1050}
+        >
+          <ModalBody
+            tag="div"
+          >
+            File uploaded - your submission is being processed.
+          </ModalBody>
+          <ModalFooter
+            tag="div"
+          >
+            <Button
+              className="invalidSearchButton"
+              color="secondary"
+              onClick={[Function]}
+              tag="button"
+            >
+              Return
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </aside>
+    </section>
+    <hr />
+  </div>
+</div>
+`;
