@@ -14,15 +14,16 @@ class DocumentList extends Component {
   render() {
     return (
       <Table>
-        <caption data-testid="status">{this.state.status}</caption>
+        <caption>{this.state.status}</caption>
         <tbody>
           <tr>
             <th>DOC NAME</th>
             <th>FILE</th>
             <th />
           </tr>
-          {this.state.documents && this.state.documents.map(document => (
+          {this.state.documents && this.state.documents.map((document, index) => (
             <DocumentListItem
+              key={index}
               document={document}
               docClass={document.docClass}
               fileName={document.fileName}
