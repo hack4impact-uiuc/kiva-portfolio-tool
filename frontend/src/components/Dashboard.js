@@ -1,6 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import { getAllDocuments } from '../utils/ApiWrapper'
+import NotificationsBar from './NotificationsBar'
+import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -22,7 +23,8 @@ class Dashboard extends React.Component {
 
     this.state = {
       documents: [],
-      statuses: []
+      statuses: [],
+      messages: []
     }
   }
 
@@ -35,32 +37,56 @@ class Dashboard extends React.Component {
       this.setState({
         documents: []
       }) */
-    const res = await getAllDocuments()
+    let messages = await getAllMessages()
+    this.setState(this.updateMessages(messages))
+    let documents = await getAllDocuments()
+    this.setState(this.updateDocuments(documents))
+    
+  }
+
+  updateDocuments(res) {
     if (res) {
-      this.setState({
+      return {
         documents: res,
         statuses: ['Missing', 'Pending', 'Rejected', 'Approved']
-      })
+      }
     } else {
-      this.setState({
+      return {
         documents: [],
         statuses: []
-      })
+      }
+    }
+  }
+
+  updateMessages(res) {
+    if (res) {
+      return {
+        messages: res
+      }
+    } else {
+      return {
+        messages: []
+      }
     }
   }
 
   render() {
     return (
       <div>
-        {Object.keys(this.state.documents).map(key => {
-          return (
-            <DocumentList
-              isPM={this.state.isPM}
-              documents={this.state.documents[key]}
-              status={key}
-            />
-          )
-        })}
+        <div>
+          {Object.keys(this.state.documents).map(key => {
+            return (
+              <DocumentList
+                isPM={this.state.isPM}
+                documents={this.state.documents[key]}
+                status={key}
+              />
+            )
+          })}
+        </div>
+        <div>
+          <NotificationsBar messages={this.state.messages}/>
+        </div>
       </div>
     )
   }

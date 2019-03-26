@@ -1,5 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
+import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -36,16 +37,21 @@ export const getDocumentsByName = (fileName, docClass) => {
 }
 
 export const getAllDocuments = () => {
-  let requestString = BACKEND_URL + '/document'
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.documents
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
+  // let requestString = BACKEND_URL + '/document'
+  // return axios
+  //   .get(requestString)
+  //   .then(response => {
+  //     return response.data.result.documents
+  //   })
+  //   .catch(error => {
+  //     console.log('ERROR: ', error)
+  //     return null
+  //   })
+  return MockData
+}
+
+export const getAllMessages = () => {
+  return ['joe', 'schmoe', 'bro']
 }
 
 export const getAccessToken = () => {
