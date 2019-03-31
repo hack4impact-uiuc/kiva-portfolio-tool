@@ -14,10 +14,6 @@ import './index.scss'
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
-const container = document.querySelector('.container')
-const token = 'aRPU7COQG1ozVy1pyRonB5S2hKTv13OR'
-const language = 'en-US'
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
@@ -28,8 +24,9 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: 421186798979,
-      accessToken: null
+      fileId: this.props.document.fileId,
+      accessToken: null,
+      fileURL: null
     }
 
     this.toggle = this.toggle.bind(this)
@@ -64,6 +61,9 @@ class DocumentPreview extends Component {
         accessToken: null
       })
     }
+    this.setState({
+      fileURL: "https://app.box.com/s/" + this.state.fileId
+    })
   }
 
   render() {
@@ -92,7 +92,7 @@ class DocumentPreview extends Component {
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody style={customStyles}>
 
-            <Iframe url="https://app.box.com/s/j9sjip2y1v2v7v3vo999u0uel62twe0p"
+            <Iframe url= {this.state.fileURL}
               width="450px"
               height="500px"
               allowFullScreen/>
