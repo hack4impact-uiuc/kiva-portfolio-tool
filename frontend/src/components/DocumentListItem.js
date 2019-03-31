@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalFooter } from 'reactstrap'
 import Upload from './Upload'
+import { downloadDocument } from '../utils/ApiWrapper'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -28,6 +29,7 @@ class DocumentListItem extends Component {
 
   handleDownloadClick() {
     // Download click handling
+    downloadDocument(document.fileID)
   }
 
   handleUploadClick() {

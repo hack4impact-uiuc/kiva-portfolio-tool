@@ -61,6 +61,19 @@ export const getAccessToken = () => {
     })
 }
 
+export const downloadDocument = (id) => {
+  let requestString = BACKEND_URL + '/box/download?file_id' + id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.output
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const updateDocumentStatus = (id, status) => {
   return axios
     .put(BACKEND_URL + '/document/update/' + id + '/' + status)

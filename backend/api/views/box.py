@@ -175,13 +175,14 @@ def get_file_info(client, file_id):
 
     return file_info
 
-
-def download_file(file_id):
+@box.route("/box/download", methods=["GET"])
+def download_file():
+    file_id = request.form.get("file_id")
     box_file = client.file(file_id).get()
     output_file = open(box_file.name, "wb")
     box_file.download_to(output_file)
 
-    return output_file
+    return create_response(data={"output": output_file})
 
 
 def delete_file(file_id):
