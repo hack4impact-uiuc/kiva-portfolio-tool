@@ -55,11 +55,8 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-<<<<<<< HEAD
     "test-js": "react-scripts test",
-=======
     "test-js": "react-scripts test --transformIgnorePatterns \"node_modules/(?!box-ui-elements)/\"",
->>>>>>> master
     "test": "npm-run-all -p build-css test-js",
     "format": "prettier --write '{src,test}/**/*.{js,jsx,json,css}'",
     "format:check": "prettier --list-different '{src,test}/**/*.js'",
