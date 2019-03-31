@@ -37,17 +37,16 @@ export const getDocumentsByName = (fileName, docClass) => {
 }
 
 export const getAllDocuments = () => {
-  // let requestString = BACKEND_URL + '/document'
-  // return axios
-  //   .get(requestString)
-  //   .then(response => {
-  //     return response.data.result.documents
-  //   })
-  //   .catch(error => {
-  //     console.log('ERROR: ', error)
-  //     return null
-  //   })
-  return MockData
+  let requestString = BACKEND_URL + '/document'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.documents
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
 }
 
 export const getAllMessages = () => {
