@@ -33,9 +33,12 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-# Gets all documents that can be specified using a query string
 @main.route("/document", methods=["GET"])
+
 def get_document():
+    """
+    Gets all documents that can be specified using a query string
+    """
     # gets database values from query string, if missing is None
     kwargs = {}
     kwargs["fileID"] = request.args.get("fid")
@@ -56,7 +59,9 @@ def get_document():
     if len(kwargs) == 0:
         docs = Document.query.all()
 
-        # Since description and date were not part of search parameters,
+        # Since description and date were not part of search parameters
+        # this is so that partial querying can be use to search keywords in description
+        # and to allow searching by day of week rather than exact date
         # refines searches by date and description
         if description is not None:
             docs = [
@@ -70,7 +75,7 @@ def get_document():
 
         # if no documents found, let user know
         if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="Query was incorrect")
+            return create_response(status=403, message="No Documents Found")
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
@@ -93,7 +98,9 @@ def get_document():
         # Unpacks the search values in our dictionary and provides them to Flask/SQLalchemy
         docs = Document.query.filter_by(**kwargs)
 
-        # Since description and date were not part of search parameters,
+        # Since description and date were not part of search parameters
+        # this is so that partial querying can be use to search keywords in description
+        # and to allow searching by day of week rather than exact date
         # refines searches by date and description
         if description is not None:
             docs = [
@@ -107,7 +114,7 @@ def get_document():
 
         # if no documents found, let user know
         if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="Query was incorrect")
+            return create_response(status=403, message="No Documents Found")
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
@@ -127,9 +134,11 @@ def get_document():
         )
 
 
-# functionality used to add a new document to database
 @main.route("/document/new", methods=["POST"])
 def create_new_document():
+    """
+    functionality used to add a new document to database
+    """
     # data for new document should be stored as json in request
     data = request.get_json()
 
@@ -154,21 +163,26 @@ def create_new_document():
     return create_response(status=200, message="success")
 
 
-# Deletes all documents related to a document class in database
 @main.route("/document/delete/<docClass>", methods=["DELETE"])
 def delete_document(docClass):
+    """
+    Deletes all documents related to a document class in database
+    """
     # logger.info(docClass)
     db.session.delete(
-        # gets all document <id> native to db and sees if == to docClass. Then deleetes
+        # gets all document <id> native to db and sees if == to docClass. Then deletes
         Document.query.filter((Document.docClass == str(docClass))).first()
     )
     db.session.commit()
     return create_response(status=200, message="success")
 
 
-# functionality that updates a document/documentClass
 @main.route("/document/update/<docClass>", methods=["PUT"])
 def update_documents(docClass):
+    """
+    functionality that updates a document/documentClass
+    """
+
     # takes in updated docClass information by json in request
     # receives all documents by docClass
     doc = Document.query.filter((Document.docClass == docClass)).first()
@@ -186,10 +200,11 @@ def update_documents(docClass):
     db.session.commit()
     return create_response(status=200, message="success")
 
-# given id of document, can update its status to new status provided in url
 @main.route("/document/update/<id>/<status>", methods=["PUT"])
 def update_status(id, status):
-    """ function called when you visit /document/update/<id>/<status>. Updates a doc's status """
+    """ 
+    function called when you visit /document/update/<id>/<status>. Updates a doc's status 
+    """
     # get document by id
     doc = Document.query.get(id)
     # update doc status to new status and return

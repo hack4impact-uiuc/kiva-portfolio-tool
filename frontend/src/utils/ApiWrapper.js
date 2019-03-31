@@ -54,6 +54,10 @@ export const getAllMessages = () => {
   return ['joe', 'schmoe', 'bro']
 }
 
+export const getAllDocumentClasses = () => {
+  return ['WakaWaka', 'MakaMaka', 'BoomShakaLaka']
+}
+
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
