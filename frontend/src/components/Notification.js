@@ -19,11 +19,11 @@ class Notification extends Component {
   render() {
     const { isPM } = this.props
     return (
-      <>
-        <p> <b> {this.state.name} </b> </p>
+      <div>
+        <p class="name"> <b> {this.state.name} </b> </p>
         <p> {this.state.time} </p>
-        <p> {this.state.description} </p>
-      </>
+        <p class="description"> {this.state.description} </p>
+      </div>
     )
   }
 }
