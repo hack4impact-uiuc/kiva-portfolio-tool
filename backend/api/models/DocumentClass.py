@@ -12,11 +12,7 @@ class Document(Mixin, db.Model):
     name = db.Column(db.String, unique=True)
     description = db.Column(db.String, unique=False, nullable=True)
 
-    def __init__(
-        self,
-        name,
-        description=None,
-    ):
+    def __init__(self, name, description=None):
         self.name = name
         self.description = description
 
