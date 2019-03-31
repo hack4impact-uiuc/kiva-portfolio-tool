@@ -15,11 +15,13 @@ class DocumentList extends Component {
   render() {
     return (
       <Table>
-        <caption>{this.state.status}</caption>
         <tbody>
           <tr>
-            <th>DOC NAME</th>
-            <th>FILE</th>
+            <th colspan="3" className={'background-' + this.state.status.toLowerCase() + ' text-white'}>{this.state.status + ' Documents'}</th>
+          </tr>
+          <tr>
+            <th>Document Name</th>
+            <th>File</th>
             <th />
           </tr>
           {this.state.documents &&

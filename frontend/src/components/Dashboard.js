@@ -4,6 +4,7 @@ import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
+import '../styles/dashboard.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
