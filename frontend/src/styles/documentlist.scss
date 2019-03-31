@@ -1,13 +1,16 @@
+@import "variables.scss";
+
 .table {
   margin: auto;
   margin-top: 2%;
-  border: 1px solid #d8d8d8;
   background-color: #ffffff;
   display: inline-table;
+  box-shadow: 2px 3px 7px $shadow-color;
+  border-radius: 8px;
 }
 
 td {
-  width: 40%;
+  text-align: center;
 }
 
 td .interaction {

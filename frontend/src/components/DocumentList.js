@@ -16,12 +16,12 @@ class DocumentList extends Component {
     return (
       <Table>
         <tbody>
-          <tr>
-            <th colspan="3" className={'background-' + this.state.status.toLowerCase() + ' text-white'}>{this.state.status + ' Documents'}</th>
+          <tr className="dlist-header">
+            <th colSpan="3" className={'background-' + this.state.status.toLowerCase() + ' text-white'}>{this.state.status + ' Documents'}</th>
           </tr>
           <tr>
-            <th>Document Name</th>
-            <th>File</th>
+            <th className="theader-centered">Document Name</th>
+            <th className="theader-centered">File</th>
             <th />
           </tr>
           {this.state.documents &&

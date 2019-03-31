@@ -57,7 +57,7 @@ class DocumentListItem extends Component {
           <td data-testid="fileName">
             {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
           </td>
-          <td data-testid="interaction" class="interaction">
+          <td data-testid="interaction" className="interaction">
             {this.state.fileName && (
               <Button color="primary" onClick={this.handleDownloadClick}>
                 DOWNLOAD
