@@ -3,6 +3,7 @@ import DocumentList from './DocumentList'
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Container, Row, Col } from 'reactstrap'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -51,17 +52,21 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
-        {Object.keys(this.state.documents).map(key => {
-          return (
-            <DocumentList
-              isPM={this.state.isPM}
-              documents={this.state.documents[key]}
-              status={key}
-            />
-          )
-        })}
-      </div>
+      <Container>
+        <Row>
+          {Object.keys(this.state.documents).map(key => {
+            return (
+              <Col sm="12" md="6">
+                <DocumentList
+                  isPM={this.state.isPM}
+                  documents={this.state.documents[key]}
+                  status={key}
+                />
+              </Col>
+            )
+          })}
+        </Row>
+      </Container>
     )
   }
 }

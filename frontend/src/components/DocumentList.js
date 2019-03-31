@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
+import '../styles/documentlist.css'
 
 class DocumentList extends Component {
   constructor(props) {
