@@ -29,7 +29,7 @@ TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
 """
 
 # One time authentication for the application
-_CRED_FILE = "api/views/171399529_b8tan54x_config.json"
+_CRED_FILE = "api/views/171399529_73anvn29_config.json"
 sdk = JWTAuth.from_settings_file(_CRED_FILE)
 client = Client(sdk)
 
@@ -39,7 +39,7 @@ SPACE = 1073741824
 
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
-    config = json.load(open("api/views/171399529_b8tan54x_config.json"))
+    config = json.load(open("api/views/171399529_73anvn29_config.json"))
 
     keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
 
@@ -99,23 +99,6 @@ def get_access_token():
     access_token = json.loads(response)["access_token"]
     return create_response(data={"access_token": access_token})
 
-
-@box.route("/box/file", methods=["POST"])
-def upload_file():
-    data = request.files.get("file")
-    file_name = request.form.get("file_name")
-    box_file = upload_file(data, file_name)
-    if box_file is not None:
-        file_id = box_file["id"]
-
-        new_data = Document(7, "Post Document Test File", file_id)
-        db.session.add(new_data)
-        db.session.commit()
-        return create_response(status=200, message="success")
-    else:
-        return create_response(status=400, message="Duplicate file name")
-
-
 def create_user(username):
     user = client.create_user(username, None, space_amount=SPACE)
 
@@ -148,6 +131,21 @@ def get_user_information(client, user_id):
     info = client.user(user_id=user_id).get()
     return info
 
+####
+def upload_file_redirect():
+    data = request.files.get("file")
+    file_name = request.form.get("file_name")
+    box_file = upload_file(data, file_name)
+    if box_file is not None:
+        file_id = box_file["id"]
+
+        new_data = Document(7, "Post Document Test File", file_id)
+        db.session.add(new_data)
+        db.session.commit()
+        return create_response(status=200, message="success")
+    else:
+        return create_response(status=400, message="Duplicate file name")
+####
 
 def upload_file(file, file_name):
     """
@@ -186,33 +184,33 @@ def download_file(file_id):
     return output_file
 
 
-def delete_file(client, file_id):
+def delete_file(file_id):
     client.file(file_id).delete()
 
 
-def add_comment(client, file_id, message):
+def add_comment(file_id, message):
     comment = client.file(file_id).add_comment(message)
 
     return comment
 
 
-def get_comment(client, comment_id):
+def get_comment(comment_id):
     comment = client.comment(comment_id).get()
 
     return comment
 
 
-def update_comment(client, comment_id, new_message):
+def update_comment(comment_id, new_message):
     edited_comment = client.comment(comment_id).edit(new_message)
 
     return edited_comment
 
 
-def delete_comment(client, comment_id):
+def delete_comment(comment_id):
     client.comment(comment_id).delete()
 
 
-def create_link(client, file_id):
+def create_link(file_id):
     access_level = "open"
     file = client.file(file_id)
     link = file.get_shared_link(access=access_level)
@@ -220,7 +218,7 @@ def create_link(client, file_id):
     return link
 
 
-def find_files_by_content(client, content_query):
+def find_files_by_content(content_query):
     """
     Find files with the same content
     ### Return a list of file names
@@ -232,3 +230,4 @@ def find_files_by_content(client, content_query):
         output.append(i)
 
     return output
+

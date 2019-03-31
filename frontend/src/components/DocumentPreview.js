@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 //import { ContentPreview } from 'box-ui-elements'
 import { IntlProvider } from 'react-intl'
-import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
+import { getAccessToken, updateDocumentStatus, getDocuments, getDocumentsByName } from '../utils/ApiWrapper'
 
 import Iframe from 'react-iframe'
 import { ContentPreview } from 'box-ui-elements'

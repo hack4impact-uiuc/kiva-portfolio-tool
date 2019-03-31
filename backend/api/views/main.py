@@ -1,6 +1,7 @@
 from flask import Blueprint, request, json
 from api.models import Document, Message, db
 from api.core import create_response, serialize_list, logger
+import box
 
 main = Blueprint("main", __name__)  # initialize blueprint
 
@@ -123,8 +124,16 @@ def create_new_document():
         return create_response(
             status=422, message="No Document Class provided for new Document"
         )
-    sample_args = request.args
+    # requeest.args[0] == file byte
+    # request.args[1] == other args necessary for doc creation
+    sample_args = request.args[1]
     new_data = Document(**data)
+
+    file_info = upload_file(request.args[0], new_data.fileName)
+
+    new_data.fileID = file_info["id"]
+    # use retrieved file_info
+
     db.session.add(new_data)
     db.session.commit()
     return create_response(status=200, message="success")
