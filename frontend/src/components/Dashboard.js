@@ -24,13 +24,9 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
+      documents: [],
       statuses: []
     }
-  }
-
-  shouldComponentUpdate(nextProps) {
-    console.log(this.props.documents !== nextProps.documents)
-    return this.props.documents !== nextProps.documents
   }
 
   async componentDidMount() {
@@ -45,6 +41,7 @@ class Dashboard extends React.Component {
     const res = await getAllDocuments()
     if (res) {
       this.props.updateDocuments(res)
+      this.props.history.push('/dashboard')
       console.log(typeof res)
     } else {
       this.props.updateDocuments([])
@@ -52,6 +49,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    console.log(this.props.documents)
     return (
       <div>
         {Object.keys(this.props.documents).map(key => {
