@@ -1,4 +1,4 @@
-from api.models import db
+from api.models import db, DocumentClass
 
 
 # client passed from client - look into pytest for more info about fixtures
