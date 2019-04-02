@@ -32,14 +32,12 @@ class Dashboard extends React.Component {
     const res = await getAllDocuments()
     if (res) {
       this.props.updateDocuments(res)
-      console.log(typeof res)
     } else {
       this.props.updateDocuments([])
     }
   }
 
   render() {
-    console.log(this.props.documents)
     return (
       <div>
         {Object.keys(this.props.documents).map(key => {
