@@ -1,6 +1,6 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import NotificationsBar from './NotificationsBar'
+// import NotificationsBar from './NotificationsBar'
 import SelectDocumentsPage from './SelectDocuments'
 import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
@@ -85,9 +85,9 @@ class Dashboard extends React.Component {
             )
           })}
         </div>
-        <div>
+        {/* <div>
           <NotificationsBar messages={this.state.messages}/>
-        </div>
+        </div> */}
         <div>
           <SelectDocumentsPage/>
         </div>
