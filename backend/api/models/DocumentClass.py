@@ -3,7 +3,7 @@ from .base import db
 
 
 # Note that we use sqlite for our tests, so you can't use Postgres Arrays
-class Document(Mixin, db.Model):
+class DocumentClass(Mixin, db.Model):
     """Document Class Table."""
 
     __tablename__ = "document_class"
