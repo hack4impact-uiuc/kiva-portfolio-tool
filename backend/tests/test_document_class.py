@@ -23,7 +23,7 @@ def test_get_document_class(client):
     assert rs.status_code == 200
     ret_dict = rs.json
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["document"] == []
+    assert ret_dict["result"]["document_class"] == []
 
     # Creating a docclass and adding it to the database
     helper_docclass = create_docclass()
@@ -32,10 +32,10 @@ def test_get_document_class(client):
 
     rs = client.get("/document_class")
     ret_dict = rs.json
-    assert len(ret_dict["result"]["document"]) == 1
-    assert ret_dict["result"]["document"][0]["name"] == "Annual Report"
+    assert len(ret_dict["result"]["document_class"]) == 1
+    assert ret_dict["result"]["document_class"][0]["name"] == "Annual Report"
     assert (
-        ret_dict["result"]["document"][0]["description"] == "Annual report of finances"
+        ret_dict["result"]["document_class"][0]["description"] == "Annual report of finances"
     )
 
 
@@ -51,10 +51,10 @@ def test_get_document_class_by_id(client):
     assert rs.status_code == 200
     ret_dict = rs.json
     assert ret_dict["success"] == True
-    assert len(ret_dict["result"]["document"]) == 1
-    assert ret_dict["result"]["document"][0]["name"] == "Annual Report"
+    assert len(ret_dict["result"]["document_class"]) == 1
+    assert ret_dict["result"]["document_class"][0]["name"] == "Annual Report"
     assert (
-        ret_dict["result"]["document"][0]["description"] == "Annual report of finances"
+        ret_dict["result"]["document_class"][0]["description"] == "Annual report of finances"
     )
 
 
@@ -104,6 +104,6 @@ def test_update_document_class_by_id(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["portfolio_manager"]) == 4
-    assert ret_dict["result"]["portfolio_manager"]["name"] == "newdocname"
-    assert ret_dict["result"]["portfolio_manager"]["description"] == "description here"
+    assert len(ret_dict["result"]["document_class"]) == 4
+    assert ret_dict["result"]["document_class"]["name"] == "newdocname"
+    assert ret_dict["result"]["document_class"]["description"] == "description here"
