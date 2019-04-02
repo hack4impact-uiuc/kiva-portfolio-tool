@@ -19,7 +19,7 @@ def get_document_class_by_id(id):
     return create_response(data={"document_class": serialize_list(document_class)})
 
 
-@docclass.route("/document_class", methods=["POST"])
+@docclass.route("/document_class/new", methods=["POST"])
 def add_document_class():
     """ function that is called when you visit /document_class, creates a new docclass """
     data = request.get_json()
