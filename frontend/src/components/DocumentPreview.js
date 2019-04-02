@@ -40,8 +40,8 @@ class DocumentPreview extends Component {
     this.handleRejectClick = this.handleRejectClick.bind(this)
   }
 
-  handleApproveClick() {
-    updateDocumentStatus(this.state.id, 'Approved')
+  async handleApproveClick() {
+    await updateDocumentStatus(this.state.id, 'Approved')
     this.props.beginLoading()
     getAllDocuments().then(res => {
       this.props.updateDocuments(res)
@@ -50,8 +50,8 @@ class DocumentPreview extends Component {
     this.toggle()
   }
 
-  handleRejectClick() {
-    updateDocumentStatus(this.state.id, 'Rejected')
+  async handleRejectClick() {
+    await updateDocumentStatus(this.state.id, 'Rejected')
     this.props.beginLoading()
     getAllDocuments().then(results => {
       this.props.updateDocuments(results)
