@@ -14,7 +14,6 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       updateDocuments
-      //put actions here
     },
     dispatch
   )
@@ -30,18 +29,9 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
-    /* await getAllDocuments().then(results => {
-      results ? 
-      this.setState({
-        documents: results
-      }) :
-      this.setState({
-        documents: []
-      }) */
     const res = await getAllDocuments()
     if (res) {
       this.props.updateDocuments(res)
-      this.props.history.push('/dashboard')
       console.log(typeof res)
     } else {
       this.props.updateDocuments([])

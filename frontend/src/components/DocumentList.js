@@ -5,15 +5,12 @@ import DocumentListItem from './DocumentListItem'
 class DocumentList extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      status: this.props.status
-    }
   }
 
   render() {
     return (
       <Table>
-        <caption>{this.state.status}</caption>
+        <caption>{this.props.status}</caption>
         <tbody>
           <tr>
             <th>DOC NAME</th>

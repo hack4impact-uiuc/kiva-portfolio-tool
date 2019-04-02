@@ -2,6 +2,11 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
@@ -22,22 +27,23 @@
     "react": "^16.8.1",
     "react-animate-height": "^2.0.7",
     "react-dom": "^16.8.1",
+    "react-dropzone": "^10.0.0",
     "react-immutable-proptypes": "^2.1.0",
     "react-intl": "^2.8.0",
     "react-measure": "^2.2.4",
     "react-modal": "^3.8.1",
-    "react-dropzone": "^10.0.0",
     "react-popup": "^0.10.0",
     "react-process-string": "^1.2.0",
     "react-redux": "^6.0.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5",
+    "react-scripts": "^2.1.8",
     "react-tether": "^2.0.0",
     "react-textarea-autosize": "^7.1.0",
     "react-virtualized": "^9.21.0",
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
+    "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "scroll-into-view-if-needed": "^2.2.20",
     "tabbable": "^3.1.2"
@@ -49,7 +55,8 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "test": "react-scripts test",
+    "test-js": "react-scripts test --transformIgnorePatterns \"node_modules/(?!box-ui-elements)/\"",
+    "test": "npm-run-all -p build-css test-js",
     "format": "prettier --write '{src,test}/**/*.{js,jsx,json,css}'",
     "format:check": "prettier --list-different '{src,test}/**/*.js'",
     "eject": "react-scripts eject"
@@ -64,6 +71,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-plugin-syntax-class-properties": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "enzyme-to-json": "^3.3.5",
     "react-test-renderer": "^16.8.2",
     "react-testing-library": "^5.9.0"
   }
