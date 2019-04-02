@@ -1,6 +1,8 @@
-from flask import Blueprint, request
-from api.models.Message import Message
+from flask import Blueprint, request, json
+from api.models import DocumentClass, db
 from api.core import create_response, serialize_list, logger
+
+import requests, json
 
 docclass = Blueprint("docclass", __name__)
 
