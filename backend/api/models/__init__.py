@@ -6,6 +6,7 @@ from .base import db
 from .Document import Document
 from .PortfolioManager import PortfolioManager
 from .FieldPartner import FieldPartner
+from .DocumentClass import DocumentClass
 
 __all__ = [
     "db",
