@@ -3,6 +3,8 @@ import DocumentList from './DocumentList'
 import NotificationsBar from './NotificationsBar'
 import SelectDocumentsPage from './SelectDocuments'
 import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
+import 'react-datepicker/dist/react-datepicker.css' 
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -70,6 +72,9 @@ class Dashboard extends React.Component {
       }
     }
   }
+  pStyle = {
+    margin: 'auto'
+  };
 
   render() {
     return (
