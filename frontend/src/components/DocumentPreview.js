@@ -133,6 +133,6 @@ class DocumentPreview extends Component {
 }
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(DocumentPreview)

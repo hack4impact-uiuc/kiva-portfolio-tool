@@ -20,7 +20,7 @@ export default function reducer(state = initialState, action) {
         documents: action.value
       }
     case LOAD:
-      return{
+      return {
         ...state,
         loading: action.value
       }

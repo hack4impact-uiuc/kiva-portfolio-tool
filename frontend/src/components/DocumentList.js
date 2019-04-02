@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
 
-
 class DocumentList extends Component {
   constructor(props) {
     super(props)
@@ -10,7 +9,7 @@ class DocumentList extends Component {
       status: this.props.status
     }
   }
-  
+
   render() {
     return (
       <Table>
