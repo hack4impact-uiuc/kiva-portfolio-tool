@@ -20,5 +20,5 @@ COPY --from=build-stage /app/build/ /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # runs at port 80
-# to run do `docker run -p 80:[whatever port you want on host] [image name that you built]
-# 80 is the port in the container and you are mapping it to the 2nd port number in your host computer
+# to run do `docker run -p [localhost port]:80 [image name that you built]
+# 80 is the port in the container and you are mapping it to the 1st port number in your host computer
