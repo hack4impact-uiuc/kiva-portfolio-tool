@@ -17,8 +17,8 @@ def get_document_class():
 @docclass.route("/document_class/id/<id>", methods=["GET"])
 def get_document_class_by_id(id):
     """ function that is called when you visit /document_class/id/<id>, gets a docclass by id """
-    document_class = DocumentClass.query.filter(DocumentClass.id == id).all()
-    return create_response(data={"document_class": serialize_list(document_class)})
+    document_class = DocumentClass.query.get(id)
+    return create_response(data={"document_class": document_class.to_dict()})
 
 
 @docclass.route("/document_class/new", methods=["POST"])
@@ -32,8 +32,8 @@ def add_document_class():
         )
 
     sample_args = request.args
-    new_data = DocumentClass(**data)
-    return create_response(status=200, message="success")
+    new_docclass = DocumentClass(**data)
+    return create_response(data={"document_class": new_docclass.to_dict()})
 
 
 @docclass.route("/document_class/update/<id>", methods=["PUT"])
@@ -42,7 +42,7 @@ def update_document_class(id):
     docclass = DocumentClass.query.get(id)
     docclass.name = request.json.get("name", docclass.name)
     docclass.description = request.json.get("description", docclass.description)
-    ret = fp.to_dict()
+    updated_docclass = docclass.to_dict()
 
     db.session.commit()
-    return create_response(data={"document_class": ret})
+    return create_response(data={"document_class": updated_docclass})
