@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "jest": {
+    "testEnvironment": "node",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
