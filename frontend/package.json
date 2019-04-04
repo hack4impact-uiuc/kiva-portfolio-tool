@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "jest": {
-    "testEnvironment": "node",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
@@ -56,7 +55,7 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "test-js": "react-scripts test --transformIgnorePatterns \"node_modules/(?!box-ui-elements)/\"",
+    "test-js": "react-scripts test --testEnvironment \"node\" --transformIgnorePatterns \"node_modules/(?!box-ui-elements)/\"",
     "test": "npm-run-all -p build-css test-js",
     "format": "prettier --write '{src,test}/**/*.{js,jsx,json,css}'",
     "format:check": "prettier --list-different '{src,test}/**/*.js'",
