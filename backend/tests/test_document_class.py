@@ -35,7 +35,8 @@ def test_get_document_class(client):
     assert len(ret_dict["result"]["document_class"]) == 1
     assert ret_dict["result"]["document_class"][0]["name"] == "Annual Report"
     assert (
-        ret_dict["result"]["document_class"][0]["description"] == "Annual report of finances"
+        ret_dict["result"]["document_class"][0]["description"]
+        == "Annual report of finances"
     )
 
 
@@ -54,7 +55,8 @@ def test_get_document_class_by_id(client):
     assert len(ret_dict["result"]["document_class"]) == 1
     assert ret_dict["result"]["document_class"][0]["name"] == "Annual Report"
     assert (
-        ret_dict["result"]["document_class"][0]["description"] == "Annual report of finances"
+        ret_dict["result"]["document_class"][0]["description"]
+        == "Annual report of finances"
     )
 
 
