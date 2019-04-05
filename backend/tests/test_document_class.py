@@ -52,7 +52,7 @@ def test_get_document_class_by_id(client):
     assert rs.status_code == 200
     ret_dict = rs.json
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["document_class"]["_id"] == 1
+    assert ret_dict["result"]["document_class"]["_id"] == helper_docclass.id
     assert ret_dict["result"]["document_class"]["name"] == "Annual Report"
     assert (
         ret_dict["result"]["document_class"]["description"]

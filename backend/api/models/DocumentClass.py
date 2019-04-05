@@ -18,4 +18,4 @@ class DocumentClass(Mixin, db.Model):
         self.description = description
 
     def __repr__(self):
-        return f"<name: {self.name}>\n <description: {self.description}>\n"
+        return f"<Document Class\nID: {self.id}\nname: {self.name}>\n <description: {self.description}>\n"
