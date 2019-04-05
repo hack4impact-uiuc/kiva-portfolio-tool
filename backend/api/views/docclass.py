@@ -36,7 +36,7 @@ def add_document_class():
     db.session.add(new_docclass)
     db.session.commit()
     ret = new_docclass.to_dict()
-    return create_response(status=200, data={"document_class": ret})
+    return create_response(status=200, message="success")
 
 
 @docclass.route("/document_class/update/<id>", methods=["PUT"])
