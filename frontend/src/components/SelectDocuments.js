@@ -42,7 +42,7 @@ class SelectDocumentsPage extends React.Component {
   }
 
   /**
-   * 
+   *
    * @param {*} res is the list of documents received from backend
    * In states docClass and filtered, set every doc received in an available state
    */
