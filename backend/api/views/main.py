@@ -158,13 +158,16 @@ def create_new_document():
         )
     # requeest.args[0] == file byte
     # request.args[1] == other args necessary for doc creation
-    sample_args = request.args[1]
+    # sample_args = request.args[1]
     # Turns data into a Document and adds it to database
     new_data = Document(**data)
 
+    print("check")
     # calling the box api
+    print(new_data)
+    #print("args", request.args[0])
     file_info = upload_file(request.args[0], new_data.fileName)
-
+    print("check after")
     new_data.fileID = file_info["id"]
     # use retrieved file_info
 
