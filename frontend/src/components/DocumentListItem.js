@@ -55,9 +55,11 @@ class DocumentListItem extends Component {
           </ModalFooter>
         </Modal>
         <tr>
-          <td>{this.state.document.docClass}</td>
-          <td>{this.state.document.fileName ? this.state.document.fileName : 'N/A'}</td>
-          <td class="interaction">
+          <td data-testid="docClass">{this.state.document.docClass}</td>
+          <td data-testid="fileName">
+            {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
+          </td>
+          <td data-testid="interaction" class="interaction">
             {this.state.fileName && (
               <Button color="primary" onClick={this.handleDownloadClick}>
                 DOWNLOAD
