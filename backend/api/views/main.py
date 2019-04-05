@@ -33,8 +33,8 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-@main.route("/document", methods=["GET"])
 
+@main.route("/document", methods=["GET"])
 def get_document():
     """
     Gets all documents that can be specified using a query string
@@ -198,6 +198,7 @@ def update_documents(docClass):
     doc.description = request.json.get("description", doc.description)
     db.session.commit()
     return create_response(status=200, message="success")
+
 
 @main.route("/document/update/<id>/<status>", methods=["PUT"])
 def update_status(id, status):
