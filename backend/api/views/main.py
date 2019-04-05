@@ -134,11 +134,9 @@ def create_new_document():
     # data for new document should be stored as json in request
 
     data = request.get_json()
-    
+
     if data is None:
-        return create_response(
-            status=400, message="No body provided for new Document"
-        )
+        return create_response(status=400, message="No body provided for new Document")
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
     if "userID" not in data:
         return create_response(
@@ -195,6 +193,7 @@ def update_documents(docClass):
     doc.description = request.json.get("description", doc.description)
     db.session.commit()
     return create_response(status=200, message="success")
+
 
 # given id of document, can update its status to new status provided in url
 @main.route("/document/update/<id>/<status>", methods=["PUT"])

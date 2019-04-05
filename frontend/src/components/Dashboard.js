@@ -41,7 +41,6 @@ class Dashboard extends React.Component {
     this.setState(this.updateMessages(messages))
     let documents = await getAllDocuments()
     this.setState(this.updateDocuments(documents))
-    
   }
 
   updateDocuments(res) {
@@ -85,7 +84,7 @@ class Dashboard extends React.Component {
           })}
         </div>
         <div>
-          <NotificationsBar messages={this.state.messages}/>
+          <NotificationsBar messages={this.state.messages} />
         </div>
       </div>
     )
