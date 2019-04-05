@@ -8,7 +8,7 @@ class DocumentClass(Mixin, db.Model):
 
     __tablename__ = "document_class"
 
-    id = db.Column(db.Integer, unique=True, primary_key=True)
+    id = db.Column(db.String, unique=True, primary_key=True)
     name = db.Column(db.String, unique=True)
     description = db.Column(db.String, unique=False, nullable=True)
 
