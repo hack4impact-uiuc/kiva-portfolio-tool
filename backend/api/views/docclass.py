@@ -18,7 +18,7 @@ def get_document_class():
 def get_document_class_by_id(id):
     """ function that is called when you visit /document_class/<id>, gets a docclass by id """
     document_class = DocumentClass.query.get(id)
-    return create_response(data={"document_class": document_class.to_dict()})
+    return create_response(status=200, data={"document_class": document_class.to_dict()})
 
 
 @docclass.route("/document_class/new", methods=["POST"])
@@ -48,4 +48,4 @@ def update_document_class(id):
     updated_docclass = docclass.to_dict()
 
     db.session.commit()
-    return create_response(data={"document_class": updated_docclass})
+    return create_response(status=200, data={"document_class": updated_docclass})
