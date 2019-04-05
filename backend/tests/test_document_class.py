@@ -106,4 +106,7 @@ def test_update_document_class_by_id(client):
     assert ret_dict["success"] == True
 
     assert ret_dict["result"]["document_class"]["name"] == "newdocname"
-    assert ret_dict["result"]["document_class"]["description"] == "description here"
+    assert (
+        ret_dict["result"]["document_class"]["description"]
+        == "Annual report of finances"
+    )
