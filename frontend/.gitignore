@@ -3,6 +3,9 @@
 /.pnp
 .pnp.js
 
+# css files
+*.css
+
 # testing
 /coverage
 

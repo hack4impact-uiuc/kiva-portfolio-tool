@@ -34,9 +34,13 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-# function that is called when you visit /documetns
+
 @main.route("/document", methods=["GET"])
 def get_document():
+    """
+    Gets all documents that can be specified using a query string
+    """
+    # gets database values from query string, if missing is None
     kwargs = {}
     kwargs["fileID"] = request.args.get("fid")
     kwargs["userID"] = request.args.get("uid")
@@ -44,11 +48,22 @@ def get_document():
     kwargs["docClass"] = request.args.get("docClass")
     kwargs["fileName"] = request.args.get("fileName")
     kwargs["latest"] = request.args.get("latest")
+
+    # stores date and time for parse searching
     date = request.args.get("date")
     description = request.args.get("description")
+
+    # refines kwargs to remove all the None values and only search by values provided
     kwargs = {k: v for k, v in kwargs.items() if v is not None}
+
+    # if no search parameters provided return all documents
     if len(kwargs) == 0:
         docs = Document.query.all()
+
+        # Since description and date were not part of search parameters
+        # this is so that partial querying can be use to search keywords in description
+        # and to allow searching by day of week rather than exact date
+        # refines searches by date and description
         if description is not None:
             docs = [
                 i
@@ -58,9 +73,12 @@ def get_document():
             ]
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
-        if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="Query was incorrect")
 
+        # if no documents found, let user know
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="No Documents Found")
+
+        # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Approved"]
         missing = [i for i in docs if i.status == "Missing"]
@@ -76,8 +94,15 @@ def get_document():
                 }
             },
         )
+    # if there are query arguments the following occurs
     else:
+        # Unpacks the search values in our dictionary and provides them to Flask/SQLalchemy
         docs = Document.query.filter_by(**kwargs)
+
+        # Since description and date were not part of search parameters
+        # this is so that partial querying can be use to search keywords in description
+        # and to allow searching by day of week rather than exact date
+        # refines searches by date and description
         if description is not None:
             docs = [
                 i
@@ -87,9 +112,12 @@ def get_document():
             ]
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
-        if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="Query was incorrect")
 
+        # if no documents found, let user know
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="No Documents Found")
+
+        # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Approved"]
         missing = [i for i in docs if i.status == "Missing"]
@@ -107,11 +135,15 @@ def get_document():
         )
 
 
-# function that is called when you visit /documetns
 @main.route("/document/new", methods=["POST"])
 def create_new_document():
+    """
+    functionality used to add a new document to database
+    """
+    # data for new document should be stored as json in request
     data = request.get_json()
-    logger.info(data)
+
+    # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
     if "userID" not in data:
         return create_response(
             status=422, message="No UserID provided for new Document"
@@ -127,6 +159,7 @@ def create_new_document():
     # requeest.args[0] == file byte
     # request.args[1] == other args necessary for doc creation
     sample_args = request.args[1]
+    # Turns data into a Document and adds it to database
     new_data = Document(**data)
 
     file_info = upload_file(request.args[0], new_data.fileName)
@@ -139,22 +172,33 @@ def create_new_document():
     return create_response(status=200, message="success")
 
 
-# function that is called when you visit /documetns
 @main.route("/document/delete/<docClass>", methods=["DELETE"])
 def delete_document(docClass):
-    logger.info(docClass)
+    """
+    Deletes all documents related to a document class in database
+    """
+    # logger.info(docClass)
     db.session.delete(
+        # gets all document <id> native to db and sees if == to docClass. Then deletes
         Document.query.filter((Document.docClass == str(docClass))).first()
     )
     db.session.commit()
     return create_response(status=200, message="success")
 
 
-# function that is called when you visit /documetns
 @main.route("/document/update/<docClass>", methods=["PUT"])
 def update_documents(docClass):
+    """
+    functionality that updates a document/documentClass
+    """
+
+    # takes in updated docClass information by json in request
+    # receives all documents by docClass
     doc = Document.query.filter((Document.docClass == docClass)).first()
-    logger.info(doc.docClass)
+
+    # for each item in a document:
+    #   replace if updated item data provided
+    #   else keep old value
     doc.fileID = request.json.get("fileID", doc.fileID)
     doc.date = request.json.get("date", doc.date)
     doc.status = request.json.get("status", doc.status)
@@ -168,8 +212,12 @@ def update_documents(docClass):
 
 @main.route("/document/update/<id>/<status>", methods=["PUT"])
 def update_status(id, status):
-    """ function called when you visit /document/update/<id>/<status>. Updates a doc's status """
+    """ 
+    function called when you visit /document/update/<id>/<status>. Updates a doc's status 
+    """
+    # get document by id
     doc = Document.query.get(id)
+    # update doc status to new status and return
     doc.status = status
     ret = doc.to_dict()
 
