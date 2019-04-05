@@ -18,18 +18,6 @@ import './index.scss'
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
-const FILE_ID_DOC = '421186798979'
-const FILE_ID_VIDEO = '308566420378'
-const FILE_ID_3D = '319004423111'
-const FILE_ID_TEXT = '308349801521'
-const FILE_ID_EXCEL = '319011536090'
-const FILE_ID_AUDIO = '308566419514'
-const FILE_ID_IMAGE = '308345646235'
-
-const container = document.querySelector('.container')
-const token = 'aRPU7COQG1ozVy1pyRonB5S2hKTv13OR'
-const language = 'en-US'
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
