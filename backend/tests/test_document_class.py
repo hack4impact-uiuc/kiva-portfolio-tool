@@ -105,6 +105,5 @@ def test_update_document_class_by_id(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["document_class"]) == 1
     assert ret_dict["result"]["document_class"]["name"] == "newdocname"
     assert ret_dict["result"]["document_class"]["description"] == "description here"
