@@ -1,6 +1,5 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import NotificationsBar from './NotificationsBar'
 import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -83,9 +82,6 @@ class Dashboard extends React.Component {
               />
             )
           })}
-        </div>
-        <div>
-          <NotificationsBar messages={this.state.messages}/>
         </div>
       </div>
     )
