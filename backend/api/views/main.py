@@ -73,10 +73,6 @@ def get_document():
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
-        # if no documents found, let user know
-        if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="No Documents Found")
-
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Approved"]
@@ -112,10 +108,6 @@ def get_document():
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
-        # if no documents found, let user know
-        if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="No Documents Found")
-
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Approved"]
@@ -140,20 +132,25 @@ def create_new_document():
     functionality used to add a new document to database
     """
     # data for new document should be stored as json in request
-    data = request.get_json()
 
+    data = request.get_json()
+    
+    if data is None:
+        return create_response(
+            status=400, message="No body provided for new Document"
+        )
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
     if "userID" not in data:
         return create_response(
-            status=422, message="No UserID provided for new Document"
+            status=400, message="No UserID provided for new Document"
         )
     if "status" not in data:
         return create_response(
-            status=422, message="No Status provided for new Document"
+            status=400, message="No Status provided for new Document"
         )
     if "docClass" not in data:
         return create_response(
-            status=422, message="No Document Class provided for new Document"
+            status=400, message="No Document Class provided for new Document"
         )
     # Turns data into a Document and adds it to database
     new_data = Document(**data)
