@@ -62,6 +62,7 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
+
 """
 def test_post_document(client):
     rs = client.post("/document/new")
@@ -156,6 +157,7 @@ def test_put_document(client):
     )
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 """
+
 
 def test_update_status(client):
     temp_document = Document(
