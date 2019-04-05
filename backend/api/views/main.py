@@ -129,6 +129,7 @@ def create_new_document():
     sample_args = request.args[1]
     new_data = Document(**data)
 
+    # calling the box api
     file_info = upload_file(request.args[0], new_data.fileName)
 
     new_data.fileID = file_info["id"]
