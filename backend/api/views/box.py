@@ -29,7 +29,7 @@ TODO:   RETRIEVE INFORMATION FROM BACKEND TABLE
 """
 
 # One time authentication for the application
-_CRED_FILE = "api/views/171399529_73anvn29_config.json"
+_CRED_FILE = "api/views/171399529_b8tan54x_config.json"
 sdk = JWTAuth.from_settings_file(_CRED_FILE)
 client = Client(sdk)
 
@@ -39,7 +39,7 @@ SPACE = 1073741824
 
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
-    config = json.load(open("api/views/171399529_73anvn29_config.json"))
+    config = json.load(open("api/views/171399529_b8tan54x_config.json"))
 
     keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
 
