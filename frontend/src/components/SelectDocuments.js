@@ -22,18 +22,30 @@ class SelectDocumentsPage extends React.Component {
     super(props)
     var today = new Date()
     this.state = {
+      // all docClasses
       docClass: {},
+      // docClasses filtered from docClasses using query
       filtered: {},
+      // due date to be set by user so that it can be passed on
       DueDate: today,
+      // state that updates depending on what the user types in query bar
       query: ''
     }
   }
 
+  /**
+   * Gets all document classes from the backend and updates state
+   */
   async componentDidMount() {
     let documents = await getAllDocumentClasses()
     this.setState(this.updateDocumentClasses(documents))
   }
 
+  /**
+   * 
+   * @param {*} res is the list of documents received from backend
+   * In states docClass and filtered, set every doc received in an available state
+   */
   updateDocumentClasses(res) {
     if (res) {
       let docList = {}
@@ -51,6 +63,12 @@ class SelectDocumentsPage extends React.Component {
     }
   }
 
+  /***
+   * Takes in an event, ie query changing.
+   * Sets query in state to be equal to query in frontend form
+   * Filters docClasses depending on query and stores it into filtered
+   * Updates the state
+   */
   handleQueryChange = event => {
     let newState = this.state
     let query = event.target.value.toLowerCase()
@@ -69,6 +87,12 @@ class SelectDocumentsPage extends React.Component {
     this.setState(newState)
   }
 
+  /**
+   * On click function to change the value of any docClass
+   * Selected -> Available
+   * Available -> Selected
+   * Updates both filter and docClass
+   */
   changeSelection = value => {
     let new_selection
     if (this.state.docClass[value] == 'Selected') {
@@ -83,6 +107,9 @@ class SelectDocumentsPage extends React.Component {
     this.setState(newState)
   }
 
+  /**
+   * Updates due date in state to the user selected date
+   */
   newDueDate = date => {
     this.setState({
       DueDate: date
