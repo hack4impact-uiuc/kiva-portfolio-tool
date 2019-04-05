@@ -4,6 +4,8 @@ import { getAllDocumentClasses } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
