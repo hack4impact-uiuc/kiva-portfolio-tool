@@ -63,7 +63,7 @@ def new_fp():
         )
     sample_args = request.args
     new_fp = FieldPartner(**data)
-    return create_response(data={"field_partner": new_fp.to_dict()})
+    return create_response(status=200, message="success")
 
 
 @fp.route("/field_partner/update/<id>", methods=["PUT"])

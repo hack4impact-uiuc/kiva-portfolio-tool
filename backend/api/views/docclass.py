@@ -1,4 +1,4 @@
-from flask import Blueprint, request, json
+from flask import Blueprint, request, json, jsonify
 from api.models import DocumentClass, db
 from api.core import create_response, serialize_list, logger
 
@@ -14,16 +14,16 @@ def get_document_class():
     return create_response(data={"document_class": serialize_list(document_class)})
 
 
-@docclass.route("/document_class/id/<id>", methods=["GET"])
+@docclass.route("/document_class/<id>", methods=["GET"])
 def get_document_class_by_id(id):
-    """ function that is called when you visit /document_class/id/<id>, gets a docclass by id """
+    """ function that is called when you visit /document_class/<id>, gets a docclass by id """
     document_class = DocumentClass.query.get(id)
     return create_response(data={"document_class": document_class.to_dict()})
 
 
 @docclass.route("/document_class/new", methods=["POST"])
 def add_document_class():
-    """ function that is called when you visit /document_class, creates a new docclass """
+    """ function that is called when you visit /document_class/new, creates a new docclass """
     data = request.get_json()
     logger.info(data)
     if "name" not in data:
@@ -33,7 +33,10 @@ def add_document_class():
 
     sample_args = request.args
     new_docclass = DocumentClass(**data)
-    return create_response(data={"document_class": new_docclass.to_dict()})
+    db.session.add(new_docclass)
+    db.session.commit()
+    ret = new_docclass.to_dict()
+    return create_response(status=200, data={"document_class": ret})
 
 
 @docclass.route("/document_class/update/<id>", methods=["PUT"])

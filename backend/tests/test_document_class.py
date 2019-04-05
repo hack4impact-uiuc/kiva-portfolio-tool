@@ -48,7 +48,7 @@ def test_get_document_class_by_id(client):
     db.session.add(helper_docclass)
     db.session.commit()
 
-    rs = client.get("/document_class/0")
+    rs = client.get("/document_class/1")
     assert rs.status_code == 200
     ret_dict = rs.json
     assert ret_dict["success"] == True
@@ -85,8 +85,7 @@ def test_add_document_class(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-    assert ret_dict["result"]["name"] == "docname"
-    assert ret_dict["result"]["description"] == "description here"
+    assert ret_dict["message"] == "success"
 
 
 def test_update_document_class_by_id(client):
@@ -97,7 +96,7 @@ def test_update_document_class_by_id(client):
     db.session.commit()
 
     rs = client.put(
-        "/document_class/update/0",
+        "/document_class/update/1",
         content_type="application/json",
         json={"name": "newdocname"},
     )
@@ -106,6 +105,6 @@ def test_update_document_class_by_id(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["document_class"]) == 4
+    assert len(ret_dict["result"]["document_class"]) == 1
     assert ret_dict["result"]["document_class"]["name"] == "newdocname"
     assert ret_dict["result"]["document_class"]["description"] == "description here"
