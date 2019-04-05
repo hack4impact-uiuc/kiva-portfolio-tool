@@ -48,7 +48,7 @@ def test_get_document_class_by_id(client):
     db.session.add(helper_docclass)
     db.session.commit()
 
-    rs = client.get("/document_class/" + helper_docclass._id)
+    rs = client.get("/document_class/" + helper_docclass.id)
     assert rs.status_code == 200
     ret_dict = rs.json
     assert ret_dict["success"] == True
@@ -96,7 +96,7 @@ def test_update_document_class_by_id(client):
     db.session.commit()
 
     rs = client.put(
-        "/document_class/update/" + helper_docclass._id,
+        "/document_class/update/" + helper_docclass.id,
         content_type="application/json",
         json={"name": "newdocname"},
     )

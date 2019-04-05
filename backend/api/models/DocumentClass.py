@@ -13,7 +13,7 @@ class DocumentClass(Mixin, db.Model):
     description = db.Column(db.String, unique=False, nullable=True)
 
     def __init__(self, name, description=None):
-        self.id =  str(uuid.uuid4());
+        self.id = str(uuid.uuid4())
         self.name = name
         self.description = description
 
