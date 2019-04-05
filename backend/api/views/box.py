@@ -99,6 +99,7 @@ def get_access_token():
     access_token = json.loads(response)["access_token"]
     return create_response(data={"access_token": access_token})
 
+
 def create_user(username):
     user = client.create_user(username, None, space_amount=SPACE)
 
@@ -131,6 +132,7 @@ def get_user_information(client, user_id):
     info = client.user(user_id=user_id).get()
     return info
 
+
 ####
 def upload_file_redirect():
     data = request.files.get("file")
@@ -145,7 +147,10 @@ def upload_file_redirect():
         return create_response(status=200, message="success")
     else:
         return create_response(status=400, message="Duplicate file name")
+
+
 ####
+
 
 def upload_file(file, file_name):
     """
@@ -174,6 +179,7 @@ def get_file_info(client, file_id):
     file_info = client.file(file_id).get()
 
     return file_info
+
 
 @box.route("/box/download", methods=["GET"])
 def download_file():
@@ -231,4 +237,3 @@ def find_files_by_content(content_query):
         output.append(i)
 
     return output
-

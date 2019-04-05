@@ -14,7 +14,7 @@ box_file = client.folder("0").upload_stream(
     stream, "aw1eohinlksfdas.txt", preflight_check=True
 )
 
-#uploaded_file = client.folder("0").upload("rose2.png")
+# uploaded_file = client.folder("0").upload("rose2.png")
 
 print(box_file.id)
 

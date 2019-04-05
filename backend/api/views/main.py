@@ -1,7 +1,7 @@
 from flask import Blueprint, request, json
 from api.models import Document, Message, db
+from api.views import box
 from api.core import create_response, serialize_list, logger
-import box
 
 main = Blueprint("main", __name__)  # initialize blueprint
 

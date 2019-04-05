@@ -54,6 +54,7 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^7.1.0",
     "scroll-into-view-if-needed": "^2.2.20",
+    "spdx-license-ids": "^3.0.3",
     "style-loader": "^0.23.0",
     "tabbable": "^3.1.2"
   },
