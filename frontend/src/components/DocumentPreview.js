@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 //import { ContentPreview } from 'box-ui-elements'
 import { IntlProvider } from 'react-intl'
-import { getAccessToken, updateDocumentStatus, getDocuments, getDocumentsByName } from '../utils/ApiWrapper'
+import {
+  getAccessToken,
+  updateDocumentStatus,
+  getDocuments,
+  getDocumentsByName
+} from '../utils/ApiWrapper'
 
 import Iframe from 'react-iframe'
 import { ContentPreview } from 'box-ui-elements'
@@ -62,7 +67,7 @@ class DocumentPreview extends Component {
       })
     }
     this.setState({
-      fileURL: "https://app.box.com/s/" + this.state.fileId
+      fileURL: 'https://app.box.com/s/' + this.state.fileId
     })
   }
 
@@ -70,16 +75,16 @@ class DocumentPreview extends Component {
     const { isPM } = this.props
 
     const customStyles = {
-        // top: '50%',
-        // left: '50%',
-        // right: 'auto',
-        // bottom: 'auto',
-        // marginRight: '-50%',
-        // transform: 'translate(-50%, -50%)',
-        height: '500px', // <-- This sets the height
-        width: '500px',
-        overlfow: 'scroll' // <-- This tells the modal to scrol
-    };
+      // top: '50%',
+      // left: '50%',
+      // right: 'auto',
+      // bottom: 'auto',
+      // marginRight: '-50%',
+      // transform: 'translate(-50%, -50%)',
+      height: '500px', // <-- This sets the height
+      width: '500px',
+      overlfow: 'scroll' // <-- This tells the modal to scrol
+    }
 
     return (
       <>
@@ -91,11 +96,7 @@ class DocumentPreview extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody style={customStyles}>
-
-            <Iframe url= {this.state.fileURL}
-              width="450px"
-              height="500px"
-              allowFullScreen/>
+            <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
           </ModalBody>
           <ModalFooter>
             {isPM && (

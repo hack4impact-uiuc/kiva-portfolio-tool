@@ -61,7 +61,7 @@ export const getAccessToken = () => {
     })
 }
 
-export const downloadDocument = (id) => {
+export const downloadDocument = id => {
   let requestString = BACKEND_URL + '/box/download?file_id' + id
   return axios
     .get(requestString)
