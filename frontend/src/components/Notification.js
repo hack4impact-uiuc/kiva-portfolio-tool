@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+// import DateTimePicker from 'react-datetime-picker';
+import { ListGroupItem } from 'reactstrap';
+import '../styles/notification.css'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
@@ -11,7 +14,7 @@ class Notification extends Component {
 
     this.state = {
       name: this.props.name,
-      time: this.props.document,
+      time: this.props.time,
       description: this.props.description
     }
   }
@@ -19,11 +22,11 @@ class Notification extends Component {
   render() {
     const { isPM } = this.props
     return (
-      <div>
+      <ListGroupItem>
         <p class="name"> <b> {this.state.name} </b> </p>
         <p> {this.state.time} </p>
         <p class="description"> {this.state.description} </p>
-      </div>
+      </ListGroupItem>
     )
   }
 }

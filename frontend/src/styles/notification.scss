@@ -1,3 +1,5 @@
+@import "variable.scss";
+
 body {
     margin: 0;
     padding: 0;
@@ -20,13 +22,12 @@ body {
       width: auto;
     }
 
-    Button {
-      margin: 1%;
+    .name {
+      color: $accepted_color;
+    }
+
+    .description {
+      color: $gray_text_color;
     }
   }
-
-  .modal-footer Button {
-    margin-right: 1px;
-  }
 }
-  

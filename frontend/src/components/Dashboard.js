@@ -1,5 +1,6 @@
 import React from 'react'
 import DocumentList from './DocumentList'
+import Notification from "./Notification"
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -22,7 +23,8 @@ class Dashboard extends React.Component {
 
     this.state = {
       documents: [],
-      statuses: []
+      statuses: [],
+      notification: []
     }
   }
 
@@ -39,7 +41,8 @@ class Dashboard extends React.Component {
     if (res) {
       this.setState({
         documents: res,
-        statuses: ['Missing', 'Pending', 'Rejected', 'Approved']
+        statuses: ['Missing', 'Pending', 'Rejected', 'Approved'],
+        notification: "KEY?"
       })
     } else {
       this.setState({
@@ -52,15 +55,29 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        {Object.keys(this.state.documents).map(key => {
-          return (
-            <DocumentList
-              isPM={this.state.isPM}
-              documents={this.state.documents[key]}
-              status={key}
-            />
-          )
-        })}
+        <div>
+          {Object.keys(this.state.documents).map(key => {
+            return (
+              <DocumentList
+                isPM={this.state.isPM}
+                documents={this.state.documents[key]}
+                status={key}
+              />
+            )
+          })}
+        </div>
+        <div>
+          <p> {"Notifications"} </p>
+          {Object.keys(this.state.notification).map(key => {
+            return (
+              <Notification
+                name={"PM Name"}
+                time={"4/8/19"}
+                description={"Something happened"}
+              />
+            )
+          })}
+        </div>
       </div>
     )
   }
