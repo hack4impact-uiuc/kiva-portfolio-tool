@@ -44,7 +44,7 @@ def get_document():
     kwargs["fileID"] = request.args.get("fid")
     kwargs["userID"] = request.args.get("uid")
     kwargs["status"] = request.args.get("status")
-    kwargs["docClass"] = request.args.get("docClass")
+    kwargs["docClassID"] = request.args.get("docClassID")
     kwargs["fileName"] = request.args.get("fileName")
     kwargs["latest"] = request.args.get("latest")
 
@@ -151,7 +151,7 @@ def create_new_document():
         return create_response(
             status=422, message="No Status provided for new Document"
         )
-    if "docClass" not in data:
+    if "docClassID" not in data:
         return create_response(
             status=422, message="No Document Class provided for new Document"
         )
@@ -163,29 +163,29 @@ def create_new_document():
     return create_response(status=200, message="success")
 
 
-@main.route("/document/delete/<docClass>", methods=["DELETE"])
-def delete_document(docClass):
+@main.route("/document/delete/<docClassID>", methods=["DELETE"])
+def delete_document(docClassID):
     """
     Deletes all documents related to a document class in database
     """
-    # logger.info(docClass)
+    # logger.info(docClassID)
     db.session.delete(
-        # gets all document <id> native to db and sees if == to docClass. Then deletes
-        Document.query.filter((Document.docClass == str(docClass))).first()
+        # gets all document <id> native to db and sees if == to docClassID. Then deletes
+        Document.query.filter((Document.docClassID == str(docClassID))).first()
     )
     db.session.commit()
     return create_response(status=200, message="success")
 
 
-@main.route("/document/update/<docClass>", methods=["PUT"])
-def update_documents(docClass):
+@main.route("/document/update/<docClassID>", methods=["PUT"])
+def update_documents(docClassID):
     """
     functionality that updates a document/documentClass
     """
 
-    # takes in updated docClass information by json in request
-    # receives all documents by docClass
-    doc = Document.query.filter((Document.docClass == docClass)).first()
+    # takes in updated docClassID information by json in request
+    # receives all documents by docClassID
+    doc = Document.query.filter((Document.docClassID == docClassID)).first()
 
     # for each item in a document:
     #   replace if updated item data provided
@@ -193,7 +193,7 @@ def update_documents(docClass):
     doc.fileID = request.json.get("fileID", doc.fileID)
     doc.date = request.json.get("date", doc.date)
     doc.status = request.json.get("status", doc.status)
-    doc.docClass = request.json.get("docClass", doc.docClass)
+    doc.docClassID = request.json.get("docClassID", doc.docClassID)
     doc.fileName = request.json.get("fileName", doc.fileName)
     doc.latest = request.json.get("latest", doc.latest)
     doc.description = request.json.get("description", doc.description)

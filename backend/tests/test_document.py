@@ -28,7 +28,7 @@ def test_get_document(client):
         userID="WompWomp",
         date=date.fromordinal(730920),
         status="Pending",
-        docClass="MyEnum.one",
+        docClassID="MyEnum.one",
         fileName="MyDoc.docx",
         latest=True,
         description="Yeet",
@@ -72,7 +72,7 @@ def test_post_document(client):
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"userID": 7, "status": "Missing", "docClass": "Post Document Test File"},
+        json={"userID": 7, "status": "Missing", "docClassID": "Post Document Test File"},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -81,7 +81,7 @@ def test_post_document(client):
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"status": "Missing", "docClass": "Post Document Test File"},
+        json={"status": "Missing", "docClassID": "Post Document Test File"},
     )
     assert rs.status_code == 422
     ret_dict = rs.json  # gives you a dictionary
@@ -92,7 +92,7 @@ def test_delete_document(client):
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"userID": 8, "status": "Missing", "docClass": "Post Document Test File"},
+        json={"userID": 8, "status": "Missing", "docClassID": "Post Document Test File"},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -113,7 +113,7 @@ def test_put_document(client):
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"userID": 9, "status": "Missing", "docClass": "Test File"},
+        json={"userID": 9, "status": "Missing", "docClassID": "Test File"},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -124,7 +124,7 @@ def test_put_document(client):
         content_type="application/json",
         json={
             "status": "Pending",
-            "docClass": "PostDocumentTestFile",
+            "docClassID": "PostDocumentTestFile",
             "description": "Super Duper LMAO",
         },
     )
@@ -137,7 +137,7 @@ def test_put_document(client):
         content_type="application/json",
         json={
             "status": "Pending",
-            "docClass": "PostDocumentTestFile",
+            "docClassID": "PostDocumentTestFile",
             "description": "Super Duper LMAO",
         },
     )
@@ -149,7 +149,7 @@ def test_put_document(client):
     ret_dict = rs.json
     # logger.info(ret_dict)
     assert (
-        ret_dict["result"]["documents"]["Pending"][0]["docClass"]
+        ret_dict["result"]["documents"]["Pending"][0]["docClassID"]
         == "PostDocumentTestFile"
     )
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
@@ -161,7 +161,7 @@ def test_update_status(client):
         userID="Why",
         date=date.fromordinal(730920),
         status="Pending",
-        docClass="MyEnum.one",
+        docClassID="MyEnum.one",
         fileName="MyDoc.docx",
         latest=True,
         description="Yeet",
