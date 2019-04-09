@@ -5,4 +5,4 @@ import DocumentListItem from './DocumentListItem'
 import Upload from './Upload'
 import BoxPreview from './DocumentPreview'
 
-export { Dashboard, DocumentList, DocumentListItem, Example, LoginPage, Upload, BoxPreview }
+export { Dashboard, DocumentList, DocumentListItem, LoginPage, Upload, BoxPreview }
