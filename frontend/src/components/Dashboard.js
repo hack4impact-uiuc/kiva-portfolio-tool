@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
     this.state = {
       documents: [],
       statuses: [],
-      notification: []
+      notification: "H"
     }
   }
 
@@ -42,7 +42,7 @@ class Dashboard extends React.Component {
       this.setState({
         documents: res,
         statuses: ['Missing', 'Pending', 'Rejected', 'Approved'],
-        notification: "KEY?"
+        notification: ["a notification"]
       })
     } else {
       this.setState({
