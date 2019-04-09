@@ -29,16 +29,16 @@ class DocumentList extends Component {
             <th className="theader-centered">File</th>
             <th />
           </tr>
-          {this.state.documents &&
-            this.state.documents.map((document, index) => (
-              <DocumentListItem
-                key={index}
-                document={document}
-                docClass={document.docClass}
-                fileName={document.fileName}
-                fileId={document.fileId}
-              />
-            ))}
+          {this.props.documents
+            ? this.props.documents.map(document => (
+                <DocumentListItem
+                  document={document}
+                  docClass={document.docClass}
+                  fileName={document.fileName}
+                  fileId={document.fileId}
+                />
+              ))
+            : null}
         </tbody>
       </Table>
     )

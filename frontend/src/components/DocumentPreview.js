@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
 import Iframe from 'react-iframe'
 import 'box-ui-elements/dist/preview.css'
-import './index.scss'
+import '../styles/index.css'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
