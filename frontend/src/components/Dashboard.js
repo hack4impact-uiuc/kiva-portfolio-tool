@@ -33,8 +33,7 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      documents: [],
-      statuses: []
+      statuses: ['Missing', 'Rejected', 'Pending', 'Approved']
     }
   }
 
@@ -52,7 +51,7 @@ class Dashboard extends React.Component {
       <Container>
         <Row>
           {this.props.documents
-            ? Object.keys(this.props.documents).map(key => {
+            ? this.state.statuses.map(key => {
                 return (
                   <Col sm="12" md="6">
                     <DocumentList documents={this.props.documents[key]} status={key} />
