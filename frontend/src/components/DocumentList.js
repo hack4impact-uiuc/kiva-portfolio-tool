@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
+import '../styles/documentlist.css'
 
 class DocumentList extends Component {
   render() {
     return (
       <Table>
-        <caption>{this.props.status}</caption>
         <tbody>
+          <tr className="dlist-header">
+            <th
+              colSpan="3"
+              className={
+                'background-' +
+                (this.props.status ? this.props.status.toLowerCase() : 'null') +
+                ' text-white'
+              }
+            >
+              {this.props.status + ' Documents'}
+            </th>
+          </tr>
           <tr>
-            <th>DOC NAME</th>
-            <th>FILE</th>
+            <th className="theader-centered">Document Name</th>
+            <th className="theader-centered">File</th>
             <th />
           </tr>
           {this.props.documents

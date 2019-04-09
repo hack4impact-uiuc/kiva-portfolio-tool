@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './redux/configureStore'
 import { Dashboard, LoginPage } from './components'
+import { Navbar, NavbarBrand } from 'reactstrap'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
 

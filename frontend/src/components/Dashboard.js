@@ -3,6 +3,8 @@ import DocumentList from './DocumentList'
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Container, Row, Col } from 'reactstrap'
+import '../styles/dashboard.css'
 import { updateDocuments } from '../redux/modules/user'
 import '../styles/index.css'
 
@@ -31,8 +33,7 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      documents: [],
-      statuses: []
+      statuses: ['Missing', 'Rejected', 'Pending', 'Approved']
     }
   }
 
@@ -47,13 +48,19 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.documents
-          ? Object.keys(this.props.documents).map(key => {
-              return <DocumentList documents={this.props.documents[key]} status={key} />
-            })
-          : null}
-      </div>
+      <Container>
+        <Row>
+          {this.props.documents
+            ? this.state.statuses.map(key => {
+                return (
+                  <Col sm="12" md="6">
+                    <DocumentList documents={this.props.documents[key]} status={key} />
+                  </Col>
+                )
+              })
+            : null}
+        </Row>
+      </Container>
     )
   }
 }
