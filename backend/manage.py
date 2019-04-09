@@ -36,57 +36,65 @@ def recreate_db():
 
     docclass_ids = []
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Board of Directors",
-        docclass_description="List of board of directors"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Board of Directors",
+            docclass_description="List of board of directors",
+        )
+    )
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Auditor Letter",
-        docclass_description="A letter by an auditor or something"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Auditor Letter",
+            docclass_description="A letter by an auditor or something",
+        )
+    )
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Income Statement",
-        docclass_description="Statement of income"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Income Statement", docclass_description="Statement of income"
+        )
+    )
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Balance Sheet",
-        docclass_description="A sheet of balance"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Balance Sheet", docclass_description="A sheet of balance"
+        )
+    )
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Strategic Plan",
-        docclass_description="A plan that describes strategy"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Strategic Plan",
+            docclass_description="A plan that describes strategy",
+        )
+    )
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Annual Plan",
-        docclass_description="A plan describing the year"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Annual Plan",
+            docclass_description="A plan describing the year",
+        )
+    )
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Financial Projections",
-        docclass_description="Projections regarding finances for the year"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Financial Projections",
+            docclass_description="Projections regarding finances for the year",
+        )
+    )
 
-    docclass_ids.append(create_mock_docclass(
-        docclass_name="Organizational Chart",
-        docclass_description="A chart.. about organization"
-    ))
+    docclass_ids.append(
+        create_mock_docclass(
+            docclass_name="Organizational Chart",
+            docclass_description="A chart.. about organization",
+        )
+    )
 
     create_mock_document(
-        user_id=1, 
-        docclass_id=docclass_ids[0],
-        name=None, 
-        status="Missing"
+        user_id=1, docclass_id=docclass_ids[0], name=None, status="Missing"
     )
     create_mock_document(
-        user_id=1, 
-        docclass_id=docclass_ids[1],
-        name=None, 
-        status="Missing"
+        user_id=1, docclass_id=docclass_ids[1], name=None, status="Missing"
     )
     create_mock_document(
         file_id=2,
@@ -133,11 +141,9 @@ def recreate_db():
 
     db.session.commit()
 
+
 def create_mock_docclass(docclass_name, docclass_description=None):
-    docclass = DocumentClass(
-        name = docclass_name,
-        description = docclass_description
-    )
+    docclass = DocumentClass(name=docclass_name, description=docclass_description)
     db.session.add(docclass)
     return docclass.id
 

@@ -11,12 +11,9 @@ class MyEnum(enum.Enum):
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
-def add_mock_docclass():
-    temp_docclass = DocumentClass(
-        name="DocClass",
-        description="Description"
-    )
-    
+def add_mock_docclass(className):
+    temp_docclass = DocumentClass(name=className, description="Description")
+
     db.session.add(temp_docclass)
     db.session.commit()
     return temp_docclass.id
@@ -34,7 +31,7 @@ def test_get_document(client):
     assert ret_dict["success"] == False
 
     # Adding a docclass to the database
-    docclass_id = add_mock_docclass()
+    docclass_id = add_mock_docclass("test_get_document")
 
     # create Person and test whether it returns a person
     temp_document = Document(
@@ -84,12 +81,12 @@ def test_post_document(client):
     assert ret_dict["success"] == False
 
     # Adding a docclass to the database
-    docclass_id = add_mock_docclass()
+    docclass_id = add_mock_docclass("test_post_document")
 
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"userID": 7, "status": "Missing", "docClassID": docclass_id },
+        json={"userID": 7, "status": "Missing", "docClassID": docclass_id},
     )
 
     assert rs.status_code == 200
@@ -108,7 +105,7 @@ def test_post_document(client):
 
 def test_delete_document(client):
     # Adding a docclass to the database
-    docclass_id = add_mock_docclass()
+    docclass_id = add_mock_docclass("test_delete_document")
 
     rs = client.post(
         "/document/new",
@@ -133,7 +130,7 @@ def test_delete_document(client):
 
 def test_put_document(client):
     # Adding a docclass to the database
-    docclass_id = add_mock_docclass()
+    docclass_id = add_mock_docclass("test_put_document")
 
     rs = client.post(
         "/document/new",
@@ -173,16 +170,13 @@ def test_put_document(client):
     rs = client.get("/document?description=LMAO")
     ret_dict = rs.json
     # logger.info(ret_dict)
-    assert (
-        ret_dict["result"]["documents"]["Pending"][0]["docClassID"]
-        == docclass_id
-    )
+    assert ret_dict["result"]["documents"]["Pending"][0]["docClassID"] == docclass_id
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
 
 def test_update_status(client):
     # Adding a docclass to the database
-    docclass_id = add_mock_docclass()
+    docclass_id = add_mock_docclass("test_update_status")
 
     temp_document = Document(
         fileID="Navam",
