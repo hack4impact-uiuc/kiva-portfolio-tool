@@ -34,28 +34,14 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-<<<<<<< HEAD
-      documents: [],
-      statuses: [],
-      notification: "H"
-=======
       statuses: ['Missing', 'Rejected', 'Pending', 'Approved']
->>>>>>> e54a167f69ecac6a79d72bc0cacfb558a6686dcc
     }
   }
 
   async componentDidMount() {
     const res = await getAllDocuments()
     if (res) {
-<<<<<<< HEAD
-      this.setState({
-        documents: res,
-        statuses: ['Missing', 'Pending', 'Rejected', 'Approved'],
-        notification: ["a notification"]
-      })
-=======
       this.props.updateDocuments(res)
->>>>>>> e54a167f69ecac6a79d72bc0cacfb558a6686dcc
     } else {
       this.props.updateDocuments([])
     }
@@ -63,33 +49,6 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
-      <div>
-        <div>
-          {Object.keys(this.state.documents).map(key => {
-            return (
-              <DocumentList
-                isPM={this.state.isPM}
-                documents={this.state.documents[key]}
-                status={key}
-              />
-            )
-          })}
-        </div>
-        <div>
-          <p> {"Notifications"} </p>
-          {Object.keys(this.state.notification).map(key => {
-            return (
-              <Notification
-                name={"PM Name"}
-                time={"4/8/19"}
-                description={"Something happened"}
-              />
-            )
-          })}
-        </div>
-      </div>
-=======
       <Container>
         <Row>
           {this.props.documents
@@ -103,7 +62,6 @@ class Dashboard extends React.Component {
             : null}
         </Row>
       </Container>
->>>>>>> e54a167f69ecac6a79d72bc0cacfb558a6686dcc
     )
   }
 }
