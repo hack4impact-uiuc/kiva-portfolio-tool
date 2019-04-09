@@ -11,12 +11,6 @@ const mapStateToProps = state => ({
 class Notification extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      name: this.props.name,
-      time: this.props.time,
-      description: this.props.description
-    }
   }
 
   render() {
@@ -25,10 +19,10 @@ class Notification extends Component {
       <ListGroupItem>
         <p className="person-name">
           {' '}
-          <b> {this.state.name} </b>{' '}
+          <b> {this.props.name} </b>{' '}
         </p>
-        <p className="time"> {this.state.time} </p>
-        <p className="notif-description"> {this.state.description} </p>
+        <p className="time"> {this.props.time} </p>
+        <p className="notif-description"> {this.props.description} </p>
       </ListGroupItem>
     )
   }
