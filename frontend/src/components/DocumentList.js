@@ -4,14 +4,6 @@ import DocumentListItem from './DocumentListItem'
 import '../styles/documentlist.css'
 
 class DocumentList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      documents: this.props.documents,
-      status: this.props.status
-    }
-  }
-
   render() {
     return (
       <Table>
@@ -19,9 +11,9 @@ class DocumentList extends Component {
           <tr className="dlist-header">
             <th
               colSpan="3"
-              className={'background-' + this.state.status.toLowerCase() + ' text-white'}
+              className={'background-' + this.props.status.toLowerCase() + ' text-white'}
             >
-              {this.state.status + ' Documents'}
+              {this.props.status + ' Documents'}
             </th>
           </tr>
           <tr>
