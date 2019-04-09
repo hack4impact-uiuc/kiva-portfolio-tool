@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentList renders correctly when there are no documents 1`] = `
+<Table
+  responsiveTag="div"
+  tag="table"
+>
+  <tbody>
+    <tr
+      className="dlist-header"
+    >
+      <th
+        className="background-null text-white"
+        colSpan="3"
+      >
+        undefined Documents
+      </th>
+    </tr>
+    <tr>
+      <th
+        className="theader-centered"
+      >
+        Document Name
+      </th>
+      <th
+        className="theader-centered"
+      >
+        File
+      </th>
+      <th />
+    </tr>
+  </tbody>
+</Table>
+`;
+
+exports[`DocumentList renders correctly with documents 1`] = `
+<Table
+  responsiveTag="div"
+  tag="table"
+>
+  <tbody>
+    <tr
+      className="dlist-header"
+    >
+      <th
+        className="background-null text-white"
+        colSpan="3"
+      >
+        undefined Documents
+      </th>
+    </tr>
+    <tr>
+      <th
+        className="theader-centered"
+      >
+        Document Name
+      </th>
+      <th
+        className="theader-centered"
+      >
+        File
+      </th>
+      <th />
+    </tr>
+    <Connect(DocumentListItem)
+      docClass="Board of Directors"
+      document={
+        Object {
+          "docClass": "Board of Directors",
+          "status": "Missing",
+        }
+      }
+    />
+    <Connect(DocumentListItem)
+      docClass="Auditor Letter"
+      document={
+        Object {
+          "docClass": "Auditor Letter",
+          "status": "Missing",
+        }
+      }
+    />
+  </tbody>
+</Table>
+`;

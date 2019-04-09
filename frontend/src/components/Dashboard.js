@@ -1,18 +1,30 @@
 import React from 'react'
 import DocumentList from './DocumentList'
+import Notification from './Notification'
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import NavBar from './NavBar';
+import { Container, Row, Col } from 'reactstrap'
+import '../styles/dashboard.css'
+import { updateDocuments } from '../redux/modules/user'
+import '../styles/index.css'
+
+// Not needed unless working with non "en" locales
+// import { addLocaleData } from 'react-intl';
+// import enLocaleData from 'react-intl/locale-data/en';
+
+// Not needed unless working with non "en" locales
+// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  documents: state.user.documents
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      //put actions here
+      updateDocuments
     },
     dispatch
   )
@@ -22,58 +34,34 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      documents: [],
-      statuses: [],
-      navbar: []
+      statuses: ['Missing', 'Rejected', 'Pending', 'Approved']
     }
   }
 
   async componentDidMount() {
-    /* await getAllDocuments().then(results => {
-      results ? 
-      this.setState({
-        documents: results
-      }) :
-      this.setState({
-        documents: []
-      }) */
     const res = await getAllDocuments()
     if (res) {
-      this.setState({
-        documents: res,
-        statuses: ['Missing', 'Pending', 'Rejected', 'Approved'],
-        navbar: ["a navbar"]
-      })
+      this.props.updateDocuments(res)
     } else {
-      this.setState({
-        documents: [],
-        statuses: []
-      })
+      this.props.updateDocuments([])
     }
   }
 
   render() {
     return (
-      <div>
-      <div>
-        {Object.keys(this.state.navbar).map(key => {
-          return (
-            <NavBar/>
-          )
-        })}
-      </div>
-      <div>
-          {Object.keys(this.state.documents).map(key => {
-            return (
-              <DocumentList
-                isPM={this.state.isPM}
-                documents={this.state.documents[key]}
-                status={key}
-              />
-            )
-          })}
-      </div>
-      </div>
+      <Container>
+        <Row>
+          {this.props.documents
+            ? this.state.statuses.map(key => {
+                return (
+                  <Col sm="12" md="6">
+                    <DocumentList documents={this.props.documents[key]} status={key} />
+                  </Col>
+                )
+              })
+            : null}
+        </Row>
+      </Container>
     )
   }
 }
