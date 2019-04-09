@@ -44,7 +44,6 @@ exports[`DocumentList renders correctly with documents 1`] = `
           "status": "Missing",
         }
       }
-      key="0"
     />
     <Connect(DocumentListItem)
       docClass="Auditor Letter"
@@ -54,7 +53,6 @@ exports[`DocumentList renders correctly with documents 1`] = `
           "status": "Missing",
         }
       }
-      key="1"
     />
   </tbody>
 </Table>
