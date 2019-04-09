@@ -153,6 +153,7 @@ def test_put_document(client):
             "status": "Pending",
             "docClassID": docclass_id,
             "description": "Super Duper LMAO",
+            "fileName": "lul"
         },
     )
     assert rs.status_code == 500
@@ -167,6 +168,7 @@ def test_put_document(client):
             "status": "Pending",
             "docClassID": docclass_id,
             "description": "Super Duper LMAO",
+            "fileName": "heh",
         },
     )
     assert rs.status_code == 200

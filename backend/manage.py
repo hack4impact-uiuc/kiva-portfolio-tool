@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from api import create_app

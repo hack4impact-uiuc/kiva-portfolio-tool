@@ -1,0 +1,26 @@
+@import "variables.scss";
+
+.table {
+  margin: auto;
+  margin-top: 2%;
+  background-color: #ffffff;
+  display: inline-table;
+  box-shadow: 2px 3px 7px $shadow-color;
+  border-radius: 8px;
+}
+
+td {
+  text-align: center;
+}
+
+td .interaction {
+  width: auto;
+}
+
+Button {
+  margin: 1%;
+}
+
+.modal-footer Button {
+  margin-right: 1px;
+}

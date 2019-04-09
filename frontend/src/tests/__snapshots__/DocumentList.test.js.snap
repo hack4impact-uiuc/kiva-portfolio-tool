@@ -5,14 +5,27 @@ exports[`DocumentList renders correctly when there are no documents 1`] = `
   responsiveTag="div"
   tag="table"
 >
-  <caption />
   <tbody>
-    <tr>
-      <th>
-        DOC NAME
+    <tr
+      className="dlist-header"
+    >
+      <th
+        className="background-null text-white"
+        colSpan="3"
+      >
+        undefined Documents
       </th>
-      <th>
-        FILE
+    </tr>
+    <tr>
+      <th
+        className="theader-centered"
+      >
+        Document Name
+      </th>
+      <th
+        className="theader-centered"
+      >
+        File
       </th>
       <th />
     </tr>
@@ -25,14 +38,27 @@ exports[`DocumentList renders correctly with documents 1`] = `
   responsiveTag="div"
   tag="table"
 >
-  <caption />
   <tbody>
-    <tr>
-      <th>
-        DOC NAME
+    <tr
+      className="dlist-header"
+    >
+      <th
+        className="background-null text-white"
+        colSpan="3"
+      >
+        undefined Documents
       </th>
-      <th>
-        FILE
+    </tr>
+    <tr>
+      <th
+        className="theader-centered"
+      >
+        Document Name
+      </th>
+      <th
+        className="theader-centered"
+      >
+        File
       </th>
       <th />
     </tr>
@@ -44,7 +70,6 @@ exports[`DocumentList renders correctly with documents 1`] = `
           "status": "Missing",
         }
       }
-      key="0"
     />
     <Connect(DocumentListItem)
       docClass="Auditor Letter"
@@ -54,7 +79,6 @@ exports[`DocumentList renders correctly with documents 1`] = `
           "status": "Missing",
         }
       }
-      key="1"
     />
   </tbody>
 </Table>
