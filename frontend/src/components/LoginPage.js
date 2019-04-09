@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Alert, Button } from 'reactstrap'
+import { Button } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { login } from '../redux/modules/auth'
 import { setUserType } from '../redux/modules/user'

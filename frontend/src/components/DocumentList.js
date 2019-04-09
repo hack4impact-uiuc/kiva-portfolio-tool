@@ -3,10 +3,6 @@ import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
 
 class DocumentList extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <Table>

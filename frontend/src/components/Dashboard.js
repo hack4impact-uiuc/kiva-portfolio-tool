@@ -4,17 +4,11 @@ import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateDocuments } from '../redux/modules/user'
-
-import { render } from 'react-dom'
+import '../styles/index.css'
 
 // Not needed unless working with non "en" locales
 // import { addLocaleData } from 'react-intl';
 // import enLocaleData from 'react-intl/locale-data/en';
-
-import { ContentPreview } from 'box-ui-elements'
-import messages from 'box-ui-elements/i18n/en-US'
-import 'box-ui-elements/dist/preview.css'
-import './index.scss'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
