@@ -16,8 +16,7 @@ def add_mock_docclass():
         name="DocClass",
         description="Description"
     )
-
-    temp_docclass = get_mock_docclass()
+    
     db.session.add(temp_docclass)
     db.session.commit()
     return temp_docclass.id
