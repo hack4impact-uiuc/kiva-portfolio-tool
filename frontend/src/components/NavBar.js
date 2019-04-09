@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Nav, Navbar, NavbarBrand, UncontrolledDropdown } from 'reactstrap';
+import { Button, DropdownToggle, DropdownMenu, DropdownItem,
+        Nav, Navbar, NavbarBrand, NavItem, NavbarToggler, UncontrolledDropdown } from 'reactstrap';
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
@@ -11,15 +12,8 @@ class NavBar extends Component {
     super(props)
 
     this.state = {
-        
     }
   }
-
-//   toggle() {
-//       this.setState({
-//           isOpen: !this.state.isOpen
-//       });
-//   }
 
   render() {
     const { isPM } = this.props
@@ -27,9 +21,34 @@ class NavBar extends Component {
         <div>
             <Navbar color="light" light expand="md">
                 <NavbarBrand href="/">kiva</NavbarBrand>
-                    <Nav className="ml-auto" navbar> 
+                    <Nav className="ml-auto" navbar>
+
+                      <NavItem>
+                        <Button> bell </Button>
+                      </NavItem>
+
+                      <NavItem>
+                        <Button> i </Button>
+                      </NavItem>
+
+                      <NavItem>
                         <UncontrolledDropdown nav inNavbar>
+                          <DropdownToggle nav caret>
+                            =
+                          </DropdownToggle>
+                          <DropdownMenu right>
+                            {isPM && (
+                              <DropdownItem>
+                                Manage Documents
+                              </DropdownItem>
+                            )}
+                            <DropdownItem>
+                              Log Out
+                            </DropdownItem>
+                          </DropdownMenu>
                         </UncontrolledDropdown>
+                      </NavItem>
+
                     </Nav>
             </Navbar>
         </div>
