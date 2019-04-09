@@ -144,6 +144,8 @@ def test_put_document(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
+    # same as above TBD
+    """
     rs = client.put(
         "/document/update/Postadfa",
         content_type="application/json",
@@ -156,9 +158,10 @@ def test_put_document(client):
     assert rs.status_code == 500
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
+    """
 
     rs = client.put(
-        "/document/update/Test%20File",
+        "/document/update/" + docclass_id,
         content_type="application/json",
         json={
             "status": "Pending",
