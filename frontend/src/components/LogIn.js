@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import Router from 'next/router'
 import { login, google } from '../utils/api'
 import {
