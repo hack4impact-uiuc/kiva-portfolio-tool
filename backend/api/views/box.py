@@ -132,6 +132,7 @@ def get_user_information(client, user_id):
     info = client.user(user_id=user_id).get()
     return info
 
+
 def upload_file(file, file_name):
     """
     Upload the file with the given content and file.
@@ -169,7 +170,9 @@ def download_file():
     box_file.download_to(output_file)
 
     path_box = os.path.abspath(output_file)
-    return create_response(data={"output": send_file(path_box, attachment_filename=file_id)})
+    return create_response(
+        data={"output": send_file(path_box, attachment_filename=file_id)}
+    )
 
 
 def delete_file(file_id):
