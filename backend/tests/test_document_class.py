@@ -1,4 +1,4 @@
-from api.models import db, DocumentClass
+from api.models import db, DocumentClass, Document
 
 
 # client passed from client - look into pytest for more info about fixtures
@@ -16,6 +16,7 @@ def test_index(client):
 
 
 def test_get_document_class(client):
+    Document.query.delete()
     DocumentClass.query.delete()
     db.session.commit()
 
@@ -41,6 +42,7 @@ def test_get_document_class(client):
 
 
 def test_get_document_class_by_id(client):
+    Document.query.delete()
     DocumentClass.query.delete()
 
     # Creating a docclass and adding it to the database
@@ -61,6 +63,7 @@ def test_get_document_class_by_id(client):
 
 
 def test_add_document_class(client):
+    Document.query.delete()
     DocumentClass.query.delete()
     db.session.commit()
 
@@ -90,6 +93,7 @@ def test_add_document_class(client):
 
 def test_update_document_class_by_id(client):
     # Creating a docclass and adding it to the database
+    Document.query.delete()
     DocumentClass.query.delete()
     helper_docclass = create_docclass()
     db.session.add(helper_docclass)
