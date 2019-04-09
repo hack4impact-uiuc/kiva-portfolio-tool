@@ -5,7 +5,7 @@ from boxsdk.exception import BoxAPIException
 from boxsdk import JWTAuth
 
 from io import BytesIO
-
+import os
 
 from flask import Blueprint, request
 from api.models import Document, Message, db
@@ -132,26 +132,6 @@ def get_user_information(client, user_id):
     info = client.user(user_id=user_id).get()
     return info
 
-
-###
-def upload_file_redirect():
-    data = request.files.get("file")
-    file_name = request.form.get("file_name")
-    box_file = upload_file(data, file_name)
-    if box_file is not None:
-        file_id = box_file["id"]
-
-        new_data = Document(7, "Post Document Test File", file_id)
-        db.session.add(new_data)
-        db.session.commit()
-        return create_response(status=200, message="success")
-    else:
-        return create_response(status=400, message="Duplicate file name")
-
-
-###
-
-
 def upload_file(file, file_name):
     """
     Upload the file with the given content and file.
@@ -188,7 +168,8 @@ def download_file():
     output_file = open(box_file.name, "wb")
     box_file.download_to(output_file)
 
-    return create_response(data={"output": output_file})
+    path_box = os.path.abspath(output_file)
+    return create_response(data={"output": send_file(path_box, attachment_filename=file_id)})
 
 
 def delete_file(file_id):

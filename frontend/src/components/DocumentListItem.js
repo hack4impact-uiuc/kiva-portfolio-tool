@@ -28,8 +28,9 @@ class DocumentListItem extends Component {
   }
 
   handleDownloadClick() {
-    // Download click handling
+    // Retrieve file from backend
     downloadDocument(document.fileID)
+
   }
 
   handleUploadClick() {
