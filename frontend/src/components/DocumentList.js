@@ -17,7 +17,12 @@ class DocumentList extends Component {
       <Table>
         <tbody>
           <tr className="dlist-header">
-            <th colSpan="3" className={'background-' + this.state.status.toLowerCase() + ' text-white'}>{this.state.status + ' Documents'}</th>
+            <th
+              colSpan="3"
+              className={'background-' + this.state.status.toLowerCase() + ' text-white'}
+            >
+              {this.state.status + ' Documents'}
+            </th>
           </tr>
           <tr>
             <th className="theader-centered">Document Name</th>
