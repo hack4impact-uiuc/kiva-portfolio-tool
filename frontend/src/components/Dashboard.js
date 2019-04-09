@@ -3,6 +3,7 @@ import DocumentList from './DocumentList'
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import NavBar from './NavBar';
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -22,7 +23,8 @@ class Dashboard extends React.Component {
 
     this.state = {
       documents: [],
-      statuses: []
+      statuses: [],
+      navbar: []
     }
   }
 
@@ -39,7 +41,8 @@ class Dashboard extends React.Component {
     if (res) {
       this.setState({
         documents: res,
-        statuses: ['Missing', 'Pending', 'Rejected', 'Approved']
+        statuses: ['Missing', 'Pending', 'Rejected', 'Approved'],
+        navbar: ["a navbar"]
       })
     } else {
       this.setState({
@@ -52,15 +55,24 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        {Object.keys(this.state.documents).map(key => {
+      <div>
+        {Object.keys(this.state.navbar).map(key => {
           return (
-            <DocumentList
-              isPM={this.state.isPM}
-              documents={this.state.documents[key]}
-              status={key}
-            />
+            <NavBar/>
           )
         })}
+      </div>
+      <div>
+          {Object.keys(this.state.documents).map(key => {
+            return (
+              <DocumentList
+                isPM={this.state.isPM}
+                documents={this.state.documents[key]}
+                status={key}
+              />
+            )
+          })}
+      </div>
       </div>
     )
   }
