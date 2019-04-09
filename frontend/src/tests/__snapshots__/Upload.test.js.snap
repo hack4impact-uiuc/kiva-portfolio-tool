@@ -18,11 +18,11 @@ exports[`Upload renders correctly 1`] = `
       <div
         className="dropZone"
       >
-        <Dropzone
+        <w
           onDrop={[Function]}
         >
           <Component />
-        </Dropzone>
+        </w>
       </div>
       <aside>
         <h4>
