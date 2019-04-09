@@ -35,7 +35,7 @@ jobs:
             pytest tests
   frontend_format:
     docker:
-      - image: node:8.4.0
+      - image: node:10.8.0
     steps:
       - checkout
       - run:
@@ -45,7 +45,7 @@ jobs:
             npm run format:check
   frontend_test:
     docker:
-      - image: node:8.4.0
+      - image: node:10.8.0
     steps:
       - checkout
       - run:
