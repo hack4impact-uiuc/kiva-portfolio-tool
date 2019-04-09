@@ -53,9 +53,11 @@ class Dashboard extends React.Component {
         <Row>
           {this.props.documents
           ? Object.keys(this.props.documents).map(key => {
-              <Col sm="12" md="6">
-                <DocumentList documents={this.props.documents[key]} status={key} />
-              </Col>
+              return (
+                <Col sm="12" md="6">
+                  <DocumentList documents={this.props.documents[key]} status={key} />
+                </Col>
+              )
             })
           : null}
         </Row>
