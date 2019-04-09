@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Generate config
           command: |
-            printenv CONFIG_DATA > "backend/api/views/171399529_73anvn29_config.json"
+            printenv CONFIG_DATA > "backend/api/views/171399529_b8tan54x_config.json"
       - run:
           command: |
             cd backend

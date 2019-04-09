@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { ContentPreview } from 'box-ui-elements'
-import { IntlProvider } from 'react-intl'
 import { getAccessToken, updateDocumentStatus, getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
-import Dashboard from './Dashboard'
+import Iframe from 'react-iframe'
+import 'box-ui-elements/dist/preview.css'
+import './index.scss'
+
+// Not needed unless working with non "en" locales
+// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -31,8 +34,9 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: 418675740558,
-      accessToken: null
+      fileId: this.props.document.fileId,
+      accessToken: null,
+      fileURL: null
     }
 
     this.toggle = this.toggle.bind(this)
@@ -77,10 +81,20 @@ class DocumentPreview extends Component {
         accessToken: null
       })
     }
+    this.setState({
+      fileURL: 'https://app.box.com/s/' + this.state.fileId
+    })
   }
 
   render() {
     const { isPM } = this.props
+
+    const customStyles = {
+      height: '500px',
+      width: '500px',
+      overlfow: 'scroll'
+    }
+
     return (
       <>
         {this.state.fileName && (
@@ -90,26 +104,8 @@ class DocumentPreview extends Component {
         )}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody>
-            <IntlProvider locale="en" textComponent={React.Fragment}>
-              <ContentPreview
-                contentSidebarProps={{
-                  detailsSidebarProps: {
-                    hasAccessStats: false,
-                    hasClassification: false,
-                    hasNotices: false,
-                    hasProperties: false,
-                    hasRetentionPolicy: false,
-                    hasVersions: true
-                  },
-                  hasActivityFeed: false,
-                  hasMetadata: false,
-                  hasSkills: false
-                }}
-                fileId={this.state.fileId}
-                token={this.state.accessToken}
-              />
-            </IntlProvider>
+          <ModalBody style={customStyles}>
+            <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
           </ModalBody>
           <ModalFooter>
             {isPM && (
