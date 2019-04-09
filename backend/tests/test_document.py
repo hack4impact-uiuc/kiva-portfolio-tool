@@ -117,12 +117,15 @@ def test_delete_document(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
+    # is this really the correct behavior? TBD
+    """
     rs = client.delete("/document/delete/PostDocumentestFile")
     assert rs.status_code == 500
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
+    """
 
-    rs = client.delete("/document/delete/Post%20Document%20Test%20File")
+    rs = client.delete("/document/delete/" + docclass_id)
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
