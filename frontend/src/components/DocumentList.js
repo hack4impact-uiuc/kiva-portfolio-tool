@@ -17,14 +17,16 @@ class DocumentList extends Component {
             <th>FILE</th>
             <th />
           </tr>
-          {this.props.documents.map(document => (
-            <DocumentListItem
-              document={document}
-              docClass={document.docClass}
-              fileName={document.fileName}
-              fileId={document.fileId}
-            />
-          ))}
+          {this.props.documents
+            ? this.props.documents.map(document => (
+                <DocumentListItem
+                  document={document}
+                  docClass={document.docClass}
+                  fileName={document.fileName}
+                  fileId={document.fileId}
+                />
+              ))
+            : null}
         </tbody>
       </Table>
     )
