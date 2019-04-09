@@ -3,6 +3,7 @@ import DocumentList from './DocumentList'
 import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import PMMainPage from './PMMainPage'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -40,7 +41,6 @@ class Dashboard extends React.Component {
     this.setState(this.updateMessages(messages))
     let documents = await getAllDocuments()
     this.setState(this.updateDocuments(documents))
-    
   }
 
   updateDocuments(res) {
@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <div>
-          {Object.keys(this.state.documents).map(key => {
+          {/* {Object.keys(this.state.documents).map(key => {
             return (
               <DocumentList
                 isPM={this.state.isPM}
@@ -81,7 +81,8 @@ class Dashboard extends React.Component {
                 status={key}
               />
             )
-          })}
+          })} */}
+          <PMMainPage />
         </div>
       </div>
     )

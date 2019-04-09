@@ -1,8 +1,11 @@
-import { React, Component } from 'react'
+import React, { Component } from 'react'
 import { getAllPartners } from '../utils/ApiWrapper'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { bindActionCreators } from 'redux'
+import 'react-tabs/style/react-tabs.css'
 import { connect } from 'react-redux'
+import { Progress } from 'reactstrap'
+import '../styles/colors.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -16,7 +19,8 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-class PMMainPage extends React.Component {
+
+class PMMainPage extends Component {
   constructor(props) {
     super(props)
 
@@ -27,11 +31,18 @@ class PMMainPage extends React.Component {
     }
   }
 
+  /**
+   * Waits for component to load and get all the partners attached to pm
+   */
   async componentDidMount() {
     let partners = await getAllPartners()
-    this.setState(this.loadPartners(messages))
+    this.setState(this.loadPartners(partners))
   }
 
+  /**
+   *
+   * @param {*} res updates state of partners and filtered to res if it exists
+   */
   loadPartners(res) {
     if (res) {
       return {
@@ -46,6 +57,11 @@ class PMMainPage extends React.Component {
     }
   }
 
+  /**
+   * Picks up on any changes in query from and updates query state
+   * Filtered is then filter to include substrings of query
+   * Then state is updated
+   */
   handleQueryChange = event => {
     let newState = this.state
     let query = event.target.value.toLowerCase()
@@ -54,8 +70,9 @@ class PMMainPage extends React.Component {
     if (query == '') {
       newState['filtered'] = this.state.partners
     } else {
-      newState['filtered'] = this.state.partners
-        .filter(partner => partner.name.toLowerCase().includes(query))
+      newState['filtered'] = this.state.partners.filter(partner =>
+        partner.name.toLowerCase().includes(query)
+      )
     }
     this.setState(newState)
   }
@@ -84,22 +101,22 @@ class PMMainPage extends React.Component {
           </TabList>
 
           <TabPanel>
-          <div>
-            {this.state.filtered
-              .filter(partner => partner.status != "Dormant")
-              .map(partner => {
-                <PartnerBar partner={partner}/>
-            })}
-          </div>                   
+            <div>
+              {this.state.filtered
+                .filter(partner => partner.status != 'Dormant')
+                .map(partner => {
+                  return <PartnerBar partner={partner} />
+                })}
+            </div>
           </TabPanel>
 
           <TabPanel>
             <div>
               {this.state.filtered
-                .filter(partner => partner.status == "Dormant")
+                .filter(partner => partner.status == 'Dormant')
                 .map(partner => {
-                  <PartnerBar partner={partner}/>
-              })}
+                  return <PartnerBar partner={partner} />
+                })}
             </div>
           </TabPanel>
         </Tabs>
@@ -108,17 +125,58 @@ class PMMainPage extends React.Component {
   }
 }
 
-class PartnerBar extends React.Component {
+/**
+ * Component containing information about a single partner
+ */
+class PartnerBar extends Component {
   constructor(props) {
     super(props)
+  }
 
-    this.state = {
-      partner: this.props.partner,
+  /**
+   * Calculates percentages of each state of a document and puts it into a progress bar
+   * In addition prints all info of a field partner
+   */
+  render() {
+    let approved = 0
+    let pending = 0
+    let rejected = 0
+    let len = Object.keys(this.props.partner.documents).length
+    for (var key in this.props.partner.documents) {
+      let item = this.props.partner.documents[key]
+      if (item == 'Approved') {
+        approved += 1
+      } else if (item == 'Pending') {
+        pending += 1
+      } else if (item == 'Rejected') {
+        rejected += 1
+      }
     }
+
+    approved = Math.floor((approved / len) * 100)
+    pending = Math.floor((pending / len) * 100)
+    rejected = Math.floor((rejected / len) * 100)
+    let rest = 100 - approved - pending - rejected
+
+    return (
+      <div>
+        <div>Due Date: {this.props.partner.duedate}</div>
+        <div>ICON/IMAGE HERE</div>
+        <div>{this.props.partner.name}</div>
+        <div>
+          <Progress multi>
+            <Progress bar color="dashgreen" value={approved} />
+            <Progress bar color="dashorange" value={pending} />
+            <Progress bar color="dashred" value={rejected} />
+            <Progress bar color="dashgrey" value={rest} />
+          </Progress>
+        </div>
+      </div>
+    )
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dashboard)
+)(PMMainPage)
