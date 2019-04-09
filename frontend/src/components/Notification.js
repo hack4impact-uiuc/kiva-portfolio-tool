@@ -23,9 +23,9 @@ class Notification extends Component {
     const { isPM } = this.props
     return (
       <ListGroupItem>
-        <p class="name"> <b> {this.state.name} </b> </p>
-        <p> {this.state.time} </p>
-        <p class="description"> {this.state.description} </p>
+        <p className="person-name"> <b> {this.state.name} </b> </p>
+        <p className="time"> {this.state.time} </p>
+        <p className="notif-description"> {this.state.description} </p>
       </ListGroupItem>
     )
   }
