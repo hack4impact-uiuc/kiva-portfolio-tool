@@ -10,7 +10,7 @@ beforeAll(() => {
 })
 
 test('Notification renders correctly', () => {
-  const component = shallow(<Notification/>)
+  const component = shallow(<Notification />)
 
   let tree = shallowToJson(component)
   expect(tree).toMatchSnapshot()
