@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import Router from 'next/router'
 import { login, google } from '../utils/api'
 import {
   Form,
@@ -43,7 +42,7 @@ class LogIn extends Component {
     } else {
       setCookie('token', e.tokenId)
       setCookie('google', true)
-      Router.push('/')
+      //this.props.history.push('/')
     }
   }
 
@@ -57,7 +56,7 @@ class LogIn extends Component {
       this.setState({ errorMessage: resp.message })
     } else {
       setCookie('token', resp.token)
-      Router.push('/')
+      //this.props.history.push('/')
     }
   }
 
@@ -108,7 +107,7 @@ class LogIn extends Component {
               <Button
                 color="success"
                 size="lg"
-                onClick={() => Router.push('/register')}
+                onClick={() => this.props.history.push('/register')}
                 style={{ float: 'right', width: '49%' }}
               >
                 Register
@@ -135,4 +134,4 @@ class LogIn extends Component {
     )
   }
 }
-export default connect()(LogIn)
+export default LogIn
