@@ -30,7 +30,6 @@ class DocumentListItem extends Component {
   handleDownloadClick() {
     // Retrieve file from backend
     downloadDocument(document.fileID)
-
   }
 
   handleUploadClick() {
