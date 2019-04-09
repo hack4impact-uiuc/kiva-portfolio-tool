@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Router from "next/router";
-import { register } from "../utils/api";
+import Link from 'next/link'
+import Router from 'next/router'
+import { register } from '../utils/api'
 import {
   Form,
   Button,
@@ -11,51 +11,48 @@ import {
   Card,
   CardBody,
   CardTitle
-} from "reactstrap";
-import { setCookie } from "./../utils/cookie";
+} from 'reactstrap'
+import { setCookie } from './../utils/cookie'
 
 // michael's baby
 const EMAIL_REGEX =
-  "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})";
+  "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 
 export default class extends React.Component {
   state = {
-    email: "",
-    password: "",
-    password2: "",
-    errorMessage: ""
-  };
+    email: '',
+    password: '',
+    password2: '',
+    errorMessage: ''
+  }
 
   handleChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
-    this.setState({ [name]: value });
-  };
+    const value = event.target.value
+    const name = event.target.name
+    this.setState({ [name]: value })
+  }
 
   handleSubmit = async e => {
-    event.preventDefault();
+    event.preventDefault()
     if (this.state.password === this.state.password2) {
-      const result = await register(this.state.email, this.state.password);
-      const response = await result.json();
+      const result = await register(this.state.email, this.state.password)
+      const response = await result.json()
       if (!response.token) {
-        this.setState({ errorMessage: response.message });
+        this.setState({ errorMessage: response.message })
       } else {
-        setCookie("token", response.token);
-        Router.push("/");
+        setCookie('token', response.token)
+        Router.push('/')
       }
     } else {
-      this.setState({ errorMessage: "Passwords do not match" });
+      this.setState({ errorMessage: 'Passwords do not match' })
     }
-  };
+  }
 
   render = () => (
     <div>
-      <Card
-        className="interview-card"
-        style={{ width: "400px", height: "60%" }}
-      >
+      <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
         <CardTitle>
-          <h3 style={{ textAlign: "center", paddingTop: "10px" }}>Register</h3>
+          <h3 style={{ textAlign: 'center', paddingTop: '10px' }}>Register</h3>
         </CardTitle>
 
         <CardBody>
@@ -101,25 +98,25 @@ export default class extends React.Component {
               color="success"
               size="lg"
               onClick={this.handleSubmit}
-              style={{ float: "left", width: "48%" }}
+              style={{ float: 'left', width: '48%' }}
             >
               Register
-            </Button>{" "}
+            </Button>{' '}
             <Button
               color="success"
               size="lg"
-              onClick={() => Router.push("/login")}
-              style={{ float: "right", width: "49%" }}
+              onClick={() => Router.push('/login')}
+              style={{ float: 'right', width: '49%' }}
             >
               Login
             </Button>
             <br />
             <br />
             <br />
-            <p style={{ color: "red" }}>{this.state.errorMessage}</p>
+            <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
           </Form>
         </CardBody>
       </Card>
     </div>
-  );
+  )
 }
