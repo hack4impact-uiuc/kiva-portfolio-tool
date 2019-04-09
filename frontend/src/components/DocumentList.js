@@ -11,7 +11,7 @@ class DocumentList extends Component {
           <tr className="dlist-header">
             <th
               colSpan="3"
-              className={'background-' + this.props.status.toLowerCase() + ' text-white'}
+              className={'background-' + (this.props.status ? this.props.status.toLowerCase() : 'null') + ' text-white'}
             >
               {this.props.status + ' Documents'}
             </th>
