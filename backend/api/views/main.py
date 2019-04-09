@@ -165,7 +165,7 @@ def create_new_document():
     print("check")
     # calling the box api
     print(new_data)
-    #print("args", request.args[0])
+    # print("args", request.args[0])
     file_info = upload_file(request.args[0], new_data.fileName)
     print("check after")
     new_data.fileID = file_info["id"]
