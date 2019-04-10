@@ -30,7 +30,7 @@ def add_document_class():
     logger.info(data)
     if "name" not in data:
         return create_response(
-            status=422, message="No name provided for new Document Class"
+            status=400, message="No name provided for new Document Class"
         )
 
     sample_args = request.args
