@@ -23,6 +23,8 @@ class DocumentListItem extends Component {
     this.toggle = this.toggle.bind(this)
   }
 
+
+
   toggle = () => {
     this.setState({ modal: !this.state.modal })
   }
@@ -55,7 +57,7 @@ class DocumentListItem extends Component {
           </ModalFooter>
         </Modal>
         <tr>
-          <td data-testid="docClass">{this.state.document.docClass}</td>
+          <td data-testid="docClass">{this.state.document.docClassName}</td>
           <td data-testid="fileName">
             {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
           </td>

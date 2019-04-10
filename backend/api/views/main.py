@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import Document, Message, db
+from api.models import Document, Message, db, DocumentClass
 from api.views import box
 from api.core import create_response, serialize_list, logger
 
@@ -78,6 +78,10 @@ def get_document():
         if len(serialize_list(docs)) == 0:
             return create_response(status=403, message="No Documents Found")
 
+        # Adds a field called docClassName to each document
+        for document in docs:
+            document.docClassName = DocumentClass.query.get(document.docClassID).name
+
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Approved"]
@@ -122,6 +126,7 @@ def get_document():
         verified = [i for i in docs if i.status == "Approved"]
         missing = [i for i in docs if i.status == "Missing"]
         rejected = [i for i in docs if i.status == "Rejected"]
+
         return create_response(
             status=200,
             data={
