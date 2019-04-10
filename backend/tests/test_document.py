@@ -119,12 +119,12 @@ def test_delete_document(client):
     assert ret_dict["success"] == True
 
     # is this really the correct behavior? TBD
-    """
+
     rs = client.delete("/document/delete/PostDocumentestFile")
     assert rs.status_code == 500
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
-    """
+    
 
     rs = client.delete("/document/delete/" + docclass_id)
     assert rs.status_code == 200
@@ -146,7 +146,6 @@ def test_put_document(client):
     assert ret_dict["success"] == True
 
     # same as above TBD
-    """
     rs = client.put(
         "/document/update/Postadfa",
         content_type="application/json",
@@ -160,7 +159,6 @@ def test_put_document(client):
     assert rs.status_code == 500
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
-    """
 
     rs = client.put(
         "/document/update/" + docclass_id,
