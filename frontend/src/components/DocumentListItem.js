@@ -23,8 +23,6 @@ class DocumentListItem extends Component {
     this.toggle = this.toggle.bind(this)
   }
 
-
-
   toggle = () => {
     this.setState({ modal: !this.state.modal })
   }
