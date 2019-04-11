@@ -26,9 +26,9 @@ def test_index(client):
 
 def test_get_document(client):
     rs = client.get("/document")
-    assert rs.status_code == 403
+    assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == False
+    assert ret_dict["success"] == True
 
     # Adding a docclass to the database
     docclass_id = add_mock_docclass("test_get_document")
@@ -57,7 +57,7 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
     rs = client.get("/document?fid=jalkdf")
-    assert rs.status_code == 403
+    assert rs.status_code == 200
 
     rs = client.get("/document?description=Ye")
     ret_dict = rs.json
@@ -76,7 +76,7 @@ def test_get_document(client):
 
 def test_post_document(client):
     rs = client.post("/document/new")
-    assert rs.status_code == 500
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
@@ -98,7 +98,7 @@ def test_post_document(client):
         content_type="application/json",
         json={"status": "Missing", "docClassID": docclass_id},
     )
-    assert rs.status_code == 422
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
