@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 // import { bindActionCreators } from 'redux'
-import { Table } from 'reactstrap'
+import Notification from './Notification'
 import { connect } from 'react-redux'
 
 const mapStateToProps = state => ({
@@ -25,12 +25,9 @@ class NotificationsBar extends Component {
 
                 <TabPanel>
                     {this.props.messages.map(message => {
-                        // <SomeItem/>
-                            return (
-                                <div>
-                                    {message}
-                                </div>
-                            )   
+                        return (
+                            <Notification name={message.name} time={message.time} description={message.description}/>
+                        )   
                     })}                    
                 </TabPanel>
                 <TabPanel>
