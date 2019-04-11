@@ -91,6 +91,8 @@ def recreate_db():
         )
     )
 
+    db.session.commit()
+
     create_mock_document(
         user_id=1, docclass_id=docclass_ids[0], name=None, status="Missing"
     )
