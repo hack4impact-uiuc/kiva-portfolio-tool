@@ -48,20 +48,18 @@ def get_fp_by_pm(pm_id):
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
     data = request.get_json()
-
-    if data is None:
-        return create_response(status=400, message="No data provided for new FP")
+    logger.info(data)
     if "email" not in data:
-        return create_response(status=400, message="No email provided for new FP")
+        return create_response(status=422, message="No email provided for new FP")
     if "org_name" not in data:
         return create_response(
-            status=400, message="No organization name provided for new FP"
+            status=422, message="No organization name provided for new FP"
         )
     if "pm_id" not in data:
-        return create_response(status=400, message="No PM ID provided for new FP")
+        return create_response(status=422, message="No PM ID provided for new FP")
     if "app_status" not in data:
         return create_response(
-            status=400, message="No application status provided for new FP"
+            status=422, message="No application status provided for new FP"
         )
     sample_args = request.args
     new_fp = FieldPartner(**data)

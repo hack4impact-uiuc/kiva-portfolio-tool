@@ -178,7 +178,7 @@ def test_get_fp_by_pm(client):
 
 def test_new_fp(client):
     rs = client.post("/field_partner/new")
-    assert rs.status_code == 400
+    assert rs.status_code == 500
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
@@ -208,7 +208,7 @@ def test_new_fp(client):
         content_type="application/json",
         json={"email": "santa", "org_name": "Kiva"},
     )
-    assert rs.status_code == 400
+    assert rs.status_code == 422
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
     assert ret_dict["message"] == "No PM ID provided for new FP"

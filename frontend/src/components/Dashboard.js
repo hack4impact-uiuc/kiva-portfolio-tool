@@ -7,27 +7,15 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Container, Row, Col } from 'reactstrap'
-import '../styles/dashboard.css'
-import { updateDocuments } from '../redux/modules/user'
-import '../styles/index.css'
-
-// Not needed unless working with non "en" locales
-// import { addLocaleData } from 'react-intl';
-// import enLocaleData from 'react-intl/locale-data/en';
-
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM,
-  documents: state.user.documents
+  isPM: state.user.isPM
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDocuments
+      //put actions here
     },
     dispatch
   )
@@ -37,16 +25,51 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      statuses: ['Missing', 'Rejected', 'Pending', 'Approved']
+      documents: [],
+      statuses: [],
+      messages: []
     }
   }
 
   async componentDidMount() {
-    const res = await getAllDocuments()
+    /* await getAllDocuments().then(results => {
+      results ? 
+      this.setState({
+        documents: results
+      }) :
+      this.setState({
+        documents: []
+      }) */
+    let messages = await getAllMessages()
+    this.setState(this.updateMessages(messages))
+    let documents = await getAllDocuments()
+    this.setState(this.updateDocuments(documents))
+    
+  }
+
+  updateDocuments(res) {
     if (res) {
-      this.props.updateDocuments(res)
+      return {
+        documents: res,
+        statuses: ['Missing', 'Pending', 'Rejected', 'Approved']
+      }
     } else {
-      this.props.updateDocuments([])
+      return {
+        documents: [],
+        statuses: []
+      }
+    }
+  }
+
+  updateMessages(res) {
+    if (res) {
+      return {
+        messages: res
+      }
+    } else {
+      return {
+        messages: []
+      }
     }
   }
   pStyle = {
@@ -55,19 +78,25 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          {this.props.documents
-            ? this.state.statuses.map(key => {
-                return (
-                  <Col sm="12" md="6">
-                    <DocumentList documents={this.props.documents[key]} status={key} />
-                  </Col>
-                )
-              })
-            : null}
-        </Row>
-      </Container>
+      <div>
+        <div>
+          {Object.keys(this.state.documents).map(key => {
+            return (
+              <DocumentList
+                isPM={this.state.isPM}
+                documents={this.state.documents[key]}
+                status={key}
+              />
+            )
+          })}
+        </div>
+        <div>
+          <NotificationsBar messages={this.state.messages}/>
+        </div>
+        <div>
+          <SelectDocumentsPage/>
+        </div>
+      </div>
     )
   }
 }

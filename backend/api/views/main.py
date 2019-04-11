@@ -1,6 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import Document, Message, db, DocumentClass
-from api.views import box
+from api.models import Document, Message, db
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -34,10 +33,6 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 553bb00141e25681d6f63aa89809bef8ed5925c7
 @main.route("/document", methods=["GET"])
 
 def get_document():
@@ -49,7 +44,7 @@ def get_document():
     kwargs["fileID"] = request.args.get("fid")
     kwargs["userID"] = request.args.get("uid")
     kwargs["status"] = request.args.get("status")
-    kwargs["docClassID"] = request.args.get("docClassID")
+    kwargs["docClass"] = request.args.get("docClass")
     kwargs["fileName"] = request.args.get("fileName")
     kwargs["latest"] = request.args.get("latest")
 
@@ -78,9 +73,9 @@ def get_document():
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
-        # Adds a field called docClassName to each document
-        for document in docs:
-            document.docClassName = DocumentClass.query.get(document.docClassID).name
+        # if no documents found, let user know
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="No Documents Found")
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
@@ -117,12 +112,15 @@ def get_document():
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
+        # if no documents found, let user know
+        if len(serialize_list(docs)) == 0:
+            return create_response(status=403, message="No Documents Found")
+
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Approved"]
         missing = [i for i in docs if i.status == "Missing"]
         rejected = [i for i in docs if i.status == "Rejected"]
-
         return create_response(
             status=200,
             data={
@@ -142,83 +140,66 @@ def create_new_document():
     functionality used to add a new document to database
     """
     # data for new document should be stored as json in request
-
     data = request.get_json()
 
-    if data is None:
-        return create_response(status=400, message="No body provided for new Document")
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
     if "userID" not in data:
         return create_response(
-            status=400, message="No UserID provided for new Document"
+            status=422, message="No UserID provided for new Document"
         )
     if "status" not in data:
         return create_response(
-            status=400, message="No Status provided for new Document"
+            status=422, message="No Status provided for new Document"
         )
-    if "docClassID" not in data:
+    if "docClass" not in data:
         return create_response(
-            status=400, message="No Document Class provided for new Document"
+            status=422, message="No Document Class provided for new Document"
         )
-    # requeest.args[0] == file byte
-    # request.args[1] == other args necessary for doc creation
-    # sample_args = request.args[1]
+    
     # Turns data into a Document and adds it to database
     new_data = Document(**data)
-
-    # print("check")
-    # calling the box api
-    # print(new_data)
-    # print("args", request.args[0])
-    # file_info = upload_file(request.args[0], new_data.fileName)
-    # print("check after")
-    # new_data.fileID = file_info["id"]
-    # use retrieved file_info
-
     db.session.add(new_data)
     db.session.commit()
     return create_response(status=200, message="success")
 
 
-@main.route("/document/delete/<docClassID>", methods=["DELETE"])
-def delete_document(docClassID):
+@main.route("/document/delete/<docClass>", methods=["DELETE"])
+def delete_document(docClass):
     """
     Deletes all documents related to a document class in database
     """
-    # logger.info(docClassID)
+    # logger.info(docClass)
     db.session.delete(
-        # gets all document <id> native to db and sees if == to docClassID. Then deletes
-        Document.query.filter((Document.docClassID == str(docClassID))).first()
+        # gets all document <id> native to db and sees if == to docClass. Then deletes
+        Document.query.filter((Document.docClass == str(docClass))).first()
     )
     db.session.commit()
     return create_response(status=200, message="success")
 
 
-@main.route("/document/update/<docClassID>", methods=["PUT"])
-def update_documents(docClassID):
+@main.route("/document/update/<docClass>", methods=["PUT"])
+def update_documents(docClass):
     """
     functionality that updates a document/documentClass
     """
 
-    # takes in updated docClassID information by json in request
-    # receives all documents by docClassID
-    doc = Document.query.filter((Document.docClassID == docClassID)).first()
+    # takes in updated docClass information by json in request
+    # receives all documents by docClass
+    doc = Document.query.filter((Document.docClass == docClass)).first()
 
     # for each item in a document:
     #   replace if updated item data provided
-    #   else keep old value
+    #   else keep old value    
     doc.fileID = request.json.get("fileID", doc.fileID)
     doc.date = request.json.get("date", doc.date)
     doc.status = request.json.get("status", doc.status)
-    doc.docClassID = request.json.get("docClassID", doc.docClassID)
+    doc.docClass = request.json.get("docClass", doc.docClass)
     doc.fileName = request.json.get("fileName", doc.fileName)
     doc.latest = request.json.get("latest", doc.latest)
     doc.description = request.json.get("description", doc.description)
     db.session.commit()
     return create_response(status=200, message="success")
 
-
-# given id of document, can update its status to new status provided in url
 @main.route("/document/update/<id>/<status>", methods=["PUT"])
 def update_status(id, status):
     """ 

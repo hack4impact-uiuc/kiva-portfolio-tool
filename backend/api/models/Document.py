@@ -16,9 +16,7 @@ class Document(Mixin, db.Model):
         db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
         unique=False,
     )  # db.Enum
-    docClassID = db.Column(
-        db.String, db.ForeignKey("document_class.id"), nullable=False
-    )
+    docClass = db.Column(db.String, unique=False)  # db.Enum
     fileName = db.Column(db.String, unique=False)
     latest = db.Column(db.Boolean, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
@@ -26,7 +24,7 @@ class Document(Mixin, db.Model):
     def __init__(
         self,
         userID,
-        docClassID,
+        docClass,
         fileID=None,
         date=None,
         status="Missing",
@@ -38,13 +36,10 @@ class Document(Mixin, db.Model):
         self.userID = userID
         self.date = date
         self.status = status
-        self.docClassID = docClassID
+        self.docClass = docClass
         self.fileName = fileName
         self.latest = latest
         self.description = description
 
     def __repr__(self):
-        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n"
-
-    def get_docclass_id(self):
-        return self.docClassID
+        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClass: {self.docClass}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n"

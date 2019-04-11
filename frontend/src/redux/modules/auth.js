@@ -1,6 +1,6 @@
 const LOGIN = 'auth/login'
-//const LOAD = 'auth/begin_loading'
-//const LOAD_UPDATES = 'auth/load_updates'
+const LOAD = 'auth/begin_loading'
+const LOAD_UPDATES = 'auth/load_updates'
 
 const initialState = {
   verified: false

@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Generate config
           command: |
-            printenv CONFIG_DATA > "backend/api/views/171399529_b8tan54x_config.json"
+            printenv CONFIG_DATA > "backend/api/views/171399529_73anvn29_config.json"
       - run:
           command: |
             cd backend
@@ -35,7 +35,7 @@ jobs:
             pytest tests
   frontend_format:
     docker:
-      - image: node:10.8.0
+      - image: node:8.4.0
     steps:
       - checkout
       - run:
@@ -45,7 +45,7 @@ jobs:
             npm run format:check
   frontend_test:
     docker:
-      - image: node:10.8.0
+      - image: node:8.4.0
     steps:
       - checkout
       - run:
