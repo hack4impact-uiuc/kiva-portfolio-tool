@@ -1,6 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
 import Notification from './Notification'
+import NavBar from "./NavBar"
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -49,6 +50,8 @@ class Dashboard extends React.Component {
 
   render() {
     return (
+      <div>
+      <NavBar></NavBar>
       <Container>
         <Row>
           {this.props.documents
@@ -62,6 +65,7 @@ class Dashboard extends React.Component {
             : null}
         </Row>
       </Container>
+      </div>
     )
   }
 }

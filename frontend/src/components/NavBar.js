@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Button, DropdownToggle, DropdownMenu, DropdownItem,
-        Nav, Navbar, NavbarBrand, NavItem, NavbarToggler, UncontrolledDropdown } from 'reactstrap';
+        Nav, Navbar, NavbarBrand, NavItem, NavbarToggler, UncontrolledDropdown } from 'reactstrap'
 import { connect } from 'react-redux'
+import kiva_logo from "../media/kivaPlainLogo.png"
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -10,7 +11,13 @@ const mapStateToProps = state => ({
 class NavBar extends Component {
   constructor(props) {
     super(props)
-
+    // var logo = (
+    //   <span class="logo">
+    //     <a href="/">
+    //       <img src="../media/kivaPlainLogo.png" height="10" width="50" alt="text here" /></a>
+    //   </span>
+    // );
+    
     this.state = {
     }
   }
@@ -19,8 +26,10 @@ class NavBar extends Component {
     const { isPM } = this.props
     return (
         <div>
-            <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">kiva</NavbarBrand>
+            <Navbar color="white" light expand="md">
+                <NavbarBrand href="/">
+                  <img src={kiva_logo} width="87" height="45"/>
+                </NavbarBrand>
                     <Nav className="ml-auto" navbar>
 
                       <NavItem>
