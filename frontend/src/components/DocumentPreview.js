@@ -1,13 +1,32 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { ContentPreview } from 'box-ui-elements'
-import { IntlProvider } from 'react-intl'
-import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
+import { getAccessToken, updateDocumentStatus, getAllDocuments } from '../utils/ApiWrapper'
+import { bindActionCreators } from 'redux'
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+import Iframe from 'react-iframe'
+import 'box-ui-elements/dist/preview.css'
+import '../styles/index.css'
+
+// Not needed unless working with non "en" locales
+// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  documents: state.user.documents,
+  loading: state.user.loading
 })
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateDocuments,
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
 
 class DocumentPreview extends Component {
   constructor(props) {
@@ -15,8 +34,9 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: 418675740558,
-      accessToken: null
+      fileId: this.props.document.fileId,
+      accessToken: null,
+      fileURL: null
     }
 
     this.toggle = this.toggle.bind(this)
@@ -24,13 +44,23 @@ class DocumentPreview extends Component {
     this.handleRejectClick = this.handleRejectClick.bind(this)
   }
 
-  handleApproveClick() {
-    updateDocumentStatus(this.state.id, 'Approved')
+  async handleApproveClick() {
+    await updateDocumentStatus(this.state.id, 'Approved')
+    this.props.beginLoading()
+    getAllDocuments().then(res => {
+      this.props.updateDocuments(res)
+      this.props.endLoading()
+    })
     this.toggle()
   }
 
-  handleRejectClick() {
-    updateDocumentStatus(this.state.id, 'Rejected')
+  async handleRejectClick() {
+    await updateDocumentStatus(this.state.id, 'Rejected')
+    this.props.beginLoading()
+    getAllDocuments().then(results => {
+      this.props.updateDocuments(results)
+      this.props.endLoading()
+    })
     this.toggle()
   }
 
@@ -51,10 +81,20 @@ class DocumentPreview extends Component {
         accessToken: null
       })
     }
+    this.setState({
+      fileURL: 'https://app.box.com/s/' + this.state.fileId
+    })
   }
 
   render() {
     const { isPM } = this.props
+
+    const customStyles = {
+      height: '500px',
+      width: '500px',
+      overlfow: 'scroll'
+    }
+
     return (
       <>
         {this.state.fileName && (
@@ -64,26 +104,8 @@ class DocumentPreview extends Component {
         )}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody>
-            <IntlProvider locale="en" textComponent={React.Fragment}>
-              <ContentPreview
-                contentSidebarProps={{
-                  detailsSidebarProps: {
-                    hasAccessStats: false,
-                    hasClassification: false,
-                    hasNotices: false,
-                    hasProperties: false,
-                    hasRetentionPolicy: false,
-                    hasVersions: true
-                  },
-                  hasActivityFeed: false,
-                  hasMetadata: false,
-                  hasSkills: false
-                }}
-                fileId={this.state.fileId}
-                token={this.state.accessToken}
-              />
-            </IntlProvider>
+          <ModalBody style={customStyles}>
+            <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
           </ModalBody>
           <ModalFooter>
             {isPM && (
@@ -106,4 +128,7 @@ class DocumentPreview extends Component {
   }
 }
 
-export default connect(mapStateToProps)(DocumentPreview)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DocumentPreview)
