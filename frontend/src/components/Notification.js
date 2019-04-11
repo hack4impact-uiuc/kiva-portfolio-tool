@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import DateTimePicker from 'react-datetime-picker';
 import { ListGroupItem } from 'reactstrap'
 import '../styles/notification.css'
 import { connect } from 'react-redux'
@@ -9,10 +8,6 @@ const mapStateToProps = state => ({
 })
 
 class Notification extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { isPM } = this.props
     return (

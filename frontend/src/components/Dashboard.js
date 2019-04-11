@@ -1,7 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
 import Notification from './Notification'
-import NavBar from "./NavBar"
+import NavBar from './NavBar'
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -51,20 +51,20 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-      <NavBar></NavBar>
-      <Container>
-        <Row>
-          {this.props.documents
-            ? this.state.statuses.map(key => {
-                return (
-                  <Col sm="12" md="6">
-                    <DocumentList documents={this.props.documents[key]} status={key} />
-                  </Col>
-                )
-              })
-            : null}
-        </Row>
-      </Container>
+        <NavBar />
+        <Container>
+          <Row>
+            {this.props.documents
+              ? this.state.statuses.map(key => {
+                  return (
+                    <Col sm="12" md="6">
+                      <DocumentList documents={this.props.documents[key]} status={key} />
+                    </Col>
+                  )
+                })
+              : null}
+          </Row>
+        </Container>
       </div>
     )
   }
