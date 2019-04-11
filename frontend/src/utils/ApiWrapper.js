@@ -21,10 +21,10 @@ export const getDocuments = (userID, status) => {
     })
 }
 
-export const getDocumentsByName = (fileName, docClass) => {
+export const getDocumentsByName = (fileName, docClassID) => {
   return axios
     .get(
-      BACKEND_URL + '/search/documents?name=' + fileName + '&docClass=' + docClass
+      BACKEND_URL + '/search/documents?name=' + fileName + '&docClassID=' + docClassID
     ) /* + '&key=' + BACKEND_KEY )*/
     .then(response => {
       return response.data.result.documents
