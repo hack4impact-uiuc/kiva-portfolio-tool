@@ -14,6 +14,17 @@ class Upload extends Component {
   }
 
   onDrop(files) {
+    console.log(files[0].type)
+    // check the type of the file
+    const doctypes = [
+      'application/msword',
+      'application/vnd.ms-excel',
+      'application/vnd.ms-powerpoint',
+      'application/pdf',
+      'image/jpeg',
+      'image/png',
+      'text/plain'
+    ]
     this.setState({
       files
     })
