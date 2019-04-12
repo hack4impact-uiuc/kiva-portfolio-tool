@@ -11,15 +11,6 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      //put actions here
-    },
-    dispatch
-  )
-}
-
 class PMMainPage extends Component {
   constructor(props) {
     super(props)
@@ -179,7 +170,4 @@ class PartnerBar extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PMMainPage)
+export default connect(mapStateToProps)(PMMainPage)
