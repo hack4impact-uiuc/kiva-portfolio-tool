@@ -1,21 +1,37 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-// import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux'
 import Notification from './Notification'
 import { connect } from 'react-redux'
+import { updateMessages, updateInformation } from '../redux/modules/user'
+
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  allMessages: state.user.messages
 })
 
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateMessages
+    },
+    dispatch
+  )
+}
 class NotificationsBar extends Component {
   constructor(props) {
     super(props)
   }
 
+  removeMessage = value => {
+
+  }
+
   render() {
-    const { isPM } = this.props
+    const { isPM } = this.props.isPM
+    const {allMessages} = this.props.allMessages
     return (
       <Tabs>
         <TabList>
@@ -42,4 +58,4 @@ class NotificationsBar extends Component {
   }
 }
 
-export default connect(mapStateToProps)(NotificationsBar)
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBar)

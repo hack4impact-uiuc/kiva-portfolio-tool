@@ -1,7 +1,6 @@
 import React from 'react'
 import DocumentList from './DocumentList'
 import NotificationsBar from './NotificationsBar'
-import SelectDocumentsPage from './SelectDocuments'
 import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
@@ -9,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
 import '../styles/dashboard.css'
-import { updateDocuments } from '../redux/modules/user'
+import { updateDocuments, updateMessages, updateInformation } from '../redux/modules/user'
 import '../styles/index.css'
 
 // Not needed unless working with non "en" locales
@@ -21,13 +20,15 @@ import '../styles/index.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
-  documents: state.user.documents
+  documents: state.user.documents,
+  messages: state.user.messages
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDocuments
+      updateDocuments,
+      updateMessages
     },
     dispatch
   )
@@ -43,10 +44,16 @@ class Dashboard extends React.Component {
 
   async componentDidMount() {
     const res = await getAllDocuments()
+    const res2 = await getAllMessages()
     if (res) {
       this.props.updateDocuments(res)
     } else {
       this.props.updateDocuments([])
+    }
+    if(res2) {
+      this.props.updateMessages(res2)
+    } else {
+      this.props.updateMessages([])
     }
   }
   pStyle = {

@@ -23,7 +23,7 @@ class Notification extends Component {
         </p>
         <p className="time"> {this.props.time} </p>
         <p className="notif-description"> {this.props.description} </p>
-        <button onClick={this.props.removeMessage}>X</button>
+        <button onClick={this.props.removeMessage(this.props.key)}>X</button>
       </ListGroupItem>
     )
   }
