@@ -165,13 +165,14 @@ def create_new_document():
     # request.args[1] == other args necessary for doc creation
     # sample_args = request.args[1]
     # Turns data into a Document and adds it to database
-    print(request)
+    # print(request)
+    # print(data)
+    file_info = upload_file(request.files.get("file"), data["fileName"])
+
     print(data)
-    file_info = upload_file(request.files.get("file"), data['fileName'])
+    new_data = Document(data)
 
-    new_data = Document(**data)
-
-    #print("check after")
+    # print("check after")
     new_data.fileID = file_info.id
     # use retrieved file_info
 
