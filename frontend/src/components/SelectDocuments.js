@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Selector } from './Selector'
 import { getAllDocumentClasses } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
@@ -76,7 +76,7 @@ class SelectDocumentsPage extends React.Component {
     let query = event.target.value.toLowerCase()
     newState['query'] = query
     newState['filtered'] = {}
-    if (query == '') {
+    if (query === '') {
       newState['filtered'] = this.state.docClass
     } else {
       newState['filtered'] = Object.keys(this.state.docClass)
@@ -97,7 +97,7 @@ class SelectDocumentsPage extends React.Component {
    */
   changeSelection = value => {
     let new_selection
-    if (this.state.docClass[value] == 'Selected') {
+    if (this.state.docClass[value] === 'Selected') {
       new_selection = 'Available'
     } else {
       new_selection = 'Selected'
