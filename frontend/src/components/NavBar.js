@@ -8,14 +8,13 @@ import {
   Navbar,
   NavbarBrand,
   NavItem,
-  NavbarToggler,
   UncontrolledDropdown
 } from 'reactstrap'
 import { connect } from 'react-redux'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
-import menu_image from '../media/sandwich.png'
-import "../styles/navbar.css"
+import sandwich_image from '../media/sandwich.png'
+import '../styles/navbar.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -40,7 +39,7 @@ class NavBar extends Component {
             <NavItem className="sandwich">
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  <img src={menu_image} width="30" height="35"/>
+                  <img src={sandwich_image} width="30" height="35" />
                 </DropdownToggle>
                 <DropdownMenu right>
                   {isPM && <DropdownItem>Manage Documents</DropdownItem>}
