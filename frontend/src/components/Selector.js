@@ -13,14 +13,14 @@ export class Selector extends React.Component {
           {Object.keys(this.props.documents).map(docClass => {
             let buttonType
             if (this.props.name === 'Selected') {
-              buttonType = 'X'
+              buttonType = 'X' // placeholders for red delete X
             } else {
-              buttonType = '+'
+              buttonType = '+' // placeholder for green add button (see chloe design documentation)
             }
             if (this.props.documents[docClass] === this.props.name) {
               return (
                 <div>
-                  {docClass} i{' '}
+                  {docClass} i {/** i is a placeholder for an information view over */}
                   <button
                     onClick={() => {
                       this.props.update(docClass)
