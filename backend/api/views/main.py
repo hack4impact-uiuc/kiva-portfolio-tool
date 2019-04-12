@@ -180,6 +180,11 @@ def create_new_document():
     db.session.commit()
     return create_response(status=200, message="success")
 
+@main.route("/search/documents", methods=["GET"])
+def retrieve_file_id():
+    params = config()
+    conn = psycopg2.connect(**params)
+    cur = conn.cursor()
 
 @main.route("/document/delete/<docClassID>", methods=["DELETE"])
 def delete_document(docClassID):
