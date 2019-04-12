@@ -16,7 +16,7 @@ class Upload extends Component {
   onDrop(files) {
     console.log(files[0].type)
     // check the type of the file
-    const doctypes = [
+    const docTypes = [
       'application/msword',
       'application/vnd.ms-excel',
       'application/vnd.ms-powerpoint',
@@ -25,9 +25,14 @@ class Upload extends Component {
       'image/png',
       'text/plain'
     ]
-    this.setState({
-      files
-    })
+
+    if (!docTypes.includes(files[0].type)) {
+      window.alert('Document not acceptable')
+    } else {
+      this.setState({
+        files
+      })
+    }
   }
 
   toggle = () => {
