@@ -4,6 +4,8 @@ import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalFooter } from 'reactstrap'
 import Upload from './Upload'
 import { downloadDocument } from '../utils/ApiWrapper'
+import uploadImg from '../media/greyEdit.png'
+import downloadImg from '../media/downloadGrey.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -39,6 +41,8 @@ class DocumentListItem extends Component {
 
   render() {
     const { isPM } = this.props
+    const path = require('path');
+
     return (
       <>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -62,12 +66,13 @@ class DocumentListItem extends Component {
           <td data-testid="interaction" className="interaction">
             {this.state.fileName && (
               <Button color="primary" onClick={this.handleDownloadClick}>
-                DOWNLOAD
+                <img src={downloadImg}/>
               </Button>
             )}
             {!isPM && (
-              <Button color="primary" onClick={this.handleUploadClick}>
-                UPLOAD
+              <Button color="transparent" onClick={this.handleUploadClick}>
+                <img src={uploadImg}/>
+
               </Button>
             )}
             <DocumentPreview document={this.state.document} />
