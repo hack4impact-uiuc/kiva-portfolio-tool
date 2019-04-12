@@ -1,4 +1,4 @@
-from api.models import db, Document
+from api.models import db, Document, DocumentClass
 from datetime import date
 import enum
 
@@ -11,6 +11,14 @@ class MyEnum(enum.Enum):
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
+def add_mock_docclass(className):
+    temp_docclass = DocumentClass(name=className, description="Description")
+
+    db.session.add(temp_docclass)
+    db.session.commit()
+    return temp_docclass.id
+
+
 def test_index(client):
     rs = client.get("/")
     assert rs.status_code == 200
@@ -18,9 +26,12 @@ def test_index(client):
 
 def test_get_document(client):
     rs = client.get("/document")
-    assert rs.status_code == 403
+    assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == False
+    assert ret_dict["success"] == True
+
+    # Adding a docclass to the database
+    docclass_id = add_mock_docclass("test_get_document")
 
     # create Person and test whether it returns a person
     temp_document = Document(
@@ -28,7 +39,7 @@ def test_get_document(client):
         userID="WompWomp",
         date=date.fromordinal(730920),
         status="Pending",
-        docClass="MyEnum.one",
+        docClassID=docclass_id,
         fileName="MyDoc.docx",
         latest=True,
         description="Yeet",
@@ -46,7 +57,7 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
     rs = client.get("/document?fid=jalkdf")
-    assert rs.status_code == 403
+    assert rs.status_code == 200
 
     rs = client.get("/document?description=Ye")
     ret_dict = rs.json
@@ -63,18 +74,21 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
 
-"""
 def test_post_document(client):
     rs = client.post("/document/new")
-    assert rs.status_code == 500
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
+
+    # Adding a docclass to the database
+    docclass_id = add_mock_docclass("test_post_document")
 
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"userID": 7, "status": "Missing", "docClass": "Post Document Test File", "fileName": "hi"},
+        json={"userID": 7, "status": "Missing", "docClassID": docclass_id},
     )
+
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
@@ -82,50 +96,62 @@ def test_post_document(client):
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"status": "Missing", "docClass": "Post Document Test File", "fileName": "what's up"},
+        json={"status": "Missing", "docClassID": docclass_id},
     )
-    assert rs.status_code == 422
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
 
 def test_delete_document(client):
+    # Adding a docclass to the database
+    docclass_id = add_mock_docclass("test_delete_document")
+
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"userID": 8, "status": "Missing", "docClass": "Post Document Test File"},
+        json={"userID": 8, "status": "Missing", "docClassID": docclass_id},
     )
+
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
+    # is this really the correct behavior? TBD
+    """
     rs = client.delete("/document/delete/PostDocumentestFile")
     assert rs.status_code == 500
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
+    """
 
-    rs = client.delete("/document/delete/Post%20Document%20Test%20File")
+    rs = client.delete("/document/delete/" + docclass_id)
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
 
 def test_put_document(client):
+    # Adding a docclass to the database
+    docclass_id = add_mock_docclass("test_put_document")
+
     rs = client.post(
         "/document/new",
         content_type="application/json",
-        json={"userID": 9, "status": "Missing", "docClass": "Test File", "fileName": "yeet"},
+        json={"userID": 9, "status": "Missing", "docClassID": docclass_id},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
+    # same as above TBD
+    """
     rs = client.put(
         "/document/update/Postadfa",
         content_type="application/json",
         json={
             "status": "Pending",
-            "docClass": "PostDocumentTestFile",
+            "docClassID": docclass_id,
             "description": "Super Duper LMAO",
             "fileName": "lul"
         },
@@ -133,15 +159,16 @@ def test_put_document(client):
     assert rs.status_code == 500
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
+    """
 
     rs = client.put(
-        "/document/update/Test%20File",
+        "/document/update/" + docclass_id,
         content_type="application/json",
         json={
             "status": "Pending",
-            "docClass": "PostDocumentTestFile",
+            "docClassID": docclass_id,
             "description": "Super Duper LMAO",
-            "fileName": "heh"
+            "fileName": "heh",
         },
     )
     assert rs.status_code == 200
@@ -151,21 +178,20 @@ def test_put_document(client):
     rs = client.get("/document?description=LMAO")
     ret_dict = rs.json
     # logger.info(ret_dict)
-    assert (
-        ret_dict["result"]["documents"]["Pending"][0]["docClass"]
-        == "PostDocumentTestFile"
-    )
+    assert ret_dict["result"]["documents"]["Pending"][0]["docClassID"] == docclass_id
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
-"""
 
 
 def test_update_status(client):
+    # Adding a docclass to the database
+    docclass_id = add_mock_docclass("test_update_status")
+
     temp_document = Document(
         fileID="Navam",
         userID="Why",
         date=date.fromordinal(730920),
         status="Pending",
-        docClass="MyEnum.one",
+        docClassID=docclass_id,
         fileName="MyDoc.docx",
         latest=True,
         description="Yeet",
