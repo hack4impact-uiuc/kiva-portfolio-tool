@@ -50,7 +50,7 @@ class Dashboard extends React.Component {
     } else {
       this.props.updateDocuments([])
     }
-    if(res2) {
+    if (res2) {
       this.props.updateMessages(res2)
     } else {
       this.props.updateMessages([])
@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
               })
             : null}
         </Row>
-        <NotificationsBar/>
+        <NotificationsBar />
       </Container>
     )
   }

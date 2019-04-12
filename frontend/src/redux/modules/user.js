@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action) {
       }
     case UPDATE_MESSAGES:
       return {
-        ...state, 
+        ...state,
         messages: action.value
       }
     case UPDATE_INFORMATION:
@@ -62,7 +62,6 @@ export const updateInformation = value => ({
   type: UPDATE_INFORMATION,
   value
 })
-
 
 export const beginLoading = () => ({
   type: LOAD,

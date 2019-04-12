@@ -51,7 +51,11 @@ export const getAllDocuments = () => {
 
 export const getAllMessages = () => {
   // get notifications received by target user
-  return ['joe', 'schmoe', 'bro']
+  return [
+    { name: 'joe', time: '4/12/18', description: 'GO DO SHIT' },
+    { name: 'schmoe', time: '4/12/19', description: 'DO SOME OTHER CRAP' },
+    { name: 'bro', time: '4/12/17', description: 'OOF' }
+  ]
 }
 
 export const getAllDocumentClasses = () => {

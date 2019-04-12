@@ -6,7 +6,6 @@ import Notification from './Notification'
 import { connect } from 'react-redux'
 import { updateMessages, updateInformation } from '../redux/modules/user'
 
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   allMessages: state.user.messages
@@ -25,13 +24,15 @@ class NotificationsBar extends Component {
     super(props)
   }
 
-  removeMessage = value => {
-
+  removeMessage = index => {
+    let messages = [...this.props.allMessages]
+    messages.splice(index, 1)
+    this.props.updateMessages(messages)
   }
 
   render() {
     const { isPM } = this.props.isPM
-    const {allMessages} = this.props.allMessages
+    const allMessages = this.props.allMessages
     return (
       <Tabs>
         <TabList>
@@ -40,12 +41,14 @@ class NotificationsBar extends Component {
         </TabList>
 
         <TabPanel>
-          {allMessages.map(message => {
+          {allMessages.map((message, index) => {
             return (
               <Notification
+                index={index}
                 name={message.name}
                 time={message.time}
                 description={message.description}
+                removeMessage={this.removeMessage}
               />
             )
           })}
@@ -58,4 +61,7 @@ class NotificationsBar extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsBar)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NotificationsBar)
