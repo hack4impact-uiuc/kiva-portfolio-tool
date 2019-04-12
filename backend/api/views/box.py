@@ -139,10 +139,10 @@ def upload_file(file, file_name):
     ### Return the id of the file if successful
     ### Return None if otherwise
     """
+    print(file, file_name)
 
     stream = BytesIO()
     stream.write(file.read())
-
     stream.seek(0)
     try:
         box_file = client.folder("0").upload_stream(

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, json
 from api.models import Document, Message, db, DocumentClass
-from api.views import box
+from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -146,7 +146,7 @@ def create_new_document():
     functionality used to add a new document to database
     """
     # data for new document should be stored as json in request
-    data = request.get_json()
+    data = request.form
 
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
     if "userID" not in data:
@@ -165,19 +165,23 @@ def create_new_document():
     # request.args[1] == other args necessary for doc creation
     # sample_args = request.args[1]
     # Turns data into a Document and adds it to database
-    new_data = Document(**data)
+    print(request)
+    print(data)
+    file_info = upload_file(request.files.get("file"), data['fileName'])
+
+    #new_data = Document(**data)
 
     # print("check")
     # calling the box api
-    # print(new_data)
-    # print("args", request.args[0])
-    # file_info = upload_file(request.args[0], new_data.fileName)
-    # print("check after")
-    # new_data.fileID = file_info["id"]
+    #print(new_data)
+    print("args", data[0])
+    #file_info = upload_file(data[0], new_data.fileName)
+    print("check after")
+    #new_data.fileID = file_info["id"]
     # use retrieved file_info
 
-    db.session.add(new_data)
-    db.session.commit()
+    #db.session.add(new_data)
+    #db.session.commit()
     return create_response(status=200, message="success")
 
 

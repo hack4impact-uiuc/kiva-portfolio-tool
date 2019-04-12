@@ -92,11 +92,20 @@ export const updateDocumentStatus = (id, status) => {
 }
 
 export const sendFile = (file, file_name) => {
-  let data = new FormData()
+  console.log(file)
+  console.log(file_name)
+  var data = new FormData()
+  //fileForm.append('file', file)
+  //var data = {'userID': 1, 'status': 'Pending', 'docClassID': 123, 'file': fileForm, fileName: file_name}
   data.append('file', file)
-  data.append('file_name', file_name)
+  data.append('fileName', file_name)
+  data.append('userID', 1)
+  data.append('status', 'Pending')
+  data.append('docClassID', 123)
+  console.log(data)
+  //console.log(data['file'])
   return axios
-    .post(BACKEND_URL + '/box/file', data)
+    .post(BACKEND_URL + '/document/new', data)
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',

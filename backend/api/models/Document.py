@@ -27,6 +27,7 @@ class Document(Mixin, db.Model):
         self,
         userID,
         docClassID,
+        file=None,
         fileID=None,
         date=None,
         status="Missing",
