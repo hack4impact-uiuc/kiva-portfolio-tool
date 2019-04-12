@@ -1,5 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
+import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -46,6 +47,15 @@ export const getAllDocuments = () => {
       console.log('ERROR: ', error)
       return null
     })
+}
+
+export const getAllMessages = () => {
+  // get notifications received by target user
+  return ['joe', 'schmoe', 'bro']
+}
+
+export const getAllDocumentClasses = () => {
+  return ['WakaWaka', 'MakaMaka', 'BoomShakaLaka']
 }
 
 export const getAccessToken = () => {
