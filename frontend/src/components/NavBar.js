@@ -13,9 +13,8 @@ import {
 } from 'reactstrap'
 import { connect } from 'react-redux'
 import kiva_logo from '../media/kivaPlainLogo.png'
-import notification_bell from '../media/notificationBell.png'
-import info_image from '../media/info.svg'
-import menu_image from '../media/menu.png'
+import info_image from '../media/gray_info.png'
+import menu_image from '../media/sandwich.png'
 import "../styles/navbar.css"
 
 const mapStateToProps = state => ({
@@ -29,22 +28,16 @@ class NavBar extends Component {
       <div>
         <Navbar color="white" light expand="md">
           <NavbarBrand href="/">
-            <img src={kiva_logo} width="87" height="45" />
+            <img src={kiva_logo} width="90" height="50" />
           </NavbarBrand>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <Button color="clear">
-                <img src={notification_bell} width="30" height="30" />
-              </Button>
-            </NavItem>
-
             <NavItem>
               <Button color="clear">
                 <img src={info_image} width="29" height="29" />
               </Button>
             </NavItem>
 
-            <NavItem className="menu">
+            <NavItem className="sandwich">
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <img src={menu_image} width="30" height="35"/>
