@@ -1,7 +1,7 @@
 const SET_USER_TYPE = 'user/set_user_type'
 const UPDATE_DOCUMENTS = 'user/update_documents'
 const LOAD = 'user/load'
-const UPDATE_MESSAGES = ''
+const UPDATE_MESSAGES = 'user/'
 
 const initialState = {
   isPM: false,
