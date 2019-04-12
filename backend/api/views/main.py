@@ -169,19 +169,14 @@ def create_new_document():
     print(data)
     file_info = upload_file(request.files.get("file"), data['fileName'])
 
-    #new_data = Document(**data)
+    new_data = Document(**data)
 
-    # print("check")
-    # calling the box api
-    #print(new_data)
-    print("args", data[0])
-    #file_info = upload_file(data[0], new_data.fileName)
     print("check after")
     #new_data.fileID = file_info["id"]
     # use retrieved file_info
 
-    #db.session.add(new_data)
-    #db.session.commit()
+    db.session.add(new_data)
+    db.session.commit()
     return create_response(status=200, message="success")
 
 
