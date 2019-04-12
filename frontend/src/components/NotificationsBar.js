@@ -40,7 +40,7 @@ class NotificationsBar extends Component {
         </TabList>
 
         <TabPanel>
-          {this.props.messages.map(message => {
+          {allMessages.map(message => {
             return (
               <Notification
                 name={message.name}
