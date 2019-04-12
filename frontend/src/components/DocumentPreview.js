@@ -34,9 +34,9 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: this.props.document.fileId,
+      fileId: this.props.document.fileID,
       accessToken: null,
-      fileURL: 'https://app.box.com/s/' + this.props.document.fileId
+      fileURL: 'https://app.box.com/s/' + this.props.document.fileID
     }
 
     this.toggle = this.toggle.bind(this)
@@ -72,7 +72,7 @@ class DocumentPreview extends Component {
 
   async componentDidMount() {
     const res = await getAccessToken()
-    console.log(this.state.fileId)
+    console.log(this.state.fileID)
     if (res) {
       this.setState({
         accessToken: res
@@ -103,7 +103,7 @@ class DocumentPreview extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody style={customStyles}>
-            <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
+            <Iframe url={this.state.fileID} width="450px" height="500px" allowFullScreen />
           </ModalBody>
           <ModalFooter>
             {isPM && (
