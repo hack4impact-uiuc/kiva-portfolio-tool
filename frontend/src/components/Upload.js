@@ -59,7 +59,7 @@ class Upload extends Component {
                 disabled={this.state.files.length === 0}
                 className="right"
                 onClick={e => {
-                  sendFile(this.state.files[0], this.state.files[0].name)
+                  sendFile(this.state.files[0], this.state.files[0].name, this.props.docClassI)
                   this.toggle()
                 }}
               >

@@ -42,7 +42,7 @@ class DocumentListItem extends Component {
     return (
       <>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <Upload />
+          <Upload docClassID={this.state.document.docClassID} />
           <ModalFooter>
             <Button
               className="invalidSearchButton"

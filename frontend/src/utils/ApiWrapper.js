@@ -91,7 +91,7 @@ export const updateDocumentStatus = (id, status) => {
     })
 }
 
-export const sendFile = (file, file_name) => {
+export const sendFile = (file, file_name, docClassID) => {
   console.log(file)
   console.log(file_name)
   var data = new FormData()
@@ -101,7 +101,7 @@ export const sendFile = (file, file_name) => {
   data.append('fileName', file_name)
   data.append('userID', 1)
   data.append('status', 'Pending')
-  data.append('docClassID', 123)
+  data.append('docClassID', docClassID)
   console.log(data)
   //console.log(data['file'])
   return axios
