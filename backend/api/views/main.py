@@ -34,12 +34,8 @@ def add_<yourclassname>():
     return create_response(status=200, message="success")
 """
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 553bb00141e25681d6f63aa89809bef8ed5925c7
 @main.route("/document", methods=["GET"])
-
 def get_document():
     """
     Gets all documents that can be specified using a query string
