@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-loader": "^8.0.5",
     "bootstrap": "^4.3.1",
     "box-react-ui": "^30.0.0",
     "box-ui-elements": "^9.1.1",
@@ -39,6 +40,7 @@
     "query-string": "^6.3.0",
     "react": "^16.8.1",
     "react-animate-height": "^2.0.7",
+    "react-datepicker": "^2.3.0",
     "react-datetime": "^2.16.3",
     "react-datetime-picker": "^2.3.0",
     "react-dom": "^16.8.1",
