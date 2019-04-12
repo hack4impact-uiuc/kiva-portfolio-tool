@@ -20,7 +20,7 @@ export class Selector extends React.Component {
             if (this.props.documents[docClass] === this.props.name) {
               return (
                 <div>
-                  {docClass} i {' '} {/** i is a placeholder for an information view over */}
+                  {docClass} i {/** i is a placeholder for an information view over */}
                   <button
                     onClick={() => {
                       this.props.update(docClass)
