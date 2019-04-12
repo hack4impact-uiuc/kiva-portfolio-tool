@@ -29,6 +29,7 @@ class SelectDocumentsPage extends React.Component {
       // docClasses filtered from docClasses using query
       filtered: {},
       // due date to be set by user so that it can be passed on
+      // due date to be set by user so that it can be passed on, set to today (from date-picker)
       DueDate: today,
       // state that updates depending on what the user types in query bar
       query: ''
