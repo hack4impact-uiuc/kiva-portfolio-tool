@@ -14,7 +14,6 @@ class Upload extends Component {
   }
 
   onDrop(files) {
-    console.log(files[0].type)
     // check the type of the file
     const docTypes = [
       'application/msword',
