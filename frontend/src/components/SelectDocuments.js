@@ -11,14 +11,6 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      //put actions here
-    },
-    dispatch
-  )
-}
 class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
@@ -160,5 +152,4 @@ class SelectDocumentsPage extends React.Component {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(SelectDocumentsPage)
