@@ -150,6 +150,4 @@ class SelectDocumentsPage extends React.Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-)(SelectDocumentsPage)
+export default connect(mapStateToProps)(SelectDocumentsPage)
