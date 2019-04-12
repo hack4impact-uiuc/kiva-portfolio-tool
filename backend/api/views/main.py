@@ -171,8 +171,8 @@ def create_new_document():
 
     new_data = Document(**data)
 
-    print("check after")
-    #new_data.fileID = file_info["id"]
+    #print("check after")
+    new_data.fileID = file_info.id
     # use retrieved file_info
 
     db.session.add(new_data)
