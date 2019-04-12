@@ -173,18 +173,20 @@ def create_new_document():
     new_data = Document(data)
 
     # print("check after")
-    new_data.fileID = file_info.id
+    new_data.fileID = file_info.sha1
     # use retrieved file_info
 
     db.session.add(new_data)
     db.session.commit()
     return create_response(status=200, message="success")
 
+
 @main.route("/search/documents", methods=["GET"])
 def retrieve_file_id():
     params = config()
     conn = psycopg2.connect(**params)
     cur = conn.cursor()
+
 
 @main.route("/document/delete/<docClassID>", methods=["DELETE"])
 def delete_document(docClassID):
