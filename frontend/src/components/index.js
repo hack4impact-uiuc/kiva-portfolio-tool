@@ -4,5 +4,5 @@ import DocumentList from './DocumentList'
 import DocumentListItem from './DocumentListItem'
 import Upload from './Upload'
 import BoxPreview from './DocumentPreview'
-
-export { Dashboard, DocumentList, DocumentListItem, LoginPage, Upload, BoxPreview }
+import PMMainPage from './PMMainPage'
+export { Dashboard, DocumentList, DocumentListItem, LoginPage, Upload, BoxPreview, PMMainPage }
