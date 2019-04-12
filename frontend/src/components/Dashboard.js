@@ -1,10 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-<<<<<<< HEAD
 import Notification from './Notification'
 import NavBar from './NavBar'
-=======
->>>>>>> master
 import { getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
