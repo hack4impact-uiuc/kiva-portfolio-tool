@@ -127,7 +127,7 @@ export const updateDocumentStatus = (id, status) => {
   data.append('docID', id)
   data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/update', data)
+    .put(BACKEND_URL + '/document/status', data)
     .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',

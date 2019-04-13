@@ -134,7 +134,12 @@ def get_document():
 
 @main.route("/document/upload", methods=["PUT"])
 def upload_document():
-    data = request.form
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No body provided for new Document")
 
     if "docID" not in data:
         return create_response(status=400, message="No document ID provided")
@@ -170,7 +175,9 @@ def create_new_document():
     functionality used to add a new document to database
     """
     # data for new document should be stored as json in request
-    data = request.forms
+    data = request.get_json()
+    if data is None:
+        data = request.form
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
@@ -254,12 +261,14 @@ def update_documents(docClassID):
 
 
 # given id of document, can update its status to new status provided in url
-@main.route("/document/update", methods=["PUT"])
+@main.route("/document/status", methods=["PUT"])
 def update_status():
     """ 
     function called when you visit /document/update/<id>/<status>. Updates a doc's status 
     """
-    data = request.form
+    data = request.get_json()
+    if data is None:
+        data = request.form
 
     if "docID" not in data:
         return create_response(status=400, message="No document ID provided")

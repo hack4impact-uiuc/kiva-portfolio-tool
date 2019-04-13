@@ -35,14 +35,16 @@ def test_get_document(client):
 
     # create Person and test whether it returns a person
     temp_document = Document(
-        fileID="DunDunDun",
-        userID="WompWomp",
-        date=date.fromordinal(730920),
-        status="Pending",
-        docClassID=docclass_id,
-        fileName="MyDoc.docx",
-        latest=True,
-        description="Yeet",
+        {
+            "fileID": "DunDunDun",
+            "userID": "WompWomp",
+            "date": date.fromordinal(730920),
+            "status": "Pending",
+            "docClassID": docclass_id,
+            "fileName": "MyDoc.docx",
+            "latest": True,
+            "description": "Yeet",
+        }
     )
     db.session.add(temp_document)
     db.session.commit()
@@ -89,7 +91,9 @@ def test_post_document(client):
         json={"userID": 7, "status": "Missing", "docClassID": docclass_id},
     )
 
+    print(rs.json["message"])
     assert rs.status_code == 200
+
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
@@ -187,20 +191,25 @@ def test_update_status(client):
     docclass_id = add_mock_docclass("test_update_status")
 
     temp_document = Document(
-        fileID="Navam",
-        userID="Why",
-        date=date.fromordinal(730920),
-        status="Pending",
-        docClassID=docclass_id,
-        fileName="MyDoc.docx",
-        latest=True,
-        description="Yeet",
+        {
+            "fileID": "Navam",
+            "userID": "Why",
+            "date": date.fromordinal(730920),
+            "status": "Pending",
+            "docClassID": docclass_id,
+            "fileName": "MyDoc.docx",
+            "latest": True,
+            "description": "Yeet",
+        }
     )
     db.session.add(temp_document)
     db.session.commit()
 
-    url = "/document/update/" + str(temp_document.id) + "/Missing"
-    rs = client.put(url)
+    rs = client.put(
+        "/document/status",
+        content_type="application/json",
+        json={"status": "Missing", "docID": temp_document.id},
+    )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
