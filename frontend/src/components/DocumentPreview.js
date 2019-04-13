@@ -36,7 +36,7 @@ class DocumentPreview extends Component {
       fileName: this.props.document.fileName,
       fileId: this.props.document.fileID,
       accessToken: null,
-      fileURL: 'https://app.box.com/embed/s/njxmkn3peq5hetwcv4x8e6ch8h6mraeb'
+      fileURL: this.props.document.link
     }
 
     this.toggle = this.toggle.bind(this)
