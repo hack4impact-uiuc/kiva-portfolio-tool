@@ -103,7 +103,7 @@ class DocumentPreview extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>{this.state.fileName}</ModalHeader>
           <ModalBody style={customStyles}>
-            <Iframe url={this.state.fileID} width="450px" height="500px" allowFullScreen />
+            <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
           </ModalBody>
           <ModalFooter>
             {isPM && (
