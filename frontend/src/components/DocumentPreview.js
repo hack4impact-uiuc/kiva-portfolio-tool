@@ -34,7 +34,6 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: this.props.document.fileID,
       accessToken: null,
       fileURL: this.props.document.link
     }

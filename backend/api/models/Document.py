@@ -46,7 +46,7 @@ class Document(Mixin, db.Model):
         self.latest = latest
         self.description = description
     """
-
+    # use dictionary to load params to avoid weird issue with values being placed in lists
     def __init__(self, data):
 
         self.userID = data["userID"]

@@ -132,8 +132,12 @@ def get_document():
         )
 
 
+# new put route only for uploading documents
+# was previously in post when we shouldn't really be creating a new document in the database
 @main.route("/document/upload", methods=["PUT"])
 def upload_document():
+    # why does get_json() work sometimes and form does other times?
+    # this tries both to be safe
     data = request.get_json()
     if data is None:
         data = request.form
@@ -175,6 +179,8 @@ def create_new_document():
     functionality used to add a new document to database
     """
     # data for new document should be stored as json in request
+    # why does get_json() work sometimes and form does other times?
+    # this tries both to be safe
     data = request.get_json()
     if data is None:
         data = request.form
@@ -200,13 +206,6 @@ def create_new_document():
     db.session.add(new_data)
     db.session.commit()
     return create_response(status=200, message="success")
-
-
-@main.route("/search/documents", methods=["GET"])
-def retrieve_file_id():
-    params = config()
-    conn = psycopg2.connect(**params)
-    cur = conn.cursor()
 
 
 @main.route("/document/delete/<docClassID>", methods=["DELETE"])
@@ -253,6 +252,9 @@ def update_status():
     """ 
     function called when you visit /document/update/<id>/<status>. Updates a doc's status 
     """
+
+    # why does get_json() work sometimes and form does other times?
+    # this tries both to be safe
     data = request.get_json()
     if data is None:
         data = request.form
