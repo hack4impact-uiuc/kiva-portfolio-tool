@@ -143,16 +143,10 @@ export const updateDocumentStatus = (id, status) => {
 }
 
 export const sendFile = (file, file_name, docID) => {
-  console.log(file)
-  console.log(file_name)
   var data = new FormData()
-  //fileForm.append('file', file)
-  //var data = {'userID': 1, 'status': 'Pending', 'docClassID': 123, 'file': fileForm, fileName: file_name}
   data.append('file', file)
   data.append('fileName', file_name)
   data.append('docID', docID)
-  console.log(data)
-  //console.log(data['file'])
   return axios
     .put(BACKEND_URL + '/document/upload', data)
     .then(response => {

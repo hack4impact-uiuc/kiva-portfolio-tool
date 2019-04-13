@@ -194,21 +194,8 @@ def create_new_document():
         return create_response(
             status=400, message="No Document Class provided for new Document"
         )
-    # requeest.args[0] == file byte
-    # request.args[1] == other args necessary for doc creation
-    # sample_args = request.args[1]
-    # Turns data into a Document and adds it to database
-    # print(request)
-    # print(data)
-    # file_info = upload_file(request.files.get("file"), data["fileName"])
 
-    # print(data)
     new_data = Document(data)
-
-    # print("check after")
-    # new_data.fileID = file_info["file"].id
-    # new_data.link = file_info["link"]
-    # use retrieved file_info
 
     db.session.add(new_data)
     db.session.commit()
@@ -227,7 +214,7 @@ def delete_document(docClassID):
     """
     Deletes all documents related to a document class in database
     """
-    # logger.info(docClassID)
+
     db.session.delete(
         # gets all document <id> native to db and sees if == to docClassID. Then deletes
         Document.query.filter((Document.docClassID == str(docClassID))).first()

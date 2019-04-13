@@ -72,7 +72,6 @@ class DocumentPreview extends Component {
 
   async componentDidMount() {
     const res = await getAccessToken()
-    console.log(this.state.fileID)
     if (res) {
       this.setState({
         accessToken: res

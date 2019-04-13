@@ -91,7 +91,6 @@ def test_post_document(client):
         json={"userID": 7, "status": "Missing", "docClassID": docclass_id},
     )
 
-    print(rs.json["message"])
     assert rs.status_code == 200
 
     ret_dict = rs.json  # gives you a dictionary
