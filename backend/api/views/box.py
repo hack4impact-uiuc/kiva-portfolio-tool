@@ -148,7 +148,8 @@ def upload_file(file, file_name):
         box_file = client.folder("0").upload_stream(
             stream, file_name, preflight_check=True
         )
-        return box_file
+        link = client.file(box_file.id).get_shared_link(access="open")
+        return {"file": box_file, "link": link}
     except BoxAPIException:
         return None
 

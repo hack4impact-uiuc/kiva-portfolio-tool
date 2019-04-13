@@ -22,6 +22,7 @@ class Document(Mixin, db.Model):
     fileName = db.Column(db.String, unique=False)
     latest = db.Column(db.Boolean, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
+    link = db.Column(db.String, unique=False, nullable=True)
 
     """
     def __init__(
@@ -59,9 +60,11 @@ class Document(Mixin, db.Model):
             self.latest = data["latest"]
         if "description" in data:
             self.description = data["description"]
+        if "link" in data:
+            self.link = data["link"]
 
     def __repr__(self):
-        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n"
+        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n <link: {self.link}>\n"
 
     def get_docclass_id(self):
         return self.docClassID

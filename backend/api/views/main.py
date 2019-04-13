@@ -173,7 +173,8 @@ def create_new_document():
     new_data = Document(data)
 
     # print("check after")
-    new_data.fileID = file_info.sha1
+    new_data.fileID = file_info["file"].id
+    new_data.link = file_info["link"]
     # use retrieved file_info
 
     db.session.add(new_data)
