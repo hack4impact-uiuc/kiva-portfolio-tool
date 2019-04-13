@@ -1,6 +1,6 @@
 from flask import Blueprint, request, json
 from api.models import Document, Message, db, DocumentClass
-from api.views import box
+from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
@@ -132,14 +132,58 @@ def get_document():
         )
 
 
+# new put route only for uploading documents
+# was previously in post when we shouldn't really be creating a new document in the database
+@main.route("/document/upload", methods=["PUT"])
+def upload_document():
+    # why does get_json() work sometimes and form does other times?
+    # this tries both to be safe
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No body provided for new Document")
+
+    if "docID" not in data:
+        return create_response(status=400, message="No document ID provided")
+
+    if "fileName" not in data:
+        return create_response(status=400, message="No file name provided")
+
+    docID = data.get("docID")
+    fileName = data.get("fileName")
+
+    if request.files is None or "file" not in request.files:
+        return create_response(status=400, message="No file provided")
+
+    file = request.files.get("file")
+
+    file_info = upload_file(file, fileName)
+
+    doc = Document.query.get(docID)
+
+    doc.fileID = file_info["file"].id
+    doc.link = file_info["link"]
+    doc.status = "Pending"
+    doc.fileName = fileName
+
+    db.session.commit()
+
+    return create_response(status=200, message="success")
+
+
 @main.route("/document/new", methods=["POST"])
 def create_new_document():
     """
     functionality used to add a new document to database
     """
     # data for new document should be stored as json in request
-
+    # why does get_json() work sometimes and form does other times?
+    # this tries both to be safe
     data = request.get_json()
+    if data is None:
+        data = request.form
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
@@ -156,20 +200,8 @@ def create_new_document():
         return create_response(
             status=400, message="No Document Class provided for new Document"
         )
-    # requeest.args[0] == file byte
-    # request.args[1] == other args necessary for doc creation
-    # sample_args = request.args[1]
-    # Turns data into a Document and adds it to database
-    new_data = Document(**data)
 
-    # print("check")
-    # calling the box api
-    # print(new_data)
-    # print("args", request.args[0])
-    # file_info = upload_file(request.args[0], new_data.fileName)
-    # print("check after")
-    # new_data.fileID = file_info["id"]
-    # use retrieved file_info
+    new_data = Document(data)
 
     db.session.add(new_data)
     db.session.commit()
@@ -181,7 +213,7 @@ def delete_document(docClassID):
     """
     Deletes all documents related to a document class in database
     """
-    # logger.info(docClassID)
+
     db.session.delete(
         # gets all document <id> native to db and sees if == to docClassID. Then deletes
         Document.query.filter((Document.docClassID == str(docClassID))).first()
@@ -215,13 +247,28 @@ def update_documents(docClassID):
 
 
 # given id of document, can update its status to new status provided in url
-@main.route("/document/update/<id>/<status>", methods=["PUT"])
-def update_status(id, status):
+@main.route("/document/status", methods=["PUT"])
+def update_status():
     """ 
     function called when you visit /document/update/<id>/<status>. Updates a doc's status 
     """
+
+    # why does get_json() work sometimes and form does other times?
+    # this tries both to be safe
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if "docID" not in data:
+        return create_response(status=400, message="No document ID provided")
+    if "status" not in data:
+        return create_response(status=400, message="No document status provided")
+
+    docID = data.get("docID")
+    status = data.get("status")
+
     # get document by id
-    doc = Document.query.get(id)
+    doc = Document.query.get(docID)
     # update doc status to new status and return
     doc.status = status
     ret = doc.to_dict()

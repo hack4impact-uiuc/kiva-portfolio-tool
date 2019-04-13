@@ -142,13 +142,19 @@ def upload_file(file, file_name):
 
     stream = BytesIO()
     stream.write(file.read())
-
     stream.seek(0)
     try:
         box_file = client.folder("0").upload_stream(
             stream, file_name, preflight_check=True
         )
-        return box_file
+
+        # get shared link
+        link = client.file(box_file.id).get_shared_link(access="open")
+
+        # insert "embed" at proper location to get the embeddable versionn
+        embed_link = link[: link.find("/s")] + "/embed" + link[link.find("/s") :]
+
+        return {"file": box_file, "link": embed_link}
     except BoxAPIException:
         return None
 
