@@ -74,10 +74,6 @@ def get_document():
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
-        # if no documents found, let user know
-        if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="No Documents Found")
-
         # Adds a field called docClassName to each document
         for document in docs:
             document.docClassName = DocumentClass.query.get(document.docClassID).name
@@ -117,10 +113,6 @@ def get_document():
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
-        # if no documents found, let user know
-        if len(serialize_list(docs)) == 0:
-            return create_response(status=403, message="No Documents Found")
-
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
         verified = [i for i in docs if i.status == "Approved"]
@@ -148,18 +140,20 @@ def create_new_document():
     # data for new document should be stored as json in request
     data = request.form
 
+    if data is None:
+        return create_response(status=400, message="No body provided for new Document")
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
     if "userID" not in data:
         return create_response(
-            status=422, message="No UserID provided for new Document"
+            status=400, message="No UserID provided for new Document"
         )
     if "status" not in data:
         return create_response(
-            status=422, message="No Status provided for new Document"
+            status=400, message="No Status provided for new Document"
         )
     if "docClassID" not in data:
         return create_response(
-            status=422, message="No Document Class provided for new Document"
+            status=400, message="No Document Class provided for new Document"
         )
     # requeest.args[0] == file byte
     # request.args[1] == other args necessary for doc creation
@@ -227,6 +221,7 @@ def update_documents(docClassID):
     return create_response(status=200, message="success")
 
 
+# given id of document, can update its status to new status provided in url
 @main.route("/document/update/<id>/<status>", methods=["PUT"])
 def update_status(id, status):
     """ 

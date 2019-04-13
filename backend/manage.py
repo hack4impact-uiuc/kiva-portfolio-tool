@@ -91,6 +91,8 @@ def recreate_db():
         )
     )
 
+    db.session.commit()
+
     create_mock_document(
         {
             "userID": 1,

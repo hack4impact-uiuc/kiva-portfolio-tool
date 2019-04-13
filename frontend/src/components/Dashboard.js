@@ -1,7 +1,6 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import Notification from './Notification'
-import { getAllDocuments } from '../utils/ApiWrapper'
+import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
