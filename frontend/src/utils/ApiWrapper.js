@@ -4,38 +4,6 @@ import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
-export const getDocuments = (userID, status) => {
-  return axios
-    .get(
-      BACKEND_URL +
-        '/search/documents?userID=' +
-        userID +
-        '&status=' +
-        status /* + '&key=' + BACKEND_KEY */
-    )
-    .then(response => {
-      return response.data.result.documents
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
-export const getDocumentsByName = (fileName, docClassID) => {
-  return axios
-    .get(
-      BACKEND_URL + '/search/documents?name=' + fileName + '&docClassID=' + docClassID
-    ) /* + '&key=' + BACKEND_KEY )*/
-    .then(response => {
-      return response.data.result.documents
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
