@@ -123,8 +123,11 @@ export const downloadDocument = id => {
 }
 
 export const updateDocumentStatus = (id, status) => {
+  var data = new FormData()
+  data.append('docID', id)
+  data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/update/' + id + '/' + status)
+    .put(BACKEND_URL + '/document/update', data)
     .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
@@ -139,7 +142,7 @@ export const updateDocumentStatus = (id, status) => {
     })
 }
 
-export const sendFile = (file, file_name, docClassID) => {
+export const sendFile = (file, file_name, docID) => {
   console.log(file)
   console.log(file_name)
   var data = new FormData()
@@ -147,13 +150,11 @@ export const sendFile = (file, file_name, docClassID) => {
   //var data = {'userID': 1, 'status': 'Pending', 'docClassID': 123, 'file': fileForm, fileName: file_name}
   data.append('file', file)
   data.append('fileName', file_name)
-  data.append('userID', 1)
-  data.append('status', 'Pending')
-  data.append('docClassID', docClassID)
+  data.append('docID', docID)
   console.log(data)
   //console.log(data['file'])
   return axios
-    .post(BACKEND_URL + '/document/new', data)
+    .put(BACKEND_URL + '/document/upload', data)
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',

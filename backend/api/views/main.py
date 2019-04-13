@@ -132,13 +132,45 @@ def get_document():
         )
 
 
+@main.route("/document/upload", methods=["PUT"])
+def upload_document():
+    data = request.form
+
+    if "docID" not in data:
+        return create_response(status=400, message="No document ID provided")
+
+    if "fileName" not in data:
+        return create_response(status=400, message="No file name provided")
+
+    docID = data.get("docID")
+    fileName = data.get("fileName")
+
+    if request.files is None or "file" not in request.files:
+        return create_response(status=400, message="No file provided")
+
+    file = request.files.get("file")
+
+    file_info = upload_file(file, fileName)
+
+    doc = Document.query.get(docID)
+
+    doc.fileID = file_info["file"].id
+    doc.link = file_info["link"]
+    doc.status = "Pending"
+    doc.fileName = fileName
+
+    db.session.commit()
+
+    return create_response(status=200, message="success")
+
+
 @main.route("/document/new", methods=["POST"])
 def create_new_document():
     """
     functionality used to add a new document to database
     """
     # data for new document should be stored as json in request
-    data = request.form
+    data = request.forms
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
@@ -161,14 +193,14 @@ def create_new_document():
     # Turns data into a Document and adds it to database
     # print(request)
     # print(data)
-    file_info = upload_file(request.files.get("file"), data["fileName"])
+    # file_info = upload_file(request.files.get("file"), data["fileName"])
 
-    print(data)
+    # print(data)
     new_data = Document(data)
 
     # print("check after")
-    new_data.fileID = file_info["file"].id
-    new_data.link = file_info["link"]
+    # new_data.fileID = file_info["file"].id
+    # new_data.link = file_info["link"]
     # use retrieved file_info
 
     db.session.add(new_data)
@@ -222,13 +254,23 @@ def update_documents(docClassID):
 
 
 # given id of document, can update its status to new status provided in url
-@main.route("/document/update/<id>/<status>", methods=["PUT"])
-def update_status(id, status):
+@main.route("/document/update", methods=["PUT"])
+def update_status():
     """ 
     function called when you visit /document/update/<id>/<status>. Updates a doc's status 
     """
+    data = request.form
+
+    if "docID" not in data:
+        return create_response(status=400, message="No document ID provided")
+    if "status" not in data:
+        return create_response(status=400, message="No document status provided")
+
+    docID = data.get("docID")
+    status = data.get("status")
+
     # get document by id
-    doc = Document.query.get(id)
+    doc = Document.query.get(docID)
     # update doc status to new status and return
     doc.status = status
     ret = doc.to_dict()

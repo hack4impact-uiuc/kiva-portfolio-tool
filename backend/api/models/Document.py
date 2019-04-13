@@ -19,7 +19,7 @@ class Document(Mixin, db.Model):
     docClassID = db.Column(
         db.String, db.ForeignKey("document_class.id"), nullable=False
     )
-    fileName = db.Column(db.String, unique=False)
+    fileName = db.Column(db.String, unique=False, nullable=True)
     latest = db.Column(db.Boolean, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
     link = db.Column(db.String, unique=False, nullable=True)
@@ -48,14 +48,17 @@ class Document(Mixin, db.Model):
     """
 
     def __init__(self, data):
-        if "fileID" in data:
-            self.fileID = data["fileID"]
+
         self.userID = data["userID"]
-        if "date" in data:
-            self.date = data["date"]
         self.status = data["status"]
         self.docClassID = data["docClassID"]
-        self.fileName = data["fileName"]
+
+        if "date" in data:
+            self.date = data["date"]
+        if "fileID" in data:
+            self.fileID = data["fileID"]
+        if "fileName" in data:
+            self.fileName = data["fileName"]
         if "latest" in data:
             self.latest = data["latest"]
         if "description" in data:
