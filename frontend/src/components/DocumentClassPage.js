@@ -9,51 +9,54 @@ import { updateDocumentClasses } from '../redux/modules/user'
 import '../styles/index.css'
 
 const mapStateToProps = state => ({
-    documentClasses: state.user.documentClasses
+  documentClasses: state.user.documentClasses
 })
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators(
-        {
-            updateDocumentClasses
-        },
-        dispatch
-    )
+  return bindActionCreators(
+    {
+      updateDocumentClasses
+    },
+    dispatch
+  )
 }
 
 class DocumentClassPage extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            modalOpen: false
-        }
-        this.toggle = this.toggle.bind(this)
+  constructor(props) {
+    super(props)
+    this.state = {
+      modalOpen: false
     }
+    this.toggle = this.toggle.bind(this)
+  }
 
-    async componentDidMount() {
-        const res = await getAllDocumentClasses()
-        if (res) {
-            this.updateDocumentClasses(res)
-        } else {
-            this.updateDocumentClasses([])
-        }
+  async componentDidMount() {
+    const res = await getAllDocumentClasses()
+    if (res) {
+      this.updateDocumentClasses(res)
+    } else {
+      this.updateDocumentClasses([])
     }
+  }
 
-    toggle() {
-        this.setState({ modalOpen: !this.state.modalOpen })
-    }
+  toggle() {
+    this.setState({ modalOpen: !this.state.modalOpen })
+  }
 
-    render() {
-        return (
-            <>
-                <h1>Edit Document Classes</h1>
-                <Button color="primary" onClick={this.toggle}>
-                    Add New Document Class
-                </Button>
-                <DocumentClassList documentClasses={this.props.documentClasses} />
-            </>
-        )
-    }
+  render() {
+    return (
+      <>
+        <h1>Edit Document Classes</h1>
+        <Button color="primary" onClick={this.toggle}>
+          Add New Document Class
+        </Button>
+        <DocumentClassList documentClasses={this.props.documentClasses} />
+      </>
+    )
+  }
 }
 
-export default connect (mapStateToProps, mapDispatchToProps) (DocumentClassPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DocumentClassPage)

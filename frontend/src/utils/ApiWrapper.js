@@ -4,6 +4,19 @@ import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
+export const getAllDocumentClasses = () => {
+  let requestString = BACKEND_URL + '/document_class'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.document_class
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
