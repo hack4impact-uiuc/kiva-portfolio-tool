@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+/* import { Link } from 'react-router-dom'
 import Router from 'next/router'
 import { login, google } from '../utils/api'
 import {
@@ -135,4 +135,4 @@ class LogIn extends Component {
     )
   }
 }
-export default connect()(LogIn)
+export default connect()(LogIn) */

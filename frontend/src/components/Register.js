@@ -1,5 +1,7 @@
-import Link from 'next/link'
-import Router from 'next/router'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { register } from '../utils/api'
 import {
   Form,
@@ -14,16 +16,30 @@ import {
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
 
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+
+    },
+    dispatch
+  )
+}
+
 // michael's baby
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 
-export default class extends React.Component {
-  state = {
-    email: '',
-    password: '',
-    password2: '',
-    errorMessage: ''
+
+class Register extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      email: '',
+      password: '',
+      password2: '',
+      errorMessage: ''
+    }
   }
 
   handleChange = event => {
@@ -33,15 +49,18 @@ export default class extends React.Component {
   }
 
   handleSubmit = async e => {
-    event.preventDefault()
+    e.preventDefault()
     if (this.state.password === this.state.password2) {
+      console.log("passwords match!")
       const result = await register(this.state.email, this.state.password)
       const response = await result.json()
+      console.log(response)
       if (!response.token) {
         this.setState({ errorMessage: response.message })
       } else {
         setCookie('token', response.token)
-        Router.push('/')
+        this.props.history.push('/login')
+        //Router.push('/')
       }
     } else {
       this.setState({ errorMessage: 'Passwords do not match' })
@@ -105,7 +124,7 @@ export default class extends React.Component {
             <Button
               color="success"
               size="lg"
-              onClick={() => Router.push('/login')}
+              onClick={() => this.props.history.push('/dashboard')}
               style={{ float: 'right', width: '49%' }}
             >
               Login
@@ -120,3 +139,5 @@ export default class extends React.Component {
     </div>
   )
 }
+
+export default connect(mapDispatchToProps)(Register)

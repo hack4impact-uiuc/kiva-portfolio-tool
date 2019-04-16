@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './redux/configureStore'
-import { Dashboard, LogIn } from './components'
+import { Dashboard, LoginPage, Register } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
 
@@ -14,7 +14,8 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Switch>
-        <Route exact path="/" component={LogIn} />
+        <Route exact path="/" component={Register} />
+        <Route path="/login" component={LoginPage} />
         <Route path="/dashboard" component={Dashboard} />
       </Switch>
     </ConnectedRouter>
