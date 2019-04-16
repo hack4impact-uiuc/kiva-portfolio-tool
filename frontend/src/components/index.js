@@ -9,5 +9,15 @@ import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
 import LoginPage from './LoginPage'
 
-export { Dashboard, DocumentList, DocumentListItem, LogIn, Upload, BoxPreview, Register, LoginPage, SelectDocumentsPage,
-  PMMainPage }
+export {
+  Dashboard,
+  DocumentList,
+  DocumentListItem,
+  LogIn,
+  Upload,
+  BoxPreview,
+  Register,
+  LoginPage,
+  SelectDocumentsPage,
+  PMMainPage
+}
