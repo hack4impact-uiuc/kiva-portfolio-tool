@@ -69,7 +69,10 @@ class LogIn extends Component {
   render() {
     return (
       <div>
-        <Card className="interview-card center-background" style={{ width: '400px', height: '60%' }}>
+        <Card
+          className="interview-card center-background"
+          style={{ width: '400px', height: '60%' }}
+        >
           <CardTitle>
             <h3 style={{ textAlign: 'center', paddingTop: '10px' }}>Login</h3>
           </CardTitle>
@@ -102,14 +105,10 @@ class LogIn extends Component {
                   required
                 />
               </FormGroup>
-              <Button
-                color="success"
-                size="lg"
-                onClick={this.handleSubmit}
-                className="right"
-              >
+              <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
                 Log In
-              </Button>{''}
+              </Button>
+              {''}
               <Button
                 color="success"
                 size="lg"

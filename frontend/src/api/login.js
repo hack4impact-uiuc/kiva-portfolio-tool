@@ -1,29 +1,29 @@
 import axios from 'axios'
 
-const { sendResponse } = require("./../utils/sendResponse");
-const BACKEND_URL = "http://localhost:8000/"
+const { sendResponse } = require('./../utils/sendResponse')
+const BACKEND_URL = 'http://localhost:8000/'
 
 export const login = (email, password) => {
-    let data = new FormData()
-    data.append('email', email)
-    data.append('password', password)
-    return axios
-      .post(BACKEND_URL + 'login/', data)
-      .then(response => {
-        return {
-          type: 'LOGIN_SUCCESSFUL',
-          response
-        }
-      })
-      .catch(error => {
-        return {
-          type: 'LOGIN_FAIL',
-          error
-        }
-      })
-  }
+  let data = new FormData()
+  data.append('email', email)
+  data.append('password', password)
+  return axios
+    .post(BACKEND_URL + 'login/', data)
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
 
-  /*
+/*
 router.post("/login", async function(req, res) {
   const results = await fetch("http://localhost:8000/login", {
     method: "POST",
