@@ -1,5 +1,6 @@
 from flask import Blueprint, request, json
 from api.models import DocumentClass, db
+from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
 import requests, json
@@ -40,13 +41,14 @@ def add_document_class():
             status=400, message="No name provided for new Document Class"
         )
 
+    new_docclass = DocumentClass(data)
+
     if "fileName" in data and request.files is not None and "file" in request.files:
         fileName = data.get("fileName")
         file = request.files.get("file")
         file_info = upload_file(file, fileName)
-        data["link"] = file_info["link"]
+        new_docclass.example = file_info["link"]
 
-    new_docclass = DocumentClass(data)
     db.session.add(new_docclass)
     db.session.commit()
     return create_response(status=200, message="success")

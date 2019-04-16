@@ -3,25 +3,6 @@ import BACKEND_URL from './ApiConfig'
 
 //import { BACKEND_KEY } from '../keys'
 
-export const createDocumentClass = (name, description) => {
-  let requestString = BACKEND_URL + '/document_class/new'
-  let data = new FormData()
-  data.append('name', name)
-  data.append('description', description)
-  return axios
-    .post(requestString, data)
-    .then(response => {
-      return {
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        error
-      }
-    })
-}
-
 export const getAllDocumentClasses = () => {
   let requestString = BACKEND_URL + '/document_class'
   return axios
@@ -167,14 +148,15 @@ export const uploadDocument = (file, file_name, docID) => {
     })
 }
 
-export const uploadDocumentClass = (name, description, file, file_name) => {
+export const createDocumentClass = (name, description, file, file_name) => {
   var data = new FormData()
   data.append('file', file)
   data.append('fileName', file_name)
   data.append('name', name)
   data.append('description', description)
+  console.log('hello')
   return axios
-    .post(BACKEND_URL + 'document_class/new', data)
+    .post(BACKEND_URL + '/document_class/new', data)
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',

@@ -1,5 +1,6 @@
 import React from 'react'
 import DocumentClassList from './DocumentClassList'
+import Upload from './Upload'
 import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
 import { bindActionCreators } from 'redux'
@@ -7,6 +8,7 @@ import { connect } from 'react-redux'
 import '../styles/dashboard.css'
 import { updateDocumentClasses } from '../redux/modules/user'
 import '../styles/index.css'
+import Dropzone from 'react-dropzone'
 
 const mapStateToProps = state => ({
   documentClasses: state.user.documentClasses
@@ -26,11 +28,14 @@ class DocumentClassPage extends React.Component {
     super(props)
     this.state = {
       modal: false,
+      secondModal: false,
       name: '',
-      description: ''
+      description: '',
+      files: []
     }
     this.toggle = this.toggle.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.secondToggle = this.secondToggle.bind(this)
   }
 
   async componentDidMount() {
@@ -46,6 +51,10 @@ class DocumentClassPage extends React.Component {
     this.setState({ modal: !this.state.modal })
   }
 
+  secondToggle() {
+    this.setState({ secondModal: !this.state.secondModal })
+  }
+
   updateName = event => {
     this.setState({ name: event.target.value })
   }
@@ -54,17 +63,29 @@ class DocumentClassPage extends React.Component {
     this.setState({ description: event.target.value })
   }
 
-  handleSubmit() {
-    createDocumentClass(this.state.name, this.state.description)
+  async handleSubmit() {
+    createDocumentClass(
+      this.state.name,
+      this.state.description,
+      this.state.files[0],
+      this.state.files[0].name
+    )
+    this.secondToggle()
+  }
+
+  onDrop(files) {
+    this.setState({
+      files
+    })
   }
 
   render() {
     return (
       <>
+        <Modal isOpen={this.state.uploadModal} toggle={this.toggleUpload}>
+          <Upload uploadType="DocumentClass" />
+        </Modal>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          {
-            //<Upload docID={this.props.documentClass._id} />
-          }
           <ModalBody>
             <form>
               <span> Name: </span>
@@ -78,7 +99,53 @@ class DocumentClassPage extends React.Component {
                 onChange={this.updateDescription}
               />
               <br />
-              <Button onClick={this.handleSubmit}>Submit</Button>
+              <div className="dropPage">
+                <section className="droppedBox">
+                  <div className="dropZone">
+                    <Dropzone onDrop={this.onDrop.bind(this)}>
+                      {({ getRootProps, getInputProps }) => (
+                        <section>
+                          <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <p>Drag some files here, or click to select files</p>
+                          </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </div>
+                  <aside>
+                    <h4>Files Dropped</h4>
+                    <ul className="droppedFilesBackground">
+                      {this.state.files.map(f => (
+                        <li className="droppedBox" key={f.name}>
+                          {f.name} - {f.size} bytes
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      disabled={this.state.files.length === 0}
+                      className="right"
+                      onClick={this.handleSubmit}
+                    >
+                      Create Document Class
+                    </Button>
+                    <Modal isOpen={this.state.secondModal} toggle={this.secondToggle}>
+                      <ModalBody>File uploaded - your submission is being processed.</ModalBody>
+                      <ModalFooter>
+                        <Button
+                          className="invalidSearchButton"
+                          onClick={e => {
+                            this.secondToggle()
+                          }}
+                        >
+                          Return
+                        </Button>
+                      </ModalFooter>
+                    </Modal>
+                  </aside>
+                </section>
+                <hr />
+              </div>
             </form>
           </ModalBody>
           <ModalFooter>
