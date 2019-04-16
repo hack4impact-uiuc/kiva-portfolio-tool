@@ -1,6 +1,9 @@
 import React from 'react'
 import DocumentList from './DocumentList'
+<<<<<<< HEAD
 import NotificationsBar from './NotificationsBar'
+=======
+>>>>>>> 604bea01f6c88d040a3567d41a3b1945161a94a2
 import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
