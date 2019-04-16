@@ -64,3 +64,10 @@ def update_document_class(id):
 
     db.session.commit()
     return create_response(status=200, data={"document_class": updated_docclass})
+
+
+@docclass.route("/document_class/delete/<id>", methods=["DELETE"])
+def delete_document_class(id):
+    db.session.delete(DocumentClass.query.filter((DocumentClass.id == str(id))).first())
+    db.session.commit()
+    return create_response(status=200, message="success")

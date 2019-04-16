@@ -81,8 +81,8 @@ def test_add_document_class(client):
     # Test for legal add
     rs = client.post(
         "/document_class/new",
-        content_type="application/json",
-        json={"name": "docname", "description": "description here"},
+        content_type="multipart/form-data",
+        data={"name": "docname", "description": "description here"},
     )
 
     assert rs.status_code == 200

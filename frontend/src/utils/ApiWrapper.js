@@ -170,3 +170,20 @@ export const createDocumentClass = (name, description, file, file_name) => {
       }
     })
 }
+
+export const deleteDocumentClass = id => {
+  return axios
+    .delete(BACKEND_URL + '/document_class/new/' + id)
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENT_CLASS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENT_CLASS_FAIL',
+        error
+      }
+    })
+}
