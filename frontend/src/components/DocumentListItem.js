@@ -28,7 +28,7 @@ class DocumentListItem extends Component {
   }
 
   handleDownloadClick() {
-    // Download click handling
+    // Retrieve file from backend
     downloadDocument(document.fileID)
   }
 
@@ -55,11 +55,11 @@ class DocumentListItem extends Component {
           </ModalFooter>
         </Modal>
         <tr>
-          <td data-testid="docClass">{this.state.document.docClass}</td>
+          <td data-testid="docClass">{this.state.document.docClassName}</td>
           <td data-testid="fileName">
             {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
           </td>
-          <td data-testid="interaction" class="interaction">
+          <td data-testid="interaction" className="interaction">
             {this.state.fileName && (
               <Button color="primary" onClick={this.handleDownloadClick}>
                 DOWNLOAD

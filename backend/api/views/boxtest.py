@@ -14,10 +14,4 @@ box_file = client.folder("0").upload_stream(
     stream, "aw1eohinlksfdas.txt", preflight_check=True
 )
 
-# uploaded_file = client.folder("0").upload("rose2.png")
-
 print(box_file.id)
-
-# file_info = client.file(418676052591).get()
-# output_file = open(file_info.name, "wb")
-# file_info.download_to(output_file)

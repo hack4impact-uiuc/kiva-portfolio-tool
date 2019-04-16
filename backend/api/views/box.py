@@ -5,7 +5,7 @@ from boxsdk.exception import BoxAPIException
 from boxsdk import JWTAuth
 
 from io import BytesIO
-
+import os
 
 from flask import Blueprint, request
 from api.models import Document, Message, db
@@ -188,7 +188,10 @@ def download_file():
     output_file = open(box_file.name, "wb")
     box_file.download_to(output_file)
 
-    return create_response(data={"output": output_file})
+    path_box = os.path.abspath(output_file)
+    return create_response(
+        data={"output": send_file(path_box, attachment_filename=file_id)}
+    )
 
 
 def delete_file(file_id):
