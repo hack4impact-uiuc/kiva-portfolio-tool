@@ -45,23 +45,35 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await getAllDocuments()
-    const res2 = await getAllMessages()
-    const res3 = await getAllInformation()
-    if (res) {
+    /**
+     * Contains all documents received from backend
+     */
+    const documentsReceived = await getAllDocuments()
+
+    /**
+     * Contains all messages received from backend
+     */
+    const messagesReceived = await getAllMessages()
+
+    /**
+     * Contains all information received from backend
+     */
+    const informationReceived = await getAllInformation()
+
+    if (documentsReceived) {
       this.props.updateDocuments(res)
     } else {
       this.props.updateDocuments([])
     }
 
-    if (res2) {
-      this.props.updateMessages(res2)
+    if (messagesReceived) {
+      this.props.updateMessages(messagesReceived)
     } else {
       this.props.updateMessages([])
     }
 
-    if (res3) {
-      this.props.updateInformation(res3)
+    if (informationReceived) {
+      this.props.updateInformation(informationReceived)
     } else {
       this.props.updateInformation([])
     }
