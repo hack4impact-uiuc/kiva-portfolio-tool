@@ -30,7 +30,17 @@ export const getAllDocuments = () => {
 }
 
 export const getAllMessages = () => {
-  return ['joe', 'schmoe', 'bro']
+  // get notifications received by target user
+  return [
+    { name: 'joe', time: '4/12/18', description: 'GO DO SHIT' },
+    { name: 'schmoe', time: '4/12/19', description: 'DO SOME OTHER CRAP' },
+    { name: 'bro', time: '4/12/17', description: 'OOF' }
+  ]
+}
+
+export const getAllInformation = () => {
+  // get information received by target user
+  return ['I need you to not work on IST and get in the documents asap']
 }
 
 export const getAllPartners = () => {
@@ -70,10 +80,6 @@ export const getAllPartners = () => {
       }
     }
   ]
-}
-
-export const getAllDocumentClasses = () => {
-  return ['WakaWaka', 'MakaMaka', 'BoomShakaLaka']
 }
 
 export const getAccessToken = () => {
