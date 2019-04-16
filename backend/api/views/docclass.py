@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import DocumentClass, db
+from api.models import Document, DocumentClass, db
 from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
@@ -68,6 +68,7 @@ def update_document_class(id):
 
 @docclass.route("/document_class/delete/<id>", methods=["DELETE"])
 def delete_document_class(id):
+    Document.query.filter(Document.docClassID == str(id)).delete()
     db.session.delete(DocumentClass.query.filter((DocumentClass.id == str(id))).first())
     db.session.commit()
     return create_response(status=200, message="success")
