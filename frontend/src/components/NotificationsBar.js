@@ -26,12 +26,18 @@ class NotificationsBar extends Component {
     super(props)
   }
 
+  /**
+   * Helper function that removes messages upon click by index in array
+   */
   removeMessage = index => {
     let messages = [...this.props.allMessages]
     messages.splice(index, 1)
     this.props.updateMessages(messages)
   }
 
+  /**
+   * Helper function that removes infos upon click by index in array
+   */
   removeInformation = index => {
     let information = [...this.props.allInformation]
     information.splice(index, 1)

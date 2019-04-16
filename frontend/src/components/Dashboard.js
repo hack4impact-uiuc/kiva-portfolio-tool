@@ -53,17 +53,20 @@ class Dashboard extends React.Component {
     } else {
       this.props.updateDocuments([])
     }
+
     if (res2) {
       this.props.updateMessages(res2)
     } else {
       this.props.updateMessages([])
     }
+
     if (res3) {
       this.props.updateInformation(res3)
     } else {
       this.props.updateInformation([])
     }
   }
+
   pStyle = {
     margin: 'auto'
   }
