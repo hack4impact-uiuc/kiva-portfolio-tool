@@ -12,10 +12,10 @@ class DocumentClass(Mixin, db.Model):
     name = db.Column(db.String, unique=True)
     description = db.Column(db.String, unique=False, nullable=True)
 
-    def __init__(self, name, description=None):
+    def __init__(self, data):
         self.id = str(uuid.uuid4())
-        self.name = name
-        self.description = description
+        self.name = data["name"]
+        self.description = data["description"]
 
     def __repr__(self):
         return f"<Document Class\nID: {self.id}\nname: {self.name}>\n <description: {self.description}>\n"

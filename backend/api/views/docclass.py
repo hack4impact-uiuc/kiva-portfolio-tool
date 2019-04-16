@@ -27,17 +27,20 @@ def get_document_class_by_id(id):
 def add_document_class():
     """ function that is called when you visit /document_class/new, creates a new docclass """
     data = request.get_json()
-    logger.info(data)
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No data provided")
+
     if "name" not in data:
         return create_response(
             status=400, message="No name provided for new Document Class"
         )
 
-    sample_args = request.args
-    new_docclass = DocumentClass(**data)
+    new_docclass = DocumentClass(data)
     db.session.add(new_docclass)
     db.session.commit()
-    ret = new_docclass.to_dict()
     return create_response(status=200, message="success")
 
 
@@ -45,8 +48,8 @@ def add_document_class():
 def update_document_class(id):
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     docclass = DocumentClass.query.get(id)
-    docclass.name = request.json.get("name", docclass.name)
-    docclass.description = request.json.get("description", docclass.description)
+    docclass.name = request.form.get("name", docclass.name)
+    docclass.description = request.form.get("description", docclass.description)
     updated_docclass = docclass.to_dict()
 
     db.session.commit()
