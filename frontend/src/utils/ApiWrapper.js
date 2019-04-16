@@ -4,38 +4,6 @@ import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
-export const getDocuments = (userID, status) => {
-  return axios
-    .get(
-      BACKEND_URL +
-        '/search/documents?userID=' +
-        userID +
-        '&status=' +
-        status /* + '&key=' + BACKEND_KEY */
-    )
-    .then(response => {
-      return response.data.result.documents
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
-export const getDocumentsByName = (fileName, docClassID) => {
-  return axios
-    .get(
-      BACKEND_URL + '/search/documents?name=' + fileName + '&docClassID=' + docClassID
-    ) /* + '&key=' + BACKEND_KEY )*/
-    .then(response => {
-      return response.data.result.documents
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
@@ -61,6 +29,45 @@ export const getAllMessages = () => {
 export const getAllInformation = () => {
   // get information received by target user
   return ['I need you to not work on IST and get in the documents asap']
+}
+
+export const getAllPartners = () => {
+  return [
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Mario',
+      duedate: 1.423,
+      status: 'Active',
+      documents: {
+        Already: 'Approved',
+        In: 'Missing',
+        Smash: 'Missing',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Peach',
+      duedate: 12534.0,
+      status: 'Dormant',
+      documents: {
+        Already: 'Rejected',
+        In: 'Rejected',
+        Smash: 'Missing',
+        Ultimate: 'Approved'
+      }
+    }
+  ]
 }
 
 export const getAllDocumentClasses = () => {
@@ -94,8 +101,11 @@ export const downloadDocument = id => {
 }
 
 export const updateDocumentStatus = (id, status) => {
+  var data = new FormData()
+  data.append('docID', id)
+  data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/update/' + id + '/' + status)
+    .put(BACKEND_URL + '/document/status', data)
     .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
@@ -110,12 +120,13 @@ export const updateDocumentStatus = (id, status) => {
     })
 }
 
-export const sendFile = (file, file_name) => {
-  let data = new FormData()
+export const sendFile = (file, file_name, docID) => {
+  var data = new FormData()
   data.append('file', file)
-  data.append('file_name', file_name)
+  data.append('fileName', file_name)
+  data.append('docID', docID)
   return axios
-    .post(BACKEND_URL + '/box/file', data)
+    .put(BACKEND_URL + '/document/upload', data)
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',

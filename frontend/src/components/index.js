@@ -5,6 +5,7 @@ import DocumentListItem from './DocumentListItem'
 import Upload from './Upload'
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
+import PMMainPage from './PMMainPage'
 
 export {
   Dashboard,
@@ -13,5 +14,6 @@ export {
   LoginPage,
   Upload,
   BoxPreview,
-  SelectDocumentsPage
+  SelectDocumentsPage,
+  PMMainPage
 }
