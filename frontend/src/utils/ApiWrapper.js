@@ -154,7 +154,6 @@ export const createDocumentClass = (name, description, file, file_name) => {
   data.append('fileName', file_name)
   data.append('name', name)
   data.append('description', description)
-  console.log('hello')
   return axios
     .post(BACKEND_URL + '/document_class/new', data)
     .then(response => {
@@ -166,6 +165,28 @@ export const createDocumentClass = (name, description, file, file_name) => {
     .catch(error => {
       return {
         type: 'UPLOAD_FILE_FAIL',
+        error
+      }
+    })
+}
+
+export const updateDocumentClass = (id, name, description, file, file_name) => {
+  var data = new FormData()
+  data.append('file', file)
+  data.append('fileName', file_name)
+  data.append('name', name)
+  data.append('description', description)
+  return axios
+    .put(BACKEND_URL + '/document_class/update/' + id, data)
+    .then(response => {
+      return {
+        type: 'UPDATE_DOCUMENT_CLASS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_DOCUMENT_CLASS_FAIL',
         error
       }
     })

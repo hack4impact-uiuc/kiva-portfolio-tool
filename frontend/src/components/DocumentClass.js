@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentClassPreview from './DocumentClassPreview'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
-import { deleteDocumentClass } from '../utils/ApiWrapper'
+import { deleteDocumentClass, updateDocumentClass } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
 import Dropzone from 'react-dropzone'
@@ -23,8 +23,8 @@ class DocumentClass extends Component {
     super(props)
 
     this.state = {
-      name: '',
-      description: '',
+      name: this.props.documentClass.name,
+      description: this.props.documentClass.description,
       modal: false,
       secondModal: false,
       deleteModal: false,
@@ -35,6 +35,8 @@ class DocumentClass extends Component {
     this.secondToggle = this.secondToggle.bind(this)
     this.deleteToggle = this.deleteToggle.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmitNoFile = this.handleSubmitNoFile.bind(this)
   }
 
   toggle() {
@@ -57,16 +59,26 @@ class DocumentClass extends Component {
     this.setState({ description: event.target.value })
   }
 
-  async handleSubmit() {
-    /*
+  handleSubmit() {
     updateDocumentClass(
+      this.props.documentClass._id,
       this.state.name,
       this.state.description,
       this.state.files[0],
       this.state.files[0].name
     )
     this.secondToggle()
-    */
+  }
+
+  handleSubmitNoFile() {
+    updateDocumentClass(
+      this.props.documentClass._id,
+      this.state.name,
+      this.state.description,
+      null,
+      null
+    )
+    this.secondToggle()
   }
 
   onDrop(files) {
@@ -87,7 +99,7 @@ class DocumentClass extends Component {
           <ModalBody>
             <form>
               <span> Name: </span>
-              <input onChange={this.updateName} value={this.props.documentClass.name} />
+              <input onChange={this.updateName} value={this.state.name} />
               <br />
               <span> Description: </span>
               <textarea
@@ -95,7 +107,7 @@ class DocumentClass extends Component {
                 cols="50"
                 rows="10"
                 onChange={this.updateDescription}
-                value={this.props.documentClass.description}
+                value={this.state.description}
               />
               <br />
               <div className="dropPage">
@@ -122,11 +134,12 @@ class DocumentClass extends Component {
                       ))}
                     </ul>
                     <Button
-                      disabled={this.state.files.length === 0}
                       className="right"
-                      onClick={this.handleSubmit}
+                      onClick={
+                        this.state.files.length == 0 ? this.handleSubmitNoFile : this.handleSubmit
+                      }
                     >
-                      Create Document Class
+                      Update Document Class
                     </Button>
                     <Modal isOpen={this.state.secondModal} toggle={this.secondToggle}>
                       <ModalBody>File uploaded - your submission is being processed.</ModalBody>
