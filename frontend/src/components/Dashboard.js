@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
     const informationReceived = await getAllInformation()
 
     if (documentsReceived) {
-      this.props.updateDocuments(res)
+      this.props.updateDocuments(documentsReceived)
     } else {
       this.props.updateDocuments([])
     }
