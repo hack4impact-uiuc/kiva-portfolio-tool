@@ -1,8 +1,26 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
+
+export const createDocumentClass = (name, description) => {
+  let requestString = BACKEND_URL + '/document_class/new'
+  let data = new FormData()
+  data.append('name', name)
+  data.append('description', description)
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        error
+      }
+    })
+}
 
 export const getAllDocumentClasses = () => {
   let requestString = BACKEND_URL + '/document_class'

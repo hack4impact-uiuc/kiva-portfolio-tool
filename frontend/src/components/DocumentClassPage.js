@@ -1,6 +1,6 @@
 import React from 'react'
 import DocumentClassList from './DocumentClassList'
-import { getAllDocumentClasses } from '../utils/ApiWrapper'
+import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -25,7 +25,9 @@ class DocumentClassPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      modal: false
+      modal: false,
+      name: '',
+      description: ''
     }
     this.toggle = this.toggle.bind(this)
   }
@@ -41,6 +43,14 @@ class DocumentClassPage extends React.Component {
 
   toggle() {
     this.setState({ modal: !this.state.modal })
+  }
+
+  updateName = event => {
+    this.setState({ name: event.target.value })
+  }
+
+  updateDescription = event => {
+    this.setState({ description: event.target.value })
   }
 
   render() {
@@ -63,7 +73,9 @@ class DocumentClassPage extends React.Component {
                 onChange={this.updateDescription}
               />
               <br />
-              <Button>Upload</Button>
+              <Button onClick={createDocumentClass(this.state.name, this.state.description)}>
+                Submit
+              </Button>
             </form>
           </ModalBody>
           <ModalFooter>
