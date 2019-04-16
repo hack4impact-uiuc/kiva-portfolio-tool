@@ -17,18 +17,12 @@ import {
 import { setCookie } from './../utils/cookie'
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-
-    },
-    dispatch
-  )
+  return bindActionCreators({}, dispatch)
 }
 
 // michael's baby
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
-
 
 class Register extends React.Component {
   constructor(props) {
@@ -51,7 +45,7 @@ class Register extends React.Component {
   handleSubmit = async e => {
     e.preventDefault()
     if (this.state.password === this.state.password2) {
-      console.log("passwords match!")
+      console.log('passwords match!')
       const result = await register(this.state.email, this.state.password)
       const response = await result.json()
       console.log(response)

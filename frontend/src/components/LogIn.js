@@ -1,9 +1,6 @@
-/* import { Link } from 'react-router-dom'
-import Router from 'next/router'
-=======
 import { Link } from 'react-router-dom'
->>>>>>> 81c54ee10ae62b2d6418b88f6be99a82c0c71cff
 import { login, google } from '../utils/api'
+import { bindActionCreators } from 'redux'
 import {
   Form,
   Button,
@@ -18,7 +15,11 @@ import {
 import { setCookie } from './../utils/cookie'
 import { connect } from 'react-redux'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
-import React,{ Component } from 'react'
+import React, { Component } from 'react'
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({}, dispatch)
+}
 
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
@@ -60,7 +61,7 @@ class LogIn extends Component {
       this.setState({ errorMessage: resp.message })
     } else {
       setCookie('token', resp.token)
-      //this.props.history.push('/')
+      this.props.history.push('/dashboard')
     }
   }
 
@@ -118,10 +119,10 @@ class LogIn extends Component {
               </Button>
             </Form>
             <br />
-            <p style={{ color: 'red' }}>{this.state.errorMessage ? this.state.errorMessage : ''}</p>
+            {/* <p style={{ color: 'red' }}>{this.state.errorMessage ? this.state.errorMessage : ''}</p>
             <Link prefetch href="/forgotPassword">
               <a>Forgot Password?</a>
-            </Link>
+            </Link> */}
           </CardBody>
         </Card>
         <br />
@@ -138,4 +139,4 @@ class LogIn extends Component {
     )
   }
 }
-export default connect()(LogIn) */
+export default connect(mapDispatchToProps)(LogIn)
