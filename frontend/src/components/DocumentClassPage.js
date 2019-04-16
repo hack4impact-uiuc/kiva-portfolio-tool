@@ -30,6 +30,7 @@ class DocumentClassPage extends React.Component {
       description: ''
     }
     this.toggle = this.toggle.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async componentDidMount() {
@@ -53,6 +54,10 @@ class DocumentClassPage extends React.Component {
     this.setState({ description: event.target.value })
   }
 
+  handleSubmit() {
+    createDocumentClass(this.state.name, this.state.description)
+  }
+
   render() {
     return (
       <>
@@ -73,9 +78,7 @@ class DocumentClassPage extends React.Component {
                 onChange={this.updateDescription}
               />
               <br />
-              <Button onClick={createDocumentClass(this.state.name, this.state.description)}>
-                Submit
-              </Button>
+              <Button onClick={this.handleSubmit}>Submit</Button>
             </form>
           </ModalBody>
           <ModalFooter>
