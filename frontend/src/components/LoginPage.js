@@ -4,6 +4,7 @@ import { Button } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { login } from '../redux/modules/auth'
 import { setUserType } from '../redux/modules/user'
+import SmtpService from './SmtpService'
 
 const mapStateToProps = state => ({
   verified: state.auth.verified,
@@ -55,7 +56,17 @@ class LoginPage extends Component {
     }
     /* else{
 			alert('Email or password is invalid.\nPlease try again.')
-		} */
+    } */
+    let mail = new SmtpService()
+
+    mail.send({
+      SecureToken: 'ab6d788b-b772-4f23-862d-bdce85215c6b',
+      To: 'kelleyc2@illinois.edu',
+      From: 'otakuness3@gmail.com',
+      Subject: 'Yo',
+      Body:
+        "What's up guys, I really hope you like this email and I'm trying to make it as long as possible basically because I want to be able to format this email, but I'm really not entirely sure on how to go about doing that, so I'll keep typing what I'm thinking and stuff like that!"
+    }).then(message => alert(message))
   }
 
   render() {
