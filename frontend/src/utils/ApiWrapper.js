@@ -16,7 +16,6 @@ export const getAllDocumentClasses = () => {
       return null
     })
 }
-
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
