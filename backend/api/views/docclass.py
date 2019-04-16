@@ -30,7 +30,7 @@ def add_document_class():
     # if data is None:
     #    data = request.form
 
-    data = request.json
+    data = request.form
 
     if data is None:
         return create_response(status=400, message="No data provided")
@@ -39,6 +39,20 @@ def add_document_class():
         return create_response(
             status=400, message="No name provided for new Document Class"
         )
+
+    if "fileName" not in data:
+        return create_response(status=400, message="No file name provided")
+
+    if request.files is None or "file" not in request.files:
+        return create_response(status=400, message="No file provided")
+
+    fileName = data.get("fileName")
+
+    file = request.files.get("file")
+
+    file_info = upload_file(file, fileName)
+
+    data["link"] = file_info["link"]
 
     new_docclass = DocumentClass(data)
     db.session.add(new_docclass)
