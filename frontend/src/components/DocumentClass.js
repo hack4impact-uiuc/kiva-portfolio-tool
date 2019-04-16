@@ -64,7 +64,7 @@ class DocumentClass extends Component {
             //<Upload docID={this.props.documentClass._id} />
           }
           <ModalBody>
-            <form onSubmit={this.verify}>
+            <form>
               <span> Name: </span>
               <input onChange={this.updateName} />
               <br />
@@ -91,7 +91,9 @@ class DocumentClass extends Component {
           </ModalFooter>
         </Modal>
         <tr>
-          <td data-testid="docClass">{this.state.document.name}</td>
+          {this.props.documentClass.name ? (
+            <td data-testid="docClass">{this.props.documentClass.name}</td>
+          ) : null}
           <td data-testid="interaction" className="interaction">
             <Button color="primary">UPLOAD</Button>
           </td>

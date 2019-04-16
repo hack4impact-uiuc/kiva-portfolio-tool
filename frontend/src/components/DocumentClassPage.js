@@ -33,9 +33,9 @@ class DocumentClassPage extends React.Component {
   async componentDidMount() {
     const res = await getAllDocumentClasses()
     if (res) {
-      this.updateDocumentClasses(res)
+      this.props.updateDocumentClasses(res)
     } else {
-      this.updateDocumentClasses([])
+      this.props.updateDocumentClasses([])
     }
   }
 

@@ -13,7 +13,7 @@ class DocumentClassList extends Component {
             <th />
           </tr>
           {this.props.documentClasses
-            ? this.props.documentClassess.map(documentClass => (
+            ? this.props.documentClasses.map(documentClass => (
                 <DocumentClass documentClass={documentClass} />
               ))
             : null}
