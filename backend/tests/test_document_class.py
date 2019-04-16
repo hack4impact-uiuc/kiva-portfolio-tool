@@ -5,7 +5,7 @@ from api.models import db, DocumentClass, Document
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
 def create_docclass():
     temp_docclass = DocumentClass(
-        name="Annual Report", description="Annual report of finances"
+        {"name": "Annual Report", "description": "Annual report of finances"}
     )
     return temp_docclass
 
@@ -108,6 +108,7 @@ def test_update_document_class_by_id(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
+    print(ret_dict)
 
     assert ret_dict["result"]["document_class"]["name"] == "newdocname"
     assert (

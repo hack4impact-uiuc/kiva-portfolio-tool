@@ -12,7 +12,7 @@ class MyEnum(enum.Enum):
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
 def add_mock_docclass(className):
-    temp_docclass = DocumentClass(name=className, description="Description")
+    temp_docclass = DocumentClass({"name": className, "description": "Description"})
 
     db.session.add(temp_docclass)
     db.session.commit()

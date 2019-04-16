@@ -26,9 +26,11 @@ def get_document_class_by_id(id):
 @docclass.route("/document_class/new", methods=["POST"])
 def add_document_class():
     """ function that is called when you visit /document_class/new, creates a new docclass """
-    data = request.get_json()
-    if data is None:
-        data = request.form
+    # data = request.get_json()
+    # if data is None:
+    #    data = request.form
+
+    data = request.json
 
     if data is None:
         return create_response(status=400, message="No data provided")
@@ -48,8 +50,8 @@ def add_document_class():
 def update_document_class(id):
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     docclass = DocumentClass.query.get(id)
-    docclass.name = request.form.get("name", docclass.name)
-    docclass.description = request.form.get("description", docclass.description)
+    docclass.name = request.json.get("name", docclass.name)
+    docclass.description = request.json.get("description", docclass.description)
     updated_docclass = docclass.to_dict()
 
     db.session.commit()
