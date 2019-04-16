@@ -146,13 +146,35 @@ export const updateDocumentStatus = (id, status) => {
     })
 }
 
-export const sendFile = (file, file_name, docID) => {
+export const uploadDocument = (file, file_name, docID) => {
   var data = new FormData()
   data.append('file', file)
   data.append('fileName', file_name)
   data.append('docID', docID)
   return axios
     .put(BACKEND_URL + '/document/upload', data)
+    .then(response => {
+      return {
+        type: 'UPLOAD_FILE_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPLOAD_FILE_FAIL',
+        error
+      }
+    })
+}
+
+export const uploadDocumentClass = (name, description, file, file_name) => {
+  var data = new FormData()
+  data.append('file', file)
+  data.append('fileName', file_name)
+  data.append('name', name)
+  data.append('description', description)
+  return axios
+    .post(BACKEND_URL + 'document_class/new', data)
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',

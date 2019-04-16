@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
-import { sendFile } from '../utils/ApiWrapper'
+import { uploadDocument, uploadDocumentClass } from '../utils/ApiWrapper'
 
 class Upload extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Upload extends Component {
       modal: false,
       submissionStatus: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   onDrop(files) {
@@ -24,6 +25,20 @@ class Upload extends Component {
       modal: !this.state.modal,
       submissionStatus: 'File uploaded - your submission is being processed.'
     })
+  }
+
+  handleSubmit = () => {
+    if (this.props.uploadType == 'Document') {
+      uploadDocument(this.state.files[0], this.state.files[0].name, this.props.docID)
+    } else if (this.props.uploadType == 'Document Class') {
+      uploadDocumentClass(
+        this.state.files[0],
+        this.state.files[0].name,
+        this.props.docClassName,
+        this.props.docClassDescription
+      )
+    }
+    this.toggle()
   }
 
   render() {
@@ -58,10 +73,7 @@ class Upload extends Component {
               <Button
                 disabled={this.state.files.length === 0}
                 className="right"
-                onClick={e => {
-                  sendFile(this.state.files[0], this.state.files[0].name, this.props.docID)
-                  this.toggle()
-                }}
+                onClick={this.handleSubmit}
               >
                 Upload File
               </Button>
