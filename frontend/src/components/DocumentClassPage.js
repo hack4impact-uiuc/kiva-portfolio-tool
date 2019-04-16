@@ -1,7 +1,7 @@
 import React from 'react'
 import DocumentClassList from './DocumentClassList'
 import { getAllDocumentClasses } from '../utils/ApiWrapper'
-import { Button, Modal, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import '../styles/dashboard.css'
@@ -25,7 +25,7 @@ class DocumentClassPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      modalOpen: false
+      modal: false
     }
     this.toggle = this.toggle.bind(this)
   }
@@ -40,12 +40,38 @@ class DocumentClassPage extends React.Component {
   }
 
   toggle() {
-    this.setState({ modalOpen: !this.state.modalOpen })
+    this.setState({ modal: !this.state.modal })
   }
 
   render() {
     return (
       <>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          {
+            //<Upload docID={this.props.documentClass._id} />
+          }
+          <ModalBody>
+            <form>
+              <span> Name: </span>
+              <input onChange={this.updateName} />
+              <br />
+              <span> Description: </span>
+              <textarea
+                name="paragraph_text"
+                cols="50"
+                rows="10"
+                onChange={this.updateDescription}
+              />
+              <br />
+              <Button>Upload</Button>
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button className="invalidSearchButton" onClick={this.toggle}>
+              Return
+            </Button>
+          </ModalFooter>
+        </Modal>
         <h1>Edit Document Classes</h1>
         <Button color="primary" onClick={this.toggle}>
           Add New Document Class

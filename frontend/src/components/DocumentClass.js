@@ -76,16 +76,11 @@ class DocumentClass extends Component {
                 onChange={this.updateDescription}
               />
               <br />
-              <Button type="submit">Upload</Button>
+              <Button>Upload</Button>
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button
-              className="invalidSearchButton"
-              onClick={e => {
-                this.toggle()
-              }}
-            >
+            <Button className="invalidSearchButton" onClick={this.toggle}>
               Return
             </Button>
           </ModalFooter>
@@ -95,7 +90,9 @@ class DocumentClass extends Component {
             <td data-testid="docClass">{this.props.documentClass.name}</td>
           ) : null}
           <td data-testid="interaction" className="interaction">
-            <Button color="primary">UPLOAD</Button>
+            <Button color="primary" onClick={this.toggle}>
+              UPLOAD
+            </Button>
           </td>
         </tr>
       </>
