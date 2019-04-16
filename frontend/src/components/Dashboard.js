@@ -1,11 +1,14 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
+import NotificationsBar from './NotificationsBar'
+import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
+import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
 import '../styles/dashboard.css'
-import { updateDocuments } from '../redux/modules/user'
+import { updateDocuments, updateMessages, updateInformation } from '../redux/modules/user'
 import '../styles/index.css'
 
 // Not needed unless working with non "en" locales
@@ -17,13 +20,17 @@ import '../styles/index.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
-  documents: state.user.documents
+  documents: state.user.documents,
+  messages: state.user.messages,
+  information: state.user.information
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDocuments
+      updateDocuments,
+      updateMessages,
+      updateInformation
     },
     dispatch
   )
@@ -38,12 +45,42 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await getAllDocuments()
-    if (res) {
+    /**
+     * Contains all documents received from backend
+     */
+    const documentsReceived = await getAllDocuments()
+
+    /**
+     * Contains all messages received from backend
+     */
+    const messagesReceived = await getAllMessages()
+
+    /**
+     * Contains all information received from backend
+     */
+    const informationReceived = await getAllInformation()
+
+    if (documentsReceived) {
       this.props.updateDocuments(res)
     } else {
       this.props.updateDocuments([])
     }
+
+    if (messagesReceived) {
+      this.props.updateMessages(messagesReceived)
+    } else {
+      this.props.updateMessages([])
+    }
+
+    if (informationReceived) {
+      this.props.updateInformation(informationReceived)
+    } else {
+      this.props.updateInformation([])
+    }
+  }
+
+  pStyle = {
+    margin: 'auto'
   }
 
   render() {
@@ -60,6 +97,7 @@ class Dashboard extends React.Component {
               })
             : null}
         </Row>
+        <NotificationsBar />
       </Container>
     )
   }
