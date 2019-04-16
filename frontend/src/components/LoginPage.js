@@ -4,6 +4,7 @@ import { Button } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { login } from '../redux/modules/auth'
 import { setUserType } from '../redux/modules/user'
+import NavBar from './NavBar'
 
 const mapStateToProps = state => ({
   verified: state.auth.verified,
@@ -61,6 +62,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
+        <NavBar/>
         <div style={{ paddingLeft: '5%' }}>
           <p>Kiva</p>
         </div>

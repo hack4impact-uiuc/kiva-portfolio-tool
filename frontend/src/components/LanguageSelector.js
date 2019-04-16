@@ -1,12 +1,4 @@
 import React, { Component } from 'react'
-import {
-  Col,
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown
-} from 'reactstrap'
 import { connect } from 'react-redux'
 import english_img from '../media/english.png'
 import french_img from '../media/french.png'
@@ -16,10 +8,6 @@ import Select from 'react-select';
 import { components } from 'react-select'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/navbar.css'
-
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
 
 const languages = [
     { value: 'english', label: 'English (US)', flag: english_img },
@@ -67,4 +55,4 @@ class LanguageSelector extends Component {
     }
 }
 
-export default connect(mapStateToProps)(LanguageSelector)
+export default LanguageSelector

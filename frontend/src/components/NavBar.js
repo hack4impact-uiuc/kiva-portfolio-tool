@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Col,
-  Container,
   Button,
-  ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -11,21 +8,15 @@ import {
   Navbar,
   NavbarBrand,
   NavItem,
-  Row,
   UncontrolledDropdown
 } from 'reactstrap'
 import LanguageSelector from './LanguageSelector'
-import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom';
 import k_logo from "../media/greenK.png"
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
 import '../styles/navbar.css'
-
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
 
 const NavBarComponent = withRouter(props => <NavBar {...props}/>);
 
@@ -36,17 +27,16 @@ class NavBar extends Component {
     this.state = {
       isLoginPage: true
     }
+
+    this.handlePageChange = this.handlePageChange.bind(this)
   }
 
-  SomeMethod () {
-    const {pathname} = this.props.location;
-  }
-
-  onClickHandler() {
-    // <DropdownToggle nav caret>
-    //   HERE
-    //   {/* <img src={english} width="35" height="35" className={"flag"}/> */}
-    // </DropdownToggle>
+  handlePageChange() {
+    if (this.props.location.pathname.equals("http://localhost:3000/dashboard")) {
+      this.setState({isLoginPage: false})
+    } else {
+      this.setState({isLoginPage: true})
+    }
   }
 
   render() {
@@ -55,7 +45,7 @@ class NavBar extends Component {
       <div>
       <LanguageSelector/>
       <div>
-        <Navbar color="white" light expand="md">
+        <Navbar color="white" light expand="md" handlePageChange={this.handlePageChange}>
             {this.state.isLoginPage && (
               <NavbarBrand href="/">
                 <img src={k_logo} width="50" height="50" />
@@ -104,4 +94,4 @@ class NavBar extends Component {
   }
 }
 
-export default connect(mapStateToProps)(NavBar)
+export default withRouter(NavBar)
