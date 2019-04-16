@@ -8,13 +8,15 @@ import { updateMessages, updateInformation } from '../redux/modules/user'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
-  allMessages: state.user.messages
+  allMessages: state.user.messages,
+  allInformation: state.user.information
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateMessages
+      updateMessages,
+      updateInformation
     },
     dispatch
   )
@@ -30,9 +32,16 @@ class NotificationsBar extends Component {
     this.props.updateMessages(messages)
   }
 
+  removeInformation = index => {
+    let information = [...this.props.allInformation]
+    information.splice(index, 1)
+    this.props.updateInformation(information)
+  }
+
   render() {
     const { isPM } = this.props.isPM
     const allMessages = this.props.allMessages
+    const allInformation = this.props.allInformation
     return (
       <Tabs>
         <TabList>
@@ -54,7 +63,20 @@ class NotificationsBar extends Component {
           })}
         </TabPanel>
         <TabPanel>
-          <h2>Any content 2</h2>
+          {allInformation.map((info, index) => {
+            return (
+              <div>
+                {info}
+                <button
+                  onClick={() => {
+                    this.removeInformation(index)
+                  }}
+                >
+                  X
+                </button>
+              </div>
+            )
+          })}
         </TabPanel>
       </Tabs>
     )

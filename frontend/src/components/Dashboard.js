@@ -1,7 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
 import NotificationsBar from './NotificationsBar'
-import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
+import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import { bindActionCreators } from 'redux'
@@ -21,14 +21,16 @@ import '../styles/index.css'
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
-  messages: state.user.messages
+  messages: state.user.messages,
+  information: state.user.information
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       updateDocuments,
-      updateMessages
+      updateMessages,
+      updateInformation
     },
     dispatch
   )
@@ -45,6 +47,7 @@ class Dashboard extends React.Component {
   async componentDidMount() {
     const res = await getAllDocuments()
     const res2 = await getAllMessages()
+    const res3 = await getAllInformation()
     if (res) {
       this.props.updateDocuments(res)
     } else {
@@ -54,6 +57,11 @@ class Dashboard extends React.Component {
       this.props.updateMessages(res2)
     } else {
       this.props.updateMessages([])
+    }
+    if (res3) {
+      this.props.updateInformation(res3)
+    } else {
+      this.props.updateInformation([])
     }
   }
   pStyle = {

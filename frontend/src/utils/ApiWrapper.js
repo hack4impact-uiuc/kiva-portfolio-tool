@@ -58,6 +58,11 @@ export const getAllMessages = () => {
   ]
 }
 
+export const getAllInformation = () => {
+  // get notifications received by target user
+  return ['I need you to not work on IST and get in the documents asap']
+}
+
 export const getAllDocumentClasses = () => {
   return ['WakaWaka', 'MakaMaka', 'BoomShakaLaka']
 }
