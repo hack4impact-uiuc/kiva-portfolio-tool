@@ -33,3 +33,26 @@ html, body {
 .text-white {
   color: white;
 }
+
+.center-background {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.left, .right {
+  display: inline-block; 
+  zoom: 1;
+  width:40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.left {
+  position: absolute;
+  left: 30px;
+}
+
+.right {
+  position: absolute;
+  right: 30px;
+}
