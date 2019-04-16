@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import DocumentPreview from './DocumentPreview'
+import DocumentClassPreview from './DocumentClassPreview'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
-import Upload from './Upload'
 import { downloadDocument } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
@@ -90,8 +89,9 @@ class DocumentClass extends Component {
             <td data-testid="docClass">{this.props.documentClass.name}</td>
           ) : null}
           <td data-testid="interaction" className="interaction">
+            <DocumentClassPreview documentClass={this.props.documentClass} />
             <Button color="primary" onClick={this.toggle}>
-              UPLOAD
+              Edit
             </Button>
           </td>
         </tr>
