@@ -1,8 +1,8 @@
 import React from 'react'
-import DocumentClassList from './DocumentClassList'
+import DocumentClass from './DocumentClass'
 import Upload from './Upload'
 import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
-import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import '../styles/dashboard.css'
@@ -158,7 +158,19 @@ class DocumentClassPage extends React.Component {
         <Button color="primary" onClick={this.toggle}>
           Add New Document Class
         </Button>
-        <DocumentClassList documentClasses={this.props.documentClasses} />
+        <Table>
+          <tbody>
+            <tr>
+              <th className="theader-centered">Document Class Name</th>
+              <th />
+            </tr>
+            {this.props.documentClasses
+              ? this.props.documentClasses.map(documentClass => (
+                  <DocumentClass documentClass={documentClass} />
+                ))
+              : null}
+          </tbody>
+        </Table>
       </>
     )
   }
