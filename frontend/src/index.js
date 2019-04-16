@@ -6,10 +6,12 @@ import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './redux/configureStore'
 import {
   Dashboard,
-  LoginPage,
   PMMainPage,
   SelectDocumentsPage,
-  DocumentClassPage
+  DocumentClassPage,
+  Register,
+  LogIn,
+  LoginPage
 } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
@@ -21,6 +23,8 @@ ReactDOM.render(
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Switch>
         <Route exact path="/" component={LoginPage} />
+        <Route path="/templogin" component={LogIn} />
+        <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />
         <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
