@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import 'react-tabs/style/react-tabs.css'
 import { connect } from 'react-redux'
 import { Progress } from 'reactstrap'
-import '../styles/colors.scss'
+import '../styles/colors.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
