@@ -133,7 +133,7 @@ def get_user_information(client, user_id):
     return info
 
 
-###
+"""
 def upload_file_redirect():
     data = request.files.get("file")
     file_name = request.form.get("file_name")
@@ -149,7 +149,7 @@ def upload_file_redirect():
         return create_response(status=400, message="Duplicate file name")
 
 
-###
+"""
 
 
 def upload_file(file, file_name):
