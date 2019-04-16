@@ -118,7 +118,7 @@ def test_get_all_fps(client):
 
 def test_new_pm(client):
     rs = client.post("/portfolio_manager/new")
-    assert rs.status_code == 500
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
@@ -147,7 +147,7 @@ def test_new_pm(client):
         content_type="application/json",
         json={"email": "angad", "name": "royuwu"},
     )
-    assert rs.status_code == 422
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
     assert ret_dict["message"] == "No list of FPs provided for new PM"

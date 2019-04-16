@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './redux/configureStore'
-import { Dashboard, LoginPage, Register, LogIn } from './components'
+import { Dashboard, LoginPage, PMMainPage, SelectDocumentsPage, Register, LogIn } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
 
@@ -16,7 +16,9 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={LogIn} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" to="/dashboard" component={Dashboard} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/main" component={PMMainPage} />
+        <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
       </Switch>
     </ConnectedRouter>
   </Provider>,

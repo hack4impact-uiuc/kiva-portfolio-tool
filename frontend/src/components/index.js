@@ -4,7 +4,10 @@ import DocumentList from './DocumentList'
 import DocumentListItem from './DocumentListItem'
 import Register from './Register'
 import Upload from './Upload'
+import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
+import PMMainPage from './PMMainPage'
 import LoginPage from './LoginPage'
 
-export { Dashboard, DocumentList, DocumentListItem, LogIn, Upload, BoxPreview, Register, LoginPage }
+export { Dashboard, DocumentList, DocumentListItem, LogIn, Upload, BoxPreview, Register, LoginPage, SelectDocumentsPage,
+  PMMainPage }
