@@ -1,10 +1,12 @@
 const SET_USER_TYPE = 'user/set_user_type'
 const UPDATE_DOCUMENTS = 'user/update_documents'
+const UPDATE_DOCUMENT_CLASSES = 'user/update_document_classes'
 const LOAD = 'user/load'
 
 const initialState = {
   isPM: false,
   documents: [],
+  documentClasses: [],
   loading: false
 }
 export default function reducer(state = initialState, action) {
@@ -18,6 +20,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         documents: action.value
+      }
+    case UPDATE_DOCUMENT_CLASSES:
+      return {
+        ...state,
+        documentClasses: action.value
       }
     case LOAD:
       return {
@@ -36,6 +43,11 @@ export const setUserType = value => ({
 
 export const updateDocuments = value => ({
   type: UPDATE_DOCUMENTS,
+  value
+})
+
+export const updateDocumentClasses = value => ({
+  type: UPDATE_DOCUMENT_CLASSES,
   value
 })
 
