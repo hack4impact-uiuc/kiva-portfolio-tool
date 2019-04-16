@@ -14,8 +14,8 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Switch>
-        <Route exact path="/" to="/" component={LogIn} />
-        <Route path="/login" to="/login" component={LoginPage} />
+        <Route exact path="/" component={LogIn} />
+        <Route path="/register" component={Register} />
         <Route path="/dashboard" to="/dashboard" component={Dashboard} />
       </Switch>
     </ConnectedRouter>

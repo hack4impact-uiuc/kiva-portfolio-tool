@@ -63,7 +63,7 @@ class Register extends React.Component {
 
   render = () => (
     <div>
-      <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
+      <Card className="interview-card center-background" style={{ width: '400px', height: '60%' }}>
         <CardTitle>
           <h3 style={{ textAlign: 'center', paddingTop: '10px' }}>Register</h3>
         </CardTitle>
