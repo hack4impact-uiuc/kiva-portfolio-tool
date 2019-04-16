@@ -6,6 +6,7 @@ import Upload from './Upload'
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
+import DocumentClassPage from './DocumentClassPage.js'
 
 export {
   Dashboard,
@@ -15,5 +16,6 @@ export {
   Upload,
   BoxPreview,
   SelectDocumentsPage,
-  PMMainPage
+  PMMainPage,
+  DocumentClassPage
 }

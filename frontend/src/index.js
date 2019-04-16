@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './redux/configureStore'
-import { Dashboard, LoginPage, PMMainPage, SelectDocumentsPage } from './components'
+import { Dashboard, LoginPage, PMMainPage, SelectDocumentsPage, DocumentClassPage} from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
 
@@ -18,6 +18,7 @@ ReactDOM.render(
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />
         <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
+        <Route path="/documentclasspage" component={DocumentClassPage} />
       </Switch>
     </ConnectedRouter>
   </Provider>,
