@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import {
+  Col,
+  Container,
   Button,
+  ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -8,15 +11,16 @@ import {
   Navbar,
   NavbarBrand,
   NavItem,
+  Row,
   UncontrolledDropdown
 } from 'reactstrap'
+import LanguageSelector from './LanguageSelector'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom';
 import k_logo from "../media/greenK.png"
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
-import english from '../media/english.png'
 import '../styles/navbar.css'
 
 const mapStateToProps = state => ({
@@ -38,9 +42,18 @@ class NavBar extends Component {
     const {pathname} = this.props.location;
   }
 
+  onClickHandler() {
+    // <DropdownToggle nav caret>
+    //   HERE
+    //   {/* <img src={english} width="35" height="35" className={"flag"}/> */}
+    // </DropdownToggle>
+  }
+
   render() {
     const { isPM } = this.props
     return (
+      <div>
+      <LanguageSelector/>
       <div>
         <Navbar color="white" light expand="md">
             {this.state.isLoginPage && (
@@ -50,17 +63,9 @@ class NavBar extends Component {
             )}
 
             {this.state.isLoginPage && (
-              <Nav className="ml-auto" navbar>
+              <Nav className="ml-auto">
                 <NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
-                      <img src={english} width="35" height="35" />
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      {isPM && <DropdownItem>Manage Documents</DropdownItem>}
-                      <DropdownItem>Log Out</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
+                    <LanguageSelector/>
                 </NavItem>
               </Nav>
             )}
@@ -93,6 +98,7 @@ class NavBar extends Component {
               </Nav>
             )}
         </Navbar>
+      </div>
       </div>
     )
   }
