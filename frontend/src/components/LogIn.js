@@ -38,20 +38,6 @@ class LogIn extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleGoogle = async e => {
-    // event.preventDefault();
-
-    const result = await google(e.tokenId)
-    const resp = await result.json()
-    if (resp.status !== 200) {
-      this.setState({ errorMessage: resp.message })
-    } else {
-      setCookie('token', e.tokenId)
-      setCookie('google', true)
-      //this.props.history.push('/')
-    }
-  }
-
   handleSubmit = async e => {
     e.preventDefault()
 

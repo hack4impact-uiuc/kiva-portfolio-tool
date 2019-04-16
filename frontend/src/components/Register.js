@@ -45,16 +45,13 @@ class Register extends React.Component {
   handleSubmit = async e => {
     e.preventDefault()
     if (this.state.password === this.state.password2) {
-      console.log('passwords match!')
       const result = await register(this.state.email, this.state.password)
       const response = await result.json()
-      console.log(response)
       if (!response.token) {
         this.setState({ errorMessage: response.message })
       } else {
         setCookie('token', response.token)
         this.props.history.push('/login')
-        //Router.push('/')
       }
     } else {
       this.setState({ errorMessage: 'Passwords do not match' })
