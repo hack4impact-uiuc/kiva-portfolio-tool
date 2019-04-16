@@ -40,19 +40,11 @@ def add_document_class():
             status=400, message="No name provided for new Document Class"
         )
 
-    if "fileName" not in data:
-        return create_response(status=400, message="No file name provided")
-
-    if request.files is None or "file" not in request.files:
-        return create_response(status=400, message="No file provided")
-
-    fileName = data.get("fileName")
-
-    file = request.files.get("file")
-
-    file_info = upload_file(file, fileName)
-
-    data["link"] = file_info["link"]
+    if "fileName" in data and request.files is not None and "file" in request.files:
+        fileName = data.get("fileName")
+        file = request.files.get("file")
+        file_info = upload_file(file, fileName)
+        data["link"] = file_info["link"]
 
     new_docclass = DocumentClass(data)
     db.session.add(new_docclass)
