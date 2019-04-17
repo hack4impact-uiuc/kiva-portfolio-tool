@@ -27,10 +27,6 @@ def get_document_class_by_id(id):
 @docclass.route("/document_class/new", methods=["POST"])
 def add_document_class():
     """ function that is called when you visit /document_class/new, creates a new docclass """
-    # data = request.get_json()
-    # if data is None:
-    #    data = request.form
-
     data = request.form
 
     if data is None:
@@ -43,6 +39,8 @@ def add_document_class():
 
     new_docclass = DocumentClass(data)
 
+    # only do Box stuff is a file is properly provided
+    # file name and file itself required
     if "fileName" in data and request.files is not None and "file" in request.files:
         fileName = data.get("fileName")
         file = request.files.get("file")
@@ -67,6 +65,8 @@ def update_document_class(id):
     docclass.name = data.get("name", docclass.name)
     docclass.description = data.get("description", docclass.description)
 
+    # only do Box stuff is a file is properly provided
+    # file name and file itself required
     if "fileName" in data and request.files is not None and "file" in request.files:
         fileName = data.get("fileName")
         file = request.files.get("file")
@@ -81,7 +81,9 @@ def update_document_class(id):
 
 @docclass.route("/document_class/delete/<id>", methods=["DELETE"])
 def delete_document_class(id):
+    # delete all associated Documents before deleting Document Class
     Document.query.filter(Document.docClassID == str(id)).delete()
+
     db.session.delete(DocumentClass.query.filter((DocumentClass.id == str(id))).first())
     db.session.commit()
     return create_response(status=200, message="success")

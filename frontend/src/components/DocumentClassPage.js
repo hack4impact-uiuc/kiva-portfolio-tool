@@ -23,12 +23,16 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
+/*
+A page accessible by admins and PMs with an overview of all Document Classes
+Functionality: Allows creation of new Document Classes and viewing/editing/deletion of existing ones through the DocumentClass component
+*/
 class DocumentClassPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      modal: false,
-      secondModal: false,
+      addModal: false, // modal that appears after clicking 'Add New Document Class'
+      uploadModal: false, // modal that appears to confirm that a file has been uploaded
       name: '',
       description: '',
       files: []
@@ -48,11 +52,11 @@ class DocumentClassPage extends React.Component {
   }
 
   toggle() {
-    this.setState({ modal: !this.state.modal })
+    this.setState({ addModal: !this.state.addModal })
   }
 
   secondToggle() {
-    this.setState({ secondModal: !this.state.secondModal })
+    this.setState({ uploadModal: !this.state.uploadModal })
   }
 
   updateName = event => {
@@ -63,7 +67,7 @@ class DocumentClassPage extends React.Component {
     this.setState({ description: event.target.value })
   }
 
-  async handleSubmit() {
+  handleSubmit() {
     createDocumentClass(
       this.state.name,
       this.state.description,
@@ -85,7 +89,7 @@ class DocumentClassPage extends React.Component {
         <Modal isOpen={this.state.uploadModal} toggle={this.toggleUpload}>
           <Upload uploadType="DocumentClass" />
         </Modal>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
             <form>
               <span> Name: </span>
@@ -129,7 +133,7 @@ class DocumentClassPage extends React.Component {
                     >
                       Create Document Class
                     </Button>
-                    <Modal isOpen={this.state.secondModal} toggle={this.secondToggle}>
+                    <Modal isOpen={this.state.uploadModal} toggle={this.secondToggle}>
                       <ModalBody>File uploaded - your submission is being processed.</ModalBody>
                       <ModalFooter>
                         <Button

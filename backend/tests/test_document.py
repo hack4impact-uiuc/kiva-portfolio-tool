@@ -110,9 +110,14 @@ def test_update_status(client):
     assert ret_dict["result"]["document"]["status"] == "Missing"
 
 
+# test functionality of adding new Documents
+# files ignored for the time being for simplicity's sake
 def test_create_new_document(client):
     docclass_id = add_mock_docclass("test_create_new_document")
 
+    # attempt POST with each parameter missing
+
+    # docClassID missing
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
@@ -122,6 +127,7 @@ def test_create_new_document(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["message"] == "No Document Class provided for new Document"
 
+    # status missing
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
@@ -131,6 +137,7 @@ def test_create_new_document(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["message"] == "No Status provided for new Document"
 
+    # userID missing
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
@@ -140,6 +147,7 @@ def test_create_new_document(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["message"] == "No UserID provided for new Document"
 
+    # valid POST
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",

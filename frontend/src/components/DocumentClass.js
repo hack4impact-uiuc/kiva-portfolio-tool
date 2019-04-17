@@ -18,6 +18,12 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
+/*
+Corresponds to each individual Document Class in the Admin/PM overview page
+Name is represented normally
+Buttons exist to view, edit, and delete
+View shows the description and a Box preview
+*/
 class DocumentClass extends Component {
   constructor(props) {
     super(props)
@@ -25,26 +31,26 @@ class DocumentClass extends Component {
     this.state = {
       name: this.props.documentClass.name,
       description: this.props.documentClass.description,
-      modal: false,
-      secondModal: false,
-      deleteModal: false,
+      editModal: false, // modal that appears when editing a Document class
+      uploadModal: false, // modal that appears indicating that a file has been uploading
+      deleteModal: false, // modal that appears making sure the user actually wants to delete the document class
       files: []
     }
 
-    this.toggle = this.toggle.bind(this)
-    this.secondToggle = this.secondToggle.bind(this)
+    this.editToggle = this.editToggle.bind(this)
+    this.uploadToggle = this.uploadToggle.bind(this)
     this.deleteToggle = this.deleteToggle.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSubmitNoFile = this.handleSubmitNoFile.bind(this)
   }
 
-  toggle() {
-    this.setState({ modal: !this.state.modal })
+  editToggle() {
+    this.setState({ editModal: !this.state.editModal })
   }
 
-  secondToggle() {
-    this.setState({ secondModal: !this.state.secondModal })
+  uploadToggle() {
+    this.setState({ uploadModal: !this.state.uploadModal })
   }
 
   deleteToggle() {
@@ -67,9 +73,11 @@ class DocumentClass extends Component {
       this.state.files[0],
       this.state.files[0].name
     )
-    this.secondToggle()
+    this.uploadToggle()
   }
 
+  // for if a Document Class is being submitted without an example file
+  // may be removed later
   handleSubmitNoFile() {
     updateDocumentClass(
       this.props.documentClass._id,
@@ -78,7 +86,7 @@ class DocumentClass extends Component {
       null,
       null
     )
-    this.secondToggle()
+    this.uploadToggle()
   }
 
   onDrop(files) {
@@ -95,7 +103,7 @@ class DocumentClass extends Component {
   render() {
     return (
       <>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.editModal} toggle={this.editToggle}>
           <ModalBody>
             <form>
               <span> Name: </span>
@@ -118,14 +126,14 @@ class DocumentClass extends Component {
                         <section>
                           <div {...getRootProps()}>
                             <input {...getInputProps()} />
-                            <p>Drag some files here, or click to select files</p>
+                            <p>Drag a file here, or click to select a file</p>
                           </div>
                         </section>
                       )}
                     </Dropzone>
                   </div>
                   <aside>
-                    <h4>Files Dropped</h4>
+                    <h4>File Dropped:</h4>
                     <ul className="droppedFilesBackground">
                       {this.state.files.map(f => (
                         <li className="droppedBox" key={f.name}>
@@ -141,15 +149,10 @@ class DocumentClass extends Component {
                     >
                       Update Document Class
                     </Button>
-                    <Modal isOpen={this.state.secondModal} toggle={this.secondToggle}>
+                    <Modal isOpen={this.state.uploadModal} toggle={this.uploadToggle}>
                       <ModalBody>File uploaded - your submission is being processed.</ModalBody>
                       <ModalFooter>
-                        <Button
-                          className="invalidSearchButton"
-                          onClick={e => {
-                            this.secondToggle()
-                          }}
-                        >
+                        <Button className="invalidSearchButton" onClick={this.uploadToggle}>
                           Return
                         </Button>
                       </ModalFooter>
@@ -161,7 +164,7 @@ class DocumentClass extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button className="invalidSearchButton" onClick={this.toggle}>
+            <Button className="invalidSearchButton" onClick={this.editToggle}>
               Return
             </Button>
           </ModalFooter>
@@ -172,7 +175,7 @@ class DocumentClass extends Component {
           ) : null}
           <td data-testid="interaction" className="interaction">
             <DocumentClassPreview documentClass={this.props.documentClass} />
-            <Button color="primary" onClick={this.toggle}>
+            <Button color="primary" onClick={this.editToggle}>
               Edit
             </Button>
             <Button color="primary" onClick={this.deleteToggle}>

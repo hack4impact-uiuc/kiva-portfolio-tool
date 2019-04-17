@@ -12,6 +12,7 @@ class DocumentClass(Mixin, db.Model):
     name = db.Column(db.String, unique=True)
     description = db.Column(db.String, unique=False, nullable=True)
     example = db.Column(db.String, unique=False, nullable=True)
+    # an example of this Document Class, represented by a shared Box link
 
     def __init__(self, data):
         self.id = str(uuid.uuid4())

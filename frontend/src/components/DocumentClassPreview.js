@@ -7,11 +7,16 @@ import '../styles/index.css'
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
+/*
+Used to view information about a Document CLass when pressing 'View'
+Allows users to see the name & description of a Document Class
+ALso has a box Preview
+*/
 class DocumentClassPreview extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      modal: false
+      modal: false // whether or not this component is showing
     }
 
     this.toggle = this.toggle.bind(this)
