@@ -109,10 +109,9 @@ export const downloadDocument = id => {
 
 export const updateDocumentStatus = (id, status) => {
   var data = new FormData()
-  data.append('docID', id)
   data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/status', data)
+    .put(BACKEND_URL + '/document/status/' + id, data)
     .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
@@ -131,9 +130,8 @@ export const uploadDocument = (file, file_name, docID) => {
   var data = new FormData()
   data.append('file', file)
   data.append('fileName', file_name)
-  data.append('docID', docID)
   return axios
-    .put(BACKEND_URL + '/document/upload', data)
+    .put(BACKEND_URL + '/document/upload/' + docID, data)
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',

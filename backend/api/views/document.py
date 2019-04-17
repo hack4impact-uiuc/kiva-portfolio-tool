@@ -105,20 +105,16 @@ def get_document():
 
 # new put route only for uploading documents
 # was previously in post when we shouldn't really be creating a new document in the database
-@document.route("/document/upload", methods=["PUT"])
-def upload_document():
+@document.route("/document/upload/<id>", methods=["PUT"])
+def upload_document(id):
     data = request.form
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
 
-    if "docID" not in data:
-        return create_response(status=400, message="No document ID provided")
-
     if "fileName" not in data:
         return create_response(status=400, message="No file name provided")
 
-    docID = data.get("docID")
     fileName = data.get("fileName")
 
     if request.files is None or "file" not in request.files:
@@ -128,7 +124,7 @@ def upload_document():
 
     file_info = upload_file(file, fileName)
 
-    doc = Document.query.get(docID)
+    doc = Document.query.get(id)
 
     doc.fileID = file_info["file"].id
     doc.link = file_info["link"]
@@ -213,8 +209,8 @@ def update_documents(docClassID):
 
 
 # given id of document, can update its status to new status provided in url
-@document.route("/document/status", methods=["PUT"])
-def update_status():
+@document.route("/document/status/<id>", methods=["PUT"])
+def update_status(id):
     """ 
     function called when you visit /document/update/<id>/<status>. Updates a doc's status 
     """
@@ -225,16 +221,13 @@ def update_status():
     if data is None:
         return create_response(status=400, message="No data provided")
 
-    if "docID" not in data:
-        return create_response(status=400, message="No document ID provided")
     if "status" not in data:
         return create_response(status=400, message="No document status provided")
 
-    docID = data.get("docID")
     status = data.get("status")
 
     # get document by id
-    doc = Document.query.get(docID)
+    doc = Document.query.get(id)
     # update doc status to new status and return
     doc.status = status
     ret = doc.to_dict()
