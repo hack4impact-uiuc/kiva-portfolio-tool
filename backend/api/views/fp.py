@@ -64,7 +64,7 @@ def new_fp():
             status=400, message="No application status provided for new FP"
         )
     sample_args = request.args
-    new_fp = FieldPartner(**data)
+    new_fp = FieldPartner(data)
     return create_response(data={"field_partner": new_fp.to_dict()})
 
 

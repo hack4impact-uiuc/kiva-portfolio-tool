@@ -159,10 +159,12 @@ def test_add_fp(client):
     db.session.commit()
 
     temp_field_partner = FieldPartner(
-        email="test@gmail.com",
-        org_name="hack4impact",
-        pm_id=helper_portfolio_manager.id,
-        app_status="Completed",
+        {
+            "email": "test@gmail.com",
+            "org_name": "hack4impact",
+            "pm_id": helper_portfolio_manager.id,
+            "app_status": "Completed",
+        }
     )
 
     db.session.add(temp_field_partner)

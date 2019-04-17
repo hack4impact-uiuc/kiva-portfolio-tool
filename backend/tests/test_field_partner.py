@@ -23,10 +23,12 @@ def create_pm():
 # create Field Partner and test whether it returns a field parnter
 def create_fp(helper_portfolio_manager):
     temp_field_partner = FieldPartner(
-        email="test@gmail.com",
-        org_name="hack4impact",
-        pm_id=helper_portfolio_manager.id,
-        app_status="Completed",
+        {
+            "email": "test@gmail.com",
+            "org_name": "hack4impact",
+            "pm_id": helper_portfolio_manager.id,
+            "app_status": "Completed",
+        }
     )
 
     return temp_field_partner
