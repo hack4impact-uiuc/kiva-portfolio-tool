@@ -44,15 +44,18 @@ def get_all_fps(id):
 @pm.route("/portfolio_manager/new", methods=["POST"])
 def new_pm():
     """ function that is called when you visit /portfolio_manager/new, creates a new PM """
-    data = request.get_json()
+    data = request.form
+
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
+
     if "email" not in data:
         return create_response(status=400, message="No email provided for new PM")
     if "name" not in data:
         return create_response(status=400, message="No name provided for new PM")
     if "list_of_fps" not in data:
         return create_response(status=400, message="No list of FPs provided for new PM")
+
     sample_args = request.args
     new_pm = PortfolioManager(**data)
     return create_response(data={"portfolio_manager": new_pm.to_dict()})

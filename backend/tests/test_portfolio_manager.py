@@ -129,8 +129,8 @@ def test_new_pm(client):
 
     rs = client.post(
         "/portfolio_manager/new",
-        content_type="application/json",
-        json={"email": "angad", "name": "royuwu", "list_of_fps": helper_arr_fps},
+        content_type="multipart/form-data",
+        data={"email": "angad", "name": "royuwu", "list_of_fps": helper_arr_fps},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -144,8 +144,8 @@ def test_new_pm(client):
     # Tests for if not all fields are provided
     rs = client.post(
         "/portfolio_manager/new",
-        content_type="application/json",
-        json={"email": "angad", "name": "royuwu"},
+        content_type="multipart/form-dat",
+        data={"email": "angad", "name": "royuwu"},
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
