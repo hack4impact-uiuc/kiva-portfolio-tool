@@ -108,3 +108,43 @@ def test_update_status(client):
     assert ret_dict["result"]["document"]["fileID"] == "Navam"
     assert ret_dict["result"]["document"]["userID"] == "Why"
     assert ret_dict["result"]["document"]["status"] == "Missing"
+
+
+def test_create_new_document(client):
+    docclass_id = add_mock_docclass("test_create_new_document")
+
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"userID": 1, "status": "Pending"},
+    )
+    assert rs.status_code == 400
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["message"] == "No Document Class provided for new Document"
+
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"userID": 1, "docClassID": docclass_id},
+    )
+    assert rs.status_code == 400
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["message"] == "No Status provided for new Document"
+
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"docClassID": docclass_id, "status": "Pending"},
+    )
+    assert rs.status_code == 400
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["message"] == "No UserID provided for new Document"
+
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"userID": 1, "status": "Pending", "docClassID": docclass_id},
+    )
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
