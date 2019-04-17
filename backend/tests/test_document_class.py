@@ -70,8 +70,8 @@ def test_add_document_class(client):
     # Test for not having required field provided
     rs = client.post(
         "/document_class/new",
-        content_type="application/json",
-        json={"description": "description here"},
+        content_type="multipart/form-data",
+        data={"description": "description here"},
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -101,8 +101,8 @@ def test_update_document_class_by_id(client):
 
     rs = client.put(
         "/document_class/update/" + helper_docclass.id,
-        content_type="application/json",
-        json={"name": "newdocname"},
+        content_type="multipart/form-data",
+        data={"name": "newdocname"},
     )
 
     assert rs.status_code == 200
