@@ -96,9 +96,9 @@ def test_update_status(client):
     db.session.commit()
 
     rs = client.put(
-        "/document/status",
+        "/document/status/" + str(temp_document.id),
         content_type="multipart/form-data",
-        data={"status": "Missing", "docID": temp_document.id},
+        data={"status": "Missing"},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
