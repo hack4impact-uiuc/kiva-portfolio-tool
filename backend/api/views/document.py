@@ -107,11 +107,7 @@ def get_document():
 # was previously in post when we shouldn't really be creating a new document in the database
 @document.route("/document/upload", methods=["PUT"])
 def upload_document():
-    # why does get_json() work sometimes and form does other times?
-    # this tries both to be safe
-    data = request.get_json()
-    if data is None:
-        data = request.form
+    data = request.form
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
@@ -149,12 +145,7 @@ def create_new_document():
     """
     functionality used to add a new document to database
     """
-    # data for new document should be stored as json in request
-    # why does get_json() work sometimes and form does other times?
-    # this tries both to be safe
-    data = request.get_json()
-    if data is None:
-        data = request.form
+    data = request.form
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
@@ -198,6 +189,10 @@ def update_documents(docClassID):
     """
     functionality that updates a document/documentClass
     """
+    data = request.form
+
+    if data is None:
+        return create_response(status=200, message="No data provided")
 
     # takes in updated docClassID information by json in request
     # receives all documents by docClassID
@@ -206,13 +201,13 @@ def update_documents(docClassID):
     # for each item in a document:
     #   replace if updated item data provided
     #   else keep old value
-    doc.fileID = request.json.get("fileID", doc.fileID)
-    doc.date = request.json.get("date", doc.date)
-    doc.status = request.json.get("status", doc.status)
-    doc.docClassID = request.json.get("docClassID", doc.docClassID)
-    doc.fileName = request.json.get("fileName", doc.fileName)
-    doc.latest = request.json.get("latest", doc.latest)
-    doc.description = request.json.get("description", doc.description)
+    doc.fileID = data.get("fileID", doc.fileID)
+    doc.date = data.get("date", doc.date)
+    doc.status = data.get("status", doc.status)
+    doc.docClassID = data.get("docClassID", doc.docClassID)
+    doc.fileName = data.get("fileName", doc.fileName)
+    doc.latest = data.get("latest", doc.latest)
+    doc.description = data.get("description", doc.description)
     db.session.commit()
     return create_response(status=200, message="success")
 
@@ -226,9 +221,9 @@ def update_status():
 
     # why does get_json() work sometimes and form does other times?
     # this tries both to be safe
-    data = request.get_json()
+    data = request.form
     if data is None:
-        data = request.form
+        return create_response(status=400, message="No data provided")
 
     if "docID" not in data:
         return create_response(status=400, message="No document ID provided")

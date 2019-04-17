@@ -206,8 +206,8 @@ def test_update_status(client):
 
     rs = client.put(
         "/document/status",
-        content_type="application/json",
-        json={"status": "Missing", "docID": temp_document.id},
+        content_type="multipart/form-data",
+        data={"status": "Missing", "docID": temp_document.id},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
