@@ -58,10 +58,12 @@ def add_document_class():
 def update_document_class(id):
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     data = request.form
+
     if data is None:
         return create_response(status=400, message="No body provided")
 
     docclass = DocumentClass.query.get(id)
+
     docclass.name = data.get("name", docclass.name)
     docclass.description = data.get("description", docclass.description)
 
