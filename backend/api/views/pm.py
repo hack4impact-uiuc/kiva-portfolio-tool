@@ -34,13 +34,6 @@ def get_pm_by_email(email):
     )
 
 
-@pm.route("/portfolio_manager/all_fps/<id>", methods=["GET"])
-def get_all_fps(id):
-    """ function that is called when you visit /portfolio_manager/all_fps/<id> that gets a portfolio manager by id """
-    pm_by_id = PortfolioManager.query.get(id)
-    return create_response(data={"list_of_fps": pm_by_id.list_of_fps})
-
-
 @pm.route("/portfolio_manager/new", methods=["POST"])
 def new_pm():
     """ function that is called when you visit /portfolio_manager/new, creates a new PM """
@@ -53,18 +46,7 @@ def new_pm():
         return create_response(status=400, message="No email provided for new PM")
     if "name" not in data:
         return create_response(status=400, message="No name provided for new PM")
-    if "list_of_fps" not in data:
-        return create_response(status=400, message="No list of FPs provided for new PM")
 
     sample_args = request.args
-    new_pm = PortfolioManager(**data)
+    new_pm = PortfolioManager(data)
     return create_response(data={"portfolio_manager": new_pm.to_dict()})
-
-
-@pm.route("/portfolio_manager/<pm_id>/<fp_id>", methods=["PUT"])
-def add_fp(pm_id, fp_id):
-    """ function that is called when you visit /portfolio_manager/add/<pm_id>/<fp_id>, adds an existing FP to the PM's list of FPs """
-    pm = PortfolioManager.query.get(pm_id)
-    pm.list_of_fps = pm.list_of_fps + [fp_id]
-    db.session.commit()
-    return create_response(data={"list_of_fps": pm.list_of_fps})

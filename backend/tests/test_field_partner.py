@@ -9,13 +9,7 @@ def test_index(client):
 
 # create a Portfolio Manager for testing
 def create_pm():
-    helper_arr_fps = []
-    helper_arr_fps.append("f123")
-    helper_arr_fps.append("f234")
-    helper_arr_fps.append("f345")
-    helper_portfolio_manager = PortfolioManager(
-        email="hello", name="Tim", list_of_fps=helper_arr_fps
-    )
+    helper_portfolio_manager = PortfolioManager({"email": "hello", "name": "Tim"})
 
     return helper_portfolio_manager
 
