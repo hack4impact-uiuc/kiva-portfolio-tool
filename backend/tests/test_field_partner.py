@@ -184,8 +184,8 @@ def test_new_fp(client):
 
     rs = client.post(
         "/field_partner/new",
-        content_type="application/json",
-        json={
+        content_type="multipart/form-data",
+        data={
             "email": "santa",
             "org_name": "Kiva",
             "pm_id": "2",
@@ -205,8 +205,8 @@ def test_new_fp(client):
     # Tests for if not all fields are provided
     rs = client.post(
         "/field_partner/new",
-        content_type="application/json",
-        json={"email": "santa", "org_name": "Kiva"},
+        content_type="multipart/form-data",
+        data={"email": "santa", "org_name": "Kiva"},
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -226,7 +226,7 @@ def test_update_app_status(client):
     url = "/field_partner/update/" + temp_field_partner.id
 
     rs = client.put(
-        url, content_type="application/json", json={"app_status": "Updated"}
+        url, content_type="multipart/form-data", data={"app_status": "Updated"}
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
