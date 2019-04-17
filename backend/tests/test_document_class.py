@@ -108,7 +108,6 @@ def test_update_document_class_by_id(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-    print(ret_dict)
 
     assert ret_dict["result"]["document_class"]["name"] == "newdocname"
     assert (
