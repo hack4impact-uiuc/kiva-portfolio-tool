@@ -7,17 +7,22 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import '../styles/dashboard.css'
 import { updateDocumentClasses } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import '../styles/index.css'
 import Dropzone from 'react-dropzone'
+import Loader from 'react-loader-spinner'
 
 const mapStateToProps = state => ({
-  documentClasses: state.user.documentClasses
+  documentClasses: state.user.documentClasses,
+  loading: state.auth.loading
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDocumentClasses
+      updateDocumentClasses,
+      beginLoading,
+      endLoading
     },
     dispatch
   )
@@ -62,6 +67,7 @@ class DocumentClassPage extends React.Component {
   }
 
   async handleSubmit() {
+    this.props.beginLoading()
     await createDocumentClass(
       this.state.name,
       this.state.description,
@@ -74,6 +80,7 @@ class DocumentClassPage extends React.Component {
     } else {
       this.props.updateDocumentClasses([])
     }
+    this.props.endLoading()
     this.toggle()
   }
 
@@ -84,86 +91,98 @@ class DocumentClassPage extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        <Modal isOpen={this.state.uploadModal} toggle={this.toggleUpload}>
-          <Upload uploadType="DocumentClass" />
-        </Modal>
-        <Modal isOpen={this.state.addModal} toggle={this.toggle}>
-          <ModalBody>
-            <form>
-              <span> Name: </span>
-              <input onChange={this.updateName} />
-              <br />
-              <span> Description: </span>
-              <textarea
-                name="paragraph_text"
-                cols="50"
-                rows="10"
-                onChange={this.updateDescription}
-              />
-              <br />
-              <div className="dropPage">
-                <section className="droppedBox">
-                  <div className="dropZone">
-                    <Dropzone onDrop={this.onDrop.bind(this)}>
-                      {({ getRootProps, getInputProps }) => (
-                        <section>
-                          <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <p>Drag some files here, or click to select files</p>
-                          </div>
-                        </section>
-                      )}
-                    </Dropzone>
-                  </div>
-                  <aside>
-                    <h4>Files Dropped</h4>
-                    <ul className="droppedFilesBackground">
-                      {this.state.files.map(f => (
-                        <li className="droppedBox" key={f.name}>
-                          {f.name} - {f.size} bytes
-                        </li>
-                      ))}
-                    </ul>
-                    <Button
-                      disabled={this.state.files.length === 0}
-                      className="right"
-                      onClick={this.handleSubmit}
-                    >
-                      Create Document Class
-                    </Button>
-                  </aside>
-                </section>
-                <hr />
-              </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <Button className="invalidSearchButton" onClick={this.toggle}>
-              Return
-            </Button>
-          </ModalFooter>
-        </Modal>
-        <h1>Edit Document Classes</h1>
-        <Button color="primary" onClick={this.toggle}>
-          Add New Document Class
-        </Button>
-        <Table>
-          <tbody>
-            <tr>
-              <th className="theader-centered">Document Class Name</th>
-              <th />
-            </tr>
-            {this.props.documentClasses
-              ? this.props.documentClasses.map(documentClass => (
-                  <DocumentClass documentClass={documentClass} />
-                ))
-              : null}
-          </tbody>
-        </Table>
-      </>
-    )
+    if (this.props.loading) {
+      return (
+        <div
+          className="resultsText"
+          style={{ paddingTop: window.innerWidth >= 550 ? '10%' : '20%' }}
+        >
+          Loading
+          <Loader type="Puff" color="green" height="100" width="100" />
+        </div>
+      )
+    } else {
+      return (
+        <>
+          <Modal isOpen={this.state.uploadModal} toggle={this.toggleUpload}>
+            <Upload uploadType="DocumentClass" />
+          </Modal>
+          <Modal isOpen={this.state.addModal} toggle={this.toggle}>
+            <ModalBody>
+              <form>
+                <span> Name: </span>
+                <input onChange={this.updateName} />
+                <br />
+                <span> Description: </span>
+                <textarea
+                  name="paragraph_text"
+                  cols="50"
+                  rows="10"
+                  onChange={this.updateDescription}
+                />
+                <br />
+                <div className="dropPage">
+                  <section className="droppedBox">
+                    <div className="dropZone">
+                      <Dropzone onDrop={this.onDrop.bind(this)}>
+                        {({ getRootProps, getInputProps }) => (
+                          <section>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <p>Drag some files here, or click to select files</p>
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
+                    </div>
+                    <aside>
+                      <h4>Files Dropped</h4>
+                      <ul className="droppedFilesBackground">
+                        {this.state.files.map(f => (
+                          <li className="droppedBox" key={f.name}>
+                            {f.name} - {f.size} bytes
+                          </li>
+                        ))}
+                      </ul>
+                      <Button
+                        disabled={this.state.files.length === 0}
+                        className="right"
+                        onClick={this.handleSubmit}
+                      >
+                        Create Document Class
+                      </Button>
+                    </aside>
+                  </section>
+                  <hr />
+                </div>
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <Button className="invalidSearchButton" onClick={this.toggle}>
+                Return
+              </Button>
+            </ModalFooter>
+          </Modal>
+          <h1>Edit Document Classes</h1>
+          <Button color="primary" onClick={this.toggle}>
+            Add New Document Class
+          </Button>
+          <Table>
+            <tbody>
+              <tr>
+                <th className="theader-centered">Document Class Name</th>
+                <th />
+              </tr>
+              {this.props.documentClasses
+                ? this.props.documentClasses.map(documentClass => (
+                    <DocumentClass documentClass={documentClass} />
+                  ))
+                : null}
+            </tbody>
+          </Table>
+        </>
+      )
+    }
   }
 }
 
