@@ -32,14 +32,12 @@ class DocumentClassPage extends React.Component {
     super(props)
     this.state = {
       addModal: false, // modal that appears after clicking 'Add New Document Class'
-      uploadModal: false, // modal that appears to confirm that a file has been uploaded
       name: '',
       description: '',
       files: []
     }
     this.toggle = this.toggle.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.secondToggle = this.secondToggle.bind(this)
   }
 
   async componentDidMount() {
@@ -53,10 +51,6 @@ class DocumentClassPage extends React.Component {
 
   toggle() {
     this.setState({ addModal: !this.state.addModal })
-  }
-
-  secondToggle() {
-    this.setState({ uploadModal: !this.state.uploadModal })
   }
 
   updateName = event => {
@@ -74,7 +68,7 @@ class DocumentClassPage extends React.Component {
       this.state.files[0],
       this.state.files[0].name
     )
-    this.secondToggle()
+    this.toggle()
   }
 
   onDrop(files) {
@@ -133,19 +127,6 @@ class DocumentClassPage extends React.Component {
                     >
                       Create Document Class
                     </Button>
-                    <Modal isOpen={this.state.uploadModal} toggle={this.secondToggle}>
-                      <ModalBody>File uploaded - your submission is being processed.</ModalBody>
-                      <ModalFooter>
-                        <Button
-                          className="invalidSearchButton"
-                          onClick={e => {
-                            this.secondToggle()
-                          }}
-                        >
-                          Return
-                        </Button>
-                      </ModalFooter>
-                    </Modal>
                   </aside>
                 </section>
                 <hr />
