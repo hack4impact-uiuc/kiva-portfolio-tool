@@ -105,4 +105,7 @@ class Upload extends Component {
   }
 }
 
-export default Upload
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Upload)
