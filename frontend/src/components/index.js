@@ -7,6 +7,7 @@ import Upload from './Upload'
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
+import DocumentClassPage from './DocumentClassPage.js'
 import LoginPage from './LoginPage'
 
 export {
@@ -19,5 +20,6 @@ export {
   Register,
   LoginPage,
   SelectDocumentsPage,
-  PMMainPage
+  PMMainPage,
+  DocumentClassPage
 }
