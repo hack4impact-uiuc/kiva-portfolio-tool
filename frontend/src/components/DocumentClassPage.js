@@ -41,9 +41,9 @@ class DocumentClassPage extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await getAllDocumentClasses()
-    if (res) {
-      this.props.updateDocumentClasses(res)
+    const document_classes = await getAllDocumentClasses()
+    if (document_classes) {
+      this.props.updateDocumentClasses(document_classes)
     } else {
       this.props.updateDocumentClasses([])
     }
@@ -61,13 +61,19 @@ class DocumentClassPage extends React.Component {
     this.setState({ description: event.target.value })
   }
 
-  handleSubmit() {
-    createDocumentClass(
+  async handleSubmit() {
+    await createDocumentClass(
       this.state.name,
       this.state.description,
       this.state.files[0],
       this.state.files[0].name
     )
+    const document_classes = await getAllDocumentClasses()
+    if (document_classes) {
+      this.props.updateDocumentClasses(document_classes)
+    } else {
+      this.props.updateDocumentClasses([])
+    }
     this.toggle()
   }
 
