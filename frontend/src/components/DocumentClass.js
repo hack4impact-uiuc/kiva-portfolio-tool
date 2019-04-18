@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentClassPreview from './DocumentClassPreview'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
-import { deleteDocumentClass, updateDocumentClass } from '../utils/ApiWrapper'
+import {
+  deleteDocumentClass,
+  updateDocumentClass,
+  getAllDocumentClasses
+} from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
 import Dropzone from 'react-dropzone'
@@ -65,27 +69,39 @@ class DocumentClass extends Component {
     this.setState({ description: event.target.value })
   }
 
-  handleSubmit() {
-    updateDocumentClass(
+  async handleSubmit() {
+    await updateDocumentClass(
       this.props.documentClass._id,
       this.state.name,
       this.state.description,
       this.state.files[0],
       this.state.files[0].name
     )
+    const document_classes = await getAllDocumentClasses()
+    if (document_classes) {
+      this.props.updateDocumentClasses(document_classes)
+    } else {
+      this.props.updateDocumentClasses([])
+    }
     this.uploadToggle()
   }
 
   // for if a Document Class is being submitted without an example file
   // may be removed later
-  handleSubmitNoFile() {
-    updateDocumentClass(
+  async handleSubmitNoFile() {
+    await updateDocumentClass(
       this.props.documentClass._id,
       this.state.name,
       this.state.description,
       null,
       null
     )
+    const document_classes = await getAllDocumentClasses()
+    if (document_classes) {
+      this.props.updateDocumentClasses(document_classes)
+    } else {
+      this.props.updateDocumentClasses([])
+    }
     this.uploadToggle()
   }
 
@@ -95,8 +111,14 @@ class DocumentClass extends Component {
     })
   }
 
-  handleDelete() {
-    deleteDocumentClass(this.props.documentClass._id)
+  async handleDelete() {
+    await deleteDocumentClass(this.props.documentClass._id)
+    const document_classes = await getAllDocumentClasses()
+    if (document_classes) {
+      this.props.updateDocumentClasses(document_classes)
+    } else {
+      this.props.updateDocumentClasses([])
+    }
     this.deleteToggle()
   }
 
