@@ -10,22 +10,6 @@ import { Container, Row, Col } from 'reactstrap'
 import '../styles/dashboard.css'
 import { updateDocuments, updateMessages, updateInformation } from '../redux/modules/user'
 import '../styles/index.css'
-
-// Not needed unless working with non "en" locales
-// import { addLocaleData } from 'react-intl';
-// import enLocaleData from 'react-intl/locale-data/en';
-
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
-
-import { render } from 'react-dom'
-
-// Not needed unless working with non "en" locales
-// import { addLocaleData } from 'react-intl';
-// import enLocaleData from 'react-intl/locale-data/en';
-
-import { ContentPreview } from 'box-ui-elements'
-import messages from 'box-ui-elements/i18n/en-US'
 import 'box-ui-elements/dist/preview.css'
 import './index.scss'
 
