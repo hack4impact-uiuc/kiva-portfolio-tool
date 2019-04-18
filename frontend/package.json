@@ -52,6 +52,7 @@
     "react-iframe": "^1.5.0",
     "react-immutable-proptypes": "^2.1.0",
     "react-intl": "^2.8.0",
+    "react-loader-spinner": "^2.3.0",
     "react-measure": "^2.2.4",
     "react-modal": "^3.8.1",
     "react-popup": "^0.10.0",
