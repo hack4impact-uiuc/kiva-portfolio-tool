@@ -17,6 +17,8 @@ class FieldPartner(Mixin, db.Model):
 
     def __init__(self, data):
         self.id = "f" + str(uuid.uuid4())
+
+        # required fields should be checked for existence by the request
         self.email = data["email"]
         self.org_name = data["org_name"]
         self.pm_id = data["pm_id"]

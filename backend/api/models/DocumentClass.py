@@ -15,8 +15,12 @@ class DocumentClass(Mixin, db.Model):
     # an example of this Document Class, represented by a shared Box link
 
     def __init__(self, data):
+
+        # required fields should be checked for existence by the request
         self.id = str(uuid.uuid4())
         self.name = data["name"]
+
+        # optional fields checked manually
         if "description" in data:
             self.description = data["description"]
         if "example" in data:

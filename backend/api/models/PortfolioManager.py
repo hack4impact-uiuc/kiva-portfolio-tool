@@ -16,6 +16,8 @@ class PortfolioManager(Mixin, db.Model):
 
     def __init__(self, data):
         self.id = "p" + str(uuid.uuid4())
+
+        # required fields should be checked for existence by the request
         self.email = data["email"]
         self.name = data["name"]
 
