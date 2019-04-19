@@ -7,6 +7,7 @@ import configureStore, { history } from './redux/configureStore'
 import { Dashboard, LoginPage, PMMainPage, SelectDocumentsPage } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
+require('typeface-rubik');
 
 const store = configureStore()
 

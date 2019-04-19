@@ -36,6 +36,42 @@ export const getAllPartners = () => {
       }
     },
     {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
       name: 'Mario',
       duedate: 1.423,
       status: 'Active',
