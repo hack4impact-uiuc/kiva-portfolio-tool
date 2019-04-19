@@ -37,6 +37,12 @@ def recreate_db():
 
     pm_id = create_mock_pm("pm@kiva.org", "PM")
 
+    fp1_id = create_mock_fp("fp1@kiva.org", "FP 1", "In Process", pm_id)
+
+    fp2_id = create_mock_fp("fp2@kiva.org", "FP 2", "New Partner", pm_id)
+
+    fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id)
+
     docclass_ids = []
 
     docclass_ids.append(
@@ -97,7 +103,7 @@ def recreate_db():
 
     create_mock_document(
         {
-            "userID": 1,
+            "userID": fp1_id,
             "docClassID": docclass_ids[0],
             "fileName": None,
             "status": "Missing",
@@ -105,7 +111,7 @@ def recreate_db():
     )
     create_mock_document(
         {
-            "userID": 1,
+            "userID": fp1_id,
             "docClassID": docclass_ids[1],
             "fileName": None,
             "status": "Missing",
@@ -114,7 +120,7 @@ def recreate_db():
     create_mock_document(
         {
             "fileID": 2,
-            "userID": 1,
+            "userID": fp1_id,
             "docClassID": docclass_ids[2],
             "fileName": "income_statement.pdf",
             "status": "Pending",
@@ -123,7 +129,7 @@ def recreate_db():
     create_mock_document(
         {
             "fileID": 3,
-            "userID": 1,
+            "userID": fp1_id,
             "docClassID": docclass_ids[3],
             "fileName": "balance_sheet.pdf",
             "status": "Pending",
@@ -132,7 +138,7 @@ def recreate_db():
     create_mock_document(
         {
             "fileID": 4,
-            "userID": 1,
+            "userID": fp1_id,
             "docClassID": docclass_ids[4],
             "fileName": "strategic_plan.pdf",
             "status": "Rejected",
@@ -141,7 +147,7 @@ def recreate_db():
     create_mock_document(
         {
             "fileID": 5,
-            "userID": 1,
+            "userID": fp1_id,
             "docClassID": docclass_ids[5],
             "fileName": "annual_plan.pdf",
             "status": "Rejected",
@@ -149,7 +155,7 @@ def recreate_db():
     )
     create_mock_document(
         {
-            "userID": 1,
+            "userID": fp1_id,
             "fileID": 6,
             "docClassID": docclass_ids[6],
             "fileName": "financial_proj.pdf",
@@ -158,7 +164,7 @@ def recreate_db():
     )
     create_mock_document(
         {
-            "userID": 1,
+            "userID": fp1_id,
             "fileID": 7,
             "docClassID": docclass_ids[7],
             "fileName": "org_chart.pdf",
