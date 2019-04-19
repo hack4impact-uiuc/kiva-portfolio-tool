@@ -62,7 +62,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <NavBar/>
+        <NavBar />
         <div style={{ paddingLeft: '5%' }}>
           <p>Kiva</p>
         </div>
