@@ -34,7 +34,6 @@ class LanguageSelector extends Component {
 
   componentDidMount = selectedOption => {
     this.setState({ selectedOption })
-    console.log(`Option selected:`, selectedOption)
   }
 
   render() {
