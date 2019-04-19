@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
-import { sendFile } from '../utils/ApiWrapper'
+import { uploadDocument } from '../utils/ApiWrapper'
 
 class Upload extends Component {
   constructor(props) {
@@ -59,7 +59,7 @@ class Upload extends Component {
                 disabled={this.state.files.length === 0}
                 className="right"
                 onClick={e => {
-                  sendFile(this.state.files[0], this.state.files[0].name)
+                  uploadDocument(this.state.files[0], this.state.files[0].name, this.props.docID)
                   this.toggle()
                 }}
               >

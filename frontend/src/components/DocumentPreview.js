@@ -34,9 +34,8 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: this.props.document.fileId,
       accessToken: null,
-      fileURL: null
+      fileURL: this.props.document.link
     }
 
     this.toggle = this.toggle.bind(this)
@@ -81,9 +80,6 @@ class DocumentPreview extends Component {
         accessToken: null
       })
     }
-    this.setState({
-      fileURL: 'https://app.box.com/s/' + this.state.fileId
-    })
   }
 
   render() {

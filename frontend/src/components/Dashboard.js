@@ -1,13 +1,20 @@
 import React from 'react'
 import DocumentList from './DocumentList'
+<<<<<<< HEAD
 import Notification from './Notification'
 import NavBar from './NavBar'
 import { getAllDocuments } from '../utils/ApiWrapper'
+=======
+import NotificationsBar from './NotificationsBar'
+import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
+import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+>>>>>>> d41414220f68c042fd6b7183c11db15a2eb424b2
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
 import '../styles/dashboard.css'
-import { updateDocuments } from '../redux/modules/user'
+import { updateDocuments, updateMessages, updateInformation } from '../redux/modules/user'
 import '../styles/index.css'
 
 // Not needed unless working with non "en" locales
@@ -17,15 +24,33 @@ import '../styles/index.css'
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
+import { render } from 'react-dom'
+
+// Not needed unless working with non "en" locales
+// import { addLocaleData } from 'react-intl';
+// import enLocaleData from 'react-intl/locale-data/en';
+
+import { ContentPreview } from 'box-ui-elements'
+import messages from 'box-ui-elements/i18n/en-US'
+import 'box-ui-elements/dist/preview.css'
+import './index.scss'
+
+// Not needed unless working with non "en" locales
+// addLocaleData(enLocaleData);
+
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
-  documents: state.user.documents
+  documents: state.user.documents,
+  messages: state.user.messages,
+  information: state.user.information
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDocuments
+      updateDocuments,
+      updateMessages,
+      updateInformation
     },
     dispatch
   )
@@ -40,16 +65,47 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await getAllDocuments()
-    if (res) {
-      this.props.updateDocuments(res)
+    /**
+     * Contains all documents received from backend
+     */
+    const documentsReceived = await getAllDocuments()
+
+    /**
+     * Contains all messages received from backend
+     */
+    const messagesReceived = await getAllMessages()
+
+    /**
+     * Contains all information received from backend
+     */
+    const informationReceived = await getAllInformation()
+
+    if (documentsReceived) {
+      this.props.updateDocuments(documentsReceived)
     } else {
       this.props.updateDocuments([])
     }
+
+    if (messagesReceived) {
+      this.props.updateMessages(messagesReceived)
+    } else {
+      this.props.updateMessages([])
+    }
+
+    if (informationReceived) {
+      this.props.updateInformation(informationReceived)
+    } else {
+      this.props.updateInformation([])
+    }
+  }
+
+  pStyle = {
+    margin: 'auto'
   }
 
   render() {
     return (
+<<<<<<< HEAD
       <div>
         <NavBar />
         <Container>
@@ -66,6 +122,22 @@ class Dashboard extends React.Component {
           </Row>
         </Container>
       </div>
+=======
+      <Container>
+        <Row>
+          {this.props.documents
+            ? this.state.statuses.map(key => {
+                return (
+                  <Col sm="12" md="6">
+                    <DocumentList documents={this.props.documents[key]} status={key} />
+                  </Col>
+                )
+              })
+            : null}
+        </Row>
+        <NotificationsBar />
+      </Container>
+>>>>>>> d41414220f68c042fd6b7183c11db15a2eb424b2
     )
   }
 }
