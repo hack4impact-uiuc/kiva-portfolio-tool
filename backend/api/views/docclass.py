@@ -1,5 +1,6 @@
 from flask import Blueprint, request, json
-from api.models import DocumentClass, db
+from api.models import Document, DocumentClass, db
+from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
 import requests, json
@@ -26,28 +27,63 @@ def get_document_class_by_id(id):
 @docclass.route("/document_class/new", methods=["POST"])
 def add_document_class():
     """ function that is called when you visit /document_class/new, creates a new docclass """
-    data = request.get_json()
-    logger.info(data)
+    data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No data provided")
+
     if "name" not in data:
         return create_response(
             status=400, message="No name provided for new Document Class"
         )
 
-    sample_args = request.args
-    new_docclass = DocumentClass(**data)
+    new_docclass = DocumentClass(data)
+
+    # only do Box stuff is a file is properly provided
+    # file name and file itself required
+    if "fileName" in data and request.files is not None and "file" in request.files:
+        fileName = data.get("fileName")
+        file = request.files.get("file")
+        file_info = upload_file(file, fileName)
+        new_docclass.example = file_info["link"]
+
     db.session.add(new_docclass)
     db.session.commit()
-    ret = new_docclass.to_dict()
     return create_response(status=200, message="success")
 
 
 @docclass.route("/document_class/update/<id>", methods=["PUT"])
 def update_document_class(id):
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
+    data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No body provided")
+
     docclass = DocumentClass.query.get(id)
-    docclass.name = request.json.get("name", docclass.name)
-    docclass.description = request.json.get("description", docclass.description)
+
+    docclass.name = data.get("name", docclass.name)
+    docclass.description = data.get("description", docclass.description)
+
+    # only do Box stuff is a file is properly provided
+    # file name and file itself required
+    if "fileName" in data and request.files is not None and "file" in request.files:
+        fileName = data.get("fileName")
+        file = request.files.get("file")
+        file_info = upload_file(file, fileName)
+        docclass.example = file_info["link"]
+
     updated_docclass = docclass.to_dict()
 
     db.session.commit()
     return create_response(status=200, data={"document_class": updated_docclass})
+
+
+@docclass.route("/document_class/delete/<id>", methods=["DELETE"])
+def delete_document_class(id):
+    # delete all associated Documents before deleting Document Class
+    Document.query.filter(Document.docClassID == str(id)).delete()
+
+    db.session.delete(DocumentClass.query.filter((DocumentClass.id == str(id))).first())
+    db.session.commit()
+    return create_response(status=200, message="success")

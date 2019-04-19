@@ -1,8 +1,21 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
-import { sendFile } from '../utils/ApiWrapper'
+import { uploadDocument, getAllDocuments } from '../utils/ApiWrapper'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { updateDocuments } from '../redux/modules/user'
 
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateDocuments
+    },
+    dispatch
+  )
+}
 class Upload extends Component {
   constructor(props) {
     super(props)
@@ -11,6 +24,8 @@ class Upload extends Component {
       modal: false,
       submissionStatus: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.toggle = this.toggle.bind(this)
   }
 
   onDrop(files) {
@@ -24,6 +39,17 @@ class Upload extends Component {
       modal: !this.state.modal,
       submissionStatus: 'File uploaded - your submission is being processed.'
     })
+  }
+
+  async handleSubmit() {
+    await uploadDocument(this.state.files[0], this.state.files[0].name, this.props.docID)
+    const documents = await getAllDocuments()
+    if (documents) {
+      this.props.updateDocuments(documents)
+    } else {
+      this.props.updateDocuments([])
+    }
+    this.toggle()
   }
 
   render() {
@@ -58,22 +84,14 @@ class Upload extends Component {
               <Button
                 disabled={this.state.files.length === 0}
                 className="right"
-                onClick={e => {
-                  sendFile(this.state.files[0], this.state.files[0].name)
-                  this.toggle()
-                }}
+                onClick={this.handleSubmit}
               >
                 Upload File
               </Button>
               <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalBody>File uploaded - your submission is being processed.</ModalBody>
                 <ModalFooter>
-                  <Button
-                    className="invalidSearchButton"
-                    onClick={e => {
-                      this.toggle()
-                    }}
-                  >
+                  <Button className="invalidSearchButton" onClick={this.toggle}>
                     Return
                   </Button>
                 </ModalFooter>
@@ -87,4 +105,7 @@ class Upload extends Component {
   }
 }
 
-export default Upload
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Upload)
