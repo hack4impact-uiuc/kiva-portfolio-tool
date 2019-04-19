@@ -33,7 +33,7 @@ class NavBar extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.pathname === '/dashboard') {
+    if (this.props.location.pathname != '/') {
       this.setState({ isLoginPage: false })
     } else {
       this.setState({ isLoginPage: true })
