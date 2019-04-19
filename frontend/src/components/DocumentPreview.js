@@ -7,6 +7,7 @@ import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user
 import Iframe from 'react-iframe'
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
+import preview from '../media/preview.png'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
@@ -98,8 +99,8 @@ class DocumentPreview extends Component {
     return (
       <>
         {this.state.fileName && (
-          <Button color="primary" onClick={this.toggle}>
-            {isPM ? 'REVIEW' : 'VIEW'}
+          <Button color="transparent" onClick={this.toggle}>
+            <img className="buttonimg" src={preview}/>
           </Button>
         )}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>

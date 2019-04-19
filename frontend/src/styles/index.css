@@ -23,3 +23,10 @@ html, body {
 
 .text-white {
   color: white; }
+
+.padding-right-sm {
+  padding-right: 2%; }
+
+.buttonimg {
+  width: 20px;
+  height: 20px; }

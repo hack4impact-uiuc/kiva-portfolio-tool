@@ -9,16 +9,33 @@
   border-radius: 8px;
 }
 
-td {
+.table tr td {
+  vertical-align: middle;
   text-align: center;
+  padding: 1% 0% 1% 0%;
 }
 
-td .interaction {
-  width: auto;
+.table tr:hover {
+  background-color: $hover-link-color;
+}
+
+.table tr .padding-right-sm {
+  padding-right: 2%;
+}
+
+.interaction > .btn-transparent:hover {
+  /* make the background color the same as the hover instead of layering the same color */
+  background-color: inherit;
+}
+
+.interaction > .btn-transparent {
+  padding: 0;
+  margin: 0;
 }
 
 Button {
-  margin: 1%;
+  margin: 0;
+  padding: 0;
 }
 
 .modal-footer Button {
