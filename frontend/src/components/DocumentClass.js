@@ -74,34 +74,23 @@ class DocumentClass extends Component {
 
   async handleSubmit() {
     this.props.beginLoading()
-    await updateDocumentClass(
-      this.props.documentClass._id,
-      this.state.name,
-      this.state.description,
-      this.state.files[0],
-      this.state.files[0].name
-    )
-    const document_classes = await getAllDocumentClasses()
-    if (document_classes) {
-      this.props.updateDocumentClasses(document_classes)
+    if (this.state.files.length == 0) {
+      await updateDocumentClass(
+        this.props.documentClass._id,
+        this.state.name,
+        this.state.description,
+        null,
+        null
+      )
     } else {
-      this.props.updateDocumentClasses([])
+      await updateDocumentClass(
+        this.props.documentClass._id,
+        this.state.name,
+        this.state.description,
+        this.state.files[0],
+        this.state.files[0].name
+      )
     }
-    this.props.endLoading()
-    this.uploadToggle()
-  }
-
-  // for if a Document Class is being submitted without an example file
-  // may be removed later
-  async handleSubmitNoFile() {
-    this.props.beginLoading()
-    await updateDocumentClass(
-      this.props.documentClass._id,
-      this.state.name,
-      this.state.description,
-      null,
-      null
-    )
     const document_classes = await getAllDocumentClasses()
     if (document_classes) {
       this.props.updateDocumentClasses(document_classes)
@@ -172,12 +161,7 @@ class DocumentClass extends Component {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      className="right"
-                      onClick={
-                        this.state.files.length == 0 ? this.handleSubmitNoFile : this.handleSubmit
-                      }
-                    >
+                    <Button className="right" onClick={this.handleSubmit}>
                       Update Document Class
                     </Button>
                     <Modal isOpen={this.state.uploadModal} toggle={this.uploadToggle}>
