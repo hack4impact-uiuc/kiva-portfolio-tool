@@ -59,7 +59,7 @@ class DocumentListItem extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-        <tr>
+        <tr className= "hoverable">
           <td data-testid="docClass">{this.state.document.docClassName}</td>
           <td data-testid="fileName">
             {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
