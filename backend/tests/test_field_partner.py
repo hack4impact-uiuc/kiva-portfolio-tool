@@ -9,13 +9,7 @@ def test_index(client):
 
 # create a Portfolio Manager for testing
 def create_pm():
-    helper_arr_fps = []
-    helper_arr_fps.append("f123")
-    helper_arr_fps.append("f234")
-    helper_arr_fps.append("f345")
-    helper_portfolio_manager = PortfolioManager(
-        email="hello", name="Tim", list_of_fps=helper_arr_fps
-    )
+    helper_portfolio_manager = PortfolioManager({"email": "hello", "name": "Tim"})
 
     return helper_portfolio_manager
 
@@ -23,10 +17,12 @@ def create_pm():
 # create Field Partner and test whether it returns a field parnter
 def create_fp(helper_portfolio_manager):
     temp_field_partner = FieldPartner(
-        email="test@gmail.com",
-        org_name="hack4impact",
-        pm_id=helper_portfolio_manager.id,
-        app_status="Completed",
+        {
+            "email": "test@gmail.com",
+            "org_name": "hack4impact",
+            "pm_id": helper_portfolio_manager.id,
+            "app_status": "Completed",
+        }
     )
 
     return temp_field_partner
@@ -178,14 +174,14 @@ def test_get_fp_by_pm(client):
 
 def test_new_fp(client):
     rs = client.post("/field_partner/new")
-    assert rs.status_code == 500
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
     rs = client.post(
         "/field_partner/new",
-        content_type="application/json",
-        json={
+        content_type="multipart/form-data",
+        data={
             "email": "santa",
             "org_name": "Kiva",
             "pm_id": "2",
@@ -205,10 +201,10 @@ def test_new_fp(client):
     # Tests for if not all fields are provided
     rs = client.post(
         "/field_partner/new",
-        content_type="application/json",
-        json={"email": "santa", "org_name": "Kiva"},
+        content_type="multipart/form-data",
+        data={"email": "santa", "org_name": "Kiva"},
     )
-    assert rs.status_code == 422
+    assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
     assert ret_dict["message"] == "No PM ID provided for new FP"
@@ -226,7 +222,7 @@ def test_update_app_status(client):
     url = "/field_partner/update/" + temp_field_partner.id
 
     rs = client.put(
-        url, content_type="application/json", json={"app_status": "Updated"}
+        url, content_type="multipart/form-data", data={"app_status": "Updated"}
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary

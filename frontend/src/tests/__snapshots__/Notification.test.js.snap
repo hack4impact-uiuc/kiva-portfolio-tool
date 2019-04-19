@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Upload renders correctly 1`] = `
+exports[`Notification renders correctly 1`] = `
 <ContextConsumer>
   <Component />
 </ContextConsumer>

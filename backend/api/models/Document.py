@@ -16,15 +16,20 @@ class Document(Mixin, db.Model):
         db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
         unique=False,
     )  # db.Enum
-    docClass = db.Column(db.String, unique=False)  # db.Enum
-    fileName = db.Column(db.String, unique=False)
+    docClassID = db.Column(
+        db.String, db.ForeignKey("document_class.id"), nullable=False
+    )
+    fileName = db.Column(db.String, unique=False, nullable=True)
     latest = db.Column(db.Boolean, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
+    link = db.Column(db.String, unique=False, nullable=True)
 
+    """
     def __init__(
         self,
         userID,
-        docClass,
+        docClassID,
+        file=None,
         fileID=None,
         date=None,
         status="Missing",
@@ -36,10 +41,35 @@ class Document(Mixin, db.Model):
         self.userID = userID
         self.date = date
         self.status = status
-        self.docClass = docClass
+        self.docClassID = docClassID
         self.fileName = fileName
         self.latest = latest
         self.description = description
+    """
+    # use dictionary to load params to avoid weird issue with values being placed in lists
+    def __init__(self, data):
+
+        # required fields should be checked for existence by the request
+        self.userID = data["userID"]
+        self.status = data["status"]
+        self.docClassID = data["docClassID"]
+
+        # optional fields checked manually
+        if "date" in data:
+            self.date = data["date"]
+        if "fileID" in data:
+            self.fileID = data["fileID"]
+        if "fileName" in data:
+            self.fileName = data["fileName"]
+        if "latest" in data:
+            self.latest = data["latest"]
+        if "description" in data:
+            self.description = data["description"]
+        if "link" in data:
+            self.link = data["link"]
 
     def __repr__(self):
-        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClass: {self.docClass}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n"
+        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n <link: {self.link}>\n"
+
+    def get_docclass_id(self):
+        return self.docClassID

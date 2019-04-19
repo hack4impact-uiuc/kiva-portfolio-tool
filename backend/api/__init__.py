@@ -78,14 +78,17 @@ def create_app(test_config=None):
     Migrate(app, db)
 
     # import and register blueprints
-    from api.views import main, message, box, fp, pm
+    from api.views import main, document, message, box, fp, pm, docclass
 
     # why blueprints http://flask.pocoo.org/docs/1.0/blueprints/
     app.register_blueprint(main.main)
+    app.register_blueprint(document.document)
     app.register_blueprint(message.message)
     app.register_blueprint(box.box)
     app.register_blueprint(fp.fp)
     app.register_blueprint(pm.pm)
+    app.register_blueprint(docclass.docclass)
+
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
 

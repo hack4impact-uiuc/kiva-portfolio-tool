@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { getAccessToken, updateDocumentStatus, getAllDocuments } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
-import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+import { updateDocuments } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import Iframe from 'react-iframe'
+import Loader from 'react-loader-spinner'
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import preview from '../media/preview.png'
@@ -15,7 +17,7 @@ import preview from '../media/preview.png'
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
-  loading: state.user.loading
+  loading: state.auth.loading
 })
 
 const mapDispatchToProps = dispatch => {
@@ -35,9 +37,8 @@ class DocumentPreview extends Component {
     this.state = {
       id: this.props.document._id,
       fileName: this.props.document.fileName,
-      fileId: this.props.document.fileId,
       accessToken: null,
-      fileURL: null
+      fileURL: this.props.document.link
     }
 
     this.toggle = this.toggle.bind(this)
@@ -46,22 +47,28 @@ class DocumentPreview extends Component {
   }
 
   async handleApproveClick() {
-    await updateDocumentStatus(this.state.id, 'Approved')
     this.props.beginLoading()
-    getAllDocuments().then(res => {
+    await updateDocumentStatus(this.state.id, 'Approved')
+    const res = await getAllDocuments()
+    if (res) {
       this.props.updateDocuments(res)
-      this.props.endLoading()
-    })
+    } else {
+      this.props.updateDocuments([])
+    }
+    this.props.endLoading()
     this.toggle()
   }
 
   async handleRejectClick() {
-    await updateDocumentStatus(this.state.id, 'Rejected')
     this.props.beginLoading()
-    getAllDocuments().then(results => {
-      this.props.updateDocuments(results)
-      this.props.endLoading()
-    })
+    await updateDocumentStatus(this.state.id, 'Rejected')
+    const res = await getAllDocuments()
+    if (res) {
+      this.props.updateDocuments(res)
+    } else {
+      this.props.updateDocuments([])
+    }
+    this.props.endLoading()
     this.toggle()
   }
 
@@ -82,9 +89,6 @@ class DocumentPreview extends Component {
         accessToken: null
       })
     }
-    this.setState({
-      fileURL: 'https://app.box.com/s/' + this.state.fileId
-    })
   }
 
   render() {
@@ -96,36 +100,48 @@ class DocumentPreview extends Component {
       overlfow: 'scroll'
     }
 
-    return (
-      <>
-        {this.state.fileName && (
-          <Button color="transparent" onClick={this.toggle}>
-            <img className="buttonimg" src={preview}/>
+    if (this.props.loading) {
+      return (
+        <div
+          className="resultsText"
+          style={{ paddingTop: window.innerWidth >= 550 ? '10%' : '20%' }}
+        >
+          Loading
+          <Loader type="Puff" color="green" height="100" width="100" />
+        </div>
+      )
+    } else {
+      return (
+        <>
+          {this.state.fileName && (
+            <Button color="transparent" onClick={this.toggle}>
+              <img className="buttonimg" src={preview}/>
           </Button>
-        )}
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody style={customStyles}>
-            <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
-          </ModalBody>
-          <ModalFooter>
-            {isPM && (
-              <div>
-                <Button color="success" onClick={this.handleApproveClick}>
-                  Approve
-                </Button>
-                <Button color="danger" onClick={this.handleRejectClick}>
-                  Reject
-                </Button>
-              </div>
-            )}
-            <Button color="secondary" onClick={this.toggle}>
-              Close
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </>
-    )
+          )}
+          <Modal isOpen={this.state.modal} toggle={this.toggle}>
+            <ModalHeader>{this.state.fileName}</ModalHeader>
+            <ModalBody style={customStyles}>
+              <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
+            </ModalBody>
+            <ModalFooter>
+              {isPM && (
+                <div>
+                  <Button color="success" onClick={this.handleApproveClick}>
+                    Approve
+                  </Button>
+                  <Button color="danger" onClick={this.handleRejectClick}>
+                    Reject
+                  </Button>
+                </div>
+              )}
+              <Button color="secondary" onClick={this.toggle}>
+                Close
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </>
+      )
+    }
   }
 }
 
