@@ -1,59 +1,33 @@
-import { Component } from 'react'
+const nodemailer = require('nodemailer')
 
-class SmtpService extends Component {
-  constructor(props) {
-    super(props)
-
-    this.send = this.send.bind(this)
-    this.ajaxPost = this.ajaxPost.bind(this)
-    this.ajax = this.ajax.bind(this)
-    this.createCORSRequest = this.createCORSRequest.bind(this)
-  }
-
-  /* https://smtpjs.com/ */
-
-  /* SmtpJS.com - v3.0.0 */
-  send = a => {
-    return new Promise(function(n, e) {
-      a.nocache = Math.floor(1e6 * Math.random() + 1)
-      a.Action = 'Send'
-      var t = JSON.stringify(a)
-      this.ajaxPost('https://smtpjs.com/v3/smtpjs.aspx?', t, function(e) {
-        n(e)
-      })
-    })
-  }
-
-  ajaxPost = (e, n, t) => {
-    var a = this.createCORSRequest('POST', e)
-    a.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    a.onload = function() {
-      var e = a.responseText
-      null != t && t(e)
+// async..await is not allowed in global scope, must use a wrapper
+async function main() {
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: 'otakuness3@gmail.com', // generated ethereal user
+      pass: '' // generated ethereal password
     }
-    a.send(n)
-  }
+  })
 
-  ajax = (e, n) => {
-    var t = this.createCORSRequest('GET', e)
-    t.onload = function() {
-      var e = t.responseText
-      null != n && n(e)
-    }
-    t.send()
-  }
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Fred Foo 👻" <foo@example.com>', // sender address
+    to: 'bar@example.com, baz@example.com', // list of receivers
+    subject: 'Hello ✔', // Subject line
+    text: 'Hello world?', // plain text body
+    html: '<b>Hello world?</b>' // html body
+  })
 
-  createCORSRequest = (e, n) => {
-    var t = new XMLHttpRequest()
-    return (
-      'withCredentials' in t
-        ? t.open(e, n, !0)
-        : 'undefined' != typeof XDomainRequest
-        ? t.open(e, n)
-        : (t = null),
-      t
-    )
-  }
+  console.log('Message sent: %s', info.messageId)
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  // Preview only available when sending through an Ethereal account
+  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
-export default SmtpService
+main().catch(console.error)
