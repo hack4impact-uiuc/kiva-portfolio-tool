@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const { sendResponse } = require('./../utils/sendResponse')
 const BACKEND_URL = 'http://localhost:8000/'
 
 export const login = (email, password) => {
+  console.log("test")
   let data = new FormData()
   data.append('email', email)
   data.append('password', password)
