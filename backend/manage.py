@@ -35,6 +35,8 @@ def recreate_db():
     db.drop_all()
     db.create_all()
 
+    pm_id = create_mock_pm("pm@kiva.org", "PM")
+
     docclass_ids = []
 
     docclass_ids.append(
@@ -165,6 +167,20 @@ def recreate_db():
     )
 
     db.session.commit()
+
+
+def create_mock_pm(email, name):
+    pm = PortfolioManager({"email": email, "name": name})
+    db.session.add(pm)
+    return pm.id
+
+
+def create_mock_fp(email, org_name, app_status, pm_id):
+    fp = FieldPartner(
+        {"email": email, "org_name": org_name, "app_status": app_status, "pm_id": pm_id}
+    )
+    db.session.add(fp)
+    return fp.id
 
 
 def create_mock_docclass(docclass_name, docclass_description=None):
