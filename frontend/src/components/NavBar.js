@@ -12,6 +12,7 @@ import {
   UncontrolledDropdown
 } from 'reactstrap'
 import LanguageSelector from './LanguageSelector'
+import NotificationsBar from './NotificationsBar'
 import { withRouter } from 'react-router-dom'
 import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
@@ -28,8 +29,11 @@ class NavBar extends Component {
     super(props)
 
     this.state = {
-      isLoginPage: null
+      isLoginPage: null,
+      notifBar: false
     }
+
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +42,15 @@ class NavBar extends Component {
     } else {
       this.setState({ isLoginPage: true })
     }
+  }
+
+  toggle() {
+    this.setState({
+      notifBar: !this.state.notifBar
+    });
+    // this.setState(prevState => ({
+    //   notifBar: !prevState.notifBar
+    // }));
   }
 
   render() {
@@ -68,7 +81,7 @@ class NavBar extends Component {
           {!this.state.isLoginPage && (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Button color="clear">
+                <Button color="clear" onClick={this.toggle}>
                   <img src={info_image} width="29" height="29" />
                 </Button>
               </NavItem>
@@ -87,6 +100,7 @@ class NavBar extends Component {
             </Nav>
           )}
         </Navbar>
+        <NotificationsBar isOpen={this.state.notif_bar} toggle={this.toggle}> </NotificationsBar>
       </div>
     )
   }
