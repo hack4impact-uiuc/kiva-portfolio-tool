@@ -42,7 +42,7 @@ class DocumentListItem extends Component {
 
   render() {
     const { isPM } = this.props
-    const path = require('path');
+    const path = require('path')
 
     return (
       <>
@@ -65,22 +65,22 @@ class DocumentListItem extends Component {
             {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
           </td>
           <td className="interaction">
-            <DocumentPreview document={this.state.document}/>
+            <DocumentPreview document={this.state.document} />
           </td>
           <td data-testid="interaction" className="interaction">
-              <Button color="transparent"> 
-                <img className="buttonimg" src={visit}/>
-              </Button>
+            <Button color="transparent">
+              <img className="buttonimg" src={visit} />
+            </Button>
           </td>
           <td data-testid="interaction" className="interaction padding-right-sm">
             {this.state.fileName && (
               <Button color="transparent" onClick={this.handleDownloadClick}>
-                <img className="buttonimg" src={downloadImg}/>
+                <img className="buttonimg" src={downloadImg} />
               </Button>
             )}
             {!isPM && (
               <Button color="transparent" onClick={this.handleUploadClick}>
-                <img className="buttonimg" src={uploadImg}/>
+                <img className="buttonimg" src={uploadImg} />
               </Button>
             )}
           </td>
