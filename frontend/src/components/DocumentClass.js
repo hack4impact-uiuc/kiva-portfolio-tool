@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentClassPreview from './DocumentClassPreview'
 import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
-import { deleteDocumentClass, updateDocumentClass } from '../utils/ApiWrapper'
+import {
+  deleteDocumentClass,
+  updateDocumentClass,
+  getAllDocumentClasses
+} from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import Dropzone from 'react-dropzone'
 
 const mapStateToProps = state => ({})
@@ -12,7 +17,9 @@ const mapStateToProps = state => ({})
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDocumentClasses
+      updateDocumentClasses,
+      beginLoading,
+      endLoading
     },
     dispatch
   )
@@ -65,27 +72,32 @@ class DocumentClass extends Component {
     this.setState({ description: event.target.value })
   }
 
-  handleSubmit() {
-    updateDocumentClass(
-      this.props.documentClass._id,
-      this.state.name,
-      this.state.description,
-      this.state.files[0],
-      this.state.files[0].name
-    )
-    this.uploadToggle()
-  }
-
-  // for if a Document Class is being submitted without an example file
-  // may be removed later
-  handleSubmitNoFile() {
-    updateDocumentClass(
-      this.props.documentClass._id,
-      this.state.name,
-      this.state.description,
-      null,
-      null
-    )
+  async handleSubmit() {
+    this.props.beginLoading()
+    if (this.state.files.length == 0) {
+      await updateDocumentClass(
+        this.props.documentClass._id,
+        this.state.name,
+        this.state.description,
+        null,
+        null
+      )
+    } else {
+      await updateDocumentClass(
+        this.props.documentClass._id,
+        this.state.name,
+        this.state.description,
+        this.state.files[0],
+        this.state.files[0].name
+      )
+    }
+    const document_classes = await getAllDocumentClasses()
+    if (document_classes) {
+      this.props.updateDocumentClasses(document_classes)
+    } else {
+      this.props.updateDocumentClasses([])
+    }
+    this.props.endLoading()
     this.uploadToggle()
   }
 
@@ -95,8 +107,16 @@ class DocumentClass extends Component {
     })
   }
 
-  handleDelete() {
-    deleteDocumentClass(this.props.documentClass._id)
+  async handleDelete() {
+    this.props.beginLoading()
+    await deleteDocumentClass(this.props.documentClass._id)
+    const document_classes = await getAllDocumentClasses()
+    if (document_classes) {
+      this.props.updateDocumentClasses(document_classes)
+    } else {
+      this.props.updateDocumentClasses([])
+    }
+    this.props.endLoading()
     this.deleteToggle()
   }
 
@@ -141,12 +161,7 @@ class DocumentClass extends Component {
                         </li>
                       ))}
                     </ul>
-                    <Button
-                      className="right"
-                      onClick={
-                        this.state.files.length == 0 ? this.handleSubmitNoFile : this.handleSubmit
-                      }
-                    >
+                    <Button className="right" onClick={this.handleSubmit}>
                       Update Document Class
                     </Button>
                     <Modal isOpen={this.state.uploadModal} toggle={this.uploadToggle}>
