@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import english_img from '../media/english.png'
 import french_img from '../media/french.png'
 import spanish_img from '../media/spanish.png'
@@ -33,7 +32,7 @@ class LanguageSelector extends Component {
     }
   }
 
-  handleChange = selectedOption => {
+  componentDidMount = selectedOption => {
     this.setState({ selectedOption })
     console.log(`Option selected:`, selectedOption)
   }

@@ -1,15 +1,11 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-<<<<<<< HEAD
 import Notification from './Notification'
 import NavBar from './NavBar'
-import { getAllDocuments } from '../utils/ApiWrapper'
-=======
 import NotificationsBar from './NotificationsBar'
 import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
->>>>>>> d41414220f68c042fd6b7183c11db15a2eb424b2
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
@@ -105,7 +101,6 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-<<<<<<< HEAD
       <div>
         <NavBar />
         <Container>
@@ -120,24 +115,9 @@ class Dashboard extends React.Component {
                 })
               : null}
           </Row>
+          <NotificationsBar />
         </Container>
       </div>
-=======
-      <Container>
-        <Row>
-          {this.props.documents
-            ? this.state.statuses.map(key => {
-                return (
-                  <Col sm="12" md="6">
-                    <DocumentList documents={this.props.documents[key]} status={key} />
-                  </Col>
-                )
-              })
-            : null}
-        </Row>
-        <NotificationsBar />
-      </Container>
->>>>>>> d41414220f68c042fd6b7183c11db15a2eb424b2
     )
   }
 }
