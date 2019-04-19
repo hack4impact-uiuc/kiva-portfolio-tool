@@ -11,11 +11,8 @@ import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Dropzone from 'react-dropzone'
-import Loader from 'react-loader-spinner'
 
-const mapStateToProps = state => ({
-  loading: state.auth.loading
-})
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -135,118 +132,106 @@ class DocumentClass extends Component {
   }
 
   render() {
-    if (this.props.loading) {
-      return (
-        <div
-          className="resultsText"
-          style={{ paddingTop: window.innerWidth >= 550 ? '10%' : '20%' }}
-        >
-          Loading
-          <Loader type="Puff" color="green" height="100" width="100" />
-        </div>
-      )
-    } else {
-      return (
-        <>
-          <Modal isOpen={this.state.editModal} toggle={this.editToggle}>
-            <ModalBody>
-              <form>
-                <span> Name: </span>
-                <input onChange={this.updateName} value={this.state.name} />
-                <br />
-                <span> Description: </span>
-                <textarea
-                  name="paragraph_text"
-                  cols="50"
-                  rows="10"
-                  onChange={this.updateDescription}
-                  value={this.state.description}
-                />
-                <br />
-                <div className="dropPage">
-                  <section className="droppedBox">
-                    <div className="dropZone">
-                      <Dropzone onDrop={this.onDrop.bind(this)}>
-                        {({ getRootProps, getInputProps }) => (
-                          <section>
-                            <div {...getRootProps()}>
-                              <input {...getInputProps()} />
-                              <p>Drag a file here, or click to select a file</p>
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </div>
-                    <aside>
-                      <h4>File Dropped:</h4>
-                      <ul className="droppedFilesBackground">
-                        {this.state.files.map(f => (
-                          <li className="droppedBox" key={f.name}>
-                            {f.name} - {f.size} bytes
-                          </li>
-                        ))}
-                      </ul>
-                      <Button
-                        className="right"
-                        onClick={
-                          this.state.files.length == 0 ? this.handleSubmitNoFile : this.handleSubmit
-                        }
-                      >
-                        Update Document Class
-                      </Button>
-                      <Modal isOpen={this.state.uploadModal} toggle={this.uploadToggle}>
-                        <ModalBody>File uploaded - your submission is being processed.</ModalBody>
-                        <ModalFooter>
-                          <Button className="invalidSearchButton" onClick={this.uploadToggle}>
-                            Return
-                          </Button>
-                        </ModalFooter>
-                      </Modal>
-                    </aside>
-                  </section>
-                  <hr />
-                </div>
-              </form>
-            </ModalBody>
-            <ModalFooter>
-              <Button className="invalidSearchButton" onClick={this.editToggle}>
-                Return
-              </Button>
-            </ModalFooter>
-          </Modal>
-          <tr>
-            {this.props.documentClass.name ? (
-              <td data-testid="docClass">{this.props.documentClass.name}</td>
-            ) : null}
-            <td data-testid="interaction" className="interaction">
-              <DocumentClassPreview documentClass={this.props.documentClass} />
-              <Button color="primary" onClick={this.editToggle}>
-                Edit
-              </Button>
-              <Button color="primary" onClick={this.deleteToggle}>
-                Delete
-              </Button>
-              <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
-                <ModalBody>
-                  <p>
-                    Are you sure you want to delete {this.props.documentClass.name}? This will
-                    delete every document of this type for all users.
-                  </p>
-                </ModalBody>
-                <ModalFooter>
-                  <Button className="invalidSearchButton" onClick={this.handleDelete}>
-                    Delete and return
-                  </Button>
-                  <Button className="invalidSearchButton" onClick={this.deleteToggle}>
-                    Return
-                  </Button>
-                </ModalFooter>
-              </Modal>
-            </td>
-          </tr>
-        </>
-      )
-    }
+    return (
+      <>
+        <Modal isOpen={this.state.editModal} toggle={this.editToggle}>
+          <ModalBody>
+            <form>
+              <span> Name: </span>
+              <input onChange={this.updateName} value={this.state.name} />
+              <br />
+              <span> Description: </span>
+              <textarea
+                name="paragraph_text"
+                cols="50"
+                rows="10"
+                onChange={this.updateDescription}
+                value={this.state.description}
+              />
+              <br />
+              <div className="dropPage">
+                <section className="droppedBox">
+                  <div className="dropZone">
+                    <Dropzone onDrop={this.onDrop.bind(this)}>
+                      {({ getRootProps, getInputProps }) => (
+                        <section>
+                          <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <p>Drag a file here, or click to select a file</p>
+                          </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </div>
+                  <aside>
+                    <h4>File Dropped:</h4>
+                    <ul className="droppedFilesBackground">
+                      {this.state.files.map(f => (
+                        <li className="droppedBox" key={f.name}>
+                          {f.name} - {f.size} bytes
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      className="right"
+                      onClick={
+                        this.state.files.length == 0 ? this.handleSubmitNoFile : this.handleSubmit
+                      }
+                    >
+                      Update Document Class
+                    </Button>
+                    <Modal isOpen={this.state.uploadModal} toggle={this.uploadToggle}>
+                      <ModalBody>File uploaded - your submission is being processed.</ModalBody>
+                      <ModalFooter>
+                        <Button className="invalidSearchButton" onClick={this.uploadToggle}>
+                          Return
+                        </Button>
+                      </ModalFooter>
+                    </Modal>
+                  </aside>
+                </section>
+                <hr />
+              </div>
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button className="invalidSearchButton" onClick={this.editToggle}>
+              Return
+            </Button>
+          </ModalFooter>
+        </Modal>
+        <tr>
+          {this.props.documentClass.name ? (
+            <td data-testid="docClass">{this.props.documentClass.name}</td>
+          ) : null}
+          <td data-testid="interaction" className="interaction">
+            <DocumentClassPreview documentClass={this.props.documentClass} />
+            <Button color="primary" onClick={this.editToggle}>
+              Edit
+            </Button>
+            <Button color="primary" onClick={this.deleteToggle}>
+              Delete
+            </Button>
+            <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
+              <ModalBody>
+                <p>
+                  Are you sure you want to delete {this.props.documentClass.name}? This will delete
+                  every document of this type for all users.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button className="invalidSearchButton" onClick={this.handleDelete}>
+                  Delete and return
+                </Button>
+                <Button className="invalidSearchButton" onClick={this.deleteToggle}>
+                  Return
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </td>
+        </tr>
+      </>
+    )
   }
 }
 
