@@ -10,7 +10,7 @@ class DocumentList extends Component {
         <tbody>
           <tr className="dlist-header">
             <th
-              colSpan="3"
+              colSpan="5"
               className={
                 'background-' +
                 (this.props.status ? this.props.status.toLowerCase() : 'null') +
