@@ -42,6 +42,21 @@ export const getAllInformation = () => {
   return ['I need you to not work on IST and get in the documents asap']
 }
 
+export const getPartnersByPM = pm_id => {
+  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_DOC_STATUS_FAIL',
+        error
+      }
+    })
+}
+
 export const getAllPartners = () => {
   return [
     {
