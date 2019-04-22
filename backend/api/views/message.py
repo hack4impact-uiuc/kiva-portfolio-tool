@@ -22,6 +22,7 @@ def delete_message(id):
     db.session.commit()
     return create_response(status=200, message="success")
 
+
 @message.route("/messages/sendemail", methods=["GET"])
 def add_message():
     # if (
@@ -40,7 +41,7 @@ def add_message():
         subject="Hello",
         sender="ky.cu303@gmail.com",
         recipients=["otakuness3@gmail.com"],
-        body="testing sending email from an endpoint"
+        body="testing sending email from an endpoint",
     )
     mail.send(email)
     return create_response(status=200, message="success")
