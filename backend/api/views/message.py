@@ -41,7 +41,7 @@ def add_message():
         subject="Hello",
         sender="ky.cu303@gmail.com",
         recipients=["otakuness3@gmail.com"],
-        body="testing sending email from an endpoint",
+        body="2- sending test email from endpoint",
     )
     mail.send(email)
     return create_response(status=200, message="success")
