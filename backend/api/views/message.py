@@ -31,7 +31,7 @@ def delete_message(id):
 
 
 @message.route("/messages/new", methods=["POST"])
-def add_message():
+def add_message(data):
     subjects = ["New required document", "Document reviewed", "Document uploaded"]
     contents = [
         "jdsklfjslkdfjslkdjf",
