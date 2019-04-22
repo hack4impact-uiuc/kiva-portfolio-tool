@@ -1,23 +1,22 @@
-#!/usr/bin/env python3
-
 from flask import Flask
 from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from api import create_app
+#from . import create_app
 
 import os
 
 # sets up the app
-app = create_app()
+app = Flask(__name__)
 
 mail_settings = {
     "MAIL_SERVER": "smtp.gmail.com",
     "MAIL_PORT": 465,
     "MAIL_USE_TLS": False,
     "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": os.environ["GMAIL_USER"],
-    "MAIL_PASSWORD": os.environ["GMAIL_PASSWORD"],
+    "MAIL_USERNAME": "ky.cu303@gmail.com",
+    "MAIL_PASSWORD": "xtccoiilnclzuqqx",
+    # TODO: figure out os.environ not working
 }
 
 app.config.update(mail_settings)
