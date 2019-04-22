@@ -10,6 +10,7 @@ def get_messages():
     messages = Message.query.all()
     return create_response(data={"messages": serialize_list(messages)})
 
+
 @message.route("/messages/delete/<id>")
 def delete_message(id):
     """
@@ -18,6 +19,7 @@ def delete_message(id):
     db.session.delete(Message.query.get(id))
     db.session.commit()
     return create_response(status=200, message="success")
+
 
 def add_message(data):
     if (

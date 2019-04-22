@@ -2,7 +2,8 @@ from flask import Flask
 from flask_mail import Mail, Message
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-#from . import create_app
+
+# from . import create_app
 
 import os
 
@@ -15,7 +16,7 @@ mail_settings = {
     "MAIL_USE_TLS": False,
     "MAIL_USE_SSL": True,
     "MAIL_USERNAME": "ky.cu303@gmail.com",
-    "MAIL_PASSWORD": "xtccoiilnclzuqqx",
+    "MAIL_PASSWORD": "",
     # TODO: figure out os.environ not working
 }
 
