@@ -1,5 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
+import Notification from './Notification'
+import NavBar from './NavBar'
 import NotificationsBar from './NotificationsBar'
 import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
@@ -40,7 +42,8 @@ class Dashboard extends React.Component {
     super(props)
 
     this.state = {
-      statuses: ['Missing', 'Rejected', 'Pending', 'Approved']
+      fp_statuses: ['Missing', 'Rejected', 'Pending', 'Approved'],
+      pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved']
     }
   }
 
@@ -96,20 +99,31 @@ class Dashboard extends React.Component {
       )
     } else {
       return (
-        <Container>
-          <Row>
-            {this.props.documents
-              ? this.state.statuses.map(key => {
-                  return (
-                    <Col sm="12" md="6">
-                      <DocumentList documents={this.props.documents[key]} status={key} />
-                    </Col>
-                  )
-                })
-              : null}
-          </Row>
-          <NotificationsBar />
-        </Container>
+        <div>
+          <NavBar />
+          <Container>
+            <Row>
+              {this.props.documents
+                ? this.props.isPM
+                  ? this.state.pm_statuses.map(key => {
+                      return (
+                        <Col sm="12" md="6">
+                          <DocumentList documents={this.props.documents[key]} status={key} />
+                        </Col>
+                      )
+                    })
+                  : this.state.fp_statuses.map(key => {
+                      return (
+                        <Col sm="12" md="6">
+                          <DocumentList documents={this.props.documents[key]} status={key} />
+                        </Col>
+                      )
+                    })
+                : null}
+            </Row>
+            <NotificationsBar />
+          </Container>
+        </div>
       )
     }
   }

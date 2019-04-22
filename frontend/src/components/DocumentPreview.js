@@ -9,6 +9,7 @@ import Iframe from 'react-iframe'
 import Loader from 'react-loader-spinner'
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
+import preview from '../media/preview.png'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
@@ -113,8 +114,8 @@ class DocumentPreview extends Component {
       return (
         <>
           {this.state.fileName && (
-            <Button color="primary" onClick={this.toggle}>
-              {isPM ? 'REVIEW' : 'VIEW'}
+            <Button color="transparent" onClick={this.toggle}>
+              <img className="buttonimg" src={preview} />
             </Button>
           )}
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
