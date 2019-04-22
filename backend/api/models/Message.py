@@ -9,12 +9,16 @@ class Message(Mixin, db.Model):
 
     __tablename__ = "message"
 
+    id = db.Column(db.String, unique=True, primary_key=True)
     pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
     fp_id = db.Column(db.String, db.ForeignKey("field_partner.id"))
-    to_fp = db.Column(db.Boolean)  # true if send to fp; false if send to pm
+    to_fp = db.Column(
+        db.Boolean, db.ForeignKey("")
+    )  # true if send to fp; false if send to pm
 
-    doc_id = db.Column(db.Integer, unique=True, primary_key=True)
-    status = db.Column(db.String, unique=True)
+    # These are all nullable depending on the type of notification
+    doc_id = db.Column(db.Integer, nullable=True)
+    status = db.Column(db.String, nullable=True)
     comment = db.Column(db.String, nullable=True)
 
     def __init__(self, data):

@@ -101,7 +101,6 @@ def create_app(test_config=None):
         # TODO: figure out os.environ not working
     }
     app.config.update(mail_settings)
-    mail = Mail(app)
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)
