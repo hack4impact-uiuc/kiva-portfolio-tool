@@ -7,6 +7,8 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/selectdocuments.css'
+import search from '../media/search.png'
+
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -117,7 +119,7 @@ class SelectDocumentsPage extends React.Component {
         <h3>Select Documents</h3>
 
         <form onSubmit={this.handleSubmit}>
-            Q:
+          <img src={search} width = '18'/>
             <input className='input-master'
               type="text"
               value={this.state.query}
@@ -136,16 +138,19 @@ class SelectDocumentsPage extends React.Component {
             />
           </div>
 
-          <div className = 'displayCell blockCustom'>
+          <div className = 'blockCustom displayCell'>
             <Selector name="Selected" documents={this.state.filtered} update={this.changeSelection} />
           </div>
         </div>
 
-        <p>
-          {' '}
-          Set a Due Date:
-          <DatePicker selected={this.state.DueDate} onChange={this.newDueDate} />
-        </p>
+        <div className='blockCustom dateDisplay'>
+          Set a Due Date: 
+          <DatePicker selected={this.state.DueDate} onChange={this.newDueDate} className='datePicker' />
+        </div>
+
+        <button className='nextButton'>
+          Next
+        </button>
       </div>
     )
   }

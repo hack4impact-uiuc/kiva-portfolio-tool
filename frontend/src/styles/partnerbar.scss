@@ -1,11 +1,12 @@
 @import "variables.scss";
 
 .page {
+    margin-top: 5%;
     text-align: center ;
     font-family: rubik;
 }
 
-h2 {
+.page h2 {
     // font-weight: bold;
     color: $accepted-color;
     font-size: 3rem;
@@ -49,11 +50,22 @@ h2 {
 }
 
 .partnerBox .icon {
-    width: 20%
+    height:inherit;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    background-color: $link-color;
+    border-radius: 50%;
+    display: inline-block;
+    color: #ffffff;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-left: 2%;
+    margin-right: 4%;
 }
 
 .partnerBox .duedate {
-    width: 20%;
+    width: 15%;
 }
 
 .partnerBox .due {
@@ -73,6 +85,7 @@ h2 {
 
 .react-tabs__tab-list {
     border-bottom: none;
+    font-size: 1.5rem;
 }
 
 .react-tabs__tab {

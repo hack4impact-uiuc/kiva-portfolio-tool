@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { Progress } from 'reactstrap'
 import '../styles/colors.css'
 import '../styles/partnerbar.css'
-import '../media/search.png'
+import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -73,10 +73,14 @@ class PMMainPage extends Component {
   render() {
     return (
       <div className="page">
+        <div>
+          <span></span>
+          <p></p>
+        </div>
         <h2>Field Partners</h2>
 
         <form onSubmit={this.handleSubmit}>
-          <img src='../media/search.png' ></img>
+          <img src={search} width = '18'/>
           <input className='input-master'
             type="text"
             value={this.state.query}
@@ -155,7 +159,7 @@ class PartnerBar extends Component {
     return (
       <div className='partnerBox'>
         <div className='duedate'><div className='due'>Due</div>{this.props.partner.duedate}</div>
-        <div className ='icon'><img src='../media/visit.png' width='inherit' height='inherit'></img></div>
+        <div className ='icon'>{this.props.partner.name[0]}</div>
         <div className='nameProgressDisplay'>
           <div>{this.props.partner.name}</div>
           <div className='progressAdditional'>
