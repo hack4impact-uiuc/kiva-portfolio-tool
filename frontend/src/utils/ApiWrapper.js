@@ -51,12 +51,28 @@ export const getPartnersByPM = pm_id => {
     })
     .catch(error => {
       return {
-        type: 'UPDATE_DOC_STATUS_FAIL',
+        type: 'GET_PARTNERS_FAIL',
         error
       }
     })
 }
 
+export const getAllPartners = () => {
+  let requestString = BACKEND_URL + '/field_partner'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+/*
 export const getAllPartners = () => {
   return [
     {
@@ -95,7 +111,7 @@ export const getAllPartners = () => {
     }
   ]
 }
-
+*/
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios

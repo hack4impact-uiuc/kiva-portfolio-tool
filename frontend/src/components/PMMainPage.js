@@ -132,11 +132,13 @@ class PartnerBar extends Component {
     let approved = 0
     let pending = 0
     let rejected = 0
+    let rest = 0
 
-    // counts number of documents in each
-    let len = Object.keys(this.props.partner.documents).length
+    // counts number of documents in eachS
+    let len = this.props.partner.documents.length
     for (const document in this.props.partner.documents) {
-      let item = document['status']
+      let item = this.props.partner.documents[document].status
+      console.log(item)
       if (item == 'Approved') {
         approved += 1
       } else if (item == 'Pending') {
@@ -147,10 +149,14 @@ class PartnerBar extends Component {
     }
 
     // turns into percentage values
-    approved = Math.floor((approved / len) * 100)
-    pending = Math.floor((pending / len) * 100)
-    rejected = Math.floor((rejected / len) * 100)
-    let rest = 100 - approved - pending - rejected
+    if (len > 0) {
+      approved = Math.floor((approved / len) * 100)
+      pending = Math.floor((pending / len) * 100)
+      rejected = Math.floor((rejected / len) * 100)
+      rest = 100 - approved - pending - rejected
+    } else {
+      rest = 100
+    }
 
     return (
       <div>

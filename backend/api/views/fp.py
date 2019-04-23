@@ -10,8 +10,14 @@ fp = Blueprint("fp", __name__)
 @fp.route("/field_partner", methods=["GET"])
 def get_field_partner():
     """ function that is called when you visit /field_partner, gets all the FPs """
-    field_partner = FieldPartner.query.all()
-    return create_response(data={"field_partner": serialize_list(field_partner)})
+    field_partner_list = serialize_list(FieldPartner.query.all())
+
+    for field_partner in field_partner_list:
+        field_partner["documents"] = serialize_list(
+            Document.query.filter(Document.userID == field_partner["_id"]).all()
+        )
+
+    return create_response(data={"field_partner": field_partner_list})
 
 
 @fp.route("/field_partner/<id>", methods=["GET"])
