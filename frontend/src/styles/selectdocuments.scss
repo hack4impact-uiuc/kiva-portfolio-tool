@@ -1,0 +1,72 @@
+@import "variables.scss";
+
+.page {
+    font-family: rubik;
+    text-align: center;
+}
+
+h3 {
+    // font-weight: bold;
+    color: $accepted-color;
+    font-size: 3rem;
+}
+
+.input-master {
+    border: none;
+    background-color: transparent;
+    width: 35%; 
+    text-indent: 5px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+::placeholder{text-indent: 20px; font-size: small; } 
+
+.displayView {
+    display: table;
+    margin:auto;
+    border-spacing: 30px;
+}
+
+.blockCustom {
+    background: #ffffff;
+    padding: 10px;
+    border-style: solid #ffffff;
+    border-width: 26px;
+    border-left: 16px solid $accepted-color;
+    border-radius: 13px;
+    color: $accepted-color;
+}
+
+.displayCell {
+    display: table-cell;
+    width: 20%;
+    font-weight: none;
+}
+
+.dateDisplay {
+    text-align: center;
+    font-weight: bold;
+    width: 30%;
+    margin:auto;
+    padding-left: 15px;
+}
+
+.datePicker {
+    display: inline-block;
+    font-weight: bold;
+    color: $link-color;
+    text-align: center;
+    border:none;
+}
+
+.nextButton {
+    -webkit-appearance: none;
+    margin-top:2%;
+    height: 30px;
+    width: 7%;
+    color: #ffffff;
+    background-color: $link-color;
+    border: none;
+    border-radius: 13px;
+}

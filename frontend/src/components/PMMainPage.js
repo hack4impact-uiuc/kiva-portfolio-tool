@@ -74,14 +74,15 @@ class PMMainPage extends Component {
     return (
       <div className="page">
         <div>
-          <span></span>
-          <p></p>
+          <span />
+          <p>Fieldy McPartnerson</p>
         </div>
         <h2>Field Partners</h2>
 
         <form onSubmit={this.handleSubmit}>
-          <img src={search} width = '18'/>
-          <input className='input-master'
+          <img src={search} width="18" />
+          <input
+            className="input-master"
             type="text"
             value={this.state.query}
             placeholder="Search for a Field Partner..."
@@ -89,14 +90,14 @@ class PMMainPage extends Component {
           />
         </form>
 
-        <Tabs className='tab-master'>
-          <TabList className='react-tabs__tab-list'>
+        <Tabs className="tab-master">
+          <TabList className="react-tabs__tab-list">
             <Tab>REVIEWING</Tab>
             <Tab>DORMANT</Tab>
           </TabList>
 
           <TabPanel>
-            <div className='partnerPanel'>
+            <div className="partnerPanel">
               {this.state.filtered
                 .filter(partner => partner.status != 'Dormant')
                 .map(partner => {
@@ -106,7 +107,7 @@ class PMMainPage extends Component {
           </TabPanel>
 
           <TabPanel>
-            <div className='partnerPanel'>
+            <div className="partnerPanel">
               {this.state.filtered
                 .filter(partner => partner.status == 'Dormant')
                 .map(partner => {
@@ -157,14 +158,17 @@ class PartnerBar extends Component {
     let rest = 100 - approved - pending - rejected
 
     return (
-      <div className='partnerBox'>
-        <div className='duedate'><div className='due'>Due</div>{this.props.partner.duedate}</div>
-        <div className ='icon'>{this.props.partner.name[0]}</div>
-        <div className='nameProgressDisplay'>
+      <div className="partnerBox">
+        <div className="duedate">
+          <div className="due">Due</div>
+          {this.props.partner.duedate}
+        </div>
+        <div className="icon">{this.props.partner.name[0]}</div>
+        <div className="nameProgressDisplay">
           <div>{this.props.partner.name}</div>
-          <div className='progressAdditional'>
+          <div className="progressAdditional">
             {approved}%
-            <Progress multi >
+            <Progress multi>
               <Progress bar color="dashgreen" value={approved} />
               <Progress bar color="dashorange" value={pending} />
               <Progress bar color="dashred" value={rejected} />

@@ -4,7 +4,7 @@ import BACKEND_URL from './ApiConfig'
 //import { BACKEND_KEY } from '../keys'
 
 export const getAllDocumentClasses = () => {
-  return ['a', 'ab','abc','abcd','abcde']
+  return ['a', 'ab', 'abc', 'abcd', 'abcde']
   let requestString = BACKEND_URL + '/document_class'
   return axios
     .get(requestString)

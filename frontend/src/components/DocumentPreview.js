@@ -11,7 +11,6 @@ import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import preview from '../media/preview.png'
 
-
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
