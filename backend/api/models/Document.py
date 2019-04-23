@@ -49,10 +49,12 @@ class Document(Mixin, db.Model):
     # use dictionary to load params to avoid weird issue with values being placed in lists
     def __init__(self, data):
 
+        # required fields should be checked for existence by the request
         self.userID = data["userID"]
         self.status = data["status"]
         self.docClassID = data["docClassID"]
 
+        # optional fields checked manually
         if "date" in data:
             self.date = data["date"]
         if "fileID" in data:
