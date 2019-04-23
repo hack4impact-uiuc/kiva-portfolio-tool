@@ -36,13 +36,13 @@ class DocumentPreview extends Component {
   constructor(props) {
     super(props)
     console.log(this.props)
-    
+
     if (this.props.match) {
       this.state = {
         id: this.props.match.params.id,
         fileName: this.props.match.params.name,
         accessToken: null,
-        fileURL: this.props.match.params.link
+        fileURL: this.props.location.state.link
       }
     } else {
       this.state = {
@@ -132,32 +132,48 @@ class DocumentPreview extends Component {
     } else {
       return (
         <>
-          {this.state.fileName && (
-            <Button color="transparent" onClick={this.toggle}>
-              <img className="buttonimg" src={preview} />
-            </Button>
-          )}
-          <Modal isOpen={this.state.modal} toggle={this.toggle}>
-            <ModalHeader>{this.state.fileName}</ModalHeader>
-            <ModalBody style={customStyles}>
-              <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
-            </ModalBody>
-            <ModalFooter>
-              {isPM && (
-                <div>
-                  <Button color="success" onClick={this.handleApproveClick}>
-                    Approve
-                  </Button>
-                  <Button color="danger" onClick={this.handleRejectClick}>
-                    Reject
-                  </Button>
-                </div>
-              )}
-              <Button color="secondary" onClick={this.toggle}>
-                Close
+          {this.props.location ? (
+            <>
+              <div>
+                <Button color="success" onClick={this.handleApproveClick}>
+                  Approve
+                </Button>
+                <Button color="danger" onClick={this.handleRejectClick}>
+                  Reject
+                </Button>
+              </div>
+              <Iframe url={this.state.fileURL} allowFullScreen />
+            </>
+          ) : (
+            <>
+              this.state.fileName && (
+              <Button color="transparent" onClick={this.toggle}>
+                <img className="buttonimg" src={preview} />
               </Button>
-            </ModalFooter>
-          </Modal>
+              )
+              <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                <ModalHeader>{this.state.fileName}</ModalHeader>
+                <ModalBody style={customStyles}>
+                  <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
+                </ModalBody>
+                <ModalFooter>
+                  {isPM && (
+                    <div>
+                      <Button color="success" onClick={this.handleApproveClick}>
+                        Approve
+                      </Button>
+                      <Button color="danger" onClick={this.handleRejectClick}>
+                        Reject
+                      </Button>
+                    </div>
+                  )}
+                  <Button color="secondary" onClick={this.toggle}>
+                    Close
+                  </Button>
+                </ModalFooter>
+              </Modal>
+            </>
+          )}
         </>
       )
     }

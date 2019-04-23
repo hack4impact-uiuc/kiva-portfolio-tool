@@ -69,7 +69,12 @@ class DocumentListItem extends Component {
           </td>
           <td data-testid="interaction" className="interaction">
             <Button color="transparent">
-              <Link to={'/view/' + this.state.document._id + '/' + this.state.document.fileName + '/' + this.state.document.link}>
+              <Link
+                to={{
+                  pathname: '/view/' + this.state.document._id + '/' + this.state.document.fileName,
+                  state: { link: this.state.document.link }
+                }}
+              >
                 <img className="buttonimg" src={visit} />
               </Link>
             </Button>
