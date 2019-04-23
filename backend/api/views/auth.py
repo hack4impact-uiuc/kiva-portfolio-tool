@@ -100,10 +100,38 @@ def reset_password():
 
 @auth.route("/addSecurityQuestion", methods=["POST"])
 def add_security_question():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    token = data["token"]
+    question = data["question"]
+    answer = data["answer"]
+
+    r = requests.post(backend_url + "addSecurityQuestion", data={'token': token, 'question': question, 'answer': answer})
+
+    return create_response(status=200, message=r.text.message)
 
 @auth.route("/getSecurityQuestion", methods=["POST"])
 def get_security_question():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    email = data["email"]
+
+    r = requests.post(backend_url + "getSecurityQuestion", data={'email': email})
+
+    return create_response(status=200, message="success", data={'question': r.text.question})
 
 @auth.route("/resendVerification", methods=["POST"])
 def resend_verification():
+    data = request.get_json()
+    if data is None:
+        data = request.form
 
+    token = data["token"]
+
+    r = requests.post(backend_url + "resendVerificationEmail", headers={'token': token})
+
+    return create_response(status=200, message=r.text.message)  
