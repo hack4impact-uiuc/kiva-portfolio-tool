@@ -138,7 +138,6 @@ class PartnerBar extends Component {
     let len = this.props.partner.documents.length
     for (const document in this.props.partner.documents) {
       let item = this.props.partner.documents[document].status
-      console.log(item)
       if (item == 'Approved') {
         approved += 1
       } else if (item == 'Pending') {
