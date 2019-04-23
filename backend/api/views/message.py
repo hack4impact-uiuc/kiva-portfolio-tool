@@ -1,7 +1,7 @@
 from flask import Blueprint, request, current_app
 from api.models.Message import Message
-from api.models.FP import FP
-from api.models.PM import PM
+from api.models.FieldPartner import FieldPartner
+from api.models.PortfolioManager import PortfolioManager
 from flask_mail import Message as Flask_Message
 from flask_mail import Mail
 from api.core import create_response, serialize_list, logger
