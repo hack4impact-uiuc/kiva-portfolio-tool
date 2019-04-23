@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import '../styles/selectdocuments.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -20,7 +21,6 @@ class SelectDocumentsPage extends React.Component {
       docClass: {},
       // docClasses filtered from docClasses using query
       filtered: {},
-      // due date to be set by user so that it can be passed on
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
       DueDate: today,
       // state that updates depending on what the user types in query bar
@@ -113,31 +113,32 @@ class SelectDocumentsPage extends React.Component {
 
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h2>Select Documents</h2>
+      <div className='page'>
+        <h3>Select Documents</h3>
 
         <form onSubmit={this.handleSubmit}>
-          <label>
             Q:
-            <input
+            <input className='input-master'
               type="text"
               value={this.state.query}
               placeholder="Search For Documents Here"
               onChange={this.handleQueryChange}
             />
-          </label>
         </form>
 
-        <div>
-          <Selector
-            name="Available"
-            documents={this.state.filtered}
-            update={this.changeSelection}
-          />
-        </div>
+        <div className='displayView'>
 
-        <div>
-          <Selector name="Selected" documents={this.state.filtered} update={this.changeSelection} />
+          <div className='displayCell blockCustom' >
+            <Selector
+              name="Available"
+              documents={this.state.filtered}
+              update={this.changeSelection}
+            />
+          </div>
+
+          <div className = 'displayCell blockCustom'>
+            <Selector name="Selected" documents={this.state.filtered} update={this.changeSelection} />
+          </div>
         </div>
 
         <p>

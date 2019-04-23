@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../styles/selector.css'
 
 export class Selector extends React.Component {
   constructor(props) {
@@ -7,8 +8,8 @@ export class Selector extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.props.name}</h2>
+      <div className = 'surround-box'>
+        <h3>{this.props.name}</h3>
         <div>
           {Object.keys(this.props.documents).map(docClass => {
             let buttonType

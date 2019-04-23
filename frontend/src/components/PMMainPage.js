@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { Progress } from 'reactstrap'
 import '../styles/colors.css'
 import '../styles/partnerbar.css'
+import '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
