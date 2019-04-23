@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { getAllPartners } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { bindActionCreators } from 'redux'
 import 'react-tabs/style/react-tabs.css'
 import { connect } from 'react-redux'
 import { Progress } from 'reactstrap'
@@ -87,14 +86,15 @@ class PMMainPage extends Component {
 
         <Tabs>
           <TabList>
-            <Tab>Reviewing</Tab>
-            <Tab>Dormant</Tab>
+            <Tab>In Process</Tab>
+            <Tab>New Partner</Tab>
+            <Tab>Complete</Tab>
           </TabList>
 
           <TabPanel>
             <div>
               {this.state.filtered
-                .filter(partner => partner.status != 'Dormant')
+                .filter(partner => partner.app_status == 'In Process')
                 .map(partner => {
                   return <PartnerBar partner={partner} />
                 })}
@@ -104,7 +104,17 @@ class PMMainPage extends Component {
           <TabPanel>
             <div>
               {this.state.filtered
-                .filter(partner => partner.status == 'Dormant')
+                .filter(partner => partner.app_status == 'New Partner')
+                .map(partner => {
+                  return <PartnerBar partner={partner} />
+                })}
+            </div>
+          </TabPanel>
+
+          <TabPanel>
+            <div>
+              {this.state.filtered
+                .filter(partner => partner.app_status == 'Complete')
                 .map(partner => {
                   return <PartnerBar partner={partner} />
                 })}
@@ -129,15 +139,18 @@ class PartnerBar extends Component {
    * In addition prints all info of a field partner
    */
   render() {
+    const partner = this.props.partner
+    const documents = partner.documents
+
     let approved = 0
     let pending = 0
     let rejected = 0
     let rest = 0
 
     // counts number of documents in eachS
-    let len = this.props.partner.documents.length
-    for (const document in this.props.partner.documents) {
-      let item = this.props.partner.documents[document].status
+    let len = documents.length
+    for (const document in documents) {
+      let item = documents[document].status
       if (item == 'Approved') {
         approved += 1
       } else if (item == 'Pending') {
@@ -159,9 +172,9 @@ class PartnerBar extends Component {
 
     return (
       <div>
-        <div>Due Date: {this.props.partner.duedate}</div>
+        <div>Due Date: {partner.duedate}</div>
         <div>ICON/IMAGE HERE</div>
-        <div>{this.props.partner.name}</div>
+        <div>{partner.org_name}</div>
         <div>
           <Progress multi>
             <Progress bar color="dashgreen" value={approved} />
