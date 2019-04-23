@@ -1,0 +1,14 @@
+#review-fullscreen {
+    padding: 1% 0;
+    background-color: white;
+}
+
+#button-space {
+    text-align: center;
+    margin: auto;
+}
+
+.iframe-relative {
+    /* overrides inline styling from box iframe */
+    position: relative !important;
+}

@@ -5,11 +5,12 @@ import { getAccessToken, updateDocumentStatus, getAllDocuments } from '../utils/
 import { bindActionCreators } from 'redux'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
-import { Link } from 'react-router-dom'
+import { Container, Row, Col } from 'reactstrap'
 import Iframe from 'react-iframe'
 import Loader from 'react-loader-spinner'
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
+import '../styles/documentpreview.css'
 import preview from '../media/preview.png'
 
 // Not needed unless working with non "en" locales
@@ -91,13 +92,6 @@ class DocumentPreview extends Component {
   }
 
   async componentDidMount() {
-    // if (this.props.match.params.id && this.props.match.params.name) {
-    //   this.setState(prevState => ({
-    //     id: this.props.match.params.id,
-    //     fileName: this.props.match.params.name
-    //   }))
-    // }
-    console.log(this.props)
     const res = await getAccessToken()
     if (res) {
       this.setState({
@@ -116,7 +110,7 @@ class DocumentPreview extends Component {
     const customStyles = {
       height: '500px',
       width: '500px',
-      overlfow: 'scroll'
+      overflow: 'scroll'
     }
 
     if (this.props.loading) {
@@ -134,15 +128,17 @@ class DocumentPreview extends Component {
         <>
           {this.props.location ? (
             <>
-              <div>
-                <Button color="success" onClick={this.handleApproveClick}>
-                  Approve
-                </Button>
-                <Button color="danger" onClick={this.handleRejectClick}>
-                  Reject
-                </Button>
+              <Iframe className="iframe-relative" url={this.state.fileURL} allowFullScreen />
+              <div id="review-fullscreen">
+                <div id="button-space">
+                  <Button color="success" onClick={this.handleApproveClick}>
+                    Approve
+                  </Button>
+                  <Button color="danger" onClick={this.handleRejectClick}>
+                    Reject
+                  </Button>
+                </div>
               </div>
-              <Iframe url={this.state.fileURL} allowFullScreen />
             </>
           ) : (
             <>
@@ -154,7 +150,7 @@ class DocumentPreview extends Component {
               <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalHeader>{this.state.fileName}</ModalHeader>
                 <ModalBody style={customStyles}>
-                  <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
+                  <Iframe classname="iframe-relative iframe-modal"url={this.state.fileURL} allowFullScreen />
                 </ModalBody>
                 <ModalFooter>
                   {isPM && (

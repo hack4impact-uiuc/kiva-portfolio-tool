@@ -14,7 +14,7 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/dashboard.css'
 import '../styles/index.css'
 import 'box-ui-elements/dist/preview.css'
-import './index.scss'
+
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
