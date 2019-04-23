@@ -40,9 +40,13 @@ def get_org_by_id(id):
 @fp.route("/field_partner/pm/<pm_id>", methods=["GET"])
 def get_fp_by_pm(pm_id):
     """ function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs """
-    field_partner_list = serialize_list(FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all())
+    field_partner_list = serialize_list(
+        FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
+    )
     for field_partner in field_partner_list:
-        field_partner["documents"] = serialize_list(Document.query.filter(Document.userID == field_partner["_id"]).all())
+        field_partner["documents"] = serialize_list(
+            Document.query.filter(Document.userID == field_partner["_id"]).all()
+        )
 
     return create_response(data={"field_partner": field_partner_list})
 
