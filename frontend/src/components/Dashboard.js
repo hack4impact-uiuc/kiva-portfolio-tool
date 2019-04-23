@@ -15,7 +15,6 @@ import '../styles/dashboard.css'
 import '../styles/index.css'
 import 'box-ui-elements/dist/preview.css'
 
-
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
