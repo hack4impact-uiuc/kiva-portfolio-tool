@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalFooter } from 'reactstrap'
@@ -42,7 +43,6 @@ class DocumentListItem extends Component {
 
   render() {
     const { isPM } = this.props
-    const path = require('path')
 
     return (
       <>
@@ -69,7 +69,9 @@ class DocumentListItem extends Component {
           </td>
           <td data-testid="interaction" className="interaction">
             <Button color="transparent">
-              <img className="buttonimg" src={visit} />
+              <Link to={'/view/' + this.state.document._id + '/' + this.state.document.fileName + '/' + this.state.document.link}>
+                <img className="buttonimg" src={visit} />
+              </Link>
             </Button>
           </td>
           <td data-testid="interaction" className="interaction padding-right-sm">
@@ -90,4 +92,4 @@ class DocumentListItem extends Component {
   }
 }
 
-export default connect(mapStateToProps)(DocumentListItem)
+export default connect(mapStateToProps)(withRouter(DocumentListItem))

@@ -9,6 +9,7 @@ import {
   PMMainPage,
   SelectDocumentsPage,
   DocumentClassPage,
+  DocumentPreview,
   Register,
   LogIn,
   LoginPage
@@ -29,6 +30,7 @@ ReactDOM.render(
         <Route path="/main" component={PMMainPage} />
         <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
         <Route path="/documentclasspage" component={DocumentClassPage} />
+        <Route path="/view/:id/:name/:link" component={DocumentPreview}/>
       </Switch>
     </ConnectedRouter>
   </Provider>,

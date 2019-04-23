@@ -5,6 +5,7 @@ import { getAccessToken, updateDocumentStatus, getAllDocuments } from '../utils/
 import { bindActionCreators } from 'redux'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+import { Link } from 'react-router-dom'
 import Iframe from 'react-iframe'
 import Loader from 'react-loader-spinner'
 import 'box-ui-elements/dist/preview.css'
@@ -34,11 +35,22 @@ const mapDispatchToProps = dispatch => {
 class DocumentPreview extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      id: this.props.document._id,
-      fileName: this.props.document.fileName,
-      accessToken: null,
-      fileURL: this.props.document.link
+    console.log(this.props)
+    
+    if (this.props.match) {
+      this.state = {
+        id: this.props.match.params.id,
+        fileName: this.props.match.params.name,
+        accessToken: null,
+        fileURL: this.props.match.params.link
+      }
+    } else {
+      this.state = {
+        id: this.props.document._id,
+        fileName: this.props.document.fileName,
+        accessToken: null,
+        fileURL: this.props.document.link
+      }
     }
 
     this.toggle = this.toggle.bind(this)
@@ -79,6 +91,13 @@ class DocumentPreview extends Component {
   }
 
   async componentDidMount() {
+    // if (this.props.match.params.id && this.props.match.params.name) {
+    //   this.setState(prevState => ({
+    //     id: this.props.match.params.id,
+    //     fileName: this.props.match.params.name
+    //   }))
+    // }
+    console.log(this.props)
     const res = await getAccessToken()
     if (res) {
       this.setState({
