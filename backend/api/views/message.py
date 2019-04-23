@@ -1,5 +1,7 @@
 from flask import Blueprint, request, current_app
 from api.models.Message import Message
+from api.models.FP import FP
+from api.models.PM import PM
 from flask_mail import Message as Flask_Message
 from flask_mail import Mail
 from api.core import create_response, serialize_list, logger
@@ -30,6 +32,26 @@ def delete_message(id):
     return create_response(status=200, message="success")
 
 
+@message.route("/messages/fp/<fp_id>", methods=["GET"])
+def get_messages_by_fp(fp_id):
+    """
+    Gets a list of messages/notifications relevant to a specific FP
+    """
+    message_list = Message.query.filter(Message.fp_id == fp_id and Message.to_fp).all()
+    return create_response(data={"messages": serialize_list(message_list)})
+
+
+@message.route("/messages/pm/<pm_id>", methods=["GET"])
+def get_messages_by_pm(pm_id):
+    """
+    Gets a list of messages/notifications relevant to a specific PM
+    """
+    message_list = Message.query.filter(
+        Message.pm_id == pm_id and not Message.to_fp
+    ).all()
+    return create_response(data={"messages": serialize_list(message_list)})
+
+
 @message.route("/messages/new", methods=["POST"])
 def add_message(data):
     subjects = ["New required document", "Document reviewed", "Document uploaded"]
@@ -43,6 +65,7 @@ def add_message(data):
         return create_response(status=400, message="No PM ID provided for new message")
     if "fp_id" not in data:
         return create_response(status=400, message="No FP ID provided for new message")
+    # If to_fp is true, then this notification is meant for the fp
     if "to_fp" not in data:
         return create_response(
             status=400, message="No boolean to_fp provided for new message"

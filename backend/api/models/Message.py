@@ -12,12 +12,11 @@ class Message(Mixin, db.Model):
     id = db.Column(db.String, unique=True, primary_key=True)
     pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
     fp_id = db.Column(db.String, db.ForeignKey("field_partner.id"))
-    to_fp = db.Column(
-        db.Boolean, db.ForeignKey("")
-    )  # true if send to fp; false if send to pm
+    # true if send to fp; false if send to pm
+    to_fp = db.Column(db.Boolean)
 
     # These are all nullable depending on the type of notification
-    doc_id = db.Column(db.Integer, nullable=True)
+    doc_id = db.Column(db.String, db.ForeignKey("document.id"), nullable=True)
     status = db.Column(db.String, nullable=True)
     comment = db.Column(db.String, nullable=True)
 
