@@ -146,11 +146,11 @@ class DocumentPreview extends Component {
             </>
           ) : (
             <>
-              this.state.fileName && (
-              <Button color="transparent" onClick={this.toggle}>
-                <img className="buttonimg" src={preview} />
-              </Button>
-              )
+              {this.state.fileName && (
+                <Button color="transparent" onClick={this.toggle}>
+                  <img className="buttonimg" src={preview} />
+                </Button>
+              )}
               <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalHeader>{this.state.fileName}</ModalHeader>
                 <ModalBody style={customStyles}>
