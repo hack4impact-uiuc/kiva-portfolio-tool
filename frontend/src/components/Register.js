@@ -45,7 +45,7 @@ class Register extends React.Component {
   handleSubmit = async e => {
     e.preventDefault()
     if (this.state.password === this.state.password2) {
-      const result = await register(this.state.email, this.state.password)
+      const result = await register(this.state.email, this.state.password, "guest")
       const response = await result.json()
       if (!response.token) {
         this.setState({ errorMessage: response.message })

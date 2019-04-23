@@ -12,9 +12,13 @@ def register_user():
     data = request.get_json()
     if data is None:
         data = request.form
-    
-    print(data["email"], data["password"])
 
-    return create_response(status=200, message="success")
+    email = data["email"]
+    password = data["password"]
+    role = data["role"]
+    
+    r = requests.post("http://localhost:8000/register", data={'email': email, 'password': password, 'role': role})
+
+    return create_response(status=200, message="success", data={'token':r.text.token, 'uid': r.text.uid})
 
 #@auth.route("/login", methods=["GET"])

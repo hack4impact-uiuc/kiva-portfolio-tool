@@ -4,12 +4,12 @@ import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
-export const register = (email, password) => {
+export const register = (email, password, role) => {
   let data = new FormData()
   data.append('email', email)
   data.append('password', password)
   console.log(data)
-  //data.append('role', role)
+  data.append('role', role)
   return axios
     .post(BACKEND_URL + '/register', data)
     .then(response => {
