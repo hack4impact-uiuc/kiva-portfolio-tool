@@ -62,7 +62,7 @@ exports[`DocumentList renders correctly with documents 1`] = `
       </th>
       <th />
     </tr>
-    <Connect(DocumentListItem)
+    <Connect(withRouter(DocumentListItem))
       docClass="Board of Directors"
       document={
         Object {
@@ -71,7 +71,7 @@ exports[`DocumentList renders correctly with documents 1`] = `
         }
       }
     />
-    <Connect(DocumentListItem)
+    <Connect(withRouter(DocumentListItem))
       docClass="Auditor Letter"
       document={
         Object {
