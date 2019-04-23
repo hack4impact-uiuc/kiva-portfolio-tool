@@ -8,7 +8,7 @@ export const login = (email, password) => {
   data.append('email', email)
   data.append('password', password)
   return axios
-    .post(BACKEND_URL + 'login/', data)
+    .post(BACKEND_URL + '/login/', data)
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',

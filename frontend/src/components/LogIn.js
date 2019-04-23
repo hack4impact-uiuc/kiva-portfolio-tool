@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login } from '../api/login'
+import { login } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import {
   Form,
@@ -80,9 +80,9 @@ class LogIn extends Component {
             className="interview-card center-background"
             style={{ width: '400px', height: '60%' }}
           >
-            <CardTitle>
+            {/* <CardTitle>
               <img id = "foreground" src={kivaLogo} />
-            </CardTitle>
+            </CardTitle> */}
 
             <CardBody>
               <Form>

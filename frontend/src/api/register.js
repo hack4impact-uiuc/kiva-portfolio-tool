@@ -1,15 +1,16 @@
 import axios from 'axios'
+import BACKEND_URL from '../utils/ApiConfig'
 
 const { sendResponse } = require('./../utils/sendResponse')
-const BACKEND_URL = 'http://localhost:8000/'
 
-export const register = (email, password, role) => {
+export const register = (email, password) => {
   let data = new FormData()
   data.append('email', email)
   data.append('password', password)
-  data.append('role', role)
+  print(data)
+  //data.append('role', role)
   return axios
-    .post(BACKEND_URL + 'register/', data)
+    .post(BACKEND_URL + '/register', data)
     .then(response => {
       return {
         type: 'REGISTER_SUCCESS',

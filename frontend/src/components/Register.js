@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { register } from '../utils/api'
 import {
   Form,
   Button,
@@ -15,6 +14,7 @@ import {
   CardTitle
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
+import { register } from '../utils/ApiWrapper'
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({}, dispatch)
