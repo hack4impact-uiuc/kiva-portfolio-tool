@@ -10,7 +10,8 @@ import {
   PMMainPage,
   SelectDocumentsPage,
   Register,
-  LogIn
+  LogIn,
+  ForgotPassword
 } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
@@ -22,6 +23,7 @@ ReactDOM.render(
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Switch>
         <Route exact path="/" component={LogIn} />
+        <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />

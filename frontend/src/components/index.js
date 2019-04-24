@@ -8,6 +8,8 @@ import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
 import LoginPage from './LoginPage'
+import ForgotPassword from './ForgotPassword'
+
 
 export {
   Dashboard,
@@ -19,5 +21,6 @@ export {
   Register,
   LoginPage,
   SelectDocumentsPage,
-  PMMainPage
+  PMMainPage,
+  ForgotPassword
 }

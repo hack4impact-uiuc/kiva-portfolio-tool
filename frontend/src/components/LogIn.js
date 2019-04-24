@@ -126,10 +126,10 @@ class LogIn extends Component {
                 </Button>
               </Form>
               <br />
-              {/* <p style={{ color: 'red' }}>{this.state.errorMessage ? this.state.errorMessage : ''}</p>
-              <Link prefetch href="/forgotPassword">
+              <p style={{ color: 'red' }}>{this.state.errorMessage ? this.state.errorMessage : ''}</p>
+              <Link to="/forgotPassword" prefetch href="/forgotPassword">
                 <a>Forgot Password?</a>
-              </Link> */}
+              </Link>
             </CardBody>
           </Card>
           <br />
