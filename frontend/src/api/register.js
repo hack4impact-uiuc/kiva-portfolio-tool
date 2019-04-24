@@ -8,6 +8,7 @@ export const register = (email, password, role) => {
   data.append('email', email)
   data.append('password', password)
   data.append('role', role)
+  data.append('crossdomain', true)
   return axios
     .post(BACKEND_URL + 'register/', data)
     .then(response => {

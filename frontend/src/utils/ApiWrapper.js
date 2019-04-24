@@ -4,10 +4,14 @@ import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
-export const getAllDocuments = () => {
+export const getAllDocuments = (token) => {
   let requestString = BACKEND_URL + '/document'
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        token: token
+      }
+    })
     .then(response => {
       return response.data.result.documents
     })
@@ -136,6 +140,47 @@ export const sendFile = (file, file_name, docID) => {
     .catch(error => {
       return {
         type: 'UPLOAD_FILE_FAIL',
+        error
+      }
+    })
+}
+
+export const login = (email, password) => {
+  let data = new FormData()
+  data.append('email', email)
+  data.append('password', password)
+  return axios
+    .post(BACKEND_URL + '/login', data)
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
+
+export const register = (email, password, role) => {
+  let data = new FormData()
+  data.append('email', email)
+  data.append('password', password)
+  data.append('role', role)
+  return axios
+    .post(BACKEND_URL + '/register', data)
+    .then(response => {
+      return {
+        type: 'REGISTER_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'REGISTER_FAIL',
         error
       }
     })

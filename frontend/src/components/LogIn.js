@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login, google } from '../utils/api'
+import { login } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import {
   Form,
@@ -18,6 +18,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import '../styles/index.css'
 
+
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({}, dispatch)
 }
@@ -25,6 +26,34 @@ const mapDispatchToProps = dispatch => {
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 // const PASSWORD_REGEX = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
+
+const userAdmin = {
+  permissions : [
+    "get:document",
+    "all:message"
+  ]
+}
+
+const userPM = {
+  permissions : [
+    "get:document",
+    "post:document",
+    "review:document",
+    "delete:document",
+    "all:docClass",
+    "all:fp",
+    "all:pm",
+    "all:message"
+  ]
+}
+
+const userFP = {
+  permissions : [
+    "get:document",
+    "upload:document",
+    "all:message"
+  ]
+}
 
 class LogIn extends Component {
   state = {
@@ -42,12 +71,12 @@ class LogIn extends Component {
     e.preventDefault()
 
     const result = await login(this.state.email, this.state.password)
-    const resp = await result.json()
-
-    if (!resp.token) {
-      this.setState({ errorMessage: resp.message })
+    console.log(result)
+    const data = result.response.data
+    if (!data.result.token) {
+      this.setState({ errorMessage: data.message })
     } else {
-      setCookie('token', resp.token)
+      setCookie('token', data.result.token)
       this.props.history.push('/dashboard')
     }
   }

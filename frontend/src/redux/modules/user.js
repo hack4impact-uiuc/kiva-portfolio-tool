@@ -1,18 +1,26 @@
 const SET_USER_TYPE = 'user/set_user_type'
+const SET_USER_ROLE = 'user/set_user_role'
 const UPDATE_DOCUMENTS = 'user/update_documents'
 const LOAD = 'user/load'
 const UPDATE_MESSAGES = 'user/update_messages'
 const UPDATE_INFORMATION = 'user/update_information'
 
 const initialState = {
+  role: "Role",
   isPM: false,
   documents: [],
   messages: [],
   information: [],
-  loading: false
+  loading: false,
+  permissions: []
 }
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case SET_USER_ROLE:
+      return {
+        ...state,
+        role: action.value
+      }
     case SET_USER_TYPE:
       return {
         ...state,
@@ -43,6 +51,10 @@ export default function reducer(state = initialState, action) {
   }
 }
 
+export const setUserRole = value => ({
+  type: SET_USER_ROLE,
+  value
+})
 export const setUserType = value => ({
   type: SET_USER_TYPE,
   value

@@ -10,6 +10,7 @@ import { Container, Row, Col } from 'reactstrap'
 import '../styles/dashboard.css'
 import { updateDocuments, updateMessages, updateInformation } from '../redux/modules/user'
 import '../styles/index.css'
+import { getCookieFromBrowser } from '../utils/cookie'
 
 // Not needed unless working with non "en" locales
 // import { addLocaleData } from 'react-intl';
@@ -59,10 +60,11 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
+    let token = getCookieFromBrowser('token')
     /**
      * Contains all documents received from backend
      */
-    const documentsReceived = await getAllDocuments()
+    const documentsReceived = await getAllDocuments(token)
 
     /**
      * Contains all messages received from backend

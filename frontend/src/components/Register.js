@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { register } from '../utils/api'
+import { register } from '../utils/ApiWrapper'
 import {
   Form,
   Button,
@@ -12,12 +12,26 @@ import {
   Input,
   Card,
   CardBody,
-  CardTitle
+  CardTitle,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
+import { setUserRole } from '../redux/modules/user'
+
+const mapStateToProps = state => ({
+  role: state.user.role
+})
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({}, dispatch)
+  return bindActionCreators(
+    {
+      setUserRole
+    }, 
+    dispatch
+  )
 }
 
 // michael's baby
@@ -28,12 +42,26 @@ class Register extends React.Component {
   constructor(props) {
     super(props)
 
+    this.toggle = this.toggle.bind(this)
     this.state = {
       email: '',
       password: '',
       password2: '',
-      errorMessage: ''
+      errorMessage: '',
+      dropdownOpen: false,
+      selected: "Role"
     }
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    })
+  }
+
+  handleClick = event => {
+      this.setState({ selected: event.target.innerText})
+      this.props.setUserRole( event.target.innerText )
   }
 
   handleChange = event => {
@@ -46,10 +74,11 @@ class Register extends React.Component {
     e.preventDefault()
     if (this.state.password === this.state.password2) {
       const result = await register(this.state.email, this.state.password)
-      const response = await result.json()
+      const response = await result.json
       if (!response.token) {
         this.setState({ errorMessage: response.message })
       } else {
+        console.log("Account successfully created")
         setCookie('token', response.token)
         this.props.history.push('/login')
       }
@@ -65,14 +94,14 @@ class Register extends React.Component {
           <h3 style={{ textAlign: 'center', paddingTop: '10px' }}>Register</h3>
         </CardTitle>
 
-        <CardBody>
+        <CardBody style={{margin: '30px'}}>
           <Form>
             <FormGroup>
-              <Label for="exampleEmail">Email</Label>
               <Input
                 type="email"
                 name="email"
                 id="exampleEmail"
+                placeholder="E-mail"
                 maxLength="64"
                 pattern={EMAIL_REGEX}
                 value={this.state.email}
@@ -81,10 +110,10 @@ class Register extends React.Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="examplePassword">Password</Label>
               <Input
                 type="password"
                 name="password"
+                placeholder="Password"
                 minLength="8"
                 maxLength="64"
                 value={this.state.password}
@@ -93,10 +122,10 @@ class Register extends React.Component {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="examplePassword">Confirm Password</Label>
               <Input
                 type="password"
                 name="password2"
+                placeholder="Confirm Password"
                 minLength="8"
                 maxLength="64"
                 value={this.state.password2}
@@ -104,11 +133,27 @@ class Register extends React.Component {
                 required
               />
             </FormGroup>
+            <h6> Registering up as:</h6>
+            <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+              <DropdownToggle caret color="success">
+                {this.props.role}
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={this.handleClick}>Admin</DropdownItem>
+                <DropdownItem onClick={this.handleClick}>PM</DropdownItem>
+                <DropdownItem onClick={this.handleClick}>FP</DropdownItem>
+              </DropdownMenu>
+            </ButtonDropdown>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <Button
               color="success"
               size="lg"
               onClick={this.handleSubmit}
-              style={{ float: 'left', width: '48%' }}
+              style={{ float: 'left', width: '44%' }}
             >
               Register
             </Button>{' '}
@@ -116,7 +161,7 @@ class Register extends React.Component {
               color="success"
               size="lg"
               onClick={() => this.props.history.push('/dashboard')}
-              style={{ float: 'right', width: '49%' }}
+              style={{ float: 'right', width: '44%' }}
             >
               Login
             </Button>
@@ -131,4 +176,7 @@ class Register extends React.Component {
   )
 }
 
-export default connect(mapDispatchToProps)(Register)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)
+(Register)

@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch'
 
 import { getCookie } from './cookie'
 
-function register(emailInput, passwordInput) {
+/* function register(emailInput, passwordInput) {
   try {
     return fetch(`http://localhost:5000/register/`, {
       method: 'POST',
@@ -31,7 +31,7 @@ function login(emailInput, passwordInput) {
   } catch (err) {
     console.log(err)
   }
-}
+} */
 
 function verify() {
   try {

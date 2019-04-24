@@ -9,9 +9,17 @@ docclass = Blueprint("docclass", __name__)
 
 @docclass.route("/document_class", methods=["GET"])
 def get_document_class():
+    data = request.get_json()
+    headers = data["headers"]
+    
+    response, role = verify_token(headers['token'])
+
+    if response is not None:
+        return response
+
     """ function that is called when you visit /document_class, gets all the docclasses """
     document_class = DocumentClass.query.all()
-    return create_response(data={"document_class": serialize_list(document_class)})
+    return create_response(status=200, data={"document_class": serialize_list(document_class), "role": role})
 
 
 @docclass.route("/document_class/<id>", methods=["GET"])
@@ -51,3 +59,18 @@ def update_document_class(id):
 
     db.session.commit()
     return create_response(status=200, data={"document_class": updated_docclass})
+
+
+def verify_token(token):
+    """ helper function that verifies the token sent from client and returns an appropriate response and the permission/role (if it exists)"""
+    
+    if token is None:
+        return create_response(status=400, message="Token is required."), None 
+    
+    r = requests.post("http://localhost:8000/verify", headers={'token': headers['token']})
+    res = r.json()
+
+    if res["status"] == 400:
+        return create_response(status=400, message=res["message"]), None
+
+    return None, res["permission"]
