@@ -6,6 +6,7 @@ from api.models import (
     DocumentClass,
     Document,
 )
+from datetime import date
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
