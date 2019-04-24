@@ -65,6 +65,7 @@ def create_message(
             "status": status,
         }
     )
+    return temp_message
 
 
 def test_index(client):
