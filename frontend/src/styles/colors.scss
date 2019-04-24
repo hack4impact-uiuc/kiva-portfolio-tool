@@ -1,0 +1,17 @@
+@import "variables.scss";
+
+.progress > .bg-dashgrey {
+  background-color: $missing-color;
+}
+
+.progress > .bg-dashgreen {
+  background-color: $accepted-color;
+}
+
+.progress > .bg-dashred {
+  background-color: $rejected-color;
+}
+
+.progress > .bg-dashorange {
+  background-color: $pending-color;
+}

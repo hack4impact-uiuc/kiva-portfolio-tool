@@ -15,6 +15,7 @@ export const getAllDocumentClasses = () => {
       return null
     })
 }
+
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
@@ -88,6 +89,42 @@ export const getAllPartners = () => {
       }
     },
     {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
       name: 'Mario',
       duedate: 1.423,
       status: 'Active',
@@ -112,6 +149,7 @@ export const getAllPartners = () => {
   ]
 }
 */
+
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios

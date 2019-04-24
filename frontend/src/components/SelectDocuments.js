@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import '../styles/selectdocuments.css'
+import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -20,7 +22,6 @@ class SelectDocumentsPage extends React.Component {
       docClass: {},
       // docClasses filtered from docClasses using query
       filtered: {},
-      // due date to be set by user so that it can be passed on
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
       DueDate: today,
       // state that updates depending on what the user types in query bar
@@ -113,38 +114,48 @@ class SelectDocumentsPage extends React.Component {
 
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h2>Select Documents</h2>
+      <div className="page">
+        <h3>Select Documents</h3>
 
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Q:
-            <input
-              type="text"
-              value={this.state.query}
-              placeholder="Search For Documents Here"
-              onChange={this.handleQueryChange}
-            />
-          </label>
+          <img src={search} width="18" />
+          <input
+            className="input-master"
+            type="text"
+            value={this.state.query}
+            placeholder="Search For Documents Here"
+            onChange={this.handleQueryChange}
+          />
         </form>
 
-        <div>
-          <Selector
-            name="Available"
-            documents={this.state.filtered}
-            update={this.changeSelection}
+        <div className="displayView">
+          <div className="displayCell blockCustom">
+            <Selector
+              name="Available"
+              documents={this.state.filtered}
+              update={this.changeSelection}
+            />
+          </div>
+
+          <div className="blockCustom displayCell">
+            <Selector
+              name="Selected"
+              documents={this.state.filtered}
+              update={this.changeSelection}
+            />
+          </div>
+        </div>
+
+        <div className="blockCustom dateDisplay">
+          Set a Due Date:
+          <DatePicker
+            selected={this.state.DueDate}
+            onChange={this.newDueDate}
+            className="datePicker"
           />
         </div>
 
-        <div>
-          <Selector name="Selected" documents={this.state.filtered} update={this.changeSelection} />
-        </div>
-
-        <p>
-          {' '}
-          Set a Due Date:
-          <DatePicker selected={this.state.DueDate} onChange={this.newDueDate} />
-        </p>
+        <button className="nextButton">Next</button>
       </div>
     )
   }

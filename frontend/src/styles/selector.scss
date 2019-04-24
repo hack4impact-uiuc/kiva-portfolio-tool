@@ -1,0 +1,32 @@
+@import "variables.scss";
+
+.surround-box {
+    background: #ffffff;
+}
+
+.panel {
+    color: $gray-text-color;
+    font-size: 1rem;
+    margin-top: 2%;
+}
+
+.docClassValue {
+
+    display: inline-block;
+    width: 40%;
+    margin-right: 10%;
+    text-align: left;
+}
+
+.imageValue {
+    display: inline-block;
+    width: 4%;
+    margin-right: 5%;
+    text-align: center
+}
+
+.buttonValue {
+    display: inline-block;
+    background-color: #ffffff;
+    border: none;  
+}
