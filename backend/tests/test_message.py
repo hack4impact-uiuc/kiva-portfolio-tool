@@ -137,3 +137,10 @@ def test_get_messages(client):
     assert ret_dict["result"]["messages"][0]["fp_id"] == helper_field_partner.id
     assert ret_dict["result"]["messages"][0]["doc_id"] == helper_doc.id
     assert ret_dict["result"]["messages"][0]["status"] == "Pending"
+    
+    Message.query.delete()
+    DocumentClass.query.delete()
+    Document.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+    db.session.commit()
