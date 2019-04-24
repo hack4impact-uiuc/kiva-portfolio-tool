@@ -1,6 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-import MockData from './MockData'
+import { getCookie } from "./cookie";
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -243,32 +243,7 @@ export const verifyPIN = (email, pin) => {
 
 export const resendPIN = () => {
   return axios
-    .post(BACKEND_URL + '/changePassword', {
-      headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token")
-      }
-    })
-    .then(response => {
-      return {
-        type: 'LOGIN_SUCCESSFUL',
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        type: 'LOGIN_FAIL',
-        error
-      }
-    })
-}
-
-export const changePassword = (currentPassword, newPassword) => {
-  let data = new FormData()
-  data.append('currentPassword', currentPassword)
-  data.append('newPassword', newPassword)
-  return axios
-    .post(BACKEND_URL + '/changePassword', data, {
+    .post(BACKEND_URL + '/resendVerificaitonEmail', {
       headers: {
         "Content-Type": "application/json",
         token: getCookie("token")

@@ -17,13 +17,11 @@ def register_user():
     email = data["email"]
     password = data["password"]
     role = data["role"]
-    
-    r = requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role})
+    r = (requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role})).json()
+    if r['status'] == 400:
+        return create_response(status=400, message=r['message'])
 
-    if r.text.status == 400:
-        return create_response(status=400, message=r.text.message)
-
-    return create_response(status=200, message="success", data={'token':r.text.token, 'uid': r.text.uid})
+    return create_response(status=200, message="success", data={'token':r['token'], 'uid': r['uid']})
 
 @auth.route("/verifyEmail", methods=["POST"])
 def verify_email():

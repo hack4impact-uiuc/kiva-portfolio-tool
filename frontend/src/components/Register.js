@@ -11,124 +11,293 @@ import {
   Input,
   Card,
   CardBody,
-  CardTitle
+  CardTitle,
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
+  DropdownMenu
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
-import { register } from '../utils/ApiWrapper'
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({}, dispatch)
-}
+import { register, verifyPIN, resendPIN, getSecurityQuestion, setSecurityQuestion } from '../utils/ApiWrapper'
 
 // michael's baby
 const EMAIL_REGEX =
-  "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
+  "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})";
 
 class Register extends React.Component {
-  constructor(props) {
-    super(props)
+  state = {
+    email: "",
+    password: "",
+    password2: "",
+    errorMessage: "",
+    pinMessage: "",
+    pin: "",
+    successfulSubmit: false,
+    loading: false,
+    questions: [],
+    questionIdx: -1,
+    dropdownOpen: false,
+    securityQuestionAnswer: ""
+  };
 
-    this.state = {
-      email: '',
-      password: '',
-      password2: '',
-      errorMessage: ''
-    }
-  }
+  pickDropDown = (idx, e) => {
+    this.setState({ questionIdx: idx });
+  };
+  toggle = () => {
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  };
 
   handleChange = event => {
-    const value = event.target.value
-    const name = event.target.name
-    this.setState({ [name]: value })
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({ [name]: value });
+  };
+
+  handleChangeSecurityAnswer = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({ securityQuestionAnswer: value });
+  };
+
+  async componentDidMount() {
+    this.setState({ loading: true });
+    const resp = await getSecurityQuestions();
+    if (!resp) {
+      this.setState({ error: "unable to load data" });
+      return;
+    }
+    const respJson = await resp.json();
+    if (!!respJson.questions) {
+      this.setState({ questions: respJson.questions });
+    } else {
+      this.setState({ loading: false, errorMessage: respJson.error.message });
+    }
   }
 
   handleSubmit = async e => {
-    e.preventDefault()
-    if (this.state.password === this.state.password2) {
-      const result = await register(this.state.email, this.state.password, "guest")
-      const response = await result.json()
+    event.preventDefault();
+    if (
+      this.state.password === this.state.password2 &&
+      this.state.questionIdx !== -1 &&
+      this.state.securityQuestionAnswer !== ""
+    ) {
+      let result = await register(
+        this.state.email,
+        this.state.password,
+        this.state.questionIdx,
+        this.state.securityQuestionAnswer
+      );
+      const response = await result.json();
       if (!response.token) {
-        this.setState({ errorMessage: response.message })
+        this.setState({ errorMessage: response.message });
       } else {
-        setCookie('token', response.token)
-        this.props.history.push('/login')
+        setCookie("token", response.token);
+        this.setState({ successfulSubmit: true });
       }
-    } else {
-      this.setState({ errorMessage: 'Passwords do not match' })
+    } else if (this.state.password !== this.state.password2) {
+      this.setState({ errorMessage: "Passwords do not match " });
+    } else if (this.state.questionIdx === -1) {
+      this.setState({ errorMessage: "Select a question" });
+    } else if (!this.state.securityQuestionAnswer) {
+      this.setState({ errorMessage: "Answer not selected" });
     }
-  }
+  };
+
+  handlePINVerify = async e => {
+    e.preventDefault();
+    const result = await verifyPIN(this.state.pin);
+    const response = await result.json();
+    this.setState({ pinMessage: response.message });
+    if (response.status === 200) {
+      this.props.history.push('/')
+    }
+  };
+
+  handlePINResend = async e => {
+    e.preventDefault();
+    const result = await resendPIN();
+    const response = await result.json();
+    this.setState({ pinMessage: response.message });
+  };
+
+  roletoggle = () => {
+    this.setState({ roleDropdownOpen: !this.state.roleDropdownOpen });
+  };
 
   render = () => (
     <div>
-      <Card className="interview-card center-background" style={{ width: '400px', height: '60%' }}>
-        <CardTitle>
-          <h3 style={{ textAlign: 'center', paddingTop: '10px' }}>Register</h3>
-        </CardTitle>
-
-        <CardBody>
-          <Form>
-            <FormGroup>
-              <Label for="exampleEmail">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                id="exampleEmail"
-                maxLength="64"
-                pattern={EMAIL_REGEX}
-                value={this.state.email}
-                onChange={this.handleChange}
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                minLength="8"
-                maxLength="64"
-                value={this.state.password}
-                onChange={this.handleChange}
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="examplePassword">Confirm Password</Label>
-              <Input
-                type="password"
-                name="password2"
-                minLength="8"
-                maxLength="64"
-                value={this.state.password2}
-                onChange={this.handleChange}
-                required
-              />
-            </FormGroup>
-            <Button
-              color="success"
-              size="lg"
-              onClick={this.handleSubmit}
-              style={{ float: 'left', width: '48%' }}
-            >
-              Register
-            </Button>{' '}
-            <Button
-              color="success"
-              size="lg"
-              onClick={() => this.props.history.push('/dashboard')}
-              style={{ float: 'right', width: '49%' }}
-            >
-              Login
-            </Button>
-            <br />
-            <br />
-            <br />
-            <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
-          </Form>
-        </CardBody>
-      </Card>
+      {" "}
+      {!this.state.successfulSubmit ? (
+        <div>
+          <Card
+            className="interview-card"
+            style={{ width: "400px", height: "60%" }}
+          >
+            <CardTitle>
+              <h3 style={{ textAlign: "center", paddingTop: "10px" }}>
+                Register
+              </h3>
+            </CardTitle>
+            <CardBody>
+              {!!this.state.questions ? (
+                <React.Fragment>
+                  <Dropdown
+                    isOpen={this.state.dropdownOpen}
+                    toggle={this.toggle}
+                  >
+                    <DropdownToggle caret>
+                      {this.state.questionIdx === -1
+                        ? "Security Question"
+                        : this.state.questions[this.state.questionIdx]}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      {this.state.questions.map((question, idx) => (
+                        <DropdownItem
+                          onClick={this.pickDropDown.bind(null, idx)}
+                        >
+                          {question}
+                        </DropdownItem>
+                      ))}
+                    </DropdownMenu>
+                  </Dropdown>
+                  <Label for="exampleEmail">Answer</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="exampleEmail"
+                    maxLength="64"
+                    pattern={EMAIL_REGEX}
+                    value={this.state.securityQuestionAnswer}
+                    onChange={this.handleChangeSecurityAnswer}
+                    required
+                  />
+                </React.Fragment>
+              ) : null}
+              <Form>
+                <FormGroup>
+                  <Label for="exampleEmail">Email</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    id="exampleEmail"
+                    maxLength="64"
+                    pattern={EMAIL_REGEX}
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="examplePassword">Password</Label>
+                  <Input
+                    type="password"
+                    name="password"
+                    minLength="8"
+                    maxLength="64"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="examplePassword">Confirm Password</Label>
+                  <Input
+                    type="password"
+                    name="password2"
+                    minLength="8"
+                    maxLength="64"
+                    value={this.state.password2}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </FormGroup>
+                <Button
+                  color="success"
+                  size="lg"
+                  onClick={this.handleSubmit}
+                  style={{ float: "left", width: "48%" }}
+                >
+                  Register
+                </Button>{" "}
+                <Button
+                  color="success"
+                  size="lg"
+                  onClick={() => this.props.history.push('/login')}
+                  style={{ float: "right", width: "49%" }}
+                >
+                  Login
+                </Button>
+                <br />
+                <br />
+                <br />
+                <p style={{ color: "red" }}>{this.state.errorMessage}</p>
+              </Form>
+            </CardBody>
+          </Card>
+        </div>
+      ) : (
+        <Card
+          className="interview-card"
+          style={{ width: "400px", height: "60%" }}
+        >
+          <CardBody>
+            <Form>
+              <FormGroup>
+                <p style={{ color: "green" }}>{this.state.pinMessage}</p>
+                <Label>PIN</Label>
+                <Input
+                  name="pin"
+                  type="number"
+                  maxLength="10"
+                  minLength="4"
+                  value={this.state.pin}
+                  onChange={this.handleChange}
+                  required
+                />
+              </FormGroup>
+              <Button
+                color="success"
+                size="lg"
+                onClick={this.handlePINResend}
+                style={{
+                  float: "left",
+                  marginBottom: "3%",
+                  width: "100%"
+                }}
+              >
+                Resend PIN
+              </Button>
+              <Button
+                color="success"
+                size="lg"
+                onClick={this.handlePINVerify}
+                style={{
+                  float: "left",
+                  marginBotton: "3%",
+                  width: "100%"
+                }}
+              >
+                Verify Email
+              </Button>
+              <Button
+                color="link"
+                size="sm"
+                onClick={() => this.props.history.push('/')}
+                style={{
+                  float: "right",
+                  width: "25%",
+                  marginRight: "6%"
+                }}
+              >
+                Skip Verification
+              </Button>
+            </Form>
+            {this.state.passwordChangeMessage}
+          </CardBody>
+        </Card>
+      )}
     </div>
-  )
+  );
 }
 
-export default connect(mapDispatchToProps)(Register)
+export default connect()(Register)

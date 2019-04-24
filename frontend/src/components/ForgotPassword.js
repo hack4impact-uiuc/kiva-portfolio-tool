@@ -4,7 +4,7 @@ import {
   getSecurityQuestion,
   submitSecurityQuestionAnswer,
   resetPassword
-} from "../utils/api";
+} from "../utils/ApiWrapper";
 import {
   Form,
   Button,
