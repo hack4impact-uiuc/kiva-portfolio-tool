@@ -8,7 +8,6 @@ export const register = (email, password, role) => {
   let data = new FormData()
   data.append('email', email)
   data.append('password', password)
-  console.log(data)
   data.append('role', role)
   return axios
     .post(BACKEND_URL + '/register', data)
@@ -27,7 +26,6 @@ export const register = (email, password, role) => {
 }
 
 export const login = (email, password) => {
-  console.log("test")
   let data = new FormData()
   data.append('email', email)
   data.append('password', password)
@@ -48,13 +46,13 @@ export const login = (email, password) => {
 }
 
 export const verify = (emailInput, passwordInput) => {
-  let data = new FormData()
-  data.append('email', emailInput)
-  data.append('password', passwordInput)
-  console.log(data)
-  data.append('role', role)
   return axios
-    .post(BACKEND_URL + '/register', data)
+    .post(BACKEND_URL + '/verify', {
+      headers: {
+        "Content-Type": "application/json",
+        token: getCookie("token")
+      }
+    })
     .then(response => {
       return {
         type: 'REGISTER_SUCCESS',
@@ -69,100 +67,118 @@ export const verify = (emailInput, passwordInput) => {
     })
 }
 
-function verify() {
-  try {
-    return fetch(`http://localhost:5000/verify/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", token: getCookie("token") }
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-function setSecurityQuestion(question, answer, password) {
-  try {
-    return fetch(`http://localhost:5000/addSecurityQuestion`, {
-      method: "POST",
+export const setSecurityQuestion = (question, answer, password) => {
+  let data = new FormData()
+  data.append('question', question)
+  data.append('answer', answer)
+  return axios
+    .post(BACKEND_URL + '/addSecurityQuestion', data, {
       headers: {
         "Content-Type": "application/json",
         token: getCookie("token")
-      },
-      body: JSON.stringify({
-        question,
-        answer,
-        password
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
+      }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
 }
 
-function getSecurityQuestion(email) {
-  try {
-    return fetch(`http://localhost:5000/getSecurityQuestion`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
+export const getSecurityQuestion = (email) => {
+  let data = new FormData()
+  data.append('email', email)
+  return axios
+    .post(BACKEND_URL + '/addSecurityQuestion', data)
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
 }
 
-function submitSecurityQuestionAnswer(email, answer) {
-  try {
-    return fetch(`http://localhost:5000/forgotPassword`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        answer
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
+export const submitSecurityQuestionAnswer = (email, answer) => {
+  let data = new FormData()
+  data.append('email', email)
+  data.append('answer', answer)
+  return axios
+    .post(BACKEND_URL + '/forgotPassword', data)
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
 }
 
-function resetPassword(pin, email, password, answer) {
-  try {
-    return fetch(`http://localhost:5000/passwordReset`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        pin,
-        email,
-        password,
-        answer
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
+export const resetPassword = (email, answer, pin, password) => {
+  let data = new FormData()
+  data.append('email', email)
+  data.append('answer', answer)
+  data.append('pin', pin)
+  data.append('password', password)
+  return axios
+    .post(BACKEND_URL + '/resetPassword', data)
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
 }
 
-function changePassword(currentPassword, newPassword) {
-  try {
-    return fetch(`http://localhost:5000/changePassword`, {
-      method: "POST",
+export const changePassword = (currentPassword, newPassword) => {
+  let data = new FormData()
+  data.append('currentPassword', currentPassword)
+  data.append('newPassword', newPassword)
+  return axios
+    .post(BACKEND_URL + '/changePassword', data, {
       headers: {
         "Content-Type": "application/json",
         token: getCookie("token")
-      },
-      body: JSON.stringify({
-        currentPassword,
-        newPassword
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
+      }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
 }
 
+/**
 function getUsersForRolesPage() {
   console.log("ROLES");
   try {
@@ -198,86 +214,79 @@ function changeRole(userEmail, newRole, password) {
     console.log(err);
   }
 }
+*/
 
-function google(tokenId) {
-  try {
-    return fetch(`http://localhost:5000/google`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        tokenId: tokenId
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-function verifyPIN(pin) {
-  try {
-    return fetch(`http://localhost:5000/verifyEmail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token")
-      },
-      body: JSON.stringify({
-        pin
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-function resendPIN() {
-  try {
-    return fetch(`http://localhost:5000/resendVerificationEmail`, {
-      method: "POST",
+export const verifyPIN = (email, pin) => {
+  let data = new FormData()
+  data.append('email', email)
+  data.append('pin', pin)
+  return axios
+    .post(BACKEND_URL + '/verifyEmail', data, {
       headers: {
         "Content-Type": "application/json",
         token: getCookie("token")
       }
-    });
-  } catch (err) {
-    console.log(err);
-  }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
 }
 
-function userInfo() {
-  try {
-    return fetch(`http://localhost:5000/getUser`, {
-      method: "GET",
+export const resendPIN = () => {
+  return axios
+    .post(BACKEND_URL + '/changePassword', {
       headers: {
         "Content-Type": "application/json",
-        token: getCookie("token"),
-        google: getCookie("google")
+        token: getCookie("token")
       }
-    });
-  } catch (err) {
-    console.log(err);
-  }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
 }
 
-export {
-  register,
-  login,
-  verify,
-  setSecurityQuestion,
-  getSecurityQuestion,
-  submitSecurityQuestionAnswer,
-  resetPassword,
-  changePassword,
-  getUsersForRolesPage,
-  changeRole,
-  verifyPIN,
-  resendPIN,
-  google,
-  userInfo
-};
+export const changePassword = (currentPassword, newPassword) => {
+  let data = new FormData()
+  data.append('currentPassword', currentPassword)
+  data.append('newPassword', newPassword)
+  return axios
+    .post(BACKEND_URL + '/changePassword', data, {
+      headers: {
+        "Content-Type": "application/json",
+        token: getCookie("token")
+      }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
 
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
