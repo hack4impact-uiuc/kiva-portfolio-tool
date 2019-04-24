@@ -16,7 +16,7 @@ class Message(Mixin, db.Model):
     to_fp = db.Column(db.Boolean)
 
     # These are all nullable depending on the type of notification
-    doc_id = db.Column(db.String, db.ForeignKey("documents.id"), nullable=True)
+    doc_id = db.Column(db.Integer, db.ForeignKey("documents.id"), nullable=True)
     status = db.Column(db.String, nullable=True)
     comment = db.Column(db.String, nullable=True)
 
