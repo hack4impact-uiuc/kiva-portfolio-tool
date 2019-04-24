@@ -1,6 +1,6 @@
 from api.core import Mixin
 from .base import db
-
+import uuid
 import datetime
 
 # Note that we use sqlite for our tests, so you can't use Postgres Arrays
@@ -22,6 +22,7 @@ class Message(Mixin, db.Model):
 
     def __init__(self, data):
 
+        self.id = str(uuid.uuid4())
         # required fields should be checked for existence by the request
         self.pm_id = data["pm_id"]
         self.fp_id = data["fp_id"]
@@ -38,7 +39,7 @@ class Message(Mixin, db.Model):
             )
 
     def __repr__(self):
-        return f"<Message {self.comment}>"
+        return f"<Message\nID: {self.id}\PM ID: {self.pm_id}>\n <FP ID: {self.fp_id}>\n <To FP: {self.to_fp}>\n <Doc ID: {self.doc_id}>\n <Status: {self.status}>\n "
 
     def get_pm_id(self):
         return self.pm_id
