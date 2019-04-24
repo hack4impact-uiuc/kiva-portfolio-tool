@@ -44,7 +44,7 @@ def test_get_portfolio_manager(client):
 
 
 def test_get_pm_by_id(client):
-    db.session.query(PortfolioManager).delete()
+    PortfolioManager.query.delete()
 
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
