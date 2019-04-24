@@ -20,6 +20,9 @@ def register_user():
     
     r = requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role})
 
+    if r.text.status == 400:
+        return create_response(status=400, message=r.text.message)
+
     return create_response(status=200, message="success", data={'token':r.text.token, 'uid': r.text.uid})
 
 @auth.route("/verifyEmail", methods=["POST"])
@@ -47,6 +50,9 @@ def create_fp():
 
     r = requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role})
 
+    if r.text.status == 400 or r.text.status == 500:
+        return create_response(status=r.text.status, message=r.text.message)
+
     return create_response(status=200, message="success", data={'token':r.text.token, 'uid': r.text.uid, 'password': password})
 
 def randomStringDigits():
@@ -68,6 +74,9 @@ def change_password():
 
     r = requests.post(backend_url + "changePassword", data={'token': token, 'currentPassword': curr})
 
+    if r.text.status == 400 or r.text.status == 500:
+        return create_response(status=r.text.status, message=r.text.message)
+
     return create_response(status=200, message="success", data={'token': r.text.token})
 
 @auth.route("/forgotPassword", methods=["POST"])
@@ -80,6 +89,9 @@ def forgot_password():
     answer = data["answer"]
 
     r = requests.post(backend_url + "forgotPassword", data={'email': email, 'answer': answer})
+
+    if r.text.status == 400 or r.text.status == 500:
+        return create_response(status=r.text.status, message=r.text.message)
 
     return create_response(status=200, message=r.text.message)
 
@@ -96,6 +108,9 @@ def reset_password():
 
     r = requests.post(backend_url + "resetPassword", data={'email': email, 'password': password, 'pin': pin, 'answer': answer})
 
+    if r.text.status == 400 or r.text.status == 500:
+        return create_response(status=r.text.status, message=r.text.message)
+
     return create_response(status=200, message="success", data={'token': r.text.token})
 
 @auth.route("/addSecurityQuestion", methods=["POST"])
@@ -110,6 +125,9 @@ def add_security_question():
 
     r = requests.post(backend_url + "addSecurityQuestion", data={'token': token, 'question': question, 'answer': answer})
 
+    if r.text.status == 400 or r.text.status == 500:
+        return create_response(status=r.text.status, message=r.text.message)
+
     return create_response(status=200, message=r.text.message)
 
 @auth.route("/getSecurityQuestion", methods=["POST"])
@@ -122,6 +140,9 @@ def get_security_question():
 
     r = requests.post(backend_url + "getSecurityQuestion", data={'email': email})
 
+    if r.text.status == 400 or r.text.status == 500:
+        return create_response(status=r.text.status, message=r.text.message)
+
     return create_response(status=200, message="success", data={'question': r.text.question})
 
 @auth.route("/resendVerification", methods=["POST"])
@@ -133,5 +154,8 @@ def resend_verification():
     token = data["token"]
 
     r = requests.post(backend_url + "resendVerificationEmail", headers={'token': token})
+
+    if r.text.status == 400 or r.text.status == 500:
+        return create_response(status=r.text.status, message=r.text.message)
 
     return create_response(status=200, message=r.text.message)  
