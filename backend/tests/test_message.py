@@ -12,16 +12,6 @@ from datetime import date
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
 
 
-def pytest_sessionfinish(session, exitstatus):
-    """ whole test run finishes. """
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
-
-
 def create_pm(email, name):
     helper_portfolio_manager = PortfolioManager({"email": email, "name": name})
     return helper_portfolio_manager
@@ -147,12 +137,6 @@ def test_get_messages(client):
 
 
 def test_delete_messages(client):
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
 
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
     db.session.add(helper_portfolio_manager)
@@ -190,3 +174,9 @@ def test_delete_messages(client):
 
     assert rs.status_code == 200
 
+    Message.query.delete()
+    Document.query.delete()
+    DocumentClass.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+    db.session.commit()
