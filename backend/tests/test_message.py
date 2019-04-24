@@ -126,4 +126,4 @@ def test_get_messages(client):
     assert ret_dict["result"]["messages"][0]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["messages"][0]["fp_id"] == helper_field_partner.id
     assert ret_dict["result"]["messages"][0]["doc_id"] == helper_doc.id
-    assert ret_dict["result"]["messages"][0]["status"] == "Completed"
+    assert ret_dict["result"]["messages"][0]["status"] == "Pending"
