@@ -12,6 +12,16 @@ from datetime import date
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
 
 
+def pytest_sessionfinish(session, exitstatus):
+    """ whole test run finishes. """
+    Message.query.delete()
+    DocumentClass.query.delete()
+    Document.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+    db.session.commit()
+
+
 def create_pm(email, name):
     helper_portfolio_manager = PortfolioManager({"email": email, "name": name})
     return helper_portfolio_manager

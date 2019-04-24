@@ -16,6 +16,13 @@ class MessageType(Enum):
     UPLOADED_DOC = 2
 
 
+def pytest_sessionfinish(session, exitstatus):
+    """ whole test run finishes. """
+    Message.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+
+
 @message.route("/messages", methods=["GET"])
 def get_messages():
     messages = Message.query.all()
