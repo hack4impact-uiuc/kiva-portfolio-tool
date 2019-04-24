@@ -4,11 +4,12 @@ import { getCookie } from "./cookie";
 
 //import { BACKEND_KEY } from '../keys'
 
-export const register = (email, password, role) => {
+export const register = (email, password, role, questionIdx) => {
   let data = new FormData()
   data.append('email', email)
   data.append('password', password)
   data.append('role', role)
+  data.append('questionIdx', questionIdx)
   return axios
     .post(BACKEND_URL + '/register', data)
     .then(response => {
@@ -67,12 +68,9 @@ export const verify = (emailInput, passwordInput) => {
     })
 }
 
-export const setSecurityQuestion = (question, answer, password) => {
-  let data = new FormData()
-  data.append('question', question)
-  data.append('answer', answer)
+export const getSecurityQuestions = () => {
   return axios
-    .post(BACKEND_URL + '/addSecurityQuestion', data, {
+    .post(BACKEND_URL + '/getSecurityQuestions', {
       headers: {
         "Content-Type": "application/json",
         token: getCookie("token")
@@ -92,11 +90,13 @@ export const setSecurityQuestion = (question, answer, password) => {
     })
 }
 
-export const getSecurityQuestion = (email) => {
+export const setSecurityQuestion = (questionIdx, answer, password) => {
   let data = new FormData()
-  data.append('email', email)
+  data.append('questionIdx', questionIdx)
+  data.append('answer', answer)
+  data.append('password', password)
   return axios
-    .post(BACKEND_URL + '/addSecurityQuestion', data)
+    .post(BACKEND_URL + '/addSecurityQuestionAnswer', data)
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',
@@ -111,10 +111,30 @@ export const getSecurityQuestion = (email) => {
     })
 }
 
-export const submitSecurityQuestionAnswer = (email, answer) => {
+export const getSecurityQuestionForUser = (email) => {
+  let data = new FormData()
+  data.append('email', email)
+  return axios
+    .post(BACKEND_URL + '/getSecurityQuestionForUser', data)
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
+
+export const submitSecurityQuestionAnswer = (email, answer, questionIdx) => {
   let data = new FormData()
   data.append('email', email)
   data.append('answer', answer)
+  data.append('questionIdx', questionIdx)
   return axios
     .post(BACKEND_URL + '/forgotPassword', data)
     .then(response => {

@@ -17,7 +17,8 @@ def register_user():
     email = data["email"]
     password = data["password"]
     role = data["role"]
-    r = (requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role})).json()
+    question_index = data["questionIdx"]
+    r = (requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role, 'questionIdx': question_index})).json()
     if r['status'] == 400:
         return create_response(status=400, message=r['message'])
 
@@ -32,9 +33,12 @@ def verify_email():
     email = data["email"]
     pin = data["pin"]
 
-    r = requests.post(backend_url + "verifyEmail", data={'email': email, 'pin': pin})
+    r = (requests.post(backend_url + "verifyEmail", data={'email': email, 'pin': pin})).json()
 
-    return create_response(status=200, message="success")
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
+
+    return create_response(status=200, message=r['message'])
 
 @auth.route("/createFP", methods=["POST"])
 def create_fp():
@@ -46,10 +50,10 @@ def create_fp():
     password = randomStringDigits()
     role = "fp"
 
-    r = requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role})
+    r = (requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role})).json()
 
-    if r.text.status == 400 or r.text.status == 500:
-        return create_response(status=r.text.status, message=r.text.message)
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
 
     return create_response(status=200, message="success", data={'token':r.text.token, 'uid': r.text.uid, 'password': password})
 
@@ -70,12 +74,12 @@ def change_password():
     current_password = data["currentPassword"]
     new_password = data["newPassword"]
 
-    r = requests.post(backend_url + "changePassword", data={'token': token, 'currentPassword': curr})
+    r = (requests.post(backend_url + "changePassword", data={'token': token, 'currentPassword': curr})).json()
 
-    if r.text.status == 400 or r.text.status == 500:
-        return create_response(status=r.text.status, message=r.text.message)
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
 
-    return create_response(status=200, message="success", data={'token': r.text.token})
+    return create_response(status=200, message="success", data={'token': r['token']})
 
 @auth.route("/forgotPassword", methods=["POST"])
 def forgot_password():
@@ -85,13 +89,14 @@ def forgot_password():
 
     email = data["email"]
     answer = data["answer"]
+    question_index = data["questionIdx"]
 
-    r = requests.post(backend_url + "forgotPassword", data={'email': email, 'answer': answer})
+    r = (requests.post(backend_url + "forgotPassword", data={'email': email, 'answer': answer, 'questionIdx': question_index})).json()
 
-    if r.text.status == 400 or r.text.status == 500:
-        return create_response(status=r.text.status, message=r.text.message)
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
 
-    return create_response(status=200, message=r.text.message)
+    return create_response(status=200, message=r['message'])
 
 @auth.route("/resetPassword", methods=["POST"])
 def reset_password():
@@ -104,31 +109,31 @@ def reset_password():
     pin = data["pin"]
     answer = data["answer"]
 
-    r = requests.post(backend_url + "resetPassword", data={'email': email, 'password': password, 'pin': pin, 'answer': answer})
+    r = (requests.post(backend_url + "resetPassword", data={'email': email, 'password': password, 'pin': pin, 'answer': answer})).json()
 
-    if r.text.status == 400 or r.text.status == 500:
-        return create_response(status=r.text.status, message=r.text.message)
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
 
-    return create_response(status=200, message="success", data={'token': r.text.token})
+    return create_response(status=200, message="success", data={'token': r['token']})
 
-@auth.route("/addSecurityQuestion", methods=["POST"])
+@auth.route("/addSecurityQuestionAnswer", methods=["POST"])
 def add_security_question():
     data = request.get_json()
     if data is None:
         data = request.form
 
     token = data["token"]
-    question = data["question"]
+    questionIdx = data["questionIdx"]
     answer = data["answer"]
 
-    r = requests.post(backend_url + "addSecurityQuestion", data={'token': token, 'question': question, 'answer': answer})
+    r = (requests.post(backend_url + "addSecurityQuestionAnswer", data={'token': token, 'questionIdx': questionIdx, 'answer': answer})).json()
 
-    if r.text.status == 400 or r.text.status == 500:
-        return create_response(status=r.text.status, message=r.text.message)
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
 
-    return create_response(status=200, message=r.text.message)
+    return create_response(status=200, message=r['message'])
 
-@auth.route("/getSecurityQuestion", methods=["POST"])
+@auth.route("/getSecurityQuestionForUser", methods=["POST"])
 def get_security_question():
     data = request.get_json()
     if data is None:
@@ -136,12 +141,12 @@ def get_security_question():
 
     email = data["email"]
 
-    r = requests.post(backend_url + "getSecurityQuestion", data={'email': email})
+    r = (requests.post(backend_url + "getSecurityQuestionForUser", data={'email': email})).json()
 
-    if r.text.status == 400 or r.text.status == 500:
-        return create_response(status=r.text.status, message=r.text.message)
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
 
-    return create_response(status=200, message="success", data={'question': r.text.question})
+    return create_response(status=200, message="success", data={'question': r['question']})
 
 @auth.route("/resendVerification", methods=["POST"])
 def resend_verification():
@@ -151,9 +156,9 @@ def resend_verification():
 
     token = data["token"]
 
-    r = requests.post(backend_url + "resendVerificationEmail", headers={'token': token})
+    r = (requests.post(backend_url + "resendVerificationEmail", headers={'token': token})).json()
 
-    if r.text.status == 400 or r.text.status == 500:
-        return create_response(status=r.text.status, message=r.text.message)
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
 
-    return create_response(status=200, message=r.text.message)  
+    return create_response(status=200, message=r['message'])  
