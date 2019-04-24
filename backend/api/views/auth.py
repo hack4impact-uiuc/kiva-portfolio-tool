@@ -14,6 +14,9 @@ def register_user():
     if data is None:
         data = request.form
 
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
     email = data["email"]
     password = data["password"]
     role = data["role"]
@@ -30,6 +33,9 @@ def verify_email():
     if data is None:
         data = request.form
 
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
     email = data["email"]
     pin = data["pin"]
 
@@ -45,6 +51,9 @@ def create_fp():
     data = request.get_json()
     if data is None:
         data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
 
     email = data["email"]
     password = randomStringDigits()
@@ -70,6 +79,9 @@ def change_password():
     if data is None:
         data = request.form
 
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
     token = data["token"]
     current_password = data["currentPassword"]
     new_password = data["newPassword"]
@@ -87,6 +99,9 @@ def forgot_password():
     if data is None:
         data = request.form
 
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
     email = data["email"]
     answer = data["answer"]
     question_index = data["questionIdx"]
@@ -103,6 +118,9 @@ def reset_password():
     data = request.get_json()
     if data is None:
         data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
 
     email = data["email"]
     password = data["password"]
@@ -122,6 +140,9 @@ def add_security_question():
     if data is None:
         data = request.form
 
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
     token = data["token"]
     questionIdx = data["questionIdx"]
     answer = data["answer"]
@@ -139,6 +160,9 @@ def get_security_question():
     if data is None:
         data = request.form
 
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
     email = data["email"]
 
     r = (requests.post(backend_url + "getSecurityQuestionForUser", data={'email': email})).json()
@@ -153,6 +177,9 @@ def resend_verification():
     data = request.get_json()
     if data is None:
         data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
 
     token = data["token"]
 
