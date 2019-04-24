@@ -39,7 +39,7 @@ class Message(Mixin, db.Model):
             )
 
     def __repr__(self):
-        return f"<Message\nID: {self.id}\PM ID: {self.pm_id}>\n <FP ID: {self.fp_id}>\n <To FP: {self.to_fp}>\n <Doc ID: {self.doc_id}>\n <Status: {self.status}>\n "
+        return f"<Message\nID: {self.id}\nPM ID: {self.pm_id}\n FP ID: {self.fp_id}\n To FP: {self.to_fp}\n Doc ID: {self.doc_id}\n <Status: {self.status}>\n "
 
     def get_pm_id(self):
         return self.pm_id

@@ -37,14 +37,14 @@ def create_docclass(name):
     return temp_docclass
 
 
-def create_document(file_id, user_id, status, docclass_id):
+def create_document(file_id, user_id, status, docclass):
     temp_document = Document(
         {
             "fileID": file_id,
             "userID": user_id,
             "date": date.fromordinal(730920),
             "status": status,
-            "docClassID": docclass_id,
+            "docClassID": docclass.id,
             "fileName": "MyDoc.docx",
             "latest": True,
             "description": "Yeet",
@@ -73,6 +73,13 @@ def test_index(client):
 
 
 def test_get_messages(client):
+    Message.query.delete()
+    DocumentClass.query.delete()
+    Document.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+    db.session.commit()
+
     rs = client.get("/messages")
 
     assert rs.status_code == 200
