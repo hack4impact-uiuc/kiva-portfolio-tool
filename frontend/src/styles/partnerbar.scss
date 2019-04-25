@@ -1,7 +1,23 @@
 @import "variables.scss";
 
+.progress > .bg-dashgrey {
+    background-color: $missing-color;
+}
+
+.progress > .bg-dashgreen {
+    background-color: $accepted-color;
+}
+
+.progress > .bg-dashred {
+    background-color: $rejected-color;
+}
+
+.progress > .bg-dashorange {
+    background-color: $pending-color;
+}
+  
+
 .page {
-    margin-top: 5%;
     text-align: center ;
     font-family: rubik;
 }
@@ -9,34 +25,44 @@
 .page h2 {
     // font-weight: bold;
     color: $accepted-color;
+<<<<<<< HEAD
     font-size: 3rem;
+=======
+    font-size: 5rem;
+>>>>>>> 2de2fb4bb8ec2e6be34ca01a97ba6b22f07bf9aa
 }
 
 
 .input-master {
     border: none;
+    border-bottom: $shadow-color solid 1px;
     background-color: transparent;
-    width: 35%; 
-    text-indent: 5px
+    width: 23%; 
+    text-indent: 5px;
+    margin: 0;
+
 }
 
-::placeholder{text-indent: 20px; font-size: small; } 
+::placeholder{text-indent: 40px; font-size: large; } 
 
 .tab-master {
-    margin-top: 2%;
+    margin-top: 4%;
 }
 
 .partnerPanel {
     justify-content: center;
     display: grid;
-    grid-template-columns: 40% 40%;
-    grid-column-gap: 5%;
-    grid-row-gap: 4%;
+    grid-template-columns: 30% 30%;
+    /*grid-template-rows: 60% 60%;*/
+    grid-column-gap: 2%;
+    grid-row-gap: 8%;
     margin-top: 2%;
 }
 
 .partnerBox {
     padding: 4%;
+    padding-left: 0;
+    padding-right: 0;
     background-color: $background-color;
     border-radius: 26px;
     box-shadow: 0px 0px 7px 1px $shadow-color;
@@ -45,11 +71,12 @@
 }
 
 .partnerBox .nameProgressDisplay {
+    font-size: x-large;
     width: 60%;
     text-align: left;
 }
 
-.partnerBox .icon {
+.partnerBox .iconBox {
     height:inherit;
     padding-left: 2.5%;
     padding-right: 2.5%;
@@ -62,14 +89,16 @@
     font-weight: 500;
     margin-left: 2%;
     margin-right: 4%;
+    zoom: 150%;
 }
 
 .partnerBox .duedate {
+    font-size: x-large;
     width: 15%;
 }
 
 .partnerBox .due {
-    font-size: small;
+    font-size: x-large;
 }
 
 .progressAdditional {
@@ -85,13 +114,15 @@
 
 .react-tabs__tab-list {
     border-bottom: none;
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .react-tabs__tab {
     border: none;
     color: $gray-text-color;
-    font-weight: bold;
+    font-weight: 500;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .react-tabs__tab--selected {

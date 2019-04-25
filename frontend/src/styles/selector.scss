@@ -6,20 +6,16 @@
 
 .panel {
     color: $gray-text-color;
-    font-size: 1rem;
     margin-top: 2%;
 }
 
 .docClassValue {
-
     display: inline-block;
     width: 40%;
     margin-right: 10%;
     text-align: left;
-}
-
+    font-size: 2rem;
 .imageValue {
-    display: inline-block;
     width: 4%;
     margin-right: 5%;
     text-align: center

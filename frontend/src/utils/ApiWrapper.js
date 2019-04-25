@@ -263,6 +263,7 @@ export const getAllPMs = () => {
 }
 
 export const getAllDocumentClasses = () => {
+  return ['a', 'ab', 'abc', 'abcd', 'abcde']
   let requestString = BACKEND_URL + '/document_class'
   return axios
     .get(requestString)

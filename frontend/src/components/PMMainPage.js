@@ -146,7 +146,7 @@ class PMMainPage extends Component {
         <h2>Field Partners</h2>
         <Button onClick={this.toggle}>Add New Field Partner</Button>
         <form onSubmit={this.handleSubmit}>
-          <img src={search} width="18" />
+          <img src={search} width="25" />
           <input
             className="input-master"
             type="text"
@@ -156,8 +156,8 @@ class PMMainPage extends Component {
           />
         </form>
 
-        <Tabs>
-          <TabList>
+        <Tabs className="tab-master">
+          <TabList className="react-tabs__tab-list">
             <Tab>In Process</Tab>
             <Tab>New Partner</Tab>
             <Tab>Complete</Tab>
