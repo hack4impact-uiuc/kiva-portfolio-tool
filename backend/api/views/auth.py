@@ -99,11 +99,12 @@ def change_password():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    token = data["token"]
     current_password = data["currentPassword"]
     new_password = data["newPassword"]
+    token = request.headers.get('token')
+    headers = {'Content-type': 'application/json', 'token': token}   
 
-    r = (requests.post(backend_url + "changePassword", data={'token': token, 'currentPassword': curr})).json()
+    r = (requests.get(backend_url + "changePassword", data={'currentPassword':current_password, 'newPassword':new_password}, headers = headers)).json()
 
     if r['status'] == 400 or r['status'] == 500:
         return create_response(status=r['status'], message=r['message'])
@@ -160,11 +161,13 @@ def add_security_question():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    token = data["token"]
     questionIdx = data["questionIdx"]
     answer = data["answer"]
 
-    r = (requests.post(backend_url + "addSecurityQuestionAnswer", data={'token': token, 'questionIdx': questionIdx, 'answer': answer})).json()
+    token = request.headers.get('token')
+    headers = {'Content-type': 'application/json', 'token': token}   
+
+    r = (requests.get(backend_url + "addSecurityQuestionAnswer", data={'questionIdx': questionIdx, 'answer':answer}, headers = headers)).json()
 
     if r['status'] == 400 or r['status'] == 500:
         return create_response(status=r['status'], message=r['message'])
@@ -179,12 +182,11 @@ def get_security_questions():
 
     if data is None:
         return create_response(status=400, message="Missing Data!")
-    print(data)
+
     token = request.headers.get('token')
-    print(token)
+
     headers = {'Content-type': 'application/json', 'token': token}    
     r = (requests.get(backend_url + "getSecurityQuestions", headers = headers)).json()
-    print(r)
 
     return create_response(status=200, message="success", data={'questions': r['questions']})
 
@@ -215,10 +217,11 @@ def resend_verification():
 
     if data is None:
         return create_response(status=400, message="Missing Data!")
+    
+    token = request.headers.get('token')
+    headers = {'Content-type': 'application/json', 'token': token}   
 
-    token = data["token"]
-
-    r = (requests.post(backend_url + "resendVerificationEmail", headers={'token': token})).json()
+    r = (requests.get(backend_url + "resendVerificationEmail", headers = headers)).json()
 
     if r['status'] == 400 or r['status'] == 500:
         return create_response(status=r['status'], message=r['message'])
