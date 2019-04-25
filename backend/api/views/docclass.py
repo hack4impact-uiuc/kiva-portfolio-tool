@@ -17,7 +17,7 @@ def get_document_class():
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /document_class, gets all the docclasses """
@@ -35,7 +35,7 @@ def get_document_class_by_id(id):
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /document_class/<id>, gets a docclass by id """
@@ -55,7 +55,7 @@ def add_document_class():
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")    
     """ function that is called when you visit /document_class/new, creates a new docclass """
     logger.info(data)
@@ -81,8 +81,8 @@ def update_document_class(id):
 
     if response is not None:
         return response
-        
-    if role != "pm":
+
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     docclass = DocumentClass.query.get(id)

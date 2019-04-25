@@ -15,7 +15,7 @@ def get_portfolio_manager():
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /portfolio_manager """
@@ -35,7 +35,7 @@ def get_pm_by_id(id):
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id """
@@ -55,7 +55,7 @@ def get_pm_by_email(email):
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /portfolio_manager/<email>, gets a PM by email """
@@ -77,7 +77,7 @@ def get_all_fps(id):
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /portfolio_manager/all_fps/<id> that gets a portfolio manager by id """
@@ -96,7 +96,7 @@ def new_pm():
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
 
     if data is None:
@@ -122,9 +122,9 @@ def add_fp(pm_id, fp_id):
     if response is not None:
         return response
 
-    if role != "pm":
+    if role == "fp":
         return create_response(status=400, message="You do not have permission to authorize this request.")
-        
+
     """ function that is called when you visit /portfolio_manager/add/<pm_id>/<fp_id>, adds an existing FP to the PM's list of FPs """
     pm = PortfolioManager.query.get(pm_id)
     pm.list_of_fps = pm.list_of_fps + [fp_id]

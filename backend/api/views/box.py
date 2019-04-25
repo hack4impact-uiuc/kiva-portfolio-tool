@@ -39,6 +39,14 @@ SPACE = 1073741824
 
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
+    data = request.get_json()
+    headers = data["headers"]
+    
+    response, role = verify_token(headers['token'])
+
+    if response is not None:
+        return response
+
     config = json.load(open("api/views/171399529_b8tan54x_config.json"))
 
     keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
@@ -97,7 +105,7 @@ def get_access_token():
     request = Request(authentication_url, params)
     response = urlopen(request).read()
     access_token = json.loads(response)["access_token"]
-    return create_response(data={"access_token": access_token})
+    return create_response(data={"access_token": access_token, "role": role})
 
 
 def create_user(username):
@@ -189,6 +197,14 @@ def get_file_info(client, file_id):
 
 @box.route("/box/download", methods=["GET"])
 def download_file():
+    data = request.get_json()
+    headers = data["headers"]
+    
+    response, role = verify_token(headers['token'])
+
+    if response is not None:
+        return response
+
     file_id = request.form.get("file_id")
     box_file = client.file(file_id).get()
     output_file = open(box_file.name, "wb")
@@ -196,7 +212,7 @@ def download_file():
 
     path_box = os.path.abspath(output_file)
     return create_response(
-        data={"output": send_file(path_box, attachment_filename=file_id)}
+        data={"output": send_file(path_box, attachment_filename=file_id), "role": role}
     )
 
 
@@ -246,3 +262,17 @@ def find_files_by_content(content_query):
         output.append(i)
 
     return output
+
+def verify_token(token):
+    """ helper function that verifies the token sent from client and returns an appropriate response and the permission/role (if it exists)"""
+    
+    if token is None:
+        return create_response(status=400, message="Token is required."), None 
+    
+    r = requests.post("http://localhost:8000/verify", headers={'token': headers['token']})
+    res = r.json()
+
+    if res["status"] == 400:
+        return create_response(status=400, message=res["message"]), None
+
+    return None, res["permission"]
