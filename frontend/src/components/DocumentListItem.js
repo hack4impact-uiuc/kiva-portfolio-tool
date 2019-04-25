@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter, Link } from 'react-router-dom'
 import Dropzone from 'react-dropzone'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -73,7 +74,14 @@ class DocumentListItem extends Component {
           </td>
           <td data-testid="interaction" className="interaction">
             <Button color="transparent">
-              <img className="buttonimg" src={visit} />
+              <Link
+                to={{
+                  pathname: '/view/' + this.state.document._id + '/' + this.state.document.fileName,
+                  state: { link: this.state.document.link }
+                }}
+              >
+                <img className="buttonimg" src={visit} />
+              </Link>
             </Button>
           </td>
           <td data-testid="interaction" className="interaction padding-right-sm">
@@ -101,7 +109,4 @@ class DocumentListItem extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DocumentListItem)
+export default connect(mapStateToProps)(withRouter(DocumentListItem))

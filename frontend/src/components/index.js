@@ -2,6 +2,7 @@ import LogIn from './LogIn'
 import Dashboard from './Dashboard'
 import DocumentList from './DocumentList'
 import DocumentListItem from './DocumentListItem'
+import DocumentPreview from './DocumentPreview'
 import Register from './Register'
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
@@ -19,5 +20,6 @@ export {
   LoginPage,
   SelectDocumentsPage,
   PMMainPage,
-  DocumentClassPage
+  DocumentClassPage,
+  DocumentPreview
 }
