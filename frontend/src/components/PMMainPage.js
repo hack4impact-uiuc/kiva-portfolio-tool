@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import 'react-tabs/style/react-tabs.css'
 import { connect } from 'react-redux'
 import { Progress } from 'reactstrap'
-import '../styles/colors.css'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
 
@@ -73,14 +72,9 @@ class PMMainPage extends Component {
   render() {
     return (
       <div className="page">
-        <div>
-          <span />
-          <p>Fieldy McPartnerson</p>
-        </div>
         <h2>Field Partners</h2>
-
         <form onSubmit={this.handleSubmit}>
-          <img src={search} width="18" />
+          <img src={search} width="25" />
           <input
             className="input-master"
             type="text"
@@ -163,7 +157,7 @@ class PartnerBar extends Component {
           <div className="due">Due</div>
           {this.props.partner.duedate}
         </div>
-        <div className="icon">{this.props.partner.name[0]}</div>
+        <div className="iconBox">{this.props.partner.name[0]}</div>
         <div className="nameProgressDisplay">
           <div>{this.props.partner.name}</div>
           <div className="progressAdditional">

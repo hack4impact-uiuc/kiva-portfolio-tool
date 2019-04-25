@@ -114,48 +114,59 @@ class SelectDocumentsPage extends React.Component {
 
   render() {
     return (
-      <div className="page">
-        <h3>Select Documents</h3>
-
-        <form onSubmit={this.handleSubmit}>
-          <img src={search} width="18" />
-          <input
-            className="input-master"
-            type="text"
-            value={this.state.query}
-            placeholder="Search For Documents Here"
-            onChange={this.handleQueryChange}
-          />
-        </form>
-
-        <div className="displayView">
-          <div className="displayCell blockCustom">
-            <Selector
-              name="Available"
-              documents={this.state.filtered}
-              update={this.changeSelection}
-            />
+      <div>
+        <div className="topBar">
+          <div className="iconTop">
+            <p className="iconInfo">FP</p>
           </div>
-
-          <div className="blockCustom displayCell">
-            <Selector
-              name="Selected"
-              documents={this.state.filtered}
-              update={this.changeSelection}
-            />
+          <div className="partnernamebox">
+            <h3 className="partnername">Fieldy McPartnerson</h3>
           </div>
         </div>
 
-        <div className="blockCustom dateDisplay">
-          Set a Due Date:
-          <DatePicker
-            selected={this.state.DueDate}
-            onChange={this.newDueDate}
-            className="datePicker"
-          />
-        </div>
+        <div className="pageSD">
+          <h1>Select Documents</h1>
 
-        <button className="nextButton">Next</button>
+          <form onSubmit={this.handleSubmit}>
+            <img src={search} width="18" />
+            <input
+              className="input-master"
+              type="text"
+              value={this.state.query}
+              placeholder="Search For Documents Here"
+              onChange={this.handleQueryChange}
+            />
+          </form>
+
+          <div className="displayView">
+            <div className="displayCell blockCustom">
+              <Selector
+                name="Available"
+                documents={this.state.filtered}
+                update={this.changeSelection}
+              />
+            </div>
+
+            <div className="blockCustom displayCell">
+              <Selector
+                name="Selected"
+                documents={this.state.filtered}
+                update={this.changeSelection}
+              />
+            </div>
+          </div>
+
+          <div className="blockCustom dateDisplay">
+            Set a Due Date:
+            <DatePicker
+              selected={this.state.DueDate}
+              onChange={this.newDueDate}
+              className="datePicker"
+            />
+          </div>
+
+          <button className="nextButton">Next</button>
+        </div>
       </div>
     )
   }

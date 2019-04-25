@@ -32,7 +32,7 @@ export class Selector extends React.Component {
                     }}
                     className="buttonValue"
                   >
-                    <img src={buttonType} width="20" />
+                    <img src={buttonType} width="30" />
                   </button>
                 </div>
               )
