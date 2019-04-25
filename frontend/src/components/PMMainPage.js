@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 import 'react-tabs/style/react-tabs.css'
 import { connect } from 'react-redux'
 import { Progress } from 'reactstrap'
-//import '../styles/colors.css'
+import '../styles/partnerbar.css'
+import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -70,29 +71,27 @@ class PMMainPage extends Component {
 
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div className="page">
         <h2>Field Partners</h2>
-
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Q:
-            <input
-              type="text"
-              value={this.state.query}
-              placeholder="Search for a Field Partner..."
-              onChange={this.handleQueryChange}
-            />
-          </label>
+          <img src={search} width="25" />
+          <input
+            className="input-master"
+            type="text"
+            value={this.state.query}
+            placeholder="Search for a Field Partner..."
+            onChange={this.handleQueryChange}
+          />
         </form>
 
-        <Tabs>
-          <TabList>
-            <Tab>Reviewing</Tab>
-            <Tab>Dormant</Tab>
+        <Tabs className="tab-master">
+          <TabList className="react-tabs__tab-list">
+            <Tab>REVIEWING</Tab>
+            <Tab>DORMANT</Tab>
           </TabList>
 
           <TabPanel>
-            <div>
+            <div className="partnerPanel">
               {this.state.filtered
                 .filter(partner => partner.status != 'Dormant')
                 .map(partner => {
@@ -102,7 +101,7 @@ class PMMainPage extends Component {
           </TabPanel>
 
           <TabPanel>
-            <div>
+            <div className="partnerPanel">
               {this.state.filtered
                 .filter(partner => partner.status == 'Dormant')
                 .map(partner => {
@@ -153,17 +152,23 @@ class PartnerBar extends Component {
     let rest = 100 - approved - pending - rejected
 
     return (
-      <div>
-        <div>Due Date: {this.props.partner.duedate}</div>
-        <div>ICON/IMAGE HERE</div>
-        <div>{this.props.partner.name}</div>
-        <div>
-          <Progress multi>
-            <Progress bar color="dashgreen" value={approved} />
-            <Progress bar color="dashorange" value={pending} />
-            <Progress bar color="dashred" value={rejected} />
-            <Progress bar color="dashgrey" value={rest} />
-          </Progress>
+      <div className="partnerBox">
+        <div className="duedate">
+          <div className="due">Due</div>
+          {this.props.partner.duedate}
+        </div>
+        <div className="iconBox">{this.props.partner.name[0]}</div>
+        <div className="nameProgressDisplay">
+          <div>{this.props.partner.name}</div>
+          <div className="progressAdditional">
+            {approved}%
+            <Progress multi>
+              <Progress bar color="dashgreen" value={approved} />
+              <Progress bar color="dashorange" value={pending} />
+              <Progress bar color="dashred" value={rejected} />
+              <Progress bar color="dashgrey" value={rest} />
+            </Progress>
+          </div>
         </div>
       </div>
     )

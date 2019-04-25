@@ -76,7 +76,8 @@
     "spdx-exceptions": "^2.2.0",
     "spdx-license-ids": "^3.0.3",
     "style-loader": "^0.23.0",
-    "tabbable": "^3.1.2"
+    "tabbable": "^3.1.2",
+    "typeface-rubik": "^0.0.72"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",

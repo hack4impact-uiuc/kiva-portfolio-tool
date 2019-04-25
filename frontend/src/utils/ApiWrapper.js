@@ -250,6 +250,7 @@ export const resendPIN = () => {
 //import { BACKEND_KEY } from '../keys'
 
 export const getAllDocumentClasses = () => {
+  return ['a', 'ab', 'abc', 'abcd', 'abcde']
   let requestString = BACKEND_URL + '/document_class'
   return axios
     .get(requestString)
@@ -291,6 +292,42 @@ export const getAllInformation = () => {
 
 export const getAllPartners = () => {
   return [
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
+    {
+      name: 'Waluigi',
+      duedate: 1.23,
+      status: 'Active',
+      documents: {
+        Put: 'Pending',
+        Me: 'Approved',
+        In: 'Missing',
+        Smash: 'Rejected',
+        Ultimate: 'Approved'
+      }
+    },
     {
       name: 'Waluigi',
       duedate: 1.23,
