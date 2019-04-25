@@ -39,25 +39,18 @@ class DocumentClass extends Component {
       name: this.props.documentClass.name,
       description: this.props.documentClass.description,
       editModal: false, // modal that appears when editing a Document class
-      uploadModal: false, // modal that appears indicating that a file has been uploading
       deleteModal: false, // modal that appears making sure the user actually wants to delete the document class
       files: []
     }
 
     this.editToggle = this.editToggle.bind(this)
-    this.uploadToggle = this.uploadToggle.bind(this)
     this.deleteToggle = this.deleteToggle.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleSubmitNoFile = this.handleSubmitNoFile.bind(this)
   }
 
   editToggle() {
     this.setState({ editModal: !this.state.editModal })
-  }
-
-  uploadToggle() {
-    this.setState({ uploadModal: !this.state.uploadModal })
   }
 
   deleteToggle() {
@@ -98,7 +91,7 @@ class DocumentClass extends Component {
       this.props.updateDocumentClasses([])
     }
     this.props.endLoading()
-    this.uploadToggle()
+    this.editToggle()
   }
 
   onDrop(files) {
@@ -146,33 +139,16 @@ class DocumentClass extends Component {
                         <section>
                           <div {...getRootProps()}>
                             <input {...getInputProps()} />
-                            <p>Drag a file here, or click to select a file</p>
+                            {this.state.files.length > 0 ? (
+                              <p>File uploaded: {this.state.files[0].name}</p>
+                            ) : (
+                              <p>Click to Upload</p>
+                            )}
                           </div>
                         </section>
                       )}
                     </Dropzone>
                   </div>
-                  <aside>
-                    <h4>File Dropped:</h4>
-                    <ul className="droppedFilesBackground">
-                      {this.state.files.map(f => (
-                        <li className="droppedBox" key={f.name}>
-                          {f.name} - {f.size} bytes
-                        </li>
-                      ))}
-                    </ul>
-                    <Button className="right" onClick={this.handleSubmit}>
-                      Update Document Class
-                    </Button>
-                    <Modal isOpen={this.state.uploadModal} toggle={this.uploadToggle}>
-                      <ModalBody>File uploaded - your submission is being processed.</ModalBody>
-                      <ModalFooter>
-                        <Button className="invalidSearchButton" onClick={this.uploadToggle}>
-                          Return
-                        </Button>
-                      </ModalFooter>
-                    </Modal>
-                  </aside>
                 </section>
                 <hr />
               </div>
@@ -182,6 +158,7 @@ class DocumentClass extends Component {
             <Button className="invalidSearchButton" onClick={this.editToggle}>
               Return
             </Button>
+            <Button onClick={this.handleSubmit}>Update Document Class</Button>
           </ModalFooter>
         </Modal>
         <tr>
