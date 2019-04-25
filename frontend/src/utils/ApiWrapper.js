@@ -247,7 +247,6 @@ export const resendPIN = () => {
     })
 }
 
-
 //import { BACKEND_KEY } from '../keys'
 
 export const getAllDocumentClasses = () => {
