@@ -20,6 +20,7 @@ class SelectDocumentsPage extends React.Component {
     this.state = {
       // all docClasses
       documentClasses: [],
+      available: {},
       // filtered DocClasses as the key with availability as the value
       filtered: {},
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
@@ -35,12 +36,14 @@ class SelectDocumentsPage extends React.Component {
   async componentDidMount() {
     let document_classes = await getAllDocumentClasses()
 
-    let filtered = {}
+    let available = {}
     for (const index in document_classes) {
-      filtered[document_classes[index].name] = true
+      available[document_classes[index].name] = true
     }
 
-    this.setState({ documentClasses: document_classes, filtered: filtered })
+    let filtered = available
+
+    this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
   }
 
   /***
@@ -55,12 +58,12 @@ class SelectDocumentsPage extends React.Component {
     newState['query'] = query
     newState['filtered'] = {}
     if (query === '') {
-      newState['filtered'] = this.state.documentClasses
+      newState['filtered'] = this.state.available
     } else {
-      newState['filtered'] = Object.keys(this.state.documentClasses)
-        .filter(docClass => docClass.name.toLowerCase().includes(query))
+      newState['filtered'] = Object.keys(this.state.available)
+        .filter(name => name.toLowerCase().includes(query))
         .reduce((obj, key) => {
-          obj[key] = this.state.docClass[key]
+          obj[key] = this.state.available[key]
           return obj
         }, {})
     }
@@ -74,9 +77,12 @@ class SelectDocumentsPage extends React.Component {
    * Updates both filter and docClass
    */
   changeSelection = value => {
-    let new_selection = !this.state.filtered[value]
+    let new_selection = !this.state.available[value]
     var newState = this.state
-    newState['filtered'][value] = new_selection
+    newState['available'][value] = new_selection
+    if (value in this.state.filtered) {
+      newState['filtered'][value] = new_selection
+    }
     this.setState(newState)
   }
 
