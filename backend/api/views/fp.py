@@ -64,6 +64,7 @@ def new_fp():
 
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
+
     if "email" not in data:
         return create_response(status=400, message="No email provided for new FP")
     if "org_name" not in data:
@@ -76,10 +77,14 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
+
     new_fp = FieldPartner(data)
+    res = new_fp.to_dict()
+
     db.session.add(new_fp)
     db.session.commit()
-    return create_response(data={"field_partner": new_fp.to_dict()})
+
+    return create_response(data={"field_partner": res})
 
 
 @fp.route("/field_partner/update/<id>", methods=["PUT"])
