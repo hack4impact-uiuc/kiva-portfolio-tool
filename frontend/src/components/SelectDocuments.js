@@ -19,9 +19,11 @@ class SelectDocumentsPage extends React.Component {
     var today = new Date()
     this.state = {
       // all docClasses
-      docClass: {},
+      documentClasses: [],
+      filtered: [],
+      //docClass: {},
       // docClasses filtered from docClasses using query
-      filtered: {},
+      //filtered: {},
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
       DueDate: today,
       // state that updates depending on what the user types in query bar
@@ -33,8 +35,13 @@ class SelectDocumentsPage extends React.Component {
    * Gets all document classes from the backend and updates state
    */
   async componentDidMount() {
-    let documents = await getAllDocumentClasses()
-    this.setState(this.updateDocumentClasses(documents))
+    let document_classes = await getAllDocumentClasses()
+
+    for (const index in document_classes) {
+      document_classes[index].available = true
+    }
+
+    this.setState({ documentClasses: document_classes, filtered: document_classes })
   }
 
   /**
@@ -71,14 +78,11 @@ class SelectDocumentsPage extends React.Component {
     newState['query'] = query
     newState['filtered'] = {}
     if (query === '') {
-      newState['filtered'] = this.state.docClass
+      newState['filtered'] = this.state.documentClasses
     } else {
-      newState['filtered'] = Object.keys(this.state.docClass)
-        .filter(key => key.toLowerCase().includes(query))
-        .reduce((obj, key) => {
-          obj[key] = this.state.docClass[key]
-          return obj
-        }, {})
+      newState['filtered'] = this.state.documentClasses.filter(documentClass =>
+        documentClass.name.includes(query)
+      )
     }
     this.setState(newState)
   }
@@ -91,15 +95,16 @@ class SelectDocumentsPage extends React.Component {
    */
   changeSelection = value => {
     let new_selection
-    if (this.state.docClass[value] === 'Selected') {
-      new_selection = 'Available'
-    } else {
-      new_selection = 'Selected'
-    }
+    // if (this.state.documentClasses[value] === 'Selected') {
+    //   new_selection = 'Available'
+    // } else {
+    //   new_selection = 'Selected'
+    // }
+    new_selection = !this.state.documentClasses.available
     var newState = {}
     newState = this.state
-    newState['docClass'][value] = new_selection
-    newState['filtered'][value] = new_selection
+    newState['documentClasses'][value].available = new_selection
+    newState['filtered'][value].available = new_selection
     this.setState(newState)
   }
 
@@ -142,7 +147,7 @@ class SelectDocumentsPage extends React.Component {
             <div className="displayCell blockCustom">
               <Selector
                 name="Available"
-                documents={this.state.filtered}
+                documents={this.state.filtered.filter(docClass => docClass.available)}
                 update={this.changeSelection}
               />
             </div>
@@ -150,7 +155,7 @@ class SelectDocumentsPage extends React.Component {
             <div className="blockCustom displayCell">
               <Selector
                 name="Selected"
-                documents={this.state.filtered}
+                documents={this.state.filtered.filter(docClass => !docClass.available)}
                 update={this.changeSelection}
               />
             </div>
