@@ -24,17 +24,30 @@ def get_document_class():
 
 @docclass.route("/document_class/<id>", methods=["GET"])
 def get_document_class_by_id(id):
+        data = request.get_json()
+    headers = data["headers"]
+    
+    response, role = verify_token(headers['token'])
+
+    if response is not None:
+        return response
     """ function that is called when you visit /document_class/<id>, gets a docclass by id """
     document_class = DocumentClass.query.get(id)
     return create_response(
-        status=200, data={"document_class": document_class.to_dict()}
+        status=200, data={"document_class": document_class.to_dict(), "role": role}
     )
 
 
 @docclass.route("/document_class/new", methods=["POST"])
 def add_document_class():
-    """ function that is called when you visit /document_class/new, creates a new docclass """
     data = request.get_json()
+    headers = data["headers"]
+    
+    response, role = verify_token(headers['token'])
+
+    if response is not None:
+        return response    
+    """ function that is called when you visit /document_class/new, creates a new docclass """
     logger.info(data)
     if "name" not in data:
         return create_response(
@@ -46,11 +59,18 @@ def add_document_class():
     db.session.add(new_docclass)
     db.session.commit()
     ret = new_docclass.to_dict()
-    return create_response(status=200, message="success")
+    return create_response(status=200, message="success", data={"role": role})
 
 
 @docclass.route("/document_class/update/<id>", methods=["PUT"])
 def update_document_class(id):
+    data = request.get_json()
+    headers = data["headers"]
+    
+    response, role = verify_token(headers['token'])
+
+    if response is not None:
+        return response
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     docclass = DocumentClass.query.get(id)
     docclass.name = request.json.get("name", docclass.name)
@@ -58,7 +78,7 @@ def update_document_class(id):
     updated_docclass = docclass.to_dict()
 
     db.session.commit()
-    return create_response(status=200, data={"document_class": updated_docclass})
+    return create_response(status=200, data={"document_class": updated_docclass, "role" : role})
 
 
 def verify_token(token):

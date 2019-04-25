@@ -1,5 +1,6 @@
 const SET_USER_TYPE = 'user/set_user_type'
 const SET_USER_ROLE = 'user/set_user_role'
+const GET_ACTIVE_USER = 'user/get_active_user'
 const UPDATE_DOCUMENTS = 'user/update_documents'
 const LOAD = 'user/load'
 const UPDATE_MESSAGES = 'user/update_messages'
@@ -12,7 +13,8 @@ const initialState = {
   messages: [],
   information: [],
   loading: false,
-  permissions: []
+  permissions: [],
+  active_user: 0
 }
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -25,6 +27,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isPM: action.value
+      }
+    case GET_ACTIVE_USER:
+      return {
+        ...state,
+        active_user: action.value
       }
     case UPDATE_DOCUMENTS:
       return {
@@ -57,6 +64,11 @@ export const setUserRole = value => ({
 })
 export const setUserType = value => ({
   type: SET_USER_TYPE,
+  value
+})
+
+export const getActiveUser = value => ({
+  type: GET_ACTIVE_USER,
   value
 })
 

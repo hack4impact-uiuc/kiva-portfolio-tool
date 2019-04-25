@@ -4,12 +4,13 @@ import MockData from './MockData'
 
 //import { BACKEND_KEY } from '../keys'
 
-export const getAllDocuments = (token) => {
+export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
     .get(requestString, {
       headers: {
-        token: token
+        'Content-Type': 'application/json',
+        token: getCookie('token')
       }
     })
     .then(response => {
@@ -81,7 +82,12 @@ export const getAllDocumentClasses = () => {
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return response.data.result.access_token
     })
@@ -94,7 +100,12 @@ export const getAccessToken = () => {
 export const downloadDocument = id => {
   let requestString = BACKEND_URL + '/box/download?file_id' + id
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return response.data.result.output
     })
@@ -109,7 +120,12 @@ export const updateDocumentStatus = (id, status) => {
   data.append('docID', id)
   data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/status', data)
+    .put(BACKEND_URL + '/document/status', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
@@ -130,7 +146,12 @@ export const sendFile = (file, file_name, docID) => {
   data.append('fileName', file_name)
   data.append('docID', docID)
   return axios
-    .put(BACKEND_URL + '/document/upload', data)
+    .put(BACKEND_URL + '/document/upload', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',

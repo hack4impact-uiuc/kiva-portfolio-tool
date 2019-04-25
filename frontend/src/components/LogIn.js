@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import '../styles/index.css'
+import { getActiveUser } from '../redux/modules/user'
 
 
 const mapDispatchToProps = dispatch => {
@@ -76,6 +77,7 @@ class LogIn extends Component {
     if (!data.result.token) {
       this.setState({ errorMessage: data.message })
     } else {
+      this.props.getActiveUser(data.result.userid)
       setCookie('token', data.result.token)
       this.props.history.push('/dashboard')
     }
