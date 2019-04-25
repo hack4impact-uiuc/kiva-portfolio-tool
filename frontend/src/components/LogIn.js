@@ -60,11 +60,8 @@ class LogIn extends Component {
     let token = result.response.data.result.token
 
     if (!token) {
-      console.log('broken')
       this.setState({ errorMessage: result.response.message })
     } else {
-      console.log('not broken')
-
       setCookie('token', token)
       this.props.history.push('/dashboard')
     }
