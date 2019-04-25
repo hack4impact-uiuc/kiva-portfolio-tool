@@ -9,6 +9,7 @@ import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
 import DocumentClassPage from './DocumentClassPage.js'
 import LoginPage from './LoginPage'
+import ForgotPassword from './ForgotPassword'
 
 export {
   Dashboard,
@@ -20,6 +21,7 @@ export {
   LoginPage,
   SelectDocumentsPage,
   PMMainPage,
+  ForgotPassword,
   DocumentClassPage,
   DocumentPreview
 }
