@@ -22,16 +22,6 @@ def get_messages():
     return create_response(data={"messages": serialize_list(messages)})
 
 
-@message.route("/messages/delete/<message_id>", methods=["DELETE"])
-def delete_message(message_id):
-    """
-    Deletes the message with a given id
-    """
-    db.session.delete(Message.query.get(message_id))
-    db.session.commit()
-    return create_response(status=200, message="success")
-
-
 @message.route("/messages/fp/<fp_id>", methods=["GET"])
 def get_messages_by_fp(fp_id):
     """

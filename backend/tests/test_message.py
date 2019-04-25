@@ -136,50 +136,6 @@ def test_get_messages(client):
     db.session.commit()
 
 
-def test_delete_messages(client):
-    helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
-    db.session.add(helper_portfolio_manager)
-    db.session.commit()
-
-    helper_field_partner = create_fp(
-        "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
-    )
-    db.session.add(helper_field_partner)
-    db.session.commit()
-
-    helper_docclass = create_docclass("ksdljf")
-    db.session.add(helper_docclass)
-    db.session.commit()
-
-    helper_doc = create_document(
-        "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
-    )
-    db.session.add(helper_doc)
-    db.session.commit()
-
-    temp_message = create_message(
-        helper_portfolio_manager,
-        helper_field_partner,
-        True,
-        helper_doc,
-        helper_doc.status,
-    )
-
-    db.session.add(temp_message)
-    db.session.commit()
-
-    rs = client.delete("/messages/delete/" + temp_message.id)
-
-    assert rs.status_code == 200
-
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
-
-
 def test_get_messages_by_fp(client):
 
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
