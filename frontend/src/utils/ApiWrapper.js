@@ -4,12 +4,14 @@ import { getCookie } from "./cookie";
 
 //import { BACKEND_KEY } from '../keys'
 
-export const register = (email, password, role, questionIdx) => {
+export const register = (email, password, questionIdx, answer, role) => {
   let data = new FormData()
   data.append('email', email)
   data.append('password', password)
-  data.append('role', role)
+  data.append('securityQuestionAnswer', answer)
   data.append('questionIdx', questionIdx)
+  data.append('role', role)
+  data.append('answer', answer)
   return axios
     .post(BACKEND_URL + '/register', data)
     .then(response => {

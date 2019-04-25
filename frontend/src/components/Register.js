@@ -86,8 +86,10 @@ class Register extends React.Component {
         this.state.email,
         this.state.password,
         this.state.questionIdx,
-        this.state.securityQuestionAnswer
+        this.state.securityQuestionAnswer,
+        "fp"
       );
+      console.log(result)
       let token = result.response.data.result.token
 
       if (!token) {
@@ -118,6 +120,7 @@ class Register extends React.Component {
   handlePINResend = async e => {
     e.preventDefault();
     const result = await resendPIN();
+    console.log(result)
     let pinMessage = result.response.message
     this.setState({ pinMessage: pinMessage });
   };

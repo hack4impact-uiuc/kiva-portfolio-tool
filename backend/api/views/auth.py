@@ -19,9 +19,11 @@ def register_user():
 
     email = data["email"]
     password = data["password"]
-    role = data["role"]
+    securityQuestionAnswer = data["securityQuestionAnswer"]
+    answer = data["answer"]
     question_index = data["questionIdx"]
-    r = (requests.post(backend_url + "register", data={'email': email, 'password': password, 'role': role, 'questionIdx': question_index})).json()
+    role = data["role"]
+    r = (requests.post(backend_url + "register", data={'email': email, 'password': password, 'securityQuestionAnswer': securityQuestionAnswer, 'answer': answer, 'questionIdx': question_index, 'role': role})).json()
     if r['status'] == 400:
         return create_response(status=400, message=r['message'])
 
@@ -62,6 +64,27 @@ def verify_email():
         return create_response(status=r['status'], message=r['message'])
 
     return create_response(status=200, message=r['message'])
+
+@auth.route("/resendVerificationEmail", methods=["POST"])
+def resendPIN():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
+    token = request.headers.get('token')
+    headers = {'Content-type': 'application/json', 'token': token}   
+
+    r = (requests.get(backend_url + "resendVerificationEmail", headers = headers)).json()
+
+    if r['status'] == 400 or r['status'] == 500:
+        return create_response(status=r['status'], message=r['message'])
+
+    return create_response(status=200, message=r['message'])
+
+
 
 @auth.route("/createFP", methods=["POST"])
 def create_fp():
