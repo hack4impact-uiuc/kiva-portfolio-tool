@@ -37,7 +37,9 @@ def get_messages_by_fp(fp_id):
     """
     Gets a list of messages/notifications relevant to a specific FP
     """
-    message_list = Message.query.filter(Message.fp_id == fp_id and Message.to_fp).all()
+    message_list = Message.query.filter(
+        Message.fp_id == fp_id and Message.to_fp == True
+    ).all()
     return create_response(data={"messages": serialize_list(message_list)})
 
 
@@ -47,7 +49,7 @@ def get_messages_by_pm(pm_id):
     Gets a list of messages/notifications relevant to a specific PM
     """
     message_list = Message.query.filter(
-        Message.pm_id == pm_id and not Message.to_fp
+        Message.pm_id == pm_id and Message.to_fp == False
     ).all()
     return create_response(data={"messages": serialize_list(message_list)})
 

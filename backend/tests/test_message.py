@@ -179,6 +179,7 @@ def test_get_messages(client):
 #     PortfolioManager.query.delete()
 #     db.session.commit()
 
+
 def test_get_messages_by_fp(client):
 
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
@@ -213,11 +214,7 @@ def test_get_messages_by_fp(client):
     db.session.commit()
 
     temp_message_not_fp = create_message(
-        helper_portfolio_manager,
-        helper_field_partner,
-        False,
-        helper_doc,
-        "Approved",
+        helper_portfolio_manager, helper_field_partner, False, helper_doc, "Approved"
     )
     # TODO: just use the given document's status instead of passing it to the message?
     db.session.add(temp_message_not_fp)
@@ -236,6 +233,7 @@ def test_get_messages_by_fp(client):
     FieldPartner.query.delete()
     PortfolioManager.query.delete()
     db.session.commit()
+
 
 def test_get_messages_by_pm(client):
 
@@ -271,11 +269,7 @@ def test_get_messages_by_pm(client):
     db.session.commit()
 
     temp_message_not_fp = create_message(
-        helper_portfolio_manager,
-        helper_field_partner,
-        False,
-        helper_doc,
-        "Approved",
+        helper_portfolio_manager, helper_field_partner, False, helper_doc, "Approved"
     )
     # TODO: just use the given document's status instead of passing it to the message?
     db.session.add(temp_message_not_fp)
