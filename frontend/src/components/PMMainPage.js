@@ -34,7 +34,8 @@ class PMMainPage extends Component {
       query: '',
       email: '',
       org_name: '',
-      modal: false
+      modal: false,
+      pm_id: null
     }
     this.toggle = this.toggle.bind(this)
     this.handleNewFP = this.handleNewFP.bind(this)
@@ -46,6 +47,9 @@ class PMMainPage extends Component {
   async componentDidMount() {
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
+    let pms = await getAllPMs()
+    let pm = pms[0]
+    this.setState({ pm_id: pm._id })
   }
 
   /**
@@ -99,9 +103,9 @@ class PMMainPage extends Component {
   }
 
   async handleNewFP() {
-    let pms = await getAllPMs()
-    let pm = pms[0]
-    await createFieldPartner(this.state.org_name, this.state.email, pm._id)
+    await createFieldPartner(this.state.org_name, this.state.email, this.state.pm_id)
+    let partners = await getAllPartners()
+    this.setState(this.loadPartners(partners))
     this.toggle()
   }
 
