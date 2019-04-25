@@ -3,7 +3,7 @@ import { getAllPartners } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { connect } from 'react-redux'
-import { Progress } from 'reactstrap'
+import { Progress, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import '../styles/colors.css'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
@@ -19,8 +19,12 @@ class PMMainPage extends Component {
     this.state = {
       partners: [],
       filtered: [],
-      query: ''
+      query: '',
+      email: '',
+      org_name: '',
+      modal: false
     }
+    this.toggle = this.toggle.bind(this)
   }
 
   /**
@@ -69,15 +73,46 @@ class PMMainPage extends Component {
     this.setState(newState)
   }
 
+  handleNameChange = event => {}
+
+  handleEmailChange = event => {}
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal })
+  }
+
   render() {
     return (
       <div className="page">
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          <ModalHeader>Add New Field Partner</ModalHeader>
+          <ModalBody>
+            <form onSubmit={this.handleNewFP}>
+              <p>Organization Name:</p>
+              <input
+                type="text"
+                value={this.state.name}
+                size="50"
+                placeholder="Enter the Field Partner's organization name here..."
+                onChange={this.handleNameCHange}
+              />
+              <p>Email:</p>
+              <input
+                type="text"
+                value={this.state.email}
+                size="50"
+                placeholder="Enter the Field Partner's email here..."
+                onChange={this.handleEmailChange}
+              />
+            </form>
+          </ModalBody>
+        </Modal>
         <div>
           <span />
           <p>Fieldy McPartnerson</p>
         </div>
         <h2>Field Partners</h2>
-
+        <Button onClick={this.toggle}>Add New Field Partner</Button>
         <form onSubmit={this.handleSubmit}>
           <img src={search} width="18" />
           <input
