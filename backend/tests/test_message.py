@@ -180,12 +180,6 @@ def test_get_messages(client):
 #     db.session.commit()
 
 def test_get_messages_by_fp(client):
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
 
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
     db.session.add(helper_portfolio_manager)
@@ -233,6 +227,12 @@ def test_get_messages_by_fp(client):
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-    assert len(ret_dict["result"]["messages"] == 1)
+    assert len(ret_dict["result"]["messages"]) == 1
     assert ret_dict["result"]["messages"][0]["status"] == helper_doc.status
+    
+    Message.query.delete()
+    Document.query.delete()
+    DocumentClass.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+    db.session.commit()
