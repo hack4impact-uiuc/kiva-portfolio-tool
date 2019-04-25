@@ -94,86 +94,89 @@ def recreate_db():
     db.session.commit()
 
     create_mock_document(
-        user_id=1, docclass_id=docclass_ids[0], name=None, status="Missing"
+        {
+            "userID": 1,
+            "docClassID": docclass_ids[0],
+            "fileName": None,
+            "status": "Missing",
+        }
     )
     create_mock_document(
-        user_id=1, docclass_id=docclass_ids[1], name=None, status="Missing"
+        {
+            "userID": 1,
+            "docClassID": docclass_ids[1],
+            "fileName": None,
+            "status": "Missing",
+        }
     )
     create_mock_document(
-        file_id=2,
-        user_id=1,
-        docclass_id=docclass_ids[2],
-        name="income_statement.pdf",
-        status="Pending",
+        {
+            "fileID": 2,
+            "userID": 1,
+            "docClassID": docclass_ids[2],
+            "fileName": "income_statement.pdf",
+            "status": "Pending",
+        }
     )
     create_mock_document(
-        file_id=3,
-        user_id=1,
-        docclass_id=docclass_ids[3],
-        name="balance_sheet.pdf",
-        status="Pending",
+        {
+            "fileID": 3,
+            "userID": 1,
+            "docClassID": docclass_ids[3],
+            "fileName": "balance_sheet.pdf",
+            "status": "Pending",
+        }
     )
     create_mock_document(
-        file_id=4,
-        user_id=1,
-        docclass_id=docclass_ids[4],
-        name="strategic_plan.pdf",
-        status="Rejected",
+        {
+            "fileID": 4,
+            "userID": 1,
+            "docClassID": docclass_ids[4],
+            "fileName": "strategic_plan.pdf",
+            "status": "Rejected",
+        }
     )
     create_mock_document(
-        file_id=5,
-        user_id=1,
-        docclass_id=docclass_ids[5],
-        name="annual_plan.pdf",
-        status="Rejected",
+        {
+            "fileID": 5,
+            "userID": 1,
+            "docClassID": docclass_ids[5],
+            "fileName": "annual_plan.pdf",
+            "status": "Rejected",
+        }
     )
     create_mock_document(
-        user_id=1,
-        file_id=6,
-        docclass_id=docclass_ids[6],
-        name="financial_proj.pdf",
-        status="Approved",
+        {
+            "userID": 1,
+            "fileID": 6,
+            "docClassID": docclass_ids[6],
+            "fileName": "financial_proj.pdf",
+            "status": "Approved",
+        }
     )
     create_mock_document(
-        user_id=1,
-        file_id=7,
-        docclass_id=docclass_ids[7],
-        name="org_chart.pdf",
-        status="Approved",
+        {
+            "userID": 1,
+            "fileID": 7,
+            "docClassID": docclass_ids[7],
+            "fileName": "org_chart.pdf",
+            "status": "Approved",
+        }
     )
 
     db.session.commit()
 
 
 def create_mock_docclass(docclass_name, docclass_description=None):
-    docclass = DocumentClass(name=docclass_name, description=docclass_description)
+    docclass = DocumentClass(
+        {"name": docclass_name, "description": docclass_description}
+    )
     db.session.add(docclass)
     return docclass.id
 
 
-def create_mock_document(user_id, docclass_id, name, status, file_id=None):
-    if name is not None:
-        d = Document(
-            fileID=file_id,
-            userID=str(user_id),
-            date=datetime.today(),
-            status=status,
-            docClassID=docclass_id,
-            fileName=name,
-            latest=True,
-            description="",
-        )
-    else:
-        d = Document(
-            fileID=file_id,
-            userID=str(user_id),
-            date=None,
-            status=status,
-            docClassID=docclass_id,
-            fileName=None,
-            latest=None,
-            description="",
-        )
+def create_mock_document(data):
+    d = Document(data)
 
     db.session.add(d)
 
