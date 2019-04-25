@@ -149,7 +149,7 @@ class DocumentPreview extends Component {
               )}
               <Modal isOpen={this.state.modal} toggle={this.toggle}>
                 <ModalHeader>{this.state.fileName}</ModalHeader>
-                <ModalBody style={customStyles}>
+                <ModalBody id="modal-box">
                   <Iframe
                     classname="iframe-relative iframe-modal"
                     url={this.state.fileURL}
