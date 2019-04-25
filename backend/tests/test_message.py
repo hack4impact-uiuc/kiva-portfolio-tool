@@ -164,7 +164,7 @@ def test_delete_messages(client):
         helper_doc,
         helper_doc.status,
     )
-    
+
     db.session.add(temp_message)
     db.session.commit()
 
