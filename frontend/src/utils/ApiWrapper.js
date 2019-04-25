@@ -249,6 +249,19 @@ export const resendPIN = () => {
 
 //import { BACKEND_KEY } from '../keys'
 
+export const getAllPMs = () => {
+  let requestString = BACKEND_URL + '/portfolio_manager'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.portfolio_manager
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const getAllDocumentClasses = () => {
   let requestString = BACKEND_URL + '/document_class'
   return axios
