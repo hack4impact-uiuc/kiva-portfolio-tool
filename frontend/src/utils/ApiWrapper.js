@@ -73,6 +73,12 @@ export const getAllPartners = () => {
     })
 }
 
+export const createFieldPartner = (org_name, email, pm_id) => {
+  console.log(org_name)
+  console.log(email)
+  console.log(pm_id)
+}
+
 /*
 export const getAllPartners = () => {
   return [

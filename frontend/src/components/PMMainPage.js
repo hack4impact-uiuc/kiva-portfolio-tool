@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getAllPartners } from '../utils/ApiWrapper'
+import { getAllPartners, createFieldPartner } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { connect } from 'react-redux'
@@ -25,6 +25,7 @@ class PMMainPage extends Component {
       modal: false
     }
     this.toggle = this.toggle.bind(this)
+    this.handleNewFP = this.handleNewFP.bind(this)
   }
 
   /**
@@ -73,12 +74,21 @@ class PMMainPage extends Component {
     this.setState(newState)
   }
 
-  handleNameChange = event => {}
+  handleNameChange = event => {
+    this.setState({ org_name: event.target.value })
+  }
 
-  handleEmailChange = event => {}
+  handleEmailChange = event => {
+    this.setState({ email: event.target.value })
+  }
 
   toggle = () => {
     this.setState({ modal: !this.state.modal })
+  }
+
+  handleNewFP = () => {
+    createFieldPartner(this.state.org_name, this.state.email, 1)
+    this.toggle()
   }
 
   render() {
@@ -94,7 +104,7 @@ class PMMainPage extends Component {
                 value={this.state.name}
                 size="50"
                 placeholder="Enter the Field Partner's organization name here..."
-                onChange={this.handleNameCHange}
+                onChange={this.handleNameChange}
               />
               <p>Email:</p>
               <input
@@ -106,6 +116,10 @@ class PMMainPage extends Component {
               />
             </form>
           </ModalBody>
+          <ModalFooter>
+            <Button onClick={this.toggle}>Exit</Button>
+            <Button onClick={this.handleNewFP}>Create</Button>
+          </ModalFooter>
         </Modal>
         <div>
           <span />
