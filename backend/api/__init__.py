@@ -78,7 +78,7 @@ def create_app(test_config=None):
     Migrate(app, db)
 
     # import and register blueprints
-    from api.views import main, message, box, fp, pm, docclass, auth
+    from api.views import main, message, box, fp, pm, docclass, auth, document
 
     # why blueprints http://flask.pocoo.org/docs/1.0/blueprints/
     app.register_blueprint(main.main)
