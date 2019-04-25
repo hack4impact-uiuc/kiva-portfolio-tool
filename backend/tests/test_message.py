@@ -236,7 +236,13 @@ def test_get_messages_by_fp(client):
 
 
 def test_get_messages_by_pm(client):
-
+    Message.query.delete()
+    Document.query.delete()
+    DocumentClass.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+    db.session.commit()
+    
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
     db.session.add(helper_portfolio_manager)
     db.session.commit()
