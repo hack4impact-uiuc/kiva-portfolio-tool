@@ -52,8 +52,7 @@ def get_messages_by_pm(pm_id):
     return create_response(data={"messages": serialize_list(message_list)})
 
 
-# TODO:
-@message.route("/messages/new", methods=["POST"])
+# TODO: Call this method every time something in the documents/fp/pm thing is changed
 def add_message(data):
     subjects = ["New required document", "Document reviewed", "Document uploaded"]
     contents = [

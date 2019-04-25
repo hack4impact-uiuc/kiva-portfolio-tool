@@ -136,7 +136,56 @@ def test_get_messages(client):
     db.session.commit()
 
 
-def test_delete_messages(client):
+# def test_delete_messages(client):
+#     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
+#     db.session.add(helper_portfolio_manager)
+#     db.session.commit()
+
+#     helper_field_partner = create_fp(
+#         "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
+#     )
+#     db.session.add(helper_field_partner)
+#     db.session.commit()
+
+#     helper_docclass = create_docclass("ksdljf")
+#     db.session.add(helper_docclass)
+#     db.session.commit()
+
+#     helper_doc = create_document(
+#         "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
+#     )
+#     db.session.add(helper_doc)
+#     db.session.commit()
+
+#     temp_message = create_message(
+#         helper_portfolio_manager,
+#         helper_field_partner,
+#         True,
+#         helper_doc,
+#         helper_doc.status,
+#     )
+#     # TODO: just use the given document's status instead of passing it to the message?
+#     db.session.add(temp_message)
+#     db.session.commit()
+
+#     rs = client.delete("/messages/delete/" + temp_message.id)
+
+#     assert rs.status_code == 200
+
+#     Message.query.delete()
+#     Document.query.delete()
+#     DocumentClass.query.delete()
+#     FieldPartner.query.delete()
+#     PortfolioManager.query.delete()
+#     db.session.commit()
+
+def test_get_messages_by_fp(client):
+    Message.query.delete()
+    Document.query.delete()
+    DocumentClass.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
+    db.session.commit()
 
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
     db.session.add(helper_portfolio_manager)
@@ -169,14 +218,21 @@ def test_delete_messages(client):
     db.session.add(temp_message)
     db.session.commit()
 
-    rs = client.delete("/messages/delete/" + temp_message.id)
-    ret_dict = rs.json
+    temp_message = create_message(
+        helper_portfolio_manager,
+        helper_field_partner,
+        False,
+        helper_doc,
+        "Approved",
+    )
+    # TODO: just use the given document's status instead of passing it to the message?
+    db.session.add(temp_message)
+    db.session.commit()
+
+    rs = client.get("/messages/fp/" + helper_field_partner.id)
 
     assert rs.status_code == 200
-
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+    assert len(ret_dict["result"]["messages"] == 1)
+    assert ret_dict["result"]["messages"][0]["status"] == helper_doc.status
