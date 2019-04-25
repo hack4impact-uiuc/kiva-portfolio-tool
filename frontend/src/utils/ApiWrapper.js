@@ -1,6 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-import { getCookie } from "./cookie";
+import { getCookie } from './cookie'
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -52,8 +52,8 @@ export const verify = (emailInput, passwordInput) => {
   return axios
     .post(BACKEND_URL + '/verify', {
       headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token")
+        'Content-Type': 'application/json',
+        token: getCookie('token')
       }
     })
     .then(response => {
@@ -74,8 +74,8 @@ export const getSecurityQuestions = () => {
   return axios
     .get(BACKEND_URL + '/getSecurityQuestions', {
       headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token")
+        'Content-Type': 'application/json',
+        token: getCookie('token')
       }
     })
     .then(response => {
@@ -113,7 +113,7 @@ export const setSecurityQuestion = (questionIdx, answer, password) => {
     })
 }
 
-export const getSecurityQuestionForUser = (email) => {
+export const getSecurityQuestionForUser = email => {
   let data = new FormData()
   data.append('email', email)
   return axios
@@ -182,8 +182,8 @@ export const changePassword = (currentPassword, newPassword) => {
   return axios
     .post(BACKEND_URL + '/changePassword', data, {
       headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token")
+        'Content-Type': 'application/json',
+        token: getCookie('token')
       }
     })
     .then(response => {
@@ -245,8 +245,8 @@ export const verifyPIN = (email, pin) => {
   return axios
     .post(BACKEND_URL + '/verifyEmail', data, {
       headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token")
+        'Content-Type': 'application/json',
+        token: getCookie('token')
       }
     })
     .then(response => {
@@ -267,8 +267,8 @@ export const resendPIN = () => {
   return axios
     .post(BACKEND_URL + '/resendVerificaitonEmail', {
       headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token")
+        'Content-Type': 'application/json',
+        token: getCookie('token')
       }
     })
     .then(response => {

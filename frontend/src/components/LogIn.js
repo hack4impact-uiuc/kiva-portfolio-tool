@@ -58,26 +58,28 @@ class LogIn extends Component {
 
     const result = await login(this.state.email, this.state.password)
     let token = result.response.data.result.token
-    
+
     if (!token) {
-      console.log("broken")
+      console.log('broken')
       this.setState({ errorMessage: result.response.message })
     } else {
-      console.log("not broken")
+      console.log('not broken')
 
       setCookie('token', token)
       this.props.history.push('/dashboard')
     }
-    
   }
 
   render() {
     return (
       <div>
-        <div id = "background">
-          <BackgroundSlideshow images={[ b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11 ]} animationDelay={5000}/>
+        <div id="background">
+          <BackgroundSlideshow
+            images={[b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11]}
+            animationDelay={5000}
+          />
         </div>
-        <div id = "foreground">
+        <div id="foreground">
           <Card
             className="interview-card center-background"
             style={{ width: '400px', height: '60%' }}
@@ -128,7 +130,9 @@ class LogIn extends Component {
                 </Button>
               </Form>
               <br />
-              <p style={{ color: 'red' }}>{this.state.errorMessage ? this.state.errorMessage : ''}</p>
+              <p style={{ color: 'red' }}>
+                {this.state.errorMessage ? this.state.errorMessage : ''}
+              </p>
               <Link to="/forgotPassword" prefetch href="/forgotPassword">
                 <a>Forgot Password?</a>
               </Link>
