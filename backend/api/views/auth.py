@@ -6,7 +6,7 @@ import requests, json, random, string
 
 auth = Blueprint("auth", __name__)
 
-backend_url = "http://localhost:8000/"
+BACKEND_URL = "http://localhost:8000/"
 
 
 @auth.route("/register", methods=["POST"])
@@ -18,15 +18,33 @@ def register_user():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data["email"]
-    password = data["password"]
-    securityQuestionAnswer = data["securityQuestionAnswer"]
-    answer = data["answer"]
-    question_index = data["questionIdx"]
-    role = data["role"]
+    if "email" not in data:
+        return create_response(status=400, message="Missing email!")
+
+    if "password" not in data:
+        return create_response(status=400, message="Missing password!")
+
+    if "securityQuestionAnswer" not in data:
+        return create_response(status=400, message="Missing security question answer!")
+
+    if "answer" not in data:
+        return create_response(status=400, message="Missing answer!")
+
+    if "questionIdx" not in data:
+        return create_response(status=400, message="Missing question index!")
+
+    if "role" not in data:
+        return create_response(status=400, message="Missing role!")
+
+    email = data.get("email")
+    password = data.get("password")
+    securityQuestionAnswer = data.get("securityQuestionAnswer")
+    answer = data.get("answer")
+    question_index = data.get("questionIdx")
+    role = data.get("role")
     r = (
         requests.post(
-            backend_url + "register",
+            BACKEND_URL + "register",
             data={
                 "email": email,
                 "password": password,
@@ -37,11 +55,13 @@ def register_user():
             },
         )
     ).json()
-    if r["status"] == 400:
-        return create_response(status=400, message=r["message"])
+    if r.get("status") == 400:
+        return create_response(status=400, message=r.get("message"))
 
     return create_response(
-        status=200, message="success", data={"token": r["token"], "uid": r["uid"]}
+        status=200,
+        message="success",
+        data={"token": r.get("token"), "uid": r.get("uid")},
     )
 
 
@@ -54,18 +74,26 @@ def login_user():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data["email"]
-    password = data["password"]
+    if "email" not in data:
+        return create_response(status=400, message="Missing email!")
+
+    if "password" not in data:
+        return create_response(status=400, message="Missing password!")
+
+    email = data.get("email")
+    password = data.get("password")
     r = (
         requests.post(
-            backend_url + "login", data={"email": email, "password": password}
+            BACKEND_URL + "login", data={"email": email, "password": password}
         )
     ).json()
-    if r["status"] == 400:
-        return create_response(status=400, message=r["message"])
+    if r.get("status") == 400:
+        return create_response(status=400, message=r.get("message"))
 
     return create_response(
-        status=200, message="success", data={"token": r["token"], "uid": r["uid"]}
+        status=200,
+        message="success",
+        data={"token": r.get("token"), "uid": r.get("uid")},
     )
 
 
@@ -78,17 +106,26 @@ def verify_email():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data["email"]
-    pin = data["pin"]
+    if "email" not in data:
+        return create_response(status=400, message="Missing email!")
+
+    if "password" not in data:
+        return create_response(status=400, message="Missing password!")
+
+    if "pin" not in data:
+        return create_response(status=400, message="Missing pin!")
+
+    email = data.get("email")
+    pin = data.get("pin")
 
     r = (
-        requests.post(backend_url + "verifyEmail", data={"email": email, "pin": pin})
+        requests.post(BACKEND_URL + "verifyEmail", data={"email": email, "pin": pin})
     ).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
-    return create_response(status=200, message=r["message"])
+    return create_response(status=200, message=r.get("message"))
 
 
 @auth.route("/resendVerificationEmail", methods=["POST"])
@@ -100,13 +137,16 @@ def resendPIN():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
     token = request.headers.get("token")
     headers = {"Content-type": "application/json", "token": token}
 
-    r = (requests.get(backend_url + "resendVerificationEmail", headers=headers)).json()
+    r = (requests.get(BACKEND_URL + "resendVerificationEmail", headers=headers)).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
     return create_response(status=200, message=r["message"])
 
@@ -120,24 +160,33 @@ def create_fp():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data["email"]
+    if "email" not in data:
+        return create_response(status=400, message="Missing email!")
+
+    if "password" not in data:
+        return create_response(status=400, message="Missing password!")
+
+    if "role" not in data:
+        return create_response(status=400, message="Missing role!")
+
+    email = data.get("email")
     password = randomStringDigits()
     role = "fp"
 
     r = (
         requests.post(
-            backend_url + "register",
+            BACKEND_URL + "register",
             data={"email": email, "password": password, "role": role},
         )
     ).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
     return create_response(
         status=200,
         message="success",
-        data={"token": r.text.token, "uid": r.text.uid, "password": password},
+        data={"token": r.get("token"), "uid": r.get("uid"), "password": password},
     )
 
 
@@ -157,23 +206,34 @@ def change_password():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    current_password = data["currentPassword"]
-    new_password = data["newPassword"]
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
+    if "currentPassword" not in data:
+        return create_response(status=400, message="Missing current password!")
+
+    if "newPassword" not in data:
+        return create_response(status=400, message="Missing new password!")
+
+    current_password = data.get("currentPassword")
+    new_password = data.get("newPassword")
     token = request.headers.get("token")
     headers = {"Content-type": "application/json", "token": token}
 
     r = (
         requests.get(
-            backend_url + "changePassword",
+            BACKEND_URL + "changePassword",
             data={"currentPassword": current_password, "newPassword": new_password},
             headers=headers,
         )
     ).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r["message"])
 
-    return create_response(status=200, message="success", data={"token": r["token"]})
+    return create_response(
+        status=200, message="success", data={"token": r.get("token")}
+    )
 
 
 @auth.route("/forgotPassword", methods=["POST"])
@@ -185,19 +245,28 @@ def forgot_password():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data["email"]
-    answer = data["answer"]
-    question_index = data["questionIdx"]
+    if "email" not in data:
+        return create_response(status=400, message="Missing email!")
+
+    if "answer" not in data:
+        return create_response(status=400, message="Missing answer!")
+
+    if "questionIdx" not in data:
+        return create_response(status=400, message="Missing question index!")
+
+    email = data.get("email")
+    answer = data.get("answer")
+    question_index = data.get("questionIdx")
 
     r = (
         requests.post(
-            backend_url + "forgotPassword",
+            BACKEND_URL + "forgotPassword",
             data={"email": email, "answer": answer, "questionIdx": question_index},
         )
     ).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
     return create_response(status=200, message=r["message"])
 
@@ -211,22 +280,36 @@ def reset_password():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data["email"]
-    password = data["password"]
-    pin = data["pin"]
-    answer = data["answer"]
+    email = data.get("email")
+    password = data.get("password")
+    pin = data.get("pin")
+    answer = data.get("answer")
+
+    if "email" not in data:
+        return create_response(status=400, message="Missing email!")
+
+    if "password" not in data:
+        return create_response(status=400, message="Missing password!")
+
+    if "answer" not in data:
+        return create_response(status=400, message="Missing answer!")
+
+    if "pin" not in data:
+        return create_response(status=400, message="Missing pin!")
 
     r = (
         requests.post(
-            backend_url + "resetPassword",
+            BACKEND_URL + "resetPassword",
             data={"email": email, "password": password, "pin": pin, "answer": answer},
         )
     ).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
-    return create_response(status=200, message="success", data={"token": r["token"]})
+    return create_response(
+        status=200, message="success", data={"token": r.get("token")}
+    )
 
 
 @auth.route("/addSecurityQuestionAnswer", methods=["POST"])
@@ -238,22 +321,31 @@ def add_security_question():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    questionIdx = data["questionIdx"]
-    answer = data["answer"]
+    if "answer" not in data:
+        return create_response(status=400, message="Missing answer!")
+
+    if "questionIdx" not in data:
+        return create_response(status=400, message="Missing question index!")
+
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
+    questionIdx = data.get("questionIdx")
+    answer = data.get("answer")
 
     token = request.headers.get("token")
     headers = {"Content-type": "application/json", "token": token}
 
     r = (
         requests.get(
-            backend_url + "addSecurityQuestionAnswer",
+            BACKEND_URL + "addSecurityQuestionAnswer",
             data={"questionIdx": questionIdx, "answer": answer},
             headers=headers,
         )
     ).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
     return create_response(status=200, message=r["message"])
 
@@ -267,13 +359,16 @@ def get_security_questions():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
     token = request.headers.get("token")
 
     headers = {"Content-type": "application/json", "token": token}
-    r = (requests.get(backend_url + "getSecurityQuestions", headers=headers)).json()
+    r = (requests.get(BACKEND_URL + "getSecurityQuestions", headers=headers)).json()
 
     return create_response(
-        status=200, message="success", data={"questions": r["questions"]}
+        status=200, message="success", data={"questions": r.get("questions")}
     )
 
 
@@ -286,17 +381,20 @@ def get_security_question():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data["email"]
+    if "email" not in data:
+        return create_response(status=400, message="Missing email!")
+
+    email = data.get("email")
 
     r = (
-        requests.post(backend_url + "getSecurityQuestionForUser", data={"email": email})
+        requests.post(BACKEND_URL + "getSecurityQuestionForUser", data={"email": email})
     ).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
     return create_response(
-        status=200, message="success", data={"question": r["question"]}
+        status=200, message="success", data={"question": r.get("question")}
     )
 
 
@@ -309,12 +407,15 @@ def resend_verification():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
     token = request.headers.get("token")
     headers = {"Content-type": "application/json", "token": token}
 
-    r = (requests.get(backend_url + "resendVerificationEmail", headers=headers)).json()
+    r = (requests.get(BACKEND_URL + "resendVerificationEmail", headers=headers)).json()
 
-    if r["status"] == 400 or r["status"] == 500:
-        return create_response(status=r["status"], message=r["message"])
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
 
-    return create_response(status=200, message=r["message"])
+    return create_response(status=200, message=r.get("message"))

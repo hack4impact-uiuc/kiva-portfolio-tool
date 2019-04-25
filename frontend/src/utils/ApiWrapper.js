@@ -200,44 +200,6 @@ export const changePassword = (currentPassword, newPassword) => {
     })
 }
 
-/**
-function getUsersForRolesPage() {
-  console.log("ROLES");
-  try {
-    return fetch(`http://localhost:5000/roles`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token"),
-        google: getCookie("google")
-      }
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-function changeRole(userEmail, newRole, password) {
-  try {
-    return fetch(`http://localhost:5000/roleschange`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        token: getCookie("token"),
-        google: getCookie("google")
-      },
-      body: JSON.stringify({
-        userEmail,
-        newRole,
-        password
-      })
-    });
-  } catch (err) {
-    console.log(err);
-  }
-}
-*/
-
 export const verifyPIN = (email, pin) => {
   let data = new FormData()
   data.append('email', email)
