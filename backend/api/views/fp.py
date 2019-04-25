@@ -17,6 +17,9 @@ def get_field_partner():
     if response is not None:
         return response
 
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /field_partner, gets all the FPs """
     field_partner = FieldPartner.query.all()
     return create_response(data={"field_partner": serialize_list(field_partner), "role": role})
@@ -32,6 +35,9 @@ def get_fp_by_id(id):
     if response is not None:
         return response
 
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /field_partner/get/id/<id> that gets a field partner by id """
     field_partner_by_id = FieldPartner.query.get(id)
     return create_response(data={"field_partner": field_partner_by_id.to_dict(), "role": role})
@@ -46,6 +52,9 @@ def get_fp_by_email(email):
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /field_partner/get/email/<email>, gets an FP by email """
     field_partner_by_email = FieldPartner.query.filter(FieldPartner.email == email)
@@ -64,6 +73,9 @@ def get_org_by_id(id):
     if response is not None:
         return response
 
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit _____, gets an FP's org name by ID """
     fp_by_id = FieldPartner.query.get(id)
     return create_response(data={"org_name": fp_by_id.org_name, "role" : role})
@@ -79,6 +91,9 @@ def get_fp_by_pm(pm_id):
     if response is not None:
         return response
 
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs """
     field_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
     return create_response(data={"field_partner": serialize_list(field_partner_list), "role": role})
@@ -93,6 +108,9 @@ def new_fp():
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
 
     """ function that is called when you visit /field_partner/new, creates a new FP """
     data = request.get_json()
@@ -126,6 +144,9 @@ def update_app_status(id):
     if response is not None:
         return response
 
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+        
     """ function that is called when you visit /field_partner/update/<id>, updates an FP's app status info """
     fp = FieldPartner.query.get(id)
     fp.app_status = request.get_json().get("app_status", "")

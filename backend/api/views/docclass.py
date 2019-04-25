@@ -17,6 +17,9 @@ def get_document_class():
     if response is not None:
         return response
 
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /document_class, gets all the docclasses """
     document_class = DocumentClass.query.all()
     return create_response(status=200, data={"document_class": serialize_list(document_class), "role": role})
@@ -24,13 +27,17 @@ def get_document_class():
 
 @docclass.route("/document_class/<id>", methods=["GET"])
 def get_document_class_by_id(id):
-        data = request.get_json()
+    data = request.get_json()
     headers = data["headers"]
     
     response, role = verify_token(headers['token'])
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /document_class/<id>, gets a docclass by id """
     document_class = DocumentClass.query.get(id)
     return create_response(
@@ -46,7 +53,10 @@ def add_document_class():
     response, role = verify_token(headers['token'])
 
     if response is not None:
-        return response    
+        return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")    
     """ function that is called when you visit /document_class/new, creates a new docclass """
     logger.info(data)
     if "name" not in data:
@@ -71,6 +81,9 @@ def update_document_class(id):
 
     if response is not None:
         return response
+        
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     docclass = DocumentClass.query.get(id)
     docclass.name = request.json.get("name", docclass.name)

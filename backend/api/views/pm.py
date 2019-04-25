@@ -14,6 +14,10 @@ def get_portfolio_manager():
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /portfolio_manager """
     portfolio_manager = PortfolioManager.query.all()
     return create_response(
@@ -30,6 +34,10 @@ def get_pm_by_id(id):
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id """
     portfolio_manager_by_id = PortfolioManager.query.get(id)
     return create_response(
@@ -46,6 +54,10 @@ def get_pm_by_email(email):
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /portfolio_manager/<email>, gets a PM by email """
     portfolio_manager_by_email = PortfolioManager.query.filter(
         PortfolioManager.email == email
@@ -64,6 +76,10 @@ def get_all_fps(id):
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+
     """ function that is called when you visit /portfolio_manager/all_fps/<id> that gets a portfolio manager by id """
     pm_by_id = PortfolioManager.query.get(id)
     return create_response(data={"list_of_fps": pm_by_id.list_of_fps, "role": role})
@@ -79,6 +95,9 @@ def new_pm():
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
 
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
@@ -102,6 +121,10 @@ def add_fp(pm_id, fp_id):
 
     if response is not None:
         return response
+
+    if role != "pm":
+        return create_response(status=400, message="You do not have permission to authorize this request.")
+        
     """ function that is called when you visit /portfolio_manager/add/<pm_id>/<fp_id>, adds an existing FP to the PM's list of FPs """
     pm = PortfolioManager.query.get(pm_id)
     pm.list_of_fps = pm.list_of_fps + [fp_id]
