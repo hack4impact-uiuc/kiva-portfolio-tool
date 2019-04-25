@@ -70,7 +70,7 @@ export const verify = (emailInput, passwordInput) => {
 
 export const getSecurityQuestions = () => {
   return axios
-    .post(BACKEND_URL + '/getSecurityQuestions', {
+    .get(BACKEND_URL + '/getSecurityQuestions', {
       headers: {
         "Content-Type": "application/json",
         token: getCookie("token")

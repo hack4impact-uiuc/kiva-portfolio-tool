@@ -27,6 +27,23 @@ def register_user():
 
     return create_response(status=200, message="success", data={'token':r['token'], 'uid': r['uid']})
 
+@auth.route("/login", methods=["POST"])
+def login_user():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
+    email = data["email"]
+    password = data["password"]
+    r = (requests.post(backend_url + "login", data={'email': email, 'password': password})).json()
+    if r['status'] == 400:
+        return create_response(status=400, message=r['message'])
+
+    return create_response(status=200, message="success", data={'token':r['token'], 'uid': r['uid']})
+
 @auth.route("/verifyEmail", methods=["POST"])
 def verify_email():
     data = request.get_json()
@@ -153,6 +170,24 @@ def add_security_question():
         return create_response(status=r['status'], message=r['message'])
 
     return create_response(status=200, message=r['message'])
+
+@auth.route("/getSecurityQuestions", methods=["GET"])
+def get_security_questions():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+    print(data)
+    token = request.headers.get('token')
+    print(token)
+    headers = {'Content-type': 'application/json', 'token': token}    
+    r = (requests.get(backend_url + "getSecurityQuestions", headers = headers)).json()
+    print(r)
+
+    return create_response(status=200, message="success", data={'questions': r['questions']})
+
 
 @auth.route("/getSecurityQuestionForUser", methods=["POST"])
 def get_security_question():

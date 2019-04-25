@@ -18,7 +18,7 @@ import {
   DropdownMenu
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
-import { register, verifyPIN, resendPIN, getSecurityQuestion, setSecurityQuestion } from '../utils/ApiWrapper'
+import { register, verifyPIN, resendPIN, getSecurityQuestions, setSecurityQuestion } from '../utils/ApiWrapper'
 
 // michael's baby
 const EMAIL_REGEX =
@@ -66,16 +66,17 @@ class Register extends React.Component {
       this.setState({ error: "unable to load data" });
       return;
     }
-    const respJson = await resp.json();
-    if (!!respJson.questions) {
-      this.setState({ questions: respJson.questions });
+    console.log(resp)
+    let questions = resp.response.data.result.questions
+    if (questions) {
+      this.setState({ questions: questions });
     } else {
-      this.setState({ loading: false, errorMessage: respJson.error.message });
+      this.setState({ loading: false, errorMessage: resp.response.message });
     }
   }
 
   handleSubmit = async e => {
-    event.preventDefault();
+    e.preventDefault();
     if (
       this.state.password === this.state.password2 &&
       this.state.questionIdx !== -1 &&
@@ -87,11 +88,12 @@ class Register extends React.Component {
         this.state.questionIdx,
         this.state.securityQuestionAnswer
       );
-      const response = await result.json();
-      if (!response.token) {
-        this.setState({ errorMessage: response.message });
+      let token = result.response.data.result.token
+
+      if (!token) {
+        this.setState({ errorMessage: result.response.message });
       } else {
-        setCookie("token", response.token);
+        setCookie("token", token);
         this.setState({ successfulSubmit: true });
       }
     } else if (this.state.password !== this.state.password2) {
@@ -106,9 +108,9 @@ class Register extends React.Component {
   handlePINVerify = async e => {
     e.preventDefault();
     const result = await verifyPIN(this.state.pin);
-    const response = await result.json();
-    this.setState({ pinMessage: response.message });
-    if (response.status === 200) {
+    let pinMessage = result.response.message
+    this.setState({ pinMessage: pinMessage });
+    if (pinMessage === 200) {
       this.props.history.push('/')
     }
   };
@@ -116,8 +118,8 @@ class Register extends React.Component {
   handlePINResend = async e => {
     e.preventDefault();
     const result = await resendPIN();
-    const response = await result.json();
-    this.setState({ pinMessage: response.message });
+    let pinMessage = result.response.message
+    this.setState({ pinMessage: pinMessage });
   };
 
   roletoggle = () => {

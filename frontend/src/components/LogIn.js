@@ -57,16 +57,18 @@ class LogIn extends Component {
     e.preventDefault()
 
     const result = await login(this.state.email, this.state.password)
-    //const resp = await result.json()
-    console.log(result)
-    /*
-    if (!resp.token) {
-      this.setState({ errorMessage: resp.message })
+    let token = result.response.data.result.token
+    
+    if (!token) {
+      console.log("broken")
+      this.setState({ errorMessage: result.response.message })
     } else {
-      setCookie('token', resp.token)
+      console.log("not broken")
+
+      setCookie('token', token)
       this.props.history.push('/dashboard')
     }
-    */
+    
   }
 
   render() {

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
 import {
-  getSecurityQuestion,
+  getSecurityQuestionForUser,
   submitSecurityQuestionAnswer,
   resetPassword
 } from "../utils/ApiWrapper";
@@ -42,10 +42,11 @@ class ForgotPassword extends Component {
 
   handleGetSecurityQuestion = async e => {
     e.preventDefault();
-
-    const result = await getSecurityQuestion(this.state.email);
+    console.log("HHERE");
+    console.log(this.state.email);
+    const result = await getSecurityQuestionForUser(this.state.email);
     const resp = await result.json();
-    if (resp.status === 200) {
+    if (!!resp.question) {
       this.setState({ question: resp.question, errorMessage: "" });
     } else {
       this.setState({ errorMessage: resp.message });
@@ -61,7 +62,6 @@ class ForgotPassword extends Component {
       this.state.answer
     );
     const resp = await result.json();
-    this.setState({ loadingAPI: false });
     if (resp.status === 200) {
       this.setState({ submitNewPassword: true, errorMessage: "" });
     } else {
@@ -152,7 +152,7 @@ class ForgotPassword extends Component {
             </Form>
           </CardBody>
           <div style={{ textAlign: "center" }}>
-            <Link to='/login' prefetch href="/login">
+            <Link to = "/login" prefetch href="/login">
               <a>Back to login page</a>
             </Link>
           </div>
@@ -191,12 +191,14 @@ class ForgotPassword extends Component {
                     onClick={this.handleGetSecurityQuestion}
                     style={{ float: "right", width: "100%" }}
                   >
-                    Reset Password
+                    Get Security Question
                   </Button>
+
+                  {this.state.errorMessage}
                 </Form>
               </CardBody>
               <div style={{ textAlign: "center" }}>
-                <Link to='/login' prefetch href="/login">
+                <Link to = "/login" prefetch href="/login">
                   <a>Back to login page</a>
                 </Link>
               </div>
@@ -236,7 +238,7 @@ class ForgotPassword extends Component {
                 </Form>
               </CardBody>
               <div style={{ textAlign: "center" }}>
-                <Link to='/login' prefetch href="/login">
+                <Link to = "/login" prefetch href="/login">
                   <a>Back to login page</a>
                 </Link>
               </div>
