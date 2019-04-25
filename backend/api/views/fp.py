@@ -76,8 +76,9 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
-    sample_args = request.args
     new_fp = FieldPartner(data)
+    db.session.add(new_fp)
+    db.session.commit()
     return create_response(data={"field_partner": new_fp.to_dict()})
 
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { getAllPartners, createFieldPartner } from '../utils/ApiWrapper'
+import { getAllPartners, createFieldPartner, getAllPMs } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+import { bindActionCreators } from 'redux'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
 import { Progress, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import '../styles/colors.css'
@@ -11,6 +13,16 @@ import search from '../media/search.png'
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
 
 class PMMainPage extends Component {
   constructor(props) {
@@ -86,8 +98,10 @@ class PMMainPage extends Component {
     this.setState({ modal: !this.state.modal })
   }
 
-  handleNewFP = () => {
-    createFieldPartner(this.state.org_name, this.state.email, 1)
+  async handleNewFP() {
+    let pms = await getAllPMs()
+    let pm = pms[0]
+    await createFieldPartner(this.state.org_name, this.state.email, pm._id)
     this.toggle()
   }
 
@@ -248,4 +262,7 @@ class PartnerBar extends Component {
   }
 }
 
-export default connect(mapStateToProps)(PMMainPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PMMainPage)

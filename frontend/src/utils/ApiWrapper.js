@@ -333,9 +333,26 @@ export const getAllPartners = () => {
 }
 
 export const createFieldPartner = (org_name, email, pm_id) => {
-  console.log(org_name)
-  console.log(email)
-  console.log(pm_id)
+  let requestString = BACKEND_URL + '/field_partner/new'
+  let data = new FormData()
+  data.append('org_name', org_name)
+  data.append('email', email)
+  data.append('pm_id', pm_id)
+  data.append('app_status', 'New Partner')
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        type: 'CREATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_FP_FAIL',
+        error
+      }
+    })
 }
 
 /*
