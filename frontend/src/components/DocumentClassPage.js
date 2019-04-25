@@ -1,6 +1,5 @@
 import React from 'react'
 import DocumentClass from './DocumentClass'
-import Upload from './Upload'
 import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { bindActionCreators } from 'redux'
@@ -104,9 +103,6 @@ class DocumentClassPage extends React.Component {
     } else {
       return (
         <>
-          <Modal isOpen={this.state.uploadModal} toggle={this.toggleUpload}>
-            <Upload uploadType="DocumentClass" />
-          </Modal>
           <Modal isOpen={this.state.addModal} toggle={this.toggle}>
             <ModalBody>
               <form>
@@ -129,29 +125,16 @@ class DocumentClassPage extends React.Component {
                           <section>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <p>Drag some files here, or click to select files</p>
+                              {this.state.files.length > 0 ? (
+                                <p>File uploaded: {this.state.files[0].name}</p>
+                              ) : (
+                                <p>Click to Upload</p>
+                              )}
                             </div>
                           </section>
                         )}
                       </Dropzone>
                     </div>
-                    <aside>
-                      <h4>Files Dropped</h4>
-                      <ul className="droppedFilesBackground">
-                        {this.state.files.map(f => (
-                          <li className="droppedBox" key={f.name}>
-                            {f.name} - {f.size} bytes
-                          </li>
-                        ))}
-                      </ul>
-                      <Button
-                        disabled={this.state.files.length === 0}
-                        className="right"
-                        onClick={this.handleSubmit}
-                      >
-                        Create Document Class
-                      </Button>
-                    </aside>
                   </section>
                   <hr />
                 </div>
@@ -160,6 +143,9 @@ class DocumentClassPage extends React.Component {
             <ModalFooter>
               <Button className="invalidSearchButton" onClick={this.toggle}>
                 Return
+              </Button>
+              <Button disabled={this.state.files.length === 0} onClick={this.handleSubmit}>
+                Create Document Class
               </Button>
             </ModalFooter>
           </Modal>
