@@ -100,7 +100,6 @@ class NavBar extends Component {
             </Nav>
           )}
         </Navbar>
-        <NotificationsBar isOpen={this.state.notif_bar} toggle={this.toggle}> </NotificationsBar>
       </div>
     )
   }

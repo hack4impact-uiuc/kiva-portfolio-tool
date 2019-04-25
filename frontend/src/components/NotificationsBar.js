@@ -49,6 +49,7 @@ class NotificationsBar extends Component {
     const allMessages = this.props.allMessages
     const allInformation = this.props.allInformation
     return (
+      <div>
       <Tabs>
         <TabList>
           <Tab>Activity</Tab>
@@ -85,6 +86,7 @@ class NotificationsBar extends Component {
           })}
         </TabPanel>
       </Tabs>
+      </div>
     )
   }
 }
