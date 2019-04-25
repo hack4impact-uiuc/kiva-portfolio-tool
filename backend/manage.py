@@ -168,7 +168,9 @@ def recreate_db():
 
 
 def create_mock_docclass(docclass_name, docclass_description=None):
-    docclass = DocumentClass(name=docclass_name, description=docclass_description)
+    docclass = DocumentClass(
+        {"name": docclass_name, "description": docclass_description}
+    )
     db.session.add(docclass)
     return docclass.id
 

@@ -82,6 +82,7 @@ def create_app(test_config=None):
 
     # why blueprints http://flask.pocoo.org/docs/1.0/blueprints/
     app.register_blueprint(main.main)
+    app.register_blueprint(document.document)
     app.register_blueprint(message.message)
     app.register_blueprint(box.box)
     app.register_blueprint(fp.fp)

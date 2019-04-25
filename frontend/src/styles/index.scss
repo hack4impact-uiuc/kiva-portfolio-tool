@@ -10,6 +10,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  height: 100%;
+}
+
 .background-pending {
   background-color: $pending-color;
 }
@@ -32,6 +36,15 @@ html, body {
 
 .text-white {
   color: white;
+}
+
+.padding-right-sm {
+  padding-right: 2%;
+}
+
+.buttonimg {
+  width: 20px;
+  height: 20px;
 }
 
 .center-background {

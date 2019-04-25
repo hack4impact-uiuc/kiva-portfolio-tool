@@ -6,9 +6,10 @@ import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './redux/configureStore'
 import {
   Dashboard,
-  LoginPage,
   PMMainPage,
   SelectDocumentsPage,
+  DocumentClassPage,
+  DocumentPreview,
   Register,
   LogIn,
   ForgotPassword
@@ -28,6 +29,8 @@ ReactDOM.render(
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />
         <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
+        <Route path="/documentclasspage" component={DocumentClassPage} />
+        <Route path="/view/:id/:name" component={DocumentPreview} />
       </Switch>
     </ConnectedRouter>
   </Provider>,

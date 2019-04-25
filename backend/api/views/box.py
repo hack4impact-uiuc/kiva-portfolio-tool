@@ -189,7 +189,15 @@ def get_file_info(client, file_id):
 
 @box.route("/box/download", methods=["GET"])
 def download_file():
-    file_id = request.form.get("file_id")
+    data = request.form
+
+    if data is None:
+        return create_response(status=200, message="No data provided")
+
+    if "file_id" not in data:
+        return create_response(status=200, message="No file ID provided")
+
+    file_id = data.get("file_id")
     box_file = client.file(file_id).get()
     output_file = open(box_file.name, "wb")
     box_file.download_to(output_file)
