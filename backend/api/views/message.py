@@ -49,7 +49,7 @@ def get_messages_by_pm(pm_id):
     Gets a list of messages/notifications relevant to a specific PM
     """
     message_list = (
-        Message.query.filter(Message.pm_id == pm_id and Message.to_fp == False)
+        Message.query.filter(Message.pm_id == pm_id)
         .filter(Message.to_fp == False)
         .all()
     )
