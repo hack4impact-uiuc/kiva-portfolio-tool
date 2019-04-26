@@ -46,7 +46,6 @@ def get_messages_by_pm(pm_id):
     return create_response(data={"messages": serialize_list(message_list)})
 
 
-
 # TODO: Call this method every time something in the documents/fp/pm thing is changed
 @message.route("/messages/new", methods=["POST"])
 def add_message(data):
@@ -86,10 +85,13 @@ def add_message(data):
             message_type = MessageType.NEW_DOC
         if data["status"] == "Pending":
             message_type = MessageType.UPLOADED_DOC
-  
+
     # Send a message
     # TODO: find sender and recipient emails
     recipient_list = FieldPartner.query.filter(FieldPartner.id == data["fp_id"]).all()
+    recipient_list = PortfolioManager.query.filter(
+        PortfolioManager.id == data["pm_id"]
+    ).all()
     mail = Mail(current_app)
     email = Flask_Message(
         subject=subjects[message_type],

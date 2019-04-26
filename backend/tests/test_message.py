@@ -67,13 +67,7 @@ def create_message(
     )
     return temp_message
 
-
-def test_index(client):
-    rs = client.get("/")
-    assert rs.status_code == 200
-
-
-def test_get_messages(client):
+def general_init():
     Message.query.delete()
     Document.query.delete()
     DocumentClass.query.delete()
@@ -81,6 +75,13 @@ def test_get_messages(client):
     PortfolioManager.query.delete()
     db.session.commit()
 
+
+def test_index(client):
+    rs = client.get("/")
+    assert rs.status_code == 200
+
+
+def test_get_messages(client):
     rs = client.get("/messages")
 
     assert rs.status_code == 200
@@ -128,16 +129,10 @@ def test_get_messages(client):
     assert ret_dict["result"]["messages"][0]["doc_id"] == helper_doc.id
     assert ret_dict["result"]["messages"][0]["status"] == "Pending"
 
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
+    general_init()
 
 
 def test_get_messages_by_fp(client):
-
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -183,22 +178,10 @@ def test_get_messages_by_fp(client):
     assert len(ret_dict["result"]["messages"]) == 1
     assert ret_dict["result"]["messages"][0]["status"] == helper_doc.status
 
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
+   general_init()
 
 
 def test_get_messages_by_pm(client):
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
-    db.session.commit()
-
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -244,9 +227,52 @@ def test_get_messages_by_pm(client):
     assert len(ret_dict["result"]["messages"]) == 1
     assert ret_dict["result"]["messages"][0]["status"] == "Approved"
 
-    Message.query.delete()
-    Document.query.delete()
-    DocumentClass.query.delete()
-    FieldPartner.query.delete()
-    PortfolioManager.query.delete()
+    general_init()
+
+def test_add_message(client):
+    helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
+    db.session.add(helper_portfolio_manager)
     db.session.commit()
+
+    helper_field_partner = create_fp(
+        "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
+    )
+    db.session.add(helper_field_partner)
+    db.session.commit()
+
+    helper_docclass = create_docclass("ksdljf")
+    db.session.add(helper_docclass)
+    db.session.commit()
+
+    helper_doc = create_document(
+        "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
+    )
+    db.session.add(helper_doc)
+    db.session.commit()
+
+    temp_message = create_message(
+        helper_portfolio_manager,
+        helper_field_partner,
+        True,
+        helper_doc,
+        helper_doc.status,
+    )
+    # TODO: just use the given document's status instead of passing it to the message?
+    db.session.add(temp_message)
+    db.session.commit()
+
+    rs = client.post("/messages/new",
+        content_type="multipart/form-data",
+        data={"pm_id": helper_portfolio_manager.id,
+                "fp_id": helper_field_partner.id,
+                "to_fp": True,
+                "doc_id": helper_doc.id,
+                "status": "Approved"},
+    )
+
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True
+    assert ret_dict["message"] == "success"
+
+    general_init()
