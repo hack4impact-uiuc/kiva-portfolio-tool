@@ -1,13 +1,13 @@
 import React from 'react'
 import { Selector } from './Selector'
-import { getAllDocumentClasses } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
+import { getAllDocumentClasses, createDocuments } from '../utils/ApiWrapper'
 import { connect } from 'react-redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/selectdocuments.css'
 import search from '../media/search.png'
+import { create } from 'domain'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -100,7 +100,18 @@ class SelectDocumentsPage extends React.Component {
     })
   }
 
-  handleSubmit = () => {}
+  async handleSubmit() {
+    let docClassIDs = this.state.documentClasses
+      .filter(docClass => this.state.available[docClass.name] === false)
+      .reduce((array, docClass) => {
+        array.push(docClass._id)
+        return array
+      }, [])
+    //let docClassIDs = docClasses.forEach(docClass => {return docClass._id})
+    //console.log(docClassIDs)
+    await createDocuments(this.state.fp_id, docClassIDs)
+    this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+  }
 
   render() {
     return (
@@ -159,7 +170,9 @@ class SelectDocumentsPage extends React.Component {
             />
           </div>
 
-          <button className="nextButton">Next</button>
+          <button className="nextButton" onClick={this.handleSubmit}>
+            Assign
+          </button>
         </div>
       </div>
     )

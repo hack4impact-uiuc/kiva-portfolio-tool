@@ -301,6 +301,28 @@ export const getDocumentsByUser = userID => {
     })
 }
 
+export const createDocuments = (userID, docClassIDs) => {
+  let requestString = BACKEND_URL + '/document/create'
+  let data = FormData()
+  data.append('userID', userID)
+  data.append('status', 'Missing')
+  data.append('docClassIDs', docClassIDs)
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        type: 'CREATE_DOCUMENTS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_DOCUMENTS_FAIL',
+        error
+      }
+    })
+}
+
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
