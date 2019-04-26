@@ -1,15 +1,19 @@
 import React from 'react'
 import DocumentClass from './DocumentClass'
 import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
-import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Table, Label, Media } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import '../styles/dashboard.css'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import '../styles/index.css'
+import '../styles/documentclasspage.css'
 import Dropzone from 'react-dropzone'
 import Loader from 'react-loader-spinner'
+import NavBar from './NavBar'
+import '../styles/variable.scss'
+import add from '../media/add.png'
 
 const mapStateToProps = state => ({
   documentClasses: state.user.documentClasses,
@@ -103,6 +107,7 @@ class DocumentClassPage extends React.Component {
     } else {
       return (
         <>
+          <NavBar />
           <Modal isOpen={this.state.addModal} toggle={this.toggle}>
             <ModalBody>
               <form>
@@ -149,23 +154,34 @@ class DocumentClassPage extends React.Component {
               </Button>
             </ModalFooter>
           </Modal>
-          <h1>Edit Document Classes</h1>
-          <Button color="primary" onClick={this.toggle}>
-            Add New Document Class
-          </Button>
-          <Table>
-            <tbody>
-              <tr>
-                <th className="theader-centered">Document Class Name</th>
-                <th />
-              </tr>
-              {this.props.documentClasses
-                ? this.props.documentClasses.map(documentClass => (
-                    <DocumentClass documentClass={documentClass} />
-                  ))
-                : null}
-            </tbody>
-          </Table>
+          <div className="edit-banner">
+            <h1 className="h1">Edit Document Classes</h1>
+            <Button
+              className="add-doc-text"
+              id="add-new-class"
+              color="transparent"
+              onClick={this.toggle}
+            >
+              <img className="addImg" src={add} />
+              <span className="add-doc-text">Add New Document Class</span>
+            </Button>
+          </div>
+
+          <div className="doc-table">
+            <Table>
+              <tbody>
+                <tr id="doc-table-top-row">
+                  <th className="theader-centered">Document Class Name</th>
+                  <th />
+                </tr>
+                {this.props.documentClasses
+                  ? this.props.documentClasses.map(documentClass => (
+                      <DocumentClass documentClass={documentClass} />
+                    ))
+                  : null}
+              </tbody>
+            </Table>
+          </div>
         </>
       )
     }
