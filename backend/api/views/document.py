@@ -170,6 +170,39 @@ def create_new_document():
     return create_response(status=200, message="success")
 
 
+@document.route("/document/create", methods=["POST"])
+def create_new_documents():
+    """
+    used upon assignment of documents to field partner
+    """
+    data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No body provided for new Document")
+
+    if "userID" not in data:
+        return create_response(
+            status=400, message="No UserID provided for new Document"
+        )
+
+    if "docClassIDs" not in data:
+        return create_response(status=400, message="No document classes provided")
+
+    userID = data.get("userID")
+
+    status = "Missing"
+
+    document_class_ids = data.get("docClassIDs")
+
+    for document_class_id in document_class_ids:
+        data = {"userID": userID, "status": status, docClassID: document_class_id}
+        new_doc = Document(data)
+        db.session.add(new_data)
+
+    db.session.commit()
+    return create_response(status=200, message="success")
+
+
 @document.route("/document/delete/<docClassID>", methods=["DELETE"])
 def delete_document(docClassID):
     """

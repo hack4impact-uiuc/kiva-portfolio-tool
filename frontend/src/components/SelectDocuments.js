@@ -100,6 +100,8 @@ class SelectDocumentsPage extends React.Component {
     })
   }
 
+  handleSubmit = () => {}
+
   render() {
     return (
       <div>
