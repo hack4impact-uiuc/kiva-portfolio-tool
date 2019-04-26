@@ -419,3 +419,16 @@ def resend_verification():
         return create_response(status=r.get("status"), message=r.get("message"))
 
     return create_response(status=200, message=r.get("message"))
+
+def verify_token(token):
+    """ helper function that verifies the token sent from client and returns an appropriate response and the permission/role (if it exists)"""
+
+    if token is None:
+        return "Token is required.", None
+
+    r = (requests.post(BACKEND_URL + "verify", headers={'token': headers['token']})).json()
+
+    if r.get("status") == 400:
+        return r.get("message"), None
+
+    return None, (r.get("role"), r.get("newToken"))

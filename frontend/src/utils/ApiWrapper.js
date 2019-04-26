@@ -249,20 +249,8 @@ export const resendPIN = () => {
 
 //import { BACKEND_KEY } from '../keys'
 
-export const getAllPMs = () => {
-  let requestString = BACKEND_URL + '/portfolio_manager'
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.portfolio_manager
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
 export const getAllDocumentClasses = () => {
+  return ['a', 'ab', 'abc', 'abcd', 'abcde']
   let requestString = BACKEND_URL + '/document_class'
   return axios
     .get(requestString)
@@ -278,49 +266,18 @@ export const getAllDocumentClasses = () => {
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
-    .get(requestString)
+    .get(requestString, {
+        headers: {
+          'Content-Type': 'application/json',
+          token: getCookie('token')
+        }
+    })
     .then(response => {
       return response.data.result.documents
     })
     .catch(error => {
       console.log('ERROR: ', error)
       return null
-    })
-}
-
-export const getDocumentsByUser = userID => {
-  let requestString = BACKEND_URL + '/document?uid=' + userID
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.documents
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
-export const createDocuments = (userID, docClassIDs, dueDate) => {
-  let requestString = BACKEND_URL + '/document/create'
-  let data = new FormData()
-  data.append('userID', userID)
-  data.append('status', 'Missing')
-  data.append('docClassIDs', docClassIDs)
-  data.append('dueDate', dueDate)
-  return axios
-    .post(requestString, data)
-    .then(response => {
-      return {
-        type: 'CREATE_DOCUMENTS_SUCCESS',
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        type: 'CREATE_DOCUMENTS_FAIL',
-        error
-      }
     })
 }
 
@@ -338,60 +295,6 @@ export const getAllInformation = () => {
   return ['I need you to not work on IST and get in the documents asap']
 }
 
-export const getPartnersByPM = pm_id => {
-  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.field_partner
-    })
-    .catch(error => {
-      return {
-        type: 'GET_PARTNERS_FAIL',
-        error
-      }
-    })
-}
-
-export const getAllPartners = () => {
-  let requestString = BACKEND_URL + '/field_partner'
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.field_partner
-    })
-    .catch(error => {
-      return {
-        type: 'GET_PARTNERS_FAIL',
-        error
-      }
-    })
-}
-
-export const createFieldPartner = (org_name, email, pm_id) => {
-  let requestString = BACKEND_URL + '/field_partner/new'
-  let data = new FormData()
-  data.append('org_name', org_name)
-  data.append('email', email)
-  data.append('pm_id', pm_id)
-  data.append('app_status', 'New Partner')
-  return axios
-    .post(requestString, data)
-    .then(response => {
-      return {
-        type: 'CREATE_FP_SUCCESS',
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        type: 'CREATE_FP_FAIL',
-        error
-      }
-    })
-}
-
-/*
 export const getAllPartners = () => {
   return [
     {
@@ -466,12 +369,16 @@ export const getAllPartners = () => {
     }
   ]
 }
-*/
 
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
-    .get(requestString)
+    .get(requestString , {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return response.data.result.access_token
     })
@@ -484,7 +391,12 @@ export const getAccessToken = () => {
 export const downloadDocument = id => {
   let requestString = BACKEND_URL + '/box/download?file_id' + id
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return response.data.result.output
     })
@@ -498,7 +410,12 @@ export const updateDocumentStatus = (id, status) => {
   var data = new FormData()
   data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/status/' + id, data)
+    .put(BACKEND_URL + '/document/status/' + id, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
@@ -518,7 +435,12 @@ export const uploadDocument = (file, file_name, docID) => {
   data.append('file', file)
   data.append('fileName', file_name)
   return axios
-    .put(BACKEND_URL + '/document/upload/' + docID, data)
+    .put(BACKEND_URL + '/document/upload/' + docID, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',
@@ -540,7 +462,12 @@ export const createDocumentClass = (name, description, file, file_name) => {
   data.append('name', name)
   data.append('description', description)
   return axios
-    .post(BACKEND_URL + '/document_class/new', data)
+    .post(BACKEND_URL + '/document_class/new', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',
@@ -562,7 +489,12 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
   data.append('name', name)
   data.append('description', description)
   return axios
-    .put(BACKEND_URL + '/document_class/update/' + id, data)
+    .put(BACKEND_URL + '/document_class/update/' + id, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_DOCUMENT_CLASS_SUCCESS',
@@ -579,7 +511,12 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
 
 export const deleteDocumentClass = id => {
   return axios
-    .delete(BACKEND_URL + '/document_class/delete/' + id)
+    .delete(BACKEND_URL + '/document_class/delete/' + id , {
+      headers: {
+        'Content-Type': 'application/json',
+        token: getCookie('token')
+      }
+    })
     .then(response => {
       return {
         type: 'DELETE_DOCUMENT_CLASS_SUCCESS',

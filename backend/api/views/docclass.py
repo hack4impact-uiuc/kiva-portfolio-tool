@@ -32,6 +32,16 @@ def add_document_class():
     if data is None:
         return create_response(status=400, message="No data provided")
 
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(status=400, message="You do not have permission to create new documents!")
+
     if "name" not in data:
         return create_response(
             status=400, message="No name provided for new Document Class"
@@ -60,6 +70,16 @@ def update_document_class(id):
     if data is None:
         return create_response(status=400, message="No body provided")
 
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(status=400, message="You do not have permission to create new documents!")
+    
     docclass = DocumentClass.query.get(id)
 
     docclass.name = data.get("name", docclass.name)
@@ -81,6 +101,17 @@ def update_document_class(id):
 
 @docclass.route("/document_class/delete/<id>", methods=["DELETE"])
 def delete_document_class(id):
+    
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(status=400, message="You do not have permission to create new documents!")
+        
     # delete all associated Documents before deleting Document Class
     Document.query.filter(Document.docClassID == str(id)).delete()
 

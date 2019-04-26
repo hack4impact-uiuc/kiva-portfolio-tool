@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import Document, Message, db, DocumentClass, FieldPartner
+from api.models import Document, Message, db, DocumentClass
 from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
@@ -68,7 +68,7 @@ def get_document():
     # if there are query arguments the following occurs
     else:
         # Unpacks the search values in our dictionary and provides them to Flask/SQLalchemy
-        docs = Document.query.filter_by(**kwargs).all()
+        docs = Document.query.filter_by(**kwargs)
 
         # Since description and date were not part of search parameters
         # this is so that partial querying can be use to search keywords in description
@@ -81,12 +81,8 @@ def get_document():
                 if i.description is not None
                 and description.lower() in i.description.lower()
             ]
-
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
-
-        for doc in docs:
-            doc.docClassName = DocumentClass.query.get(doc.docClassID).name
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
@@ -115,6 +111,13 @@ def upload_document(id):
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
 
     if "fileName" not in data:
         return create_response(status=400, message="No file name provided")
@@ -150,6 +153,17 @@ def create_new_document():
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(status=400, message="You do not have permission to create new documents!")
+
     if "userID" not in data:
         return create_response(
             status=400, message="No UserID provided for new Document"
@@ -170,57 +184,21 @@ def create_new_document():
     return create_response(status=200, message="success")
 
 
-@document.route("/document/create", methods=["POST"])
-def create_new_documents():
-    """
-    used upon assignment of documents to field partner
-    """
-    data = request.form
-
-    if data is None:
-        return create_response(status=400, message="No body provided for new Document")
-
-    if "userID" not in data:
-        return create_response(
-            status=400, message="No UserID provided for new Document"
-        )
-
-    if "docClassIDs" not in data:
-        return create_response(status=400, message="No document classes provided")
-
-    if "dueDate" not in data:
-        return create_response(status=400, message="No due date provided")
-
-    userID = data.get("userID")
-
-    status = "Missing"
-
-    date = data.get("dueDate")
-
-    document_class_ids = data.get("docClassIDs").split(",")
-
-    for document_class_id in document_class_ids:
-        data = {
-            "userID": userID,
-            "status": status,
-            "docClassID": document_class_id,
-            "date": date,
-        }
-        new_doc = Document(data)
-        db.session.add(new_doc)
-
-    fp = FieldPartner.query.get(userID)
-    fp.app_status = "In Process"
-
-    db.session.commit()
-    return create_response(status=200, message="success")
-
-
 @document.route("/document/delete/<docClassID>", methods=["DELETE"])
 def delete_document(docClassID):
     """
     Deletes all documents related to a document class in database
     """
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(status=400, message="You do not have permission to delete documents!")
 
     db.session.delete(
         # gets all document <id> native to db and sees if == to docClassID. Then deletes
@@ -239,6 +217,13 @@ def update_documents(docClassID):
 
     if data is None:
         return create_response(status=200, message="No data provided")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
 
     # takes in updated docClassID information by json in request
     # receives all documents by docClassID
@@ -270,6 +255,13 @@ def update_status(id):
     data = request.form
     if data is None:
         return create_response(status=400, message="No data provided")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message not None:
+        return create_response(status=400, message=message)
 
     if "status" not in data:
         return create_response(status=400, message="No document status provided")
