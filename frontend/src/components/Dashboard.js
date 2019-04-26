@@ -47,7 +47,6 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
-
     /**
      * Contains all documents received from backend
      */
