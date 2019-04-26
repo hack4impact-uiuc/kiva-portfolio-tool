@@ -188,14 +188,24 @@ def create_new_documents():
     if "docClassIDs" not in data:
         return create_response(status=400, message="No document classes provided")
 
+    if "dueDate" not in data:
+        return create_response(status=400, message="No due date provided")
+
     userID = data.get("userID")
 
     status = "Missing"
 
+    date = data.get("dueDate")
+
     document_class_ids = data.get("docClassIDs").split(",")
 
     for document_class_id in document_class_ids:
-        data = {"userID": userID, "status": status, "docClassID": document_class_id}
+        data = {
+            "userID": userID,
+            "status": status,
+            "docClassID": document_class_id,
+            "date": date,
+        }
         new_doc = Document(data)
         db.session.add(new_doc)
 

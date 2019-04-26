@@ -9,7 +9,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/selectdocuments.css'
 import search from '../media/search.png'
-import { create } from 'domain'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -27,7 +26,6 @@ const mapDispatchToProps = dispatch => {
 class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
-    var today = new Date()
     this.state = {
       // all docClasses
       documentClasses: [],
@@ -35,7 +33,7 @@ class SelectDocumentsPage extends React.Component {
       // filtered DocClasses as the key with availability as the value
       filtered: {},
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
-      DueDate: today,
+      dueDate: new Date(),
       // state that updates depending on what the user types in query bar
       query: '',
       fp_id: null
@@ -108,7 +106,7 @@ class SelectDocumentsPage extends React.Component {
    */
   newDueDate = date => {
     this.setState({
-      DueDate: date
+      dueDate: date
     })
   }
 
@@ -121,7 +119,16 @@ class SelectDocumentsPage extends React.Component {
       }, [])
     //let docClassIDs = docClasses.forEach(docClass => {return docClass._id})
     //console.log(docClassIDs)
-    await createDocuments(this.state.fp_id, docClassIDs)
+    console.log(this.state.dueDate)
+
+    const date =
+      this.state.dueDate.getUTCMonth() +
+      ' ' +
+      this.state.dueDate.getUTCDay() +
+      ' ' +
+      this.state.dueDate.getUTCFullYear()
+
+    await createDocuments(this.state.fp_id, docClassIDs, date)
     const documents = await getDocumentsByUser(this.state.fp_id)
     this.props.updateDocuments(documents)
     this.props.history.push('/dashboard/fp/' + this.state.fp_id)
@@ -178,7 +185,7 @@ class SelectDocumentsPage extends React.Component {
           <div className="blockCustom dateDisplay">
             Set a Due Date:
             <DatePicker
-              selected={this.state.DueDate}
+              selected={this.state.dueDate}
               onChange={this.newDueDate}
               className="datePicker"
             />
