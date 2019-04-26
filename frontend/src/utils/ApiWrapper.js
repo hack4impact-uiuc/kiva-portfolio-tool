@@ -303,10 +303,11 @@ export const getDocumentsByUser = userID => {
 
 export const createDocuments = (userID, docClassIDs) => {
   let requestString = BACKEND_URL + '/document/create'
-  let data = FormData()
+  let data = new FormData()
   data.append('userID', userID)
   data.append('status', 'Missing')
   data.append('docClassIDs', docClassIDs)
+  console.log(docClassIDs)
   return axios
     .post(requestString, data)
     .then(response => {

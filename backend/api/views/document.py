@@ -192,12 +192,12 @@ def create_new_documents():
 
     status = "Missing"
 
-    document_class_ids = data.get("docClassIDs")
+    document_class_ids = data.get("docClassIDs").split(",")
 
     for document_class_id in document_class_ids:
-        data = {"userID": userID, "status": status, docClassID: document_class_id}
+        data = {"userID": userID, "status": status, "docClassID": document_class_id}
         new_doc = Document(data)
-        db.session.add(new_data)
+        db.session.add(new_doc)
 
     db.session.commit()
     return create_response(status=200, message="success")

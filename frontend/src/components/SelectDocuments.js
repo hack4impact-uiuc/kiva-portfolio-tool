@@ -29,6 +29,7 @@ class SelectDocumentsPage extends React.Component {
       query: '',
       fp_id: null
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   /**
