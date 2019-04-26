@@ -38,6 +38,7 @@ class LoginPage extends Component {
 
   async componentDidMount() {
     const fps = await getAllPartners()
+    //use first FP temporarily until auth integration
     this.setState({ fp_id: fps[0]._id })
   }
 
