@@ -14,6 +14,7 @@ from datetime import date
 
 def create_pm(email, name):
     helper_portfolio_manager = PortfolioManager({"email": email, "name": name})
+    db.session.add(helper_portfolio_manager)
     return helper_portfolio_manager
 
 
