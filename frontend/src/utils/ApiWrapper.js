@@ -249,8 +249,20 @@ export const resendPIN = () => {
 
 //import { BACKEND_KEY } from '../keys'
 
+export const getAllPMs = () => {
+  let requestString = BACKEND_URL + '/portfolio_manager'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.portfolio_manager
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const getAllDocumentClasses = () => {
-  return ['a', 'ab', 'abc', 'abcd', 'abcde']
   let requestString = BACKEND_URL + '/document_class'
   return axios
     .get(requestString)
@@ -290,6 +302,60 @@ export const getAllInformation = () => {
   return ['I need you to not work on IST and get in the documents asap']
 }
 
+export const getPartnersByPM = pm_id => {
+  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+export const getAllPartners = () => {
+  let requestString = BACKEND_URL + '/field_partner'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+export const createFieldPartner = (org_name, email, pm_id) => {
+  let requestString = BACKEND_URL + '/field_partner/new'
+  let data = new FormData()
+  data.append('org_name', org_name)
+  data.append('email', email)
+  data.append('pm_id', pm_id)
+  data.append('app_status', 'New Partner')
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        type: 'CREATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_FP_FAIL',
+        error
+      }
+    })
+}
+
+/*
 export const getAllPartners = () => {
   return [
     {
@@ -364,6 +430,7 @@ export const getAllPartners = () => {
     }
   ]
 }
+*/
 
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'

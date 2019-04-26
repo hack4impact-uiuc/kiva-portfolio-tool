@@ -1,16 +1,27 @@
 import React, { Component } from 'react'
-import { getAllPartners } from '../utils/ApiWrapper'
+import { getAllPartners, createFieldPartner, getAllPMs } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { bindActionCreators } from 'redux'
 import 'react-tabs/style/react-tabs.css'
+import { bindActionCreators } from 'redux'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
-import { Progress } from 'reactstrap'
+import { Progress, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
 
 class PMMainPage extends Component {
   constructor(props) {
@@ -19,8 +30,16 @@ class PMMainPage extends Component {
     this.state = {
       partners: [],
       filtered: [],
-      query: ''
+      query: '',
+      email: '',
+      org_name: '',
+      modal: false,
+      pm_id: null
     }
+    this.toggle = this.toggle.bind(this)
+    this.handleNewFP = this.handleNewFP.bind(this)
+    this.handleClickIP = this.handleClickIP.bind(this)
+    this.handleClickNew = this.handleClickNew.bind(this)
   }
 
   /**
@@ -29,6 +48,9 @@ class PMMainPage extends Component {
   async componentDidMount() {
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
+    let pms = await getAllPMs()
+    let pm = pms[0]
+    this.setState({ pm_id: pm._id })
   }
 
   /**
@@ -63,16 +85,75 @@ class PMMainPage extends Component {
       newState['filtered'] = this.state.partners
     } else {
       newState['filtered'] = this.state.partners.filter(partner =>
-        partner.name.toLowerCase().includes(query)
+        partner.org_name.toLowerCase().includes(query)
       )
     }
     this.setState(newState)
   }
 
+  handleNameChange = event => {
+    this.setState({ org_name: event.target.value })
+  }
+
+  handleEmailChange = event => {
+    this.setState({ email: event.target.value })
+  }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal })
+  }
+
+  async handleNewFP() {
+    await createFieldPartner(this.state.org_name, this.state.email, this.state.pm_id)
+    let partners = await getAllPartners()
+    this.setState(this.loadPartners(partners))
+    this.toggle()
+  }
+
+  handleClickIP = () => {
+    this.props.history.push('/dashboard')
+  }
+
+  handleClickNew = () => {
+    this.props.history.push('/selectdocumentspage')
+  }
+
   render() {
     return (
       <div className="page">
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          <ModalHeader>Add New Field Partner</ModalHeader>
+          <ModalBody>
+            <form onSubmit={this.handleNewFP}>
+              <p>Organization Name:</p>
+              <input
+                type="text"
+                value={this.state.name}
+                size="50"
+                placeholder="Enter the Field Partner's organization name here..."
+                onChange={this.handleNameChange}
+              />
+              <p>Email:</p>
+              <input
+                type="text"
+                value={this.state.email}
+                size="50"
+                placeholder="Enter the Field Partner's email here..."
+                onChange={this.handleEmailChange}
+              />
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={this.toggle}>Exit</Button>
+            <Button onClick={this.handleNewFP}>Create</Button>
+          </ModalFooter>
+        </Modal>
+        <div>
+          <span />
+          <p>Fieldy McPartnerson</p>
+        </div>
         <h2>Field Partners</h2>
+        <Button onClick={this.toggle}>Add New Field Partner</Button>
         <form onSubmit={this.handleSubmit}>
           <img src={search} width="25" />
           <input
@@ -86,16 +167,25 @@ class PMMainPage extends Component {
 
         <Tabs className="tab-master">
           <TabList className="react-tabs__tab-list">
-            <Tab>REVIEWING</Tab>
-            <Tab>DORMANT</Tab>
+            <Tab>In Process</Tab>
+            <Tab>New Partner</Tab>
+            <Tab>Complete</Tab>
           </TabList>
 
           <TabPanel>
             <div className="partnerPanel">
               {this.state.filtered
-                .filter(partner => partner.status != 'Dormant')
+                .filter(partner => partner.app_status == 'In Process')
                 .map(partner => {
-                  return <PartnerBar partner={partner} />
+                  return (
+                    <Button
+                      className="partnerButton"
+                      color="transparent"
+                      onClick={this.handleClickIP}
+                    >
+                      <PartnerBar partner={partner} />
+                    </Button>
+                  )
                 })}
             </div>
           </TabPanel>
@@ -103,9 +193,35 @@ class PMMainPage extends Component {
           <TabPanel>
             <div className="partnerPanel">
               {this.state.filtered
-                .filter(partner => partner.status == 'Dormant')
+                .filter(partner => partner.app_status == 'New Partner')
                 .map(partner => {
-                  return <PartnerBar partner={partner} />
+                  return (
+                    <Button
+                      className="partnerButton"
+                      color="transparent"
+                      onClick={this.handleClickNew}
+                    >
+                      <PartnerBar partner={partner} />
+                    </Button>
+                  )
+                })}
+            </div>
+          </TabPanel>
+
+          <TabPanel>
+            <div className="partnerPanel">
+              {this.state.filtered
+                .filter(partner => partner.app_status == 'Complete')
+                .map(partner => {
+                  return (
+                    <Button
+                      className="partnerButton"
+                      color="transparent"
+                      onClick={this.handleClickNew}
+                    >
+                      <PartnerBar partner={partner} />
+                    </Button>
+                  )
                 })}
             </div>
           </TabPanel>
@@ -128,14 +244,18 @@ class PartnerBar extends Component {
    * In addition prints all info of a field partner
    */
   render() {
+    const partner = this.props.partner
+    const documents = partner.documents
+
     let approved = 0
     let pending = 0
     let rejected = 0
+    let rest = 0
 
-    // counts number of documents in each
-    let len = Object.keys(this.props.partner.documents).length
-    for (var key in this.props.partner.documents) {
-      let item = this.props.partner.documents[key]
+    // counts number of documents in eachS
+    let len = documents.length
+    for (const document in documents) {
+      let item = documents[document].status
       if (item == 'Approved') {
         approved += 1
       } else if (item == 'Pending') {
@@ -146,20 +266,24 @@ class PartnerBar extends Component {
     }
 
     // turns into percentage values
-    approved = Math.floor((approved / len) * 100)
-    pending = Math.floor((pending / len) * 100)
-    rejected = Math.floor((rejected / len) * 100)
-    let rest = 100 - approved - pending - rejected
+    if (len > 0) {
+      approved = Math.floor((approved / len) * 100)
+      pending = Math.floor((pending / len) * 100)
+      rejected = Math.floor((rejected / len) * 100)
+      rest = 100 - approved - pending - rejected
+    } else {
+      rest = 100
+    }
 
     return (
       <div className="partnerBox">
         <div className="duedate">
           <div className="due">Due</div>
-          {this.props.partner.duedate}
+          {partner.duedate}
         </div>
-        <div className="iconBox">{this.props.partner.name[0]}</div>
+        <div className="iconBox">{partner.org_name[0]}</div>
         <div className="nameProgressDisplay">
-          <div>{this.props.partner.name}</div>
+          <div>{partner.org_name}</div>
           <div className="progressAdditional">
             {approved}%
             <Progress multi>
@@ -175,4 +299,7 @@ class PartnerBar extends Component {
   }
 }
 
-export default connect(mapStateToProps)(PMMainPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PMMainPage)

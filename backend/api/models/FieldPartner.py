@@ -13,7 +13,9 @@ class FieldPartner(Mixin, db.Model):
     email = db.Column(db.String)
     org_name = db.Column(db.String)
     pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
-    app_status = db.Column(db.String)
+    app_status = db.Column(
+        db.Enum("New Partner", "In Process", "Complete", name="app_status")
+    )
 
     def __init__(self, data):
         self.id = "f" + str(uuid.uuid4())

@@ -55,6 +55,13 @@
     margin-top: 2%;
 }
 
+.partnerPanel .partnerButton {
+    padding: 0%;
+    margin: 0px;
+    border-radius: 26px;
+    border-width: 0px
+}
+
 .partnerBox {
     padding: 4%;
     padding-left: 0;
@@ -127,4 +134,3 @@
     border-color: $accepted-color;
     color: $accepted-color;
 }
-

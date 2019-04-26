@@ -14,29 +14,27 @@ export class Selector extends React.Component {
       <div className="surround-box">
         <h3>{this.props.name}</h3>
         <div>
-          {Object.keys(this.props.documents).map(docClass => {
+          {this.props.documents.map(docClass => {
             let buttonType
             if (this.props.name === 'Selected') {
               buttonType = remove // placeholders for red delete X
             } else {
               buttonType = add // placeholder for green add button (see chloe design documentation)
             }
-            if (this.props.documents[docClass] === this.props.name) {
-              return (
-                <div className="panel">
-                  <div className="docClassValue">{docClass}</div>
-                  <img src={info} className="imageValue" />
-                  <button
-                    onClick={() => {
-                      this.props.update(docClass)
-                    }}
-                    className="buttonValue"
-                  >
-                    <img src={buttonType} width="30" />
-                  </button>
-                </div>
-              )
-            }
+            return (
+              <div className="panel">
+                <div className="docClassValue">{docClass.name}</div>
+                <img src={info} className="imageValue" />
+                <button
+                  onClick={() => {
+                    this.props.update(docClass.name)
+                  }}
+                  className="buttonValue"
+                >
+                  <img src={buttonType} width="30" />
+                </button>
+              </div>
+            )
           })}
         </div>
       </div>
