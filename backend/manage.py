@@ -37,11 +37,15 @@ def recreate_db():
 
     pm_id = create_mock_pm("pm@kiva.org", "PM")
 
+    db.session.commit()
+
     fp1_id = create_mock_fp("fp1@kiva.org", "FP 1", "In Process", pm_id)
 
     fp2_id = create_mock_fp("fp2@kiva.org", "FP 2", "New Partner", pm_id)
 
     fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id)
+
+    db.session.commit()
 
     docclass_ids = []
 

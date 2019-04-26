@@ -110,12 +110,12 @@ export class PMMainPage extends Component {
     this.toggle()
   }
 
-  handleClickIP = () => {
-    this.props.history.push('/dashboard')
+  handleClickIP = id => {
+    this.props.history.push('/dashboard/pm/' + id)
   }
 
-  handleClickNew = () => {
-    this.props.history.push('/selectdocumentspage')
+  handleClickNew = id => {
+    this.props.history.push('/selectdocumentspage/' + id)
   }
 
   render() {
@@ -181,7 +181,7 @@ export class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickIP}
+                      onClick={() => this.handleClickIP(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>
@@ -199,7 +199,7 @@ export class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickNew}
+                      onClick={() => this.handleClickNew(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>
@@ -217,7 +217,7 @@ export class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickNew}
+                      onClick={() => this.handleClickNew(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>

@@ -76,7 +76,7 @@ class DocumentListItem extends Component {
             <Button color="transparent">
               <Link
                 to={{
-                  pathname: '/view/' + this.state.document._id + '/' + this.state.document.fileName,
+                  pathname: '/view/' + this.state.document.fileName + '/' + this.state.document._id,
                   state: { link: this.state.document.link }
                 }}
               >
