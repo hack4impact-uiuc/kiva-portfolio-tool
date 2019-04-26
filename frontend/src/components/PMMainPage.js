@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
 import { Progress, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import '../styles/colors.css'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
 
@@ -174,7 +173,11 @@ class PMMainPage extends Component {
                 .filter(partner => partner.app_status == 'In Process')
                 .map(partner => {
                   return (
-                    <Button color="transparent" onClick={this.handleClick}>
+                    <Button
+                      className="partnerButton"
+                      color="transparent"
+                      onClick={this.handleClick}
+                    >
                       <PartnerBar partner={partner} />
                     </Button>
                   )
@@ -188,7 +191,11 @@ class PMMainPage extends Component {
                 .filter(partner => partner.app_status == 'New Partner')
                 .map(partner => {
                   return (
-                    <Button color="transparent" onClick={this.handleClick}>
+                    <Button
+                      className="partnerButton"
+                      color="transparent"
+                      onClick={this.handleClick}
+                    >
                       <PartnerBar partner={partner} />
                     </Button>
                   )
@@ -202,7 +209,11 @@ class PMMainPage extends Component {
                 .filter(partner => partner.app_status == 'Complete')
                 .map(partner => {
                   return (
-                    <Button color="transparent" onClick={this.handleClick}>
+                    <Button
+                      className="partnerButton"
+                      color="transparent"
+                      onClick={this.handleClick}
+                    >
                       <PartnerBar partner={partner} />
                     </Button>
                   )
@@ -265,7 +276,7 @@ class PartnerBar extends Component {
           <div className="due">Due</div>
           {partner.duedate}
         </div>
-        <div className="icon">{partner.org_name[0]}</div>
+        <div className="iconBox">{partner.org_name[0]}</div>
         <div className="nameProgressDisplay">
           <div>{partner.org_name}</div>
           <div className="progressAdditional">
