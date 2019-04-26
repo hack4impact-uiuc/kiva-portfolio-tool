@@ -31,7 +31,7 @@ ReactDOM.render(
         <Route path="/register" component={Register} />
         <Route path="/dashboard/:user/:id" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />
-        <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
+        <Route path="/selectdocumentspage/:id" component={SelectDocumentsPage} />
         <Route path="/documentclasspage" component={DocumentClassPage} />
         <Route path="/view/:name/:id" component={DocumentPreview} />
       </Switch>

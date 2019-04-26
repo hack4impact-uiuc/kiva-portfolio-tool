@@ -26,7 +26,8 @@ class SelectDocumentsPage extends React.Component {
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
       DueDate: today,
       // state that updates depending on what the user types in query bar
-      query: ''
+      query: '',
+      fp_id: null
     }
   }
 
@@ -42,6 +43,10 @@ class SelectDocumentsPage extends React.Component {
     }
 
     let filtered = available
+
+    if (this.props.match) {
+      this.setState({ fp_id: this.props.match.params.id })
+    }
 
     this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
   }

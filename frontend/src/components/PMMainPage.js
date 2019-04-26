@@ -114,8 +114,8 @@ class PMMainPage extends Component {
     this.props.history.push('/dashboard/pm/' + id)
   }
 
-  handleClickNew = () => {
-    this.props.history.push('/selectdocumentspage')
+  handleClickNew = id => {
+    this.props.history.push('/selectdocumentspage/' + id)
   }
 
   render() {
@@ -199,7 +199,7 @@ class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickNew}
+                      onClick={() => this.handleClickNew(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>
@@ -217,7 +217,7 @@ class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickNew}
+                      onClick={() => this.handleClickNew(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>
