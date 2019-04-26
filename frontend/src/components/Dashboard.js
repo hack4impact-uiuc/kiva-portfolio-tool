@@ -3,7 +3,12 @@ import DocumentList from './DocumentList'
 import Notification from './Notification'
 import NavBar from './NavBar'
 import NotificationsBar from './NotificationsBar'
-import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
+import {
+  getAllDocuments,
+  getDocumentsByUser,
+  getAllMessages,
+  getAllInformation
+} from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
@@ -50,7 +55,14 @@ class Dashboard extends React.Component {
     /**
      * Contains all documents received from backend
      */
-    const documentsReceived = await getAllDocuments()
+
+    let documentsReceived = []
+
+    if (this.props.match) {
+      documentsReceived = await getDocumentsByUser(this.props.match.params.id)
+    } else {
+      documentsReceived = await getAllDocuments()
+    }
 
     /**
      * Contains all messages received from backend

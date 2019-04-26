@@ -110,8 +110,8 @@ class PMMainPage extends Component {
     this.toggle()
   }
 
-  handleClickIP = () => {
-    this.props.history.push('/dashboard')
+  handleClickIP = id => {
+    this.props.history.push('/dashboard/pm/' + id)
   }
 
   handleClickNew = () => {
@@ -181,7 +181,7 @@ class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickIP}
+                      onClick={() => this.handleClickIP(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>

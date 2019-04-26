@@ -68,7 +68,7 @@ def get_document():
     # if there are query arguments the following occurs
     else:
         # Unpacks the search values in our dictionary and provides them to Flask/SQLalchemy
-        docs = Document.query.filter_by(**kwargs)
+        docs = Document.query.filter_by(**kwargs).all()
 
         # Since description and date were not part of search parameters
         # this is so that partial querying can be use to search keywords in description
@@ -81,8 +81,12 @@ def get_document():
                 if i.description is not None
                 and description.lower() in i.description.lower()
             ]
+
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
+
+        for doc in docs:
+            doc.docClassName = DocumentClass.query.get(doc.docClassID).name
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]

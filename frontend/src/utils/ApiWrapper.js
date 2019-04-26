@@ -289,7 +289,7 @@ export const getAllDocuments = () => {
 }
 
 export const getDocumentsByUser = userID => {
-  let requestString = BACKEND_URL + '/document?userID=' + userID
+  let requestString = BACKEND_URL + '/document?uid=' + userID
   return axios
     .get(requestString)
     .then(response => {

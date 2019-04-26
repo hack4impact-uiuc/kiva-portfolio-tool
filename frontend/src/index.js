@@ -27,11 +27,11 @@ ReactDOM.render(
         <Route exact path="/" component={LogIn} />
         <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard/:id/:user" component={Dashboard} />
+        <Route path="/dashboard/:user/:id" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />
         <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
         <Route path="/documentclasspage" component={DocumentClassPage} />
-        <Route path="/view/:id/:name" component={DocumentPreview} />
+        <Route path="/view/:name/:id" component={DocumentPreview} />
       </Switch>
     </ConnectedRouter>
   </Provider>,
