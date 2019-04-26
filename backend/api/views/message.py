@@ -46,15 +46,19 @@ def get_messages_by_pm(pm_id):
     return create_response(data={"messages": serialize_list(message_list)})
 
 
+
 # TODO: Call this method every time something in the documents/fp/pm thing is changed
+@message.route("/messages/new", methods=["POST"])
 def add_message(data):
     subjects = ["New required document", "Document reviewed", "Document uploaded"]
     contents = [
-        "jdsklfjslkdfjslkdjf",
-        "Your document has been reviewed and [status]",
-        "[FP] has uploaded a document for [document name]",
+        "Your Portfolio Manager has added a new required document: [documentclass name]",
+        "Your document has been reviewed and was [status, approved/rejected]",
+        "Your Field Partner from [organization] has uploaded a document for [documentclass name]",
     ]
 
+    # these are endpoint things, but we're not calling an endpoint- unless we are?
+    # basically the thing is you could just put this in apiwrapper and call the endpoint and pass the user to this, which woud be so much easier so let's make it an endpoint again
     if "pm_id" not in data:
         return create_response(status=400, message="No PM ID provided for new message")
     if "fp_id" not in data:
@@ -70,6 +74,9 @@ def add_message(data):
         return create_response(
             status=400, message="No document ID provided for new message"
         )
+    temp_message = Message(data)
+    db.session.add(temp_message)
+    db.session.commit()
 
     # Default to reviewed because it has 2 statuses
     message_type = MessageType.REVIEWED_DOC
@@ -79,14 +86,15 @@ def add_message(data):
             message_type = MessageType.NEW_DOC
         if data["status"] == "Pending":
             message_type = MessageType.UPLOADED_DOC
-
+  
     # Send a message
     # TODO: find sender and recipient emails
+    recipient_list = FieldPartner.query.filter(FieldPartner.id == data["fp_id"]).all()
     mail = Mail(current_app)
     email = Flask_Message(
         subject=subjects[message_type],
         sender="ky.cu303@gmail.com",
-        recipients=["otakuness3@gmail.com"],
+        recipients=recipient_list,
         body=contents[message_type],
     )
     mail.send(email)
