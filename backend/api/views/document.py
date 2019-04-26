@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import Document, Message, db, DocumentClass
+from api.models import Document, Message, db, DocumentClass, FieldPartner
 from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
@@ -198,6 +198,9 @@ def create_new_documents():
         data = {"userID": userID, "status": status, "docClassID": document_class_id}
         new_doc = Document(data)
         db.session.add(new_doc)
+
+    fp = FieldPartner.query.get(userID)
+    fp.app_status = "In Process"
 
     db.session.commit()
     return create_response(status=200, message="success")

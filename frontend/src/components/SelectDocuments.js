@@ -1,7 +1,9 @@
 import React from 'react'
 import { Selector } from './Selector'
-import { getAllDocumentClasses, createDocuments } from '../utils/ApiWrapper'
+import { getAllDocumentClasses, createDocuments, getDocumentsByUser } from '../utils/ApiWrapper'
+import { updateDocuments } from '../redux/modules/user'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
@@ -12,6 +14,15 @@ import { create } from 'domain'
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateDocuments
+    },
+    dispatch
+  )
+}
 
 class SelectDocumentsPage extends React.Component {
   constructor(props) {
@@ -111,6 +122,8 @@ class SelectDocumentsPage extends React.Component {
     //let docClassIDs = docClasses.forEach(docClass => {return docClass._id})
     //console.log(docClassIDs)
     await createDocuments(this.state.fp_id, docClassIDs)
+    const documents = await getDocumentsByUser(this.state.fp_id)
+    this.props.updateDocuments(documents)
     this.props.history.push('/dashboard/fp/' + this.state.fp_id)
   }
 
@@ -180,4 +193,7 @@ class SelectDocumentsPage extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(SelectDocumentsPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectDocumentsPage)
