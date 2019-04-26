@@ -26,7 +26,7 @@ def create_fp(email, org_name, helper_portfolio_manager, app_status):
             "app_status": app_status,
         }
     )
-    db.add(temp_field_partner)
+    db.session.add(temp_field_partner)
     return temp_field_partner
 
 
@@ -34,7 +34,7 @@ def create_docclass(name):
     temp_docclass = DocumentClass(
         {"name": name, "description": "This is a description"}
     )
-    db.add(temp_docclass)
+    db.session.add(temp_docclass)
     return temp_docclass
 
 
@@ -52,7 +52,7 @@ def create_document(file_id, user_id, status, docclass):
         }
     )
 
-    db.add(temp_document)
+    db.session.add(temp_document)
     return temp_document
 
 
@@ -69,7 +69,7 @@ def create_message(
         }
     )
 
-    db.add(temp_message)
+    db.session.add(temp_message)
     return temp_message
 
 
