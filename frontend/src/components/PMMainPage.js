@@ -39,6 +39,7 @@ class PMMainPage extends Component {
     }
     this.toggle = this.toggle.bind(this)
     this.handleNewFP = this.handleNewFP.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   /**
@@ -109,6 +110,10 @@ class PMMainPage extends Component {
     this.toggle()
   }
 
+  handleClick = () => {
+    this.props.history.push('/selectdocumentspage')
+  }
+
   render() {
     return (
       <div className="page">
@@ -168,7 +173,11 @@ class PMMainPage extends Component {
               {this.state.filtered
                 .filter(partner => partner.app_status == 'In Process')
                 .map(partner => {
-                  return <PartnerBar partner={partner} />
+                  return (
+                    <Button color="transparent" onClick={this.handleClick}>
+                      <PartnerBar partner={partner} />
+                    </Button>
+                  )
                 })}
             </div>
           </TabPanel>
@@ -178,7 +187,11 @@ class PMMainPage extends Component {
               {this.state.filtered
                 .filter(partner => partner.app_status == 'New Partner')
                 .map(partner => {
-                  return <PartnerBar partner={partner} />
+                  return (
+                    <Button color="transparent" onClick={this.handleClick}>
+                      <PartnerBar partner={partner} />
+                    </Button>
+                  )
                 })}
             </div>
           </TabPanel>
@@ -188,7 +201,11 @@ class PMMainPage extends Component {
               {this.state.filtered
                 .filter(partner => partner.app_status == 'Complete')
                 .map(partner => {
-                  return <PartnerBar partner={partner} />
+                  return (
+                    <Button color="transparent" onClick={this.handleClick}>
+                      <PartnerBar partner={partner} />
+                    </Button>
+                  )
                 })}
             </div>
           </TabPanel>
