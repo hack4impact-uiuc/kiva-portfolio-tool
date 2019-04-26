@@ -67,6 +67,7 @@ def create_message(
     )
     return temp_message
 
+
 def general_init():
     Message.query.delete()
     Document.query.delete()
@@ -178,7 +179,7 @@ def test_get_messages_by_fp(client):
     assert len(ret_dict["result"]["messages"]) == 1
     assert ret_dict["result"]["messages"][0]["status"] == helper_doc.status
 
-   general_init()
+    general_init()
 
 
 def test_get_messages_by_pm(client):
@@ -229,6 +230,7 @@ def test_get_messages_by_pm(client):
 
     general_init()
 
+
 def test_add_message(client):
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
     db.session.add(helper_portfolio_manager)
@@ -261,13 +263,16 @@ def test_add_message(client):
     db.session.add(temp_message)
     db.session.commit()
 
-    rs = client.post("/messages/new",
+    rs = client.post(
+        "/messages/new",
         content_type="multipart/form-data",
-        data={"pm_id": helper_portfolio_manager.id,
-                "fp_id": helper_field_partner.id,
-                "to_fp": True,
-                "doc_id": helper_doc.id,
-                "status": "Approved"},
+        data={
+            "pm_id": helper_portfolio_manager.id,
+            "fp_id": helper_field_partner.id,
+            "to_fp": True,
+            "doc_id": helper_doc.id,
+            "status": "Approved",
+        },
     )
 
     assert rs.status_code == 200
