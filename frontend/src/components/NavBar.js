@@ -18,7 +18,8 @@ import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
-import '../styles/navbar.css'
+import '../styles/navbar.scss'
+import Sidebar from 'react-sidebar'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -30,10 +31,14 @@ class NavBar extends Component {
 
     this.state = {
       isLoginPage: null,
-      notifBar: false
-    }
+      sidebarOpen: false
+    };
 
-    this.toggle = this.toggle.bind(this);
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+  }
+
+  onSetSidebarOpen(open) {
+    this.setState({ sidebarOpen: open });
   }
 
   componentDidMount() {
@@ -44,19 +49,19 @@ class NavBar extends Component {
     }
   }
 
-  toggle() {
-    this.setState({
-      notifBar: !this.state.notifBar
-    });
-    // this.setState(prevState => ({
-    //   notifBar: !prevState.notifBar
-    // }));
-  }
-
   render() {
     const { isPM } = this.props
     return (
       <div>
+        <Sidebar
+          rootClassName="sidebar-root"
+          sidebarClassName="sidebar-sidebar"
+          contentClassName="sidebar-content"
+          
+          sidebar={<NotificationsBar></NotificationsBar>}
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          styles={{ sidebar: { background: "white" } }} />
         <Navbar color="white" light expand="md">
           {this.state.isLoginPage && (
             <NavbarBrand href="/">
@@ -79,12 +84,10 @@ class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Button color="clear" onClick={this.toggle}>
-                  <img src={info_image} width="29" height="29" />
-                </Button>
-              </NavItem>
+            <Nav className="ml-auto" navbar>                            
+              <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
+                <img src={info_image} width="29" height="29" />
+              </Button>
 
               <NavItem className="sandwich">
                 <UncontrolledDropdown nav inNavbar>

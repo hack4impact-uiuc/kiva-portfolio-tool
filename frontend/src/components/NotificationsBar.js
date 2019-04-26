@@ -24,6 +24,10 @@ const mapDispatchToProps = dispatch => {
 class NotificationsBar extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      // css class name
+    }
   }
 
   /**
@@ -49,7 +53,7 @@ class NotificationsBar extends Component {
     const allMessages = this.props.allMessages
     const allInformation = this.props.allInformation
     return (
-      <div>
+      // <div className={}>
       <Tabs>
         <TabList>
           <Tab>Activity</Tab>
@@ -86,7 +90,7 @@ class NotificationsBar extends Component {
           })}
         </TabPanel>
       </Tabs>
-      </div>
+      
     )
   }
 }
