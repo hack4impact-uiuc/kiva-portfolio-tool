@@ -240,7 +240,7 @@ def test_add_message(client):
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["result"]["message"]["doc_id"] == helper_doc.id
+    assert int(ret_dict["result"]["message"]["doc_id"]) == helper_doc.id
     assert ret_dict["result"]["message"]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["message"]["fp_id"] == helper_field_partner.id
     assert ret_dict["result"]["message"]["status"] == "Approved"
