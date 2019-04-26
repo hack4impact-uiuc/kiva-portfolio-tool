@@ -117,9 +117,6 @@ class SelectDocumentsPage extends React.Component {
         array.push(docClass._id)
         return array
       }, [])
-    //let docClassIDs = docClasses.forEach(docClass => {return docClass._id})
-    //console.log(docClassIDs)
-    console.log(this.state.dueDate)
 
     const date =
       this.state.dueDate.getUTCMonth() +
