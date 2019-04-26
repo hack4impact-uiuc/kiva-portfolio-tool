@@ -10,6 +10,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  height: 100%;
+}
+
 .background-pending {
   background-color: $pending-color;
 }
@@ -33,3 +37,51 @@ html, body {
 .text-white {
   color: white;
 }
+
+.padding-right-sm {
+  padding-right: 2%;
+}
+
+.buttonimg {
+  width: 20px;
+  height: 20px;
+}
+
+.center-background {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.left, .right {
+  display: inline-block; 
+  zoom: 1;
+  width:40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.left {
+  position: absolute;
+  left: 30px;
+}
+
+.right {
+  position: absolute;
+  right: 30px;
+}
+
+#background,
+#foreground {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+#foreground {
+  z-index: 10;
+  margin: auto;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+}
+

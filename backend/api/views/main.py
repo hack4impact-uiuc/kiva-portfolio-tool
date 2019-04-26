@@ -1,11 +1,7 @@
-from flask import Blueprint, request, json
-from api.models import Document, Message, db, DocumentClass
-from api.views.box import upload_file
-from api.core import create_response, serialize_list, logger
+from flask import Blueprint
+from api.core import logger
 
 main = Blueprint("main", __name__)  # initialize blueprint
-
-
 # function that is called when you visit /
 @main.route("/")
 def index():
@@ -14,6 +10,7 @@ def index():
     # try using ipdb here :) you can inject yourself
     logger.info("Hello World!")
     return "<h1>Hello World!</h1>"
+<<<<<<< HEAD
 
 
 """
@@ -274,3 +271,5 @@ def update_status():
 
     db.session.commit()
     return create_response(data={"document": ret})
+=======
+>>>>>>> 6ef974f08359ab4d54cd9e9735f73e81a4de9aa0

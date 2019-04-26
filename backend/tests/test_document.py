@@ -12,7 +12,7 @@ class MyEnum(enum.Enum):
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
 def add_mock_docclass(className):
-    temp_docclass = DocumentClass(name=className, description="Description")
+    temp_docclass = DocumentClass({"name": className, "description": "Description"})
 
     db.session.add(temp_docclass)
     db.session.commit()
@@ -76,115 +76,6 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
 
-def test_post_document(client):
-    rs = client.post("/document/new")
-    assert rs.status_code == 400
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == False
-
-    # Adding a docclass to the database
-    docclass_id = add_mock_docclass("test_post_document")
-
-    rs = client.post(
-        "/document/new",
-        content_type="application/json",
-        json={"userID": 7, "status": "Missing", "docClassID": docclass_id},
-    )
-
-    assert rs.status_code == 200
-
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-
-    rs = client.post(
-        "/document/new",
-        content_type="application/json",
-        json={"status": "Missing", "docClassID": docclass_id},
-    )
-    assert rs.status_code == 400
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == False
-
-
-def test_delete_document(client):
-    # Adding a docclass to the database
-    docclass_id = add_mock_docclass("test_delete_document")
-
-    rs = client.post(
-        "/document/new",
-        content_type="application/json",
-        json={"userID": 8, "status": "Missing", "docClassID": docclass_id},
-    )
-
-    assert rs.status_code == 200
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-
-    # is this really the correct behavior? TBD
-    """
-    rs = client.delete("/document/delete/PostDocumentestFile")
-    assert rs.status_code == 500
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == False
-    """
-
-    rs = client.delete("/document/delete/" + docclass_id)
-    assert rs.status_code == 200
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-
-
-def test_put_document(client):
-    # Adding a docclass to the database
-    docclass_id = add_mock_docclass("test_put_document")
-
-    rs = client.post(
-        "/document/new",
-        content_type="application/json",
-        json={"userID": 9, "status": "Missing", "docClassID": docclass_id},
-    )
-    assert rs.status_code == 200
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-
-    # same as above TBD
-    """
-    rs = client.put(
-        "/document/update/Postadfa",
-        content_type="application/json",
-        json={
-            "status": "Pending",
-            "docClassID": docclass_id,
-            "description": "Super Duper LMAO",
-            "fileName": "lul"
-        },
-    )
-    assert rs.status_code == 500
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == False
-    """
-
-    rs = client.put(
-        "/document/update/" + docclass_id,
-        content_type="application/json",
-        json={
-            "status": "Pending",
-            "docClassID": docclass_id,
-            "description": "Super Duper LMAO",
-            "fileName": "heh",
-        },
-    )
-    assert rs.status_code == 200
-    ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-
-    rs = client.get("/document?description=LMAO")
-    ret_dict = rs.json
-    # logger.info(ret_dict)
-    assert ret_dict["result"]["documents"]["Pending"][0]["docClassID"] == docclass_id
-    assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
-
-
 def test_update_status(client):
     # Adding a docclass to the database
     docclass_id = add_mock_docclass("test_update_status")
@@ -205,9 +96,9 @@ def test_update_status(client):
     db.session.commit()
 
     rs = client.put(
-        "/document/status",
-        content_type="application/json",
-        json={"status": "Missing", "docID": temp_document.id},
+        "/document/status/" + str(temp_document.id),
+        content_type="multipart/form-data",
+        data={"status": "Missing"},
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -217,3 +108,51 @@ def test_update_status(client):
     assert ret_dict["result"]["document"]["fileID"] == "Navam"
     assert ret_dict["result"]["document"]["userID"] == "Why"
     assert ret_dict["result"]["document"]["status"] == "Missing"
+
+
+# test functionality of adding new Documents
+# files ignored for the time being for simplicity's sake
+def test_create_new_document(client):
+    docclass_id = add_mock_docclass("test_create_new_document")
+
+    # attempt POST with each parameter missing
+
+    # docClassID missing
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"userID": 1, "status": "Pending"},
+    )
+    assert rs.status_code == 400
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["message"] == "No Document Class provided for new Document"
+
+    # status missing
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"userID": 1, "docClassID": docclass_id},
+    )
+    assert rs.status_code == 400
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["message"] == "No Status provided for new Document"
+
+    # userID missing
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"docClassID": docclass_id, "status": "Pending"},
+    )
+    assert rs.status_code == 400
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["message"] == "No UserID provided for new Document"
+
+    # valid POST
+    rs = client.post(
+        "document/new",
+        content_type="multipart/form-data",
+        data={"userID": 1, "status": "Pending", "docClassID": docclass_id},
+    )
+    assert rs.status_code == 200
+    ret_dict = rs.json  # gives you a dictionary
+    assert ret_dict["success"] == True

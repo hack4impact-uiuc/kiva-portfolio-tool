@@ -17,15 +17,22 @@ class Message(Mixin, db.Model):
     status = db.Column(db.String, unique=True)
     comment = db.Column(db.String, nullable=True)
 
-    def __init__(self, pm_id, fp_id, to_fp, doc_id, status, comment):
-        self.pm_id = pm_id
-        self.fp_id = fp_id
-        self.to_fp = to_fp
-        self.doc_id = doc_id
-        self.status = status
-        self.comment = (
-            datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ": " + comment
-        )
+    def __init__(self, data):
+
+        # required fields should be checked for existence by the request
+        self.pm_id = data["pm_id"]
+        self.fp_id = data["fp_id"]
+        self.to_fp = data["to_fp"]
+        self.doc_id = data["doc_id"]
+        self.status = data["status"]
+
+        # optional fields checked manually
+        if "comment" in data:
+            self.comment = (
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                + ": "
+                + data["comment"]
+            )
 
     def __repr__(self):
         return f"<Message {self.comment}>"
