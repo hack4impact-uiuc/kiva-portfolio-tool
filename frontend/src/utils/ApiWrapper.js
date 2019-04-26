@@ -288,6 +288,19 @@ export const getAllDocuments = () => {
     })
 }
 
+export const getDocumentsByUser = userID => {
+  let requestString = BACKEND_URL + '/document?userID=' + userID
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.documents
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
