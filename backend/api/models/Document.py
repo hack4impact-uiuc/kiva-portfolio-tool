@@ -11,7 +11,7 @@ class Document(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     fileID = db.Column(db.String, unique=True, nullable=True)
     userID = db.Column(db.String)  # , db.ForeignKey("user.id",ondelete="SET NULL")
-    date = db.Column(db.DateTime, unique=False, nullable=True)
+    date = db.Column(db.Date, unique=False, nullable=True)
     status = db.Column(
         db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
         unique=False,

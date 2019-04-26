@@ -12,6 +12,7 @@ import {
   DocumentPreview,
   Register,
   LogIn,
+  LoginPage,
   ForgotPassword
 } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -24,14 +25,15 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Switch>
-        <Route exact path="/" component={LogIn} />
+        <Route exact path="/" component={LoginPage} />
+        <Route path="/authlogin" component={LogIn} />
         <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/dashboard/:user/:id" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />
-        <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
+        <Route path="/selectdocumentspage/:id" component={SelectDocumentsPage} />
         <Route path="/documentclasspage" component={DocumentClassPage} />
-        <Route path="/view/:id/:name" component={DocumentPreview} />
+        <Route path="/view/:name/:id" component={DocumentPreview} />
       </Switch>
     </ConnectedRouter>
   </Provider>,
