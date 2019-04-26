@@ -11,7 +11,7 @@ class Document(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     fileID = db.Column(db.String, unique=True, nullable=True)
     userID = db.Column(db.String)  # , db.ForeignKey("user.id",ondelete="SET NULL")
-    date = db.Column(db.DateTime, unique=False, nullable=True)
+    date = db.Column(db.Date, unique=False, nullable=True)
     status = db.Column(
         db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
         unique=False,
@@ -24,28 +24,6 @@ class Document(Mixin, db.Model):
     description = db.Column(db.String, unique=False, nullable=True)
     link = db.Column(db.String, unique=False, nullable=True)
 
-    """
-    def __init__(
-        self,
-        userID,
-        docClassID,
-        file=None,
-        fileID=None,
-        date=None,
-        status="Missing",
-        fileName=None,
-        latest=None,
-        description=None,
-    ):
-        self.fileID = fileID
-        self.userID = userID
-        self.date = date
-        self.status = status
-        self.docClassID = docClassID
-        self.fileName = fileName
-        self.latest = latest
-        self.description = description
-    """
     # use dictionary to load params to avoid weird issue with values being placed in lists
     def __init__(self, data):
 

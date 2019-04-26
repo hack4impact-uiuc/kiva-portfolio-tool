@@ -5,10 +5,12 @@ import { getAccessToken, updateDocumentStatus, getAllDocuments } from '../utils/
 import { bindActionCreators } from 'redux'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+import { Container, Row, Col } from 'reactstrap'
 import Iframe from 'react-iframe'
 import Loader from 'react-loader-spinner'
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
+import '../styles/documentpreview.css'
 import preview from '../media/preview.png'
 
 // Not needed unless working with non "en" locales
@@ -34,11 +36,21 @@ const mapDispatchToProps = dispatch => {
 class DocumentPreview extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      id: this.props.document._id,
-      fileName: this.props.document.fileName,
-      accessToken: null,
-      fileURL: this.props.document.link
+
+    if (this.props.match) {
+      this.state = {
+        id: this.props.match.params.id,
+        fileName: this.props.match.params.name,
+        accessToken: null,
+        fileURL: this.props.location.state.link
+      }
+    } else {
+      this.state = {
+        id: this.props.document._id,
+        fileName: this.props.document.fileName,
+        accessToken: null,
+        fileURL: this.props.document.link
+      }
     }
 
     this.toggle = this.toggle.bind(this)
@@ -97,7 +109,7 @@ class DocumentPreview extends Component {
     const customStyles = {
       height: '500px',
       width: '500px',
-      overlfow: 'scroll'
+      overflow: 'scroll'
     }
 
     if (this.props.loading) {
@@ -113,19 +125,11 @@ class DocumentPreview extends Component {
     } else {
       return (
         <>
-          {this.state.fileName && (
-            <Button color="transparent" onClick={this.toggle}>
-              <img className="buttonimg" src={preview} />
-            </Button>
-          )}
-          <Modal isOpen={this.state.modal} toggle={this.toggle}>
-            <ModalHeader>{this.state.fileName}</ModalHeader>
-            <ModalBody style={customStyles}>
-              <Iframe url={this.state.fileURL} width="450px" height="500px" allowFullScreen />
-            </ModalBody>
-            <ModalFooter>
-              {isPM && (
-                <div>
+          {this.props.location ? (
+            <>
+              <Iframe className="iframe-relative" url={this.state.fileURL} allowFullScreen />
+              <div id="review-fullscreen">
+                <div id="button-space">
                   <Button color="success" onClick={this.handleApproveClick}>
                     Approve
                   </Button>
@@ -133,12 +137,42 @@ class DocumentPreview extends Component {
                     Reject
                   </Button>
                 </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {this.state.fileName && (
+                <Button color="transparent" onClick={this.toggle}>
+                  <img className="buttonimg" src={preview} />
+                </Button>
               )}
-              <Button color="secondary" onClick={this.toggle}>
-                Close
-              </Button>
-            </ModalFooter>
-          </Modal>
+              <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                <ModalHeader>{this.state.fileName}</ModalHeader>
+                <ModalBody id="modal-box">
+                  <Iframe
+                    classname="iframe-relative iframe-modal"
+                    url={this.state.fileURL}
+                    allowFullScreen
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  {isPM && (
+                    <div>
+                      <Button color="success" onClick={this.handleApproveClick}>
+                        Approve
+                      </Button>
+                      <Button color="danger" onClick={this.handleRejectClick}>
+                        Reject
+                      </Button>
+                    </div>
+                  )}
+                  <Button color="secondary" onClick={this.toggle}>
+                    Close
+                  </Button>
+                </ModalFooter>
+              </Modal>
+            </>
+          )}
         </>
       )
     }

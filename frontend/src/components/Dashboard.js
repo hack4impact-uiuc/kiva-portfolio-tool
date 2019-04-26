@@ -3,18 +3,27 @@ import DocumentList from './DocumentList'
 import Notification from './Notification'
 import NavBar from './NavBar'
 import NotificationsBar from './NotificationsBar'
-import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
+import {
+  getAllDocuments,
+  getDocumentsByUser,
+  getAllMessages,
+  getAllInformation
+} from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
-import { updateDocuments, updateMessages, updateInformation } from '../redux/modules/user'
+import {
+  updateDocuments,
+  updateMessages,
+  updateInformation,
+  setUserType
+} from '../redux/modules/user'
 import Loader from 'react-loader-spinner'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/dashboard.css'
 import '../styles/index.css'
 import 'box-ui-elements/dist/preview.css'
-import './index.scss'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
@@ -32,11 +41,13 @@ const mapDispatchToProps = dispatch => {
     {
       updateDocuments,
       updateMessages,
-      updateInformation
+      updateInformation,
+      setUserType
     },
     dispatch
   )
 }
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props)
@@ -51,7 +62,16 @@ class Dashboard extends React.Component {
     /**
      * Contains all documents received from backend
      */
-    const documentsReceived = await getAllDocuments()
+
+    let documentsReceived = []
+
+    // temporary - REMOVE after auth integration
+    if (this.props.match) {
+      documentsReceived = await getDocumentsByUser(this.props.match.params.id)
+      this.props.setUserType(this.props.match.params.user === 'pm')
+    } else {
+      documentsReceived = await getAllDocuments()
+    }
 
     /**
      * Contains all messages received from backend
