@@ -244,6 +244,6 @@ def test_add_message(client):
     assert ret_dict["result"]["message"]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["message"]["fp_id"] == helper_field_partner.id
     assert ret_dict["result"]["message"]["status"] == "Approved"
-    assert ret_dict["result"]["message"]["to_fp"] == True
+    assert ret_dict["result"]["message"]["to_fp"] == str(True)
 
     cleanup()
