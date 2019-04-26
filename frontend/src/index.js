@@ -27,7 +27,7 @@ ReactDOM.render(
         <Route exact path="/" component={LogIn} />
         <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/dashboard/:id/:user" component={Dashboard} />
         <Route path="/main" component={PMMainPage} />
         <Route path="/selectdocumentspage" component={SelectDocumentsPage} />
         <Route path="/documentclasspage" component={DocumentClassPage} />
