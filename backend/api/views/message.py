@@ -105,4 +105,4 @@ def add_message():
 
     db.session.add(new_message)
     db.session.commit()
-    return create_response(data={"message" : ret})
+    return create_response(data={"message": ret})
