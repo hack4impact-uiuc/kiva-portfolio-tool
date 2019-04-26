@@ -25,6 +25,7 @@ ReactDOM.render(
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Switch>
         <Route exact path="/" component={LogIn} />
+        <Route path="/login" component={LogIn} />
         <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />

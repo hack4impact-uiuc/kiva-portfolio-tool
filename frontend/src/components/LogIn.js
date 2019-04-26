@@ -68,10 +68,10 @@ class LogIn extends Component {
     return (
       <div>
         <Navbar className="nav-absolute" />
-        <div id="background">
+        <div className="background">
           <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
         </div>
-        <div id="foreground">
+        <div className="foreground">
           <Card className="interview-card center-background">
             <CardBody>
               <div className="text-centered" id="login-kiva-logo">
