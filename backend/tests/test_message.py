@@ -132,23 +132,15 @@ def test_get_messages(client):
 
 def test_get_messages_by_fp(client):
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
-    db.session.add(helper_portfolio_manager)
+    helper_docclass = create_docclass("ksdljf")
     db.session.commit()
 
     helper_field_partner = create_fp(
         "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
     )
-    db.session.add(helper_field_partner)
-    db.session.commit()
-
-    helper_docclass = create_docclass("ksdljf")
-    db.session.add(helper_docclass)
-    db.session.commit()
-
     helper_doc = create_document(
         "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
     )
-    db.session.add(helper_doc)
     db.session.commit()
 
     temp_message = create_message(
@@ -181,23 +173,15 @@ def test_get_messages_by_fp(client):
 
 def test_get_messages_by_pm(client):
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
-    db.session.add(helper_portfolio_manager)
+    helper_docclass = create_docclass("ksdljf")
     db.session.commit()
 
     helper_field_partner = create_fp(
         "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
     )
-    db.session.add(helper_field_partner)
-    db.session.commit()
-
-    helper_docclass = create_docclass("ksdljf")
-    db.session.add(helper_docclass)
-    db.session.commit()
-
     helper_doc = create_document(
         "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
     )
-    db.session.add(helper_doc)
     db.session.commit()
 
     temp_message = create_message(
@@ -230,23 +214,15 @@ def test_get_messages_by_pm(client):
 
 def test_add_message(client):
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
-    db.session.add(helper_portfolio_manager)
+    helper_docclass = create_docclass("ksdljf")
     db.session.commit()
 
     helper_field_partner = create_fp(
         "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
     )
-    db.session.add(helper_field_partner)
-    db.session.commit()
-
-    helper_docclass = create_docclass("ksdljf")
-    db.session.add(helper_docclass)
-    db.session.commit()
-
     helper_doc = create_document(
         "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
     )
-    db.session.add(helper_doc)
     db.session.commit()
 
     rs = client.post(
