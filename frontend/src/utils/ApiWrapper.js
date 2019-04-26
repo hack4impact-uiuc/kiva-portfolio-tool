@@ -307,7 +307,6 @@ export const createDocuments = (userID, docClassIDs) => {
   data.append('userID', userID)
   data.append('status', 'Missing')
   data.append('docClassIDs', docClassIDs)
-  console.log(docClassIDs)
   return axios
     .post(requestString, data)
     .then(response => {
