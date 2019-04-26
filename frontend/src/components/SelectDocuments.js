@@ -128,7 +128,7 @@ class SelectDocumentsPage extends React.Component {
     await createDocuments(this.state.fp_id, docClassIDs, date)
     const documents = await getDocumentsByUser(this.state.fp_id)
     this.props.updateDocuments(documents)
-    this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+    this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
 
   render() {
