@@ -1,7 +1,5 @@
 from flask import Blueprint, request, current_app
-from api.models.Message import Message
-from api.models.FieldPartner import FieldPartner
-from api.models.PortfolioManager import PortfolioManager
+from api.models import Message, FieldPartner, PortfolioManager, db
 from flask_mail import Message as Flask_Message
 from flask_mail import Mail
 from api.core import create_response, serialize_list, logger
@@ -48,7 +46,8 @@ def get_messages_by_pm(pm_id):
 
 # TODO: Call this method every time something in the documents/fp/pm thing is changed
 @message.route("/messages/new", methods=["POST"])
-def add_message(data):
+def add_message():
+    data = request.form
     subjects = ["New required document", "Document reviewed", "Document uploaded"]
     contents = [
         "Your Portfolio Manager has added a new required document: [documentclass name]",

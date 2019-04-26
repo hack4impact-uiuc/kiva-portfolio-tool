@@ -252,17 +252,6 @@ def test_add_message(client):
     db.session.add(helper_doc)
     db.session.commit()
 
-    temp_message = create_message(
-        helper_portfolio_manager,
-        helper_field_partner,
-        True,
-        helper_doc,
-        helper_doc.status,
-    )
-    # TODO: just use the given document's status instead of passing it to the message?
-    db.session.add(temp_message)
-    db.session.commit()
-
     rs = client.post(
         "/messages/new",
         content_type="multipart/form-data",
