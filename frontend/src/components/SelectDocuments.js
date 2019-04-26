@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import '../styles/selectdocuments.css'
+import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -17,10 +19,10 @@ class SelectDocumentsPage extends React.Component {
     var today = new Date()
     this.state = {
       // all docClasses
-      docClass: {},
-      // docClasses filtered from docClasses using query
+      documentClasses: [],
+      available: {},
+      // filtered DocClasses as the key with availability as the value
       filtered: {},
-      // due date to be set by user so that it can be passed on
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
       DueDate: today,
       // state that updates depending on what the user types in query bar
@@ -32,30 +34,16 @@ class SelectDocumentsPage extends React.Component {
    * Gets all document classes from the backend and updates state
    */
   async componentDidMount() {
-    let documents = await getAllDocumentClasses()
-    this.setState(this.updateDocumentClasses(documents))
-  }
+    let document_classes = await getAllDocumentClasses()
 
-  /**
-   *
-   * @param {*} res is the list of documents received from backend
-   * In states docClass and filtered, set every doc received in an available state
-   */
-  updateDocumentClasses(res) {
-    if (res) {
-      let docList = {}
-      for (var i of res) {
-        docList[i] = 'Available'
-      }
-      return {
-        docClass: docList,
-        filtered: docList
-      }
-    } else {
-      return {
-        docClass: {}
-      }
+    let available = {}
+    for (const index in document_classes) {
+      available[document_classes[index].name] = true
     }
+
+    let filtered = available
+
+    this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
   }
 
   /***
@@ -70,12 +58,12 @@ class SelectDocumentsPage extends React.Component {
     newState['query'] = query
     newState['filtered'] = {}
     if (query === '') {
-      newState['filtered'] = this.state.docClass
+      newState['filtered'] = this.state.available
     } else {
-      newState['filtered'] = Object.keys(this.state.docClass)
-        .filter(key => key.toLowerCase().includes(query))
+      newState['filtered'] = Object.keys(this.state.available)
+        .filter(name => name.toLowerCase().includes(query))
         .reduce((obj, key) => {
-          obj[key] = this.state.docClass[key]
+          obj[key] = this.state.available[key]
           return obj
         }, {})
     }
@@ -89,16 +77,12 @@ class SelectDocumentsPage extends React.Component {
    * Updates both filter and docClass
    */
   changeSelection = value => {
-    let new_selection
-    if (this.state.docClass[value] === 'Selected') {
-      new_selection = 'Available'
-    } else {
-      new_selection = 'Selected'
+    let new_selection = !this.state.available[value]
+    var newState = this.state
+    newState['available'][value] = new_selection
+    if (value in this.state.filtered) {
+      newState['filtered'][value] = new_selection
     }
-    var newState = {}
-    newState = this.state
-    newState['docClass'][value] = new_selection
-    newState['filtered'][value] = new_selection
     this.setState(newState)
   }
 
@@ -113,38 +97,63 @@ class SelectDocumentsPage extends React.Component {
 
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h2>Select Documents</h2>
+      <div>
+        <div className="topBar">
+          <div className="iconTop">
+            <p className="iconInfo">FP</p>
+          </div>
+          <div className="partnernamebox">
+            <h3 className="partnername">Fieldy McPartnerson</h3>
+          </div>
+        </div>
 
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Q:
+        <div className="pageSD">
+          <h1>Select Documents</h1>
+
+          <form onSubmit={this.handleSubmit}>
+            <img src={search} width="18" />
             <input
+              className="input-master"
               type="text"
               value={this.state.query}
               placeholder="Search For Documents Here"
               onChange={this.handleQueryChange}
             />
-          </label>
-        </form>
+          </form>
 
-        <div>
-          <Selector
-            name="Available"
-            documents={this.state.filtered}
-            update={this.changeSelection}
-          />
+          <div className="displayView">
+            <div className="displayCell blockCustom">
+              <Selector
+                name="Available"
+                documents={this.state.documentClasses.filter(
+                  docClass => this.state.filtered[docClass.name]
+                )}
+                update={this.changeSelection}
+              />
+            </div>
+
+            <div className="blockCustom displayCell">
+              <Selector
+                name="Selected"
+                documents={this.state.documentClasses.filter(
+                  docClass => this.state.filtered[docClass.name] === false
+                )}
+                update={this.changeSelection}
+              />
+            </div>
+          </div>
+
+          <div className="blockCustom dateDisplay">
+            Set a Due Date:
+            <DatePicker
+              selected={this.state.DueDate}
+              onChange={this.newDueDate}
+              className="datePicker"
+            />
+          </div>
+
+          <button className="nextButton">Next</button>
         </div>
-
-        <div>
-          <Selector name="Selected" documents={this.state.filtered} update={this.changeSelection} />
-        </div>
-
-        <p>
-          {' '}
-          Set a Due Date:
-          <DatePicker selected={this.state.DueDate} onChange={this.newDueDate} />
-        </p>
       </div>
     )
   }

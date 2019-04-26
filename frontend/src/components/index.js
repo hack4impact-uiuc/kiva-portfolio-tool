@@ -2,12 +2,14 @@ import LogIn from './LogIn'
 import Dashboard from './Dashboard'
 import DocumentList from './DocumentList'
 import DocumentListItem from './DocumentListItem'
+import DocumentPreview from './DocumentPreview'
 import Register from './Register'
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
 import DocumentClassPage from './DocumentClassPage.js'
 import LoginPage from './LoginPage'
+import ForgotPassword from './ForgotPassword'
 
 export {
   Dashboard,
@@ -19,5 +21,7 @@ export {
   LoginPage,
   SelectDocumentsPage,
   PMMainPage,
-  DocumentClassPage
+  ForgotPassword,
+  DocumentClassPage,
+  DocumentPreview
 }
