@@ -55,8 +55,6 @@ def add_message():
         "Your Field Partner from [organization] has uploaded a document for [documentclass name]",
     ]
 
-    # these are endpoint things, but we're not calling an endpoint- unless we are?
-    # basically the thing is you could just put this in apiwrapper and call the endpoint and pass the user to this, which woud be so much easier so let's make it an endpoint again
     if "pm_id" not in data:
         return create_response(status=400, message="No PM ID provided for new message")
     if "fp_id" not in data:
@@ -72,9 +70,6 @@ def add_message():
         return create_response(
             status=400, message="No document ID provided for new message"
         )
-    temp_message = Message(data)
-    db.session.add(temp_message)
-    db.session.commit()
 
     # Default to reviewed because it has 2 statuses
     message_type = MessageType.REVIEWED_DOC
@@ -86,13 +81,14 @@ def add_message():
             message_type = MessageType.UPLOADED_DOC
 
     # Send a message
-    # TODO: find sender and recipient emails
-    # notes: if it's to the FP, just find the fp with that id
-    recipient = FieldPartner.query.get(data["fp_id"])
-    # recipient_list = PortfolioManager.query.filter(
-    #     PortfolioManager.id == data["pm_id"]
-    # ).all()
+    recipient = (
+        FieldPartner.query.get(data["fp_id"])
+        if data["to_fp"]
+        else PortfolioManager.query.get(data["pm_id"])
+    )
+
     mail = Mail(current_app)
+    # TODO: change the sender hardcode
     email = Flask_Message(
         subject=subjects[message_type.value],
         sender="ky.cu303@gmail.com",

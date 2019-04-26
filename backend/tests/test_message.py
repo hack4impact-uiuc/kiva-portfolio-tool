@@ -26,7 +26,7 @@ def create_fp(email, org_name, helper_portfolio_manager, app_status):
             "app_status": app_status,
         }
     )
-
+    db.add(temp_field_partner)
     return temp_field_partner
 
 
@@ -34,6 +34,7 @@ def create_docclass(name):
     temp_docclass = DocumentClass(
         {"name": name, "description": "This is a description"}
     )
+    db.add(temp_docclass)
     return temp_docclass
 
 
@@ -50,6 +51,8 @@ def create_document(file_id, user_id, status, docclass):
             "description": "Yeet",
         }
     )
+
+    db.add(temp_document)
     return temp_document
 
 
@@ -65,10 +68,12 @@ def create_message(
             "status": status,
         }
     )
+
+    db.add(temp_message)
     return temp_message
 
 
-def general_init():
+def cleanup():
     Message.query.delete()
     Document.query.delete()
     DocumentClass.query.delete()
@@ -91,23 +96,15 @@ def test_get_messages(client):
     assert ret_dict["result"]["messages"] == []
 
     helper_portfolio_manager = create_pm("kelleyc2@illinois.edu", "Kelley")
-    db.session.add(helper_portfolio_manager)
+    helper_docclass = create_docclass("ksdljf")
     db.session.commit()
 
     helper_field_partner = create_fp(
         "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
     )
-    db.session.add(helper_field_partner)
-    db.session.commit()
-
-    helper_docclass = create_docclass("ksdljf")
-    db.session.add(helper_docclass)
-    db.session.commit()
-
     helper_doc = create_document(
         "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
     )
-    db.session.add(helper_doc)
     db.session.commit()
 
     temp_message = create_message(
@@ -130,7 +127,7 @@ def test_get_messages(client):
     assert ret_dict["result"]["messages"][0]["doc_id"] == helper_doc.id
     assert ret_dict["result"]["messages"][0]["status"] == "Pending"
 
-    general_init()
+    cleanup()
 
 
 def test_get_messages_by_fp(client):
@@ -179,7 +176,7 @@ def test_get_messages_by_fp(client):
     assert len(ret_dict["result"]["messages"]) == 1
     assert ret_dict["result"]["messages"][0]["status"] == helper_doc.status
 
-    general_init()
+    cleanup()
 
 
 def test_get_messages_by_pm(client):
@@ -228,7 +225,7 @@ def test_get_messages_by_pm(client):
     assert len(ret_dict["result"]["messages"]) == 1
     assert ret_dict["result"]["messages"][0]["status"] == "Approved"
 
-    general_init()
+    cleanup()
 
 
 def test_add_message(client):
@@ -266,7 +263,10 @@ def test_add_message(client):
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
-    assert ret_dict["success"] == True
-    assert ret_dict["message"] == "success"
+    assert ret_dict["result"]["message"]["doc_id"] == helper_doc.id
+    assert ret_dict["result"]["message"]["pm_id"] == helper_portfolio_manager.id
+    assert ret_dict["result"]["message"]["fp_id"] == helper_field_partner.id
+    assert ret_dict["result"]["message"]["status"] == "Approved"
+    assert ret_dict["result"]["message"]["to_fp"] == True
 
-    general_init()
+    cleanup()
