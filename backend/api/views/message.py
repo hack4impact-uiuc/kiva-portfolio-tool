@@ -87,20 +87,22 @@ def add_message():
 
     # Send a message
     # TODO: find sender and recipient emails
-    recipient_list = FieldPartner.query.filter(FieldPartner.id == data["fp_id"]).all()
-    recipient_list = PortfolioManager.query.filter(
-        PortfolioManager.id == data["pm_id"]
-    ).all()
+    # notes: if it's to the FP, just find the fp with that id
+    recipient = FieldPartner.query.get(data["fp_id"])
+    # recipient_list = PortfolioManager.query.filter(
+    #     PortfolioManager.id == data["pm_id"]
+    # ).all()
     mail = Mail(current_app)
     email = Flask_Message(
-        subject=subjects[message_type],
+        subject=subjects[message_type.value],
         sender="ky.cu303@gmail.com",
-        recipients=recipient_list,
-        body=contents[message_type],
+        recipients=[recipient.email],
+        body=contents[message_type.value],
     )
     mail.send(email)
     new_message = Message(data)
+    ret = new_message.to_dict()
 
-    db.session.add()
+    db.session.add(new_message)
     db.session.commit()
-    return create_response(status=200, message="success")
+    return create_response(data={"message" : ret})

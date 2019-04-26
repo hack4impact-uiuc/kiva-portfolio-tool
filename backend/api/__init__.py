@@ -97,8 +97,8 @@ def create_app(test_config=None):
         "MAIL_PORT": 465,
         "MAIL_USE_TLS": False,
         "MAIL_USE_SSL": True,
-        # "MAIL_USERNAME": os.environ["GMAIL_NAME"],
-        # "MAIL_PASSWORD": os.environ["GMAIL_PASSWORD"],
+        "MAIL_USERNAME": os.environ["GMAIL_NAME"],
+        "MAIL_PASSWORD": os.environ["GMAIL_PASSWORD"],
     }
     app.config.update(mail_settings)
 
