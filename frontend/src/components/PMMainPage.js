@@ -111,11 +111,11 @@ class PMMainPage extends Component {
   }
 
   handleClickIP = () => {
-    this.props.history.push('/selectdocumentspage')
+    this.props.history.push('/dashboard')
   }
 
   handleClickNew = () => {
-    this.props.history.push('/dashboard')
+    this.props.history.push('/selectdocumentspage')
   }
 
   render() {
