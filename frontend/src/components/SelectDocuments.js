@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-class SelectDocumentsPage extends React.Component {
+export class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
