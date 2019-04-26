@@ -126,19 +126,19 @@ class Dashboard extends React.Component {
               {this.props.documents
                 ? this.props.isPM
                   ? this.state.pm_statuses.map(key => {
-                    return (
-                      <Col sm="12" md="6">
-                        <DocumentList documents={this.props.documents[key]} status={key} />
-                      </Col>
-                    )
-                  })
+                      return (
+                        <Col sm="12" md="6">
+                          <DocumentList documents={this.props.documents[key]} status={key} />
+                        </Col>
+                      )
+                    })
                   : this.state.fp_statuses.map(key => {
-                    return (
-                      <Col sm="12" md="6">
-                        <DocumentList documents={this.props.documents[key]} status={key} />
-                      </Col>
-                    )
-                  })
+                      return (
+                        <Col sm="12" md="6">
+                          <DocumentList documents={this.props.documents[key]} status={key} />
+                        </Col>
+                      )
+                    })
                 : null}
             </Row>
             <NotificationsBar />
