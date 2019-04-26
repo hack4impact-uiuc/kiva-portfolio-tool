@@ -13,17 +13,14 @@
 }
 
 .sidebar-sidebar {
-    position: "absolute";
-    top: 0;
-    bottom: 0;
-    transition: "transform .3s ease-out";
+    position: "relative";
+    width: 300;
 }
 
 .sidebar-content {
     position: "relative";
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: "right .3s ease-out, left .3s ease-out"
+}
+
+.sidebar-overlay {
+    position: "relative";
 }

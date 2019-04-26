@@ -32,13 +32,13 @@ class NavBar extends Component {
     this.state = {
       isLoginPage: null,
       sidebarOpen: false
-    };
+    }
 
-    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this)
   }
 
   onSetSidebarOpen(open) {
-    this.setState({ sidebarOpen: open });
+    this.setState({ sidebarOpen: open })
   }
 
   componentDidMount() {
@@ -55,13 +55,13 @@ class NavBar extends Component {
       <div>
         <Sidebar
           rootClassName="sidebar-root"
-          sidebarClassName="sidebar-sidebar"
-          contentClassName="sidebar-content"
-          
-          sidebar={<NotificationsBar></NotificationsBar>}
+          sidebar={<NotificationsBar />}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
-          styles={{ sidebar: { background: "white" } }} />
+          pullRight={true}
+          styles={{ sidebar: { background: 'white' } }}
+        />
+
         <Navbar color="white" light expand="md">
           {this.state.isLoginPage && (
             <NavbarBrand href="/">
@@ -84,7 +84,7 @@ class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar>                            
+            <Nav className="ml-auto" navbar>
               <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
                 <img src={info_image} width="29" height="29" />
               </Button>

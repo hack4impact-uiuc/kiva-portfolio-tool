@@ -90,7 +90,6 @@ class NotificationsBar extends Component {
           })}
         </TabPanel>
       </Tabs>
-      
     )
   }
 }
