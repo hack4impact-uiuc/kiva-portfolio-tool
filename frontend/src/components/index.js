@@ -10,6 +10,7 @@ import PMMainPage from './PMMainPage'
 import DocumentClassPage from './DocumentClassPage.js'
 import LoginPage from './LoginPage'
 import ForgotPassword from './ForgotPassword'
+import Load from './Load'
 
 export {
   Dashboard,
@@ -23,5 +24,6 @@ export {
   PMMainPage,
   ForgotPassword,
   DocumentClassPage,
-  DocumentPreview
+  DocumentPreview,
+  Load
 }

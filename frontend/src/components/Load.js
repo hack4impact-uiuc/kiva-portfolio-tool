@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import '../styles/dashboard.css'
-import '../styles/index.css'
+//import '../styles/dashboard.css'
+//import '../styles/index.css'
+import '../styles/load.css'
 import Loader from 'react-loader-spinner'
 
 const mapStateToProps = state => ({
@@ -16,10 +17,7 @@ class Load extends Component {
   render() {
     if (this.props.loading) {
       return (
-        <div
-          className="resultsText"
-          style={{ paddingTop: window.innerWidth >= 550 ? '10%' : '20%' }}
-        >
+        <div className="load">
           Loading
           <Loader type="Puff" color="green" height="100" width="100" />
         </div>
