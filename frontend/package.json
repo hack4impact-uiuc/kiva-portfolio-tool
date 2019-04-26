@@ -13,6 +13,7 @@
     "bootstrap": "^4.3.1",
     "box-react-ui": "^30.0.0",
     "box-ui-elements": "^9.1.1",
+    "chai": "^4.2.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.3.1",
     "css-loader": "^1.0.0",
