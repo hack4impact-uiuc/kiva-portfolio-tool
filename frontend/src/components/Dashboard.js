@@ -12,7 +12,12 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
-import { updateDocuments, updateMessages, updateInformation } from '../redux/modules/user'
+import {
+  updateDocuments,
+  updateMessages,
+  updateInformation,
+  setUserType
+} from '../redux/modules/user'
 import Loader from 'react-loader-spinner'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
@@ -36,7 +41,8 @@ const mapDispatchToProps = dispatch => {
     {
       updateDocuments,
       updateMessages,
-      updateInformation
+      updateInformation,
+      setUserType
     },
     dispatch
   )
@@ -60,6 +66,7 @@ class Dashboard extends React.Component {
 
     if (this.props.match) {
       documentsReceived = await getDocumentsByUser(this.props.match.params.id)
+      this.props.setUserType(this.props.match.params.user === 'pm')
     } else {
       documentsReceived = await getAllDocuments()
     }

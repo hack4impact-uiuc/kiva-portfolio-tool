@@ -12,6 +12,7 @@ import {
   DocumentPreview,
   Register,
   LogIn,
+  LoginPage,
   ForgotPassword
 } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -24,7 +25,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
       <Switch>
-        <Route exact path="/" component={LogIn} />
+        <Route exact path="/" component={LoginPage} />
         <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard/:user/:id" component={Dashboard} />
