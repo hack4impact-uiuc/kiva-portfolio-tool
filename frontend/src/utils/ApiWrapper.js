@@ -432,10 +432,6 @@ export const getAllPartners = () => {
 }
 */
 
-export const getAllMessages = () => {
-  return ['joe', 'schmoe', 'bro']
-}
-
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios

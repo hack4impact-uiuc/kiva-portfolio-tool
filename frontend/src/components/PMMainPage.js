@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-class PMMainPage extends Component {
+export class PMMainPage extends Component {
   constructor(props) {
     super(props)
 

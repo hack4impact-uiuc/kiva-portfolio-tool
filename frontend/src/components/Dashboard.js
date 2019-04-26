@@ -1,17 +1,9 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import NotificationsBar from './NotificationsBar'
-=======
->>>>>>> 604bea01f6c88d040a3567d41a3b1945161a94a2
-import { getAllDocuments, getAllMessages } from '../utils/ApiWrapper'
-=======
 import Notification from './Notification'
 import NavBar from './NavBar'
-import NotificationsBar from './NotificationsBar'
 import { getAllDocuments, getAllMessages, getAllInformation } from '../utils/ApiWrapper'
->>>>>>> 6ef974f08359ab4d54cd9e9735f73e81a4de9aa0
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row, Col } from 'reactstrap'
@@ -55,11 +47,7 @@ class Dashboard extends React.Component {
   }
 
   async componentDidMount() {
-<<<<<<< HEAD
-      </Container>
->>>>>>> 553bb00141e25681d6f63aa89809bef8ed5925c7
-    )
-=======
+
     /**
      * Contains all documents received from backend
      */
@@ -138,7 +126,6 @@ class Dashboard extends React.Component {
         </div>
       )
     }
->>>>>>> 6ef974f08359ab4d54cd9e9735f73e81a4de9aa0
   }
 }
 export default connect(

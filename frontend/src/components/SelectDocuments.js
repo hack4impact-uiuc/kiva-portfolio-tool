@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-class SelectDocumentsPage extends React.Component {
+export class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
     var today = new Date()
