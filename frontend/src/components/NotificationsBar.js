@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import Notification from './Notification'
 import { connect } from 'react-redux'
 import { updateMessages, updateInformation } from '../redux/modules/user'
+import '../styles/notif_bar.scss'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -53,11 +54,14 @@ class NotificationsBar extends Component {
     const allMessages = this.props.allMessages
     const allInformation = this.props.allInformation
     return (
-      // <div className={}>
       <Tabs>
         <TabList>
-          <Tab>Activity</Tab>
-          <Tab>Information</Tab>
+          <Tab style={{ display: 'inline' }}>
+            <span style={{ fontSize: '20px' }}>Activity</span>
+          </Tab>
+          <Tab style={{ display: 'inline' }}>
+            <span style={{ fontSize: '20px' }}>Information</span>
+          </Tab>
         </TabList>
 
         <TabPanel>

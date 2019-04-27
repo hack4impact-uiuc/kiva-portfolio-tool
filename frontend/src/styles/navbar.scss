@@ -8,19 +8,7 @@
 }
 
 .sidebar-root {
+    overflow: visible !important;
     margin-left: 89.5%;
     margin-top: 0.9%
-}
-
-.sidebar-sidebar {
-    position: "relative";
-    width: 300;
-}
-
-.sidebar-content {
-    position: "relative";
-}
-
-.sidebar-overlay {
-    position: "relative";
 }
