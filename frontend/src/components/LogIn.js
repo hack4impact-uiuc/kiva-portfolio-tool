@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login } from '../utils/ApiWrapper'
+import { login, getPartnersByStatus } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import {
   Form,
@@ -43,7 +43,14 @@ class LogIn extends Component {
     email: '',
     password: '',
     errorMessage: '',
-    username: ''
+    username: '',
+    fp_id: null
+  }
+
+  async componentDidMount() {
+    const fps = await getPartnersByStatus('In Process')
+    //use first FP temporarily until auth integration
+    this.setState({ fp_id: fps[0]._id })
   }
 
   handleChange = event => {
@@ -60,7 +67,7 @@ class LogIn extends Component {
       this.setState({ errorMessage: result.response.message })
     } else {
       setCookie('token', token)
-      this.props.history.push('/dashboard')
+      this.props.history.push('/dashboard/fp/' + this.state.fp_id)
     }
   }
 

@@ -73,16 +73,19 @@ class DocumentListItem extends Component {
             <DocumentPreview document={this.state.document} />
           </td>
           <td data-testid="interaction" className="interaction">
-            <Button color="transparent">
-              <Link
-                to={{
-                  pathname: '/view/' + this.state.document.fileName + '/' + this.state.document._id,
-                  state: { link: this.state.document.link }
-                }}
-              >
-                <img className="buttonimg" src={visit} />
-              </Link>
-            </Button>
+            {this.state.fileName ? (
+              <Button color="transparent">
+                <Link
+                  to={{
+                    pathname:
+                      '/view/' + this.state.document.fileName + '/' + this.state.document._id,
+                    state: { link: this.state.document.link }
+                  }}
+                >
+                  <img className="buttonimg" src={visit} />
+                </Link>
+              </Button>
+            ) : null}
           </td>
           <td data-testid="interaction" className="interaction padding-right-sm">
             {this.state.fileName && (
