@@ -3,7 +3,8 @@
     flex: 1;
     height: 100%;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.7); 
+    background: url(../media/dashboard_bg.svg) no-repeat center center;
+    background-size: cover; 
     position: absolute;
     z-index: 99;
     -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
