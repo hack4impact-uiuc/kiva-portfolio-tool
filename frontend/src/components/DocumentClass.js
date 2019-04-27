@@ -11,6 +11,9 @@ import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Dropzone from 'react-dropzone'
+import edit from '../media/greyEdit.png'
+import remove from '../media/remove.png'
+import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({})
 
@@ -161,17 +164,17 @@ class DocumentClass extends Component {
             <Button onClick={this.handleSubmit}>Update Document Class</Button>
           </ModalFooter>
         </Modal>
-        <tr>
+        <tr className="hoverable">
           {this.props.documentClass.name ? (
             <td data-testid="docClass">{this.props.documentClass.name}</td>
           ) : null}
           <td data-testid="interaction" className="interaction">
             <DocumentClassPreview documentClass={this.props.documentClass} />
-            <Button color="primary" onClick={this.editToggle}>
-              Edit
+            <Button color="transparent" onClick={this.editToggle}>
+              <img className="buttonimg" src={edit} />
             </Button>
-            <Button color="primary" onClick={this.deleteToggle}>
-              Delete
+            <Button color="transparent" onClick={this.deleteToggle}>
+              <img className="buttonimg" src={remove} />
             </Button>
             <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
               <ModalBody>
