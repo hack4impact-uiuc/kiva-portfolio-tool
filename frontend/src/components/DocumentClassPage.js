@@ -15,7 +15,6 @@ import NavBar from './NavBar'
 import '../styles/variable.scss'
 import add from '../media/add.png'
 
-
 const mapStateToProps = state => ({
   documentClasses: state.user.documentClasses
 })
