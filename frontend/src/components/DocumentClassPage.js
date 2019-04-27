@@ -65,6 +65,7 @@ class DocumentClassPage extends React.Component {
 
   async handleSubmit() {
     this.props.beginLoading()
+    this.toggle()
     await createDocumentClass(
       this.state.name,
       this.state.description,
@@ -78,7 +79,6 @@ class DocumentClassPage extends React.Component {
       this.props.updateDocumentClasses([])
     }
     this.props.endLoading()
-    this.toggle()
   }
 
   onDrop(files) {
