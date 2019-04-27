@@ -354,7 +354,7 @@ export const getPartnersByPM = pm_id => {
 }
 
 export const getPartnersByStatus = app_status => {
-  let requestString = BACKEND_URL + '/field_partner/' + app_status
+  let requestString = BACKEND_URL + '/field_partner/status/' + app_status
   return axios
     .get(requestString)
     .then(response => {

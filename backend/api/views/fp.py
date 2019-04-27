@@ -20,7 +20,7 @@ def get_field_partner():
     return create_response(data={"field_partner": field_partner_list})
 
 
-@fp.route("/field_partner/<app_status>", methods=["GET"])
+@fp.route("/field_partner/status/<app_status>", methods=["GET"])
 def get_fp_by_status(app_status):
     field_partners = FieldPartner.query.filter(
         FieldPartner.app_status == app_status
