@@ -5,7 +5,6 @@ import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../uti
 import { bindActionCreators } from 'redux'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
-import { Container, Row, Col } from 'reactstrap'
 import Iframe from 'react-iframe'
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
@@ -58,6 +57,7 @@ class DocumentPreview extends Component {
 
   async handleApproveClick() {
     this.props.beginLoading()
+    this.toggle()
     await updateDocumentStatus(this.state.id, 'Approved')
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
@@ -66,11 +66,11 @@ class DocumentPreview extends Component {
       this.props.updateDocuments([])
     }
     this.props.endLoading()
-    this.toggle()
   }
 
   async handleRejectClick() {
     this.props.beginLoading()
+    this.toggle()
     await updateDocumentStatus(this.state.id, 'Rejected')
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
@@ -79,7 +79,6 @@ class DocumentPreview extends Component {
       this.props.updateDocuments([])
     }
     this.props.endLoading()
-    this.toggle()
   }
 
   toggle() {
@@ -104,11 +103,6 @@ class DocumentPreview extends Component {
   render() {
     const { isPM } = this.props
 
-    const customStyles = {
-      height: '500px',
-      width: '500px',
-      overflow: 'scroll'
-    }
     return (
       <>
         {this.props.location ? (

@@ -43,12 +43,14 @@ class DocumentClassPage extends React.Component {
   }
 
   async componentDidMount() {
+    this.props.beginLoading()
     const document_classes = await getAllDocumentClasses()
     if (document_classes) {
       this.props.updateDocumentClasses(document_classes)
     } else {
       this.props.updateDocumentClasses([])
     }
+    this.props.endLoading()
   }
 
   toggle() {

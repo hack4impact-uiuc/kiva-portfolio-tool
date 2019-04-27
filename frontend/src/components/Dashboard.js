@@ -18,6 +18,7 @@ import {
   updateInformation,
   setUserType
 } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/dashboard.css'
@@ -40,7 +41,9 @@ const mapDispatchToProps = dispatch => {
       updateDocuments,
       updateMessages,
       updateInformation,
-      setUserType
+      setUserType,
+      beginLoading,
+      endLoading
     },
     dispatch
   )
@@ -61,6 +64,7 @@ class Dashboard extends React.Component {
      * Contains all documents received from backend
      */
 
+    this.props.beginLoading()
     let documentsReceived = []
 
     // temporary - REMOVE after auth integration
@@ -98,6 +102,7 @@ class Dashboard extends React.Component {
     } else {
       this.props.updateInformation([])
     }
+    this.props.endLoading()
   }
 
   pStyle = {
