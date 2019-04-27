@@ -1,6 +1,7 @@
 from flask import Blueprint, request, json
 from api.models import PortfolioManager, db
 from api.core import create_response, serialize_list, logger
+from api.views.auth import verify_token
 
 pm = Blueprint("pm", __name__)  # initialize blueprint
 
@@ -13,7 +14,7 @@ def get_portfolio_manager():
     headers = {"Content-type": "application/json", "token": token}
 
     message, info = verify_token(token)
-    if message not None:
+    if message != None:
         return create_response(status=400, message=message)
 
     if info[0] == "fp":
@@ -33,7 +34,7 @@ def get_pm_by_id(id):
     headers = {"Content-type": "application/json", "token": token}
 
     message, info = verify_token(token)
-    if message not None:
+    if message != None:
         return create_response(status=400, message=message)
 
     if info[0] == "fp":
@@ -53,7 +54,7 @@ def get_pm_by_email(email):
     headers = {"Content-type": "application/json", "token": token}
 
     message, info = verify_token(token)
-    if message not None:
+    if message != None:
         return create_response(status=400, message=message)
 
     if info[0] == "fp":
@@ -75,7 +76,7 @@ def new_pm():
     headers = {"Content-type": "application/json", "token": token}
 
     message, info = verify_token(token)
-    if message not None:
+    if message != None:
         return create_response(status=400, message=message)
 
     if info[0] == "fp":

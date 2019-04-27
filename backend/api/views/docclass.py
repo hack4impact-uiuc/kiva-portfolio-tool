@@ -2,6 +2,7 @@ from flask import Blueprint, request, json
 from api.models import Document, DocumentClass, db
 from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
+from api.views.auth import verify_token
 
 import requests, json
 
@@ -36,7 +37,7 @@ def add_document_class():
     headers = {"Content-type": "application/json", "token": token}
 
     message, info = verify_token(token)
-    if message not None:
+    if message != None:
         return create_response(status=400, message=message)
 
     if info[0] == "fp":
@@ -74,7 +75,7 @@ def update_document_class(id):
     headers = {"Content-type": "application/json", "token": token}
 
     message, info = verify_token(token)
-    if message not None:
+    if message != None:
         return create_response(status=400, message=message)
 
     if info[0] == "fp":
@@ -106,7 +107,7 @@ def delete_document_class(id):
     headers = {"Content-type": "application/json", "token": token}
 
     message, info = verify_token(token)
-    if message not None:
+    if message != None:
         return create_response(status=400, message=message)
 
     if info[0] == "fp":
