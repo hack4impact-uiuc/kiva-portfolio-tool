@@ -28,8 +28,8 @@ ReactDOM.render(
       <div>
         <Load />
         <Switch>
-          <Route exact path="/" component={LoginPage} />
-          <Route path="/authlogin" component={LogIn} />
+          <Route exact path="/" component={LogIn} />
+          <Route path="/login" component={LogIn} />
           <Route path="/forgotPassword" component={ForgotPassword} />
           <Route path="/register" component={Register} />
           <Route path="/dashboard/:user/:id" component={Dashboard} />
