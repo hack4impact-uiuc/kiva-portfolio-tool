@@ -70,7 +70,6 @@ class DocumentClass extends Component {
 
   async handleSubmit() {
     this.props.beginLoading()
-    this.editToggle()
     if (this.state.files.length == 0) {
       await updateDocumentClass(
         this.props.documentClass._id,
@@ -95,6 +94,7 @@ class DocumentClass extends Component {
       this.props.updateDocumentClasses([])
     }
     this.props.endLoading()
+    this.editToggle()
   }
 
   onDrop(files) {
@@ -105,7 +105,6 @@ class DocumentClass extends Component {
 
   async handleDelete() {
     this.props.beginLoading()
-    this.deleteToggle()
     await deleteDocumentClass(this.props.documentClass._id)
     const document_classes = await getAllDocumentClasses()
     if (document_classes) {
@@ -114,6 +113,7 @@ class DocumentClass extends Component {
       this.props.updateDocumentClasses([])
     }
     this.props.endLoading()
+    this.deleteToggle()
   }
 
   render() {
