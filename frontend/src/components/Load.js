@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-//import '../styles/dashboard.css'
-//import '../styles/index.css'
 import '../styles/load.css'
 import '../styles/variables.css'
 import Loader from 'react-loader-spinner'
