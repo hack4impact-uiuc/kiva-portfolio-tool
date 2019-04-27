@@ -67,7 +67,7 @@ class LogIn extends Component {
       this.setState({ errorMessage: result.response.message })
     } else {
       setCookie('token', token)
-      this.props.history.push('/dashboard/pm/' + this.state.fp_id)
+      this.props.history.push('/dashboard/fp/' + this.state.fp_id)
     }
   }
 
