@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-class PMMainPage extends Component {
+export class PMMainPage extends Component {
   constructor(props) {
     super(props)
 
@@ -46,11 +46,13 @@ class PMMainPage extends Component {
    * Waits for component to load and get all the partners attached to pm
    */
   async componentDidMount() {
+    this.props.beginLoading()
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
     let pms = await getAllPMs()
     let pm = pms[0]
     this.setState({ pm_id: pm._id })
+    this.props.endLoading()
   }
 
   /**
@@ -104,18 +106,20 @@ class PMMainPage extends Component {
   }
 
   async handleNewFP() {
+    this.props.beginLoading()
+    this.toggle()
     await createFieldPartner(this.state.org_name, this.state.email, this.state.pm_id)
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
-    this.toggle()
+    this.props.endLoading()
   }
 
-  handleClickIP = () => {
-    this.props.history.push('/dashboard')
+  handleClickIP = id => {
+    this.props.history.push('/dashboard/pm/' + id)
   }
 
-  handleClickNew = () => {
-    this.props.history.push('/selectdocumentspage')
+  handleClickNew = id => {
+    this.props.history.push('/selectdocumentspage/' + id)
   }
 
   render() {
@@ -181,7 +185,7 @@ class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickIP}
+                      onClick={() => this.handleClickIP(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>
@@ -199,7 +203,7 @@ class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickNew}
+                      onClick={() => this.handleClickNew(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>
@@ -217,7 +221,7 @@ class PMMainPage extends Component {
                     <Button
                       className="partnerButton"
                       color="transparent"
-                      onClick={this.handleClickNew}
+                      onClick={() => this.handleClickNew(partner._id)}
                     >
                       <PartnerBar partner={partner} />
                     </Button>

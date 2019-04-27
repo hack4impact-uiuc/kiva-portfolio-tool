@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalFooter } from 'reactstrap'
-import { downloadDocument, uploadDocument, getAllDocuments } from '../utils/ApiWrapper'
+import { downloadDocument, uploadDocument, getDocumentsByUser } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import uploadImg from '../media/greyUpload.png'
@@ -45,7 +45,7 @@ class DocumentListItem extends Component {
     })
     this.props.beginLoading()
     await uploadDocument(this.state.files[0], this.state.files[0].name, this.state.document._id)
-    const documents = await getAllDocuments()
+    const documents = await getDocumentsByUser(this.state.document.userID)
     if (documents) {
       this.props.updateDocuments(documents)
     } else {
@@ -76,7 +76,7 @@ class DocumentListItem extends Component {
             <Button color="transparent">
               <Link
                 to={{
-                  pathname: '/view/' + this.state.document._id + '/' + this.state.document.fileName,
+                  pathname: '/view/' + this.state.document.fileName + '/' + this.state.document._id,
                   state: { link: this.state.document.link }
                 }}
               >
