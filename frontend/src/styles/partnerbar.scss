@@ -16,18 +16,15 @@
     background-color: $pending-color;
 }
   
-
 .page {
     text-align: center ;
     font-family: rubik;
 }
 
 .page h2 {
-    // font-weight: bold;
     color: $accepted-color;
-    font-size: 5rem;
+    font-size: 4rem;
 }
-
 
 .input-master {
     border: none;
@@ -36,7 +33,6 @@
     width: 23%; 
     text-indent: 5px;
     margin: 0;
-
 }
 
 ::placeholder{text-indent: 40px; font-size: large; } 
@@ -133,4 +129,23 @@
     border-bottom: 1px solid;
     border-color: $accepted-color;
     color: $accepted-color;
+}
+
+.partner-icon {
+    display: block;
+    height:75px;
+    width: 75px;
+    background-color: $link-color;
+    border-radius: 100%;
+    color: white;
+    font-size: 3rem;
+    font-weight: 500;
+    border: $shadow-color solid 1px;
+    margin: 0% 2%;
+    vertical-align: middle;
+}
+
+.partner-org-initials {
+    padding: 0;
+    text-align: center;
 }

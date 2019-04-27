@@ -8,6 +8,12 @@ import { connect } from 'react-redux'
 import { Progress, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
+import Navbar from './NavBar'
+
+import add from '../media/add.png'
+// same button styling as in document class page
+// 'Add New Doc Class' button styling the same
+import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -125,6 +131,7 @@ export class PMMainPage extends Component {
   render() {
     return (
       <div className="page">
+        <Navbar />
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>Add New Field Partner</ModalHeader>
           <ModalBody>
@@ -152,22 +159,23 @@ export class PMMainPage extends Component {
             <Button onClick={this.handleNewFP}>Create</Button>
           </ModalFooter>
         </Modal>
-        <div>
-          <span />
-          <p>Fieldy McPartnerson</p>
-        </div>
-        <h2>Field Partners</h2>
-        <Button onClick={this.toggle}>Add New Field Partner</Button>
+
+        <h2 className="margin-top-sm">Field Partners</h2>
         <form onSubmit={this.handleSubmit}>
           <img src={search} width="25" />
           <input
-            className="input-master"
+            className="input-master margin-bottom-xs margin-top-xs"
             type="text"
             value={this.state.query}
             placeholder="Search for a Field Partner..."
             onChange={this.handleQueryChange}
           />
         </form>
+
+        <Button className="add-doc-text" color="transparent" onClick={this.toggle}>
+          <img className="addImg" src={add} />
+          <span className="add-doc-text">Add New Field Partner</span>
+        </Button>
 
         <Tabs className="tab-master">
           <TabList className="react-tabs__tab-list">
@@ -285,7 +293,9 @@ class PartnerBar extends Component {
           <div className="due">Due</div>
           {partner.duedate}
         </div>
-        <div className="iconBox">{partner.org_name[0]}</div>
+        <div className="partner-icon">
+          <p className="partner-org-initials">{partner.org_name[0]}</p>
+        </div>
         <div className="nameProgressDisplay">
           <div>{partner.org_name}</div>
           <div className="progressAdditional">
