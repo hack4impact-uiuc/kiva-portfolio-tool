@@ -4,6 +4,72 @@ import { getCookie } from './cookie'
 
 //import { BACKEND_KEY } from '../keys'
 
+export const getAllPMs = () => {		
+  let requestString = BACKEND_URL + '/portfolio_manager'		
+  return axios		
+    .get(requestString)		
+    .then(response => {		
+      return response.data.result.portfolio_manager		
+    })		
+    .catch(error => {		
+      console.log('ERROR: ', error)		
+      return null		
+    })		
+}
+
+export const getPartnersByPM = pm_id => {		
+  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id		
+  return axios		
+    .get(requestString)		
+    .then(response => {		
+      return response.data.result.field_partner		
+    })		
+    .catch(error => {		
+      return {		
+        type: 'GET_PARTNERS_FAIL',		
+        error		
+      }		
+    })		
+}		
+
+ export const getAllPartners = () => {		
+  let requestString = BACKEND_URL + '/field_partner'		
+  return axios		
+    .get(requestString)		
+    .then(response => {		
+      return response.data.result.field_partner		
+    })		
+    .catch(error => {		
+      return {		
+        type: 'GET_PARTNERS_FAIL',		
+        error		
+      }		
+    })		
+}		
+
+ export const createFieldPartner = (org_name, email, pm_id) => {		
+  let requestString = BACKEND_URL + '/field_partner/new'		
+  let data = new FormData()		
+  data.append('org_name', org_name)		
+  data.append('email', email)		
+  data.append('pm_id', pm_id)		
+  data.append('app_status', 'New Partner')		
+  return axios		
+    .post(requestString, data)		
+    .then(response => {		
+      return {		
+        type: 'CREATE_FP_SUCCESS',		
+        response		
+      }		
+    })		
+    .catch(error => {		
+      return {		
+        type: 'CREATE_FP_FAIL',		
+        error		
+      }		
+    })		
+}
+
 export const register = (email, password, questionIdx, answer, role) => {
   let data = new FormData()
   data.append('email', email)
@@ -250,7 +316,6 @@ export const resendPIN = () => {
 //import { BACKEND_KEY } from '../keys'
 
 export const getAllDocumentClasses = () => {
-  return ['a', 'ab', 'abc', 'abcd', 'abcde']
   let requestString = BACKEND_URL + '/document_class'
   return axios
     .get(requestString)
@@ -293,81 +358,6 @@ export const getAllMessages = () => {
 export const getAllInformation = () => {
   // get information received by target user
   return ['I need you to not work on IST and get in the documents asap']
-}
-
-export const getAllPartners = () => {
-  return [
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Mario',
-      duedate: 1.423,
-      status: 'Active',
-      documents: {
-        Already: 'Approved',
-        In: 'Missing',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Peach',
-      duedate: 12534.0,
-      status: 'Dormant',
-      documents: {
-        Already: 'Rejected',
-        In: 'Rejected',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    }
-  ]
 }
 
 export const getAccessToken = () => {
@@ -479,6 +469,38 @@ export const createDocumentClass = (name, description, file, file_name) => {
         type: 'UPLOAD_FILE_FAIL',
         error
       }
+    })
+}
+
+export const createDocuments = (userID, docClassIDs, dueDate) => {		
+  let requestString = BACKEND_URL + '/document/create'		
+  let data = new FormData()		
+  data.append('userID', userID)		
+  data.append('status', 'Missing')		
+  data.append('docClassIDs', docClassIDs)		
+  data.append('dueDate', dueDate)		
+  return axios		
+    .post(requestString, data)		
+    .then(response => {		
+      return {		
+        type: 'CREATE_DOCUMENTS_SUCCESS',		
+        response		
+      }		
+    })		
+    .catch(error => {		
+      return {		
+        type: 'CREATE_DOCUMENTS_FAIL',		
+        error		
+      }		
+    })		
+}
+
+export const getDocumentsByUser = userID => {		
+  let requestString = BACKEND_URL + '/document?uid=' + userID		
+  return axios		
+    .get(requestString)		
+    .then(response => {		    
+      return response.data.result.documents		
     })
 }
 

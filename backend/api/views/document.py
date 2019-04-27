@@ -190,14 +190,14 @@ def create_new_document():
     document_class_ids = data.get("docClassIDs").split(",")		
 
     for document_class_id in document_class_ids:		
-    data = {		
-        "userID": userID,		
-        "status": status,		
-        "docClassID": document_class_id,		
-        "date": date,		
-    }		
-    new_doc = Document(data)		
-    db.session.add(new_doc)		
+        data = {		
+            "userID": userID,		
+            "status": status,		
+            "docClassID": document_class_id,		
+            "date": date,		
+        }		
+        new_doc = Document(data)		
+        db.session.add(new_doc)		
 
     fp = FieldPartner.query.get(userID)		
     fp.app_status = "In Process"		
