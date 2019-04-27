@@ -10,6 +10,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  height: 100%;
+}
+
 .background-pending {
   background-color: $pending-color;
 }
@@ -26,8 +30,17 @@ html, body {
   background-color: $rejected-color;
 }
 
-.theader-centered {
+.text-centered {
   text-align: center;
+}
+
+.margin-center {
+  display: block;
+  margin: auto;
+}
+
+.margin-right-sm {
+  margin-right: 3%;
 }
 
 .text-white {
@@ -46,22 +59,4 @@ html, body {
 .center-background {
   margin-left: auto;
   margin-right: auto;
-}
-
-.left, .right {
-  display: inline-block; 
-  zoom: 1;
-  width:40%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.left {
-  position: absolute;
-  left: 30px;
-}
-
-.right {
-  position: absolute;
-  right: 30px;
 }

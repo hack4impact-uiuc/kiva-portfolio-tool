@@ -8,8 +8,8 @@
 }
 
 .langSelect{
-    width: 170px;
     margin-right: 2%;
+    min-width: 170px;
 }
 
 .flag-space {
@@ -18,4 +18,9 @@
    max-height: 35px;
    float: right;
    margin-top: -3.3%;
+}
+
+.nav-absolute {
+    position: absolute;
+    z-index: 999;
 }

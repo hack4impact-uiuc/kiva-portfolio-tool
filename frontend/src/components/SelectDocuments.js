@@ -1,61 +1,69 @@
 import React from 'react'
 import { Selector } from './Selector'
-import { getAllDocumentClasses } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
+import { getAllDocumentClasses, createDocuments, getDocumentsByUser } from '../utils/ApiWrapper'
+import { updateDocuments } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import '../styles/selectdocuments.css'
+import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-class SelectDocumentsPage extends React.Component {
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateDocuments,
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
+
+export class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
-    var today = new Date()
     this.state = {
       // all docClasses
-      docClass: {},
-      // docClasses filtered from docClasses using query
+      documentClasses: [],
+      available: {},
+      // filtered DocClasses as the key with availability as the value
       filtered: {},
-      // due date to be set by user so that it can be passed on
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
-      DueDate: today,
+      dueDate: new Date(),
       // state that updates depending on what the user types in query bar
-      query: ''
+      query: '',
+      fp_id: null
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   /**
    * Gets all document classes from the backend and updates state
    */
   async componentDidMount() {
-    let documents = await getAllDocumentClasses()
-    this.setState(this.updateDocumentClasses(documents))
-  }
+    this.props.beginLoading()
+    let document_classes = await getAllDocumentClasses()
 
-  /**
-   *
-   * @param {*} res is the list of documents received from backend
-   * In states docClass and filtered, set every doc received in an available state
-   */
-  updateDocumentClasses(res) {
-    if (res) {
-      let docList = {}
-      for (var i of res) {
-        docList[i] = 'Available'
-      }
-      return {
-        docClass: docList,
-        filtered: docList
-      }
-    } else {
-      return {
-        docClass: {}
-      }
+    let available = {}
+    for (const index in document_classes) {
+      available[document_classes[index].name] = true
     }
+
+    let filtered = available
+
+    if (this.props.match) {
+      this.setState({ fp_id: this.props.match.params.id })
+    }
+
+    this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
+    this.props.endLoading()
   }
 
   /***
@@ -70,12 +78,12 @@ class SelectDocumentsPage extends React.Component {
     newState['query'] = query
     newState['filtered'] = {}
     if (query === '') {
-      newState['filtered'] = this.state.docClass
+      newState['filtered'] = this.state.available
     } else {
-      newState['filtered'] = Object.keys(this.state.docClass)
-        .filter(key => key.toLowerCase().includes(query))
+      newState['filtered'] = Object.keys(this.state.available)
+        .filter(name => name.toLowerCase().includes(query))
         .reduce((obj, key) => {
-          obj[key] = this.state.docClass[key]
+          obj[key] = this.state.available[key]
           return obj
         }, {})
     }
@@ -89,16 +97,12 @@ class SelectDocumentsPage extends React.Component {
    * Updates both filter and docClass
    */
   changeSelection = value => {
-    let new_selection
-    if (this.state.docClass[value] === 'Selected') {
-      new_selection = 'Available'
-    } else {
-      new_selection = 'Selected'
+    let new_selection = !this.state.available[value]
+    var newState = this.state
+    newState['available'][value] = new_selection
+    if (value in this.state.filtered) {
+      newState['filtered'][value] = new_selection
     }
-    var newState = {}
-    newState = this.state
-    newState['docClass'][value] = new_selection
-    newState['filtered'][value] = new_selection
     this.setState(newState)
   }
 
@@ -107,47 +111,100 @@ class SelectDocumentsPage extends React.Component {
    */
   newDueDate = date => {
     this.setState({
-      DueDate: date
+      dueDate: date
     })
+  }
+
+  async handleSubmit() {
+    this.props.beginLoading()
+    let docClassIDs = this.state.documentClasses
+      .filter(docClass => this.state.available[docClass.name] === false)
+      .reduce((array, docClass) => {
+        array.push(docClass._id)
+        return array
+      }, [])
+
+    const date =
+      this.state.dueDate.getUTCMonth() +
+      ' ' +
+      this.state.dueDate.getUTCDay() +
+      ' ' +
+      this.state.dueDate.getUTCFullYear()
+
+    await createDocuments(this.state.fp_id, docClassIDs, date)
+    const documents = await getDocumentsByUser(this.state.fp_id)
+    this.props.updateDocuments(documents)
+    this.props.endLoading()
+    this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
 
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h2>Select Documents</h2>
+      <div>
+        <div className="topBar">
+          <div className="iconTop">
+            <p className="iconInfo">FP</p>
+          </div>
+          <div className="partnernamebox">
+            <h3 className="partnername">Fieldy McPartnerson</h3>
+          </div>
+        </div>
 
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Q:
+        <div className="pageSD">
+          <h1>Select Documents</h1>
+
+          <form onSubmit={this.handleSubmit}>
+            <img src={search} width="18" />
             <input
+              className="input-master"
               type="text"
               value={this.state.query}
               placeholder="Search For Documents Here"
               onChange={this.handleQueryChange}
             />
-          </label>
-        </form>
+          </form>
 
-        <div>
-          <Selector
-            name="Available"
-            documents={this.state.filtered}
-            update={this.changeSelection}
-          />
+          <div className="displayView">
+            <div className="displayCell blockCustom">
+              <Selector
+                name="Available"
+                documents={this.state.documentClasses.filter(
+                  docClass => this.state.filtered[docClass.name]
+                )}
+                update={this.changeSelection}
+              />
+            </div>
+
+            <div className="blockCustom displayCell">
+              <Selector
+                name="Selected"
+                documents={this.state.documentClasses.filter(
+                  docClass => this.state.filtered[docClass.name] === false
+                )}
+                update={this.changeSelection}
+              />
+            </div>
+          </div>
+
+          <div className="blockCustom dateDisplay">
+            Set a Due Date:
+            <DatePicker
+              selected={this.state.dueDate}
+              onChange={this.newDueDate}
+              className="datePicker"
+            />
+          </div>
+
+          <button className="nextButton" onClick={this.handleSubmit}>
+            Assign
+          </button>
         </div>
-
-        <div>
-          <Selector name="Selected" documents={this.state.filtered} update={this.changeSelection} />
-        </div>
-
-        <p>
-          {' '}
-          Set a Due Date:
-          <DatePicker selected={this.state.DueDate} onChange={this.newDueDate} />
-        </p>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps)(SelectDocumentsPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectDocumentsPage)

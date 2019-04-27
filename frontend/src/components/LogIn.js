@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login, google } from '../utils/api'
+import { login } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import {
   Form,
@@ -16,7 +16,19 @@ import { setCookie } from './../utils/cookie'
 import { connect } from 'react-redux'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
+import BackgroundSlideshow from 'react-background-slideshow'
+import Navbar from './NavBar'
+import kivaLogo from '../media/kivaPlainLogo.png'
+
 import '../styles/index.css'
+import '../styles/login.css'
+import '../styles/navbar.css'
+
+import b1 from '../media/b1-min.jpg'
+import b3 from '../media/b3-min.jpg'
+import b4 from '../media/b4-min.jpg'
+import b5 from '../media/b5-min.jpg'
+import b6 from '../media/b6-min.jpg'
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({}, dispatch)
@@ -42,12 +54,12 @@ class LogIn extends Component {
     e.preventDefault()
 
     const result = await login(this.state.email, this.state.password)
-    const resp = await result.json()
+    let token = result.response.data.result.token
 
-    if (!resp.token) {
-      this.setState({ errorMessage: resp.message })
+    if (!token) {
+      this.setState({ errorMessage: result.response.message })
     } else {
-      setCookie('token', resp.token)
+      setCookie('token', token)
       this.props.history.push('/dashboard')
     }
   }
@@ -55,63 +67,74 @@ class LogIn extends Component {
   render() {
     return (
       <div>
-        <Card
-          className="interview-card center-background"
-          style={{ width: '400px', height: '60%' }}
-        >
-          <CardTitle>
-            <h3 style={{ textAlign: 'center', paddingTop: '10px' }}>Login</h3>
-          </CardTitle>
-
-          <CardBody>
-            <Form>
-              <FormGroup>
-                <Label for="exampleEmail">Email</Label>
-                <Input
-                  type="email"
-                  name="email"
-                  id="exampleEmail"
-                  maxLength="64"
-                  pattern={EMAIL_REGEX}
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                  required
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="examplePassword">Password</Label>
-                <Input
-                  type="password"
-                  name="password"
-                  id="examplePassword"
-                  minLength="8"
-                  maxLength="64"
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  required
-                />
-              </FormGroup>
-              <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
-                Log In
-              </Button>
-              {''}
-              <Button
-                color="success"
-                size="lg"
-                onClick={() => this.props.history.push('/register')}
-                className="left"
+        <Navbar className="nav-absolute" />
+        <div className="background">
+          <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
+        </div>
+        <div className="foreground">
+          <Card className="interview-card center-background">
+            <CardBody>
+              <div className="text-centered" id="login-kiva-logo">
+                <img src={kivaLogo} />
+              </div>
+              <Form>
+                <FormGroup>
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="E-mail"
+                    id="exampleEmail"
+                    maxLength="64"
+                    pattern={EMAIL_REGEX}
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    id="examplePassword"
+                    minLength="8"
+                    maxLength="64"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </FormGroup>
+                <div className="text-centered">
+                  <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
+                    Log In
+                  </Button>
+                  {''}
+                  <Button
+                    color="success"
+                    size="lg"
+                    onClick={() => this.props.history.push('/register')}
+                    className="left left-margin-lg"
+                  >
+                    Register
+                  </Button>
+                </div>
+              </Form>
+              <p style={{ color: 'red' }}>
+                {this.state.errorMessage ? this.state.errorMessage : ''}
+              </p>
+              <Link
+                id="forgot"
+                className="text-centered margin-center"
+                to="/forgotPassword"
+                prefetch
+                href="/forgotPassword"
               >
-                Register
-              </Button>
-            </Form>
-            <br />
-            {/* <p style={{ color: 'red' }}>{this.state.errorMessage ? this.state.errorMessage : ''}</p>
-            <Link prefetch href="/forgotPassword">
-              <a>Forgot Password?</a>
-            </Link> */}
-          </CardBody>
-        </Card>
-        <br />
+                Forgot Password?
+              </Link>
+            </CardBody>
+          </Card>
+          <br />
+        </div>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import Document, Message, db, DocumentClass
+from api.models import Document, Message, db, DocumentClass, FieldPartner
 from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
 
@@ -68,7 +68,7 @@ def get_document():
     # if there are query arguments the following occurs
     else:
         # Unpacks the search values in our dictionary and provides them to Flask/SQLalchemy
-        docs = Document.query.filter_by(**kwargs)
+        docs = Document.query.filter_by(**kwargs).all()
 
         # Since description and date were not part of search parameters
         # this is so that partial querying can be use to search keywords in description
@@ -81,8 +81,12 @@ def get_document():
                 if i.description is not None
                 and description.lower() in i.description.lower()
             ]
+
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
+
+        for doc in docs:
+            doc.docClassName = DocumentClass.query.get(doc.docClassID).name
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
@@ -162,6 +166,52 @@ def create_new_document():
     new_data = Document(data)
 
     db.session.add(new_data)
+    db.session.commit()
+    return create_response(status=200, message="success")
+
+
+@document.route("/document/create", methods=["POST"])
+def create_new_documents():
+    """
+    used upon assignment of documents to field partner
+    """
+    data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No body provided for new Document")
+
+    if "userID" not in data:
+        return create_response(
+            status=400, message="No UserID provided for new Document"
+        )
+
+    if "docClassIDs" not in data:
+        return create_response(status=400, message="No document classes provided")
+
+    if "dueDate" not in data:
+        return create_response(status=400, message="No due date provided")
+
+    userID = data.get("userID")
+
+    status = "Missing"
+
+    date = data.get("dueDate")
+
+    document_class_ids = data.get("docClassIDs").split(",")
+
+    for document_class_id in document_class_ids:
+        data = {
+            "userID": userID,
+            "status": status,
+            "docClassID": document_class_id,
+            "date": date,
+        }
+        new_doc = Document(data)
+        db.session.add(new_doc)
+
+    fp = FieldPartner.query.get(userID)
+    fp.app_status = "In Process"
+
     db.session.commit()
     return create_response(status=200, message="success")
 
