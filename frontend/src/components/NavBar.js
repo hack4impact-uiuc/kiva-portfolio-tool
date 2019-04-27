@@ -55,11 +55,11 @@ class NavBar extends Component {
       <div>
         <Sidebar
           rootClassName="sidebar-root"
+          sidebarClassName="sidebar-styles"
           sidebar={<NotificationsBar />}
           open={this.state.sidebarOpen}
           onSetOpen={this.onSetSidebarOpen}
           pullRight={true}
-          styles={{ sidebar: { background: 'white' } }}
         />
 
         <Navbar color="white" light expand="md">
