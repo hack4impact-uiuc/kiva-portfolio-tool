@@ -38,7 +38,7 @@ def get_messages_by_fp(fp_id):
     )
 
     # Adds a field called name to each message
-    for message in messages:
+    for message in message_list:
         message.name = PortfolioManager.query.get(message.pm_id).name
 
     return create_response(data={"messages": serialize_list(message_list)})
@@ -56,7 +56,7 @@ def get_messages_by_pm(pm_id):
     )
 
     # Adds a field called name to each message
-    for message in messages:
+    for message in message_list:
         message.name = FieldPartner.query.get(message.fp_id).org_name
 
     return create_response(data={"messages": serialize_list(message_list)})
