@@ -18,8 +18,9 @@ import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
-import '../styles/navbar.scss'
 import Sidebar from 'react-sidebar'
+import '../styles/index.css'
+import '../styles/navbar.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -42,7 +43,12 @@ class NavBar extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.pathname != '/') {
+    if (
+      this.props.location.pathname != '/' &&
+      this.props.location.pathname != '/register' &&
+      this.props.location.pathname != '/forgotPassword' &&
+      this.props.location.pathname != '/login'
+    ) {
       this.setState({ isLoginPage: false })
     } else {
       this.setState({ isLoginPage: true })
@@ -62,7 +68,7 @@ class NavBar extends Component {
           pullRight={true}
         />
 
-        <Navbar color="white" light expand="md">
+        <Navbar className={this.props.className} color="white" light expand="md">
           {this.state.isLoginPage && (
             <NavbarBrand href="/">
               <img src={k_logo} width="60" height="60" />
@@ -70,7 +76,7 @@ class NavBar extends Component {
           )}
 
           {this.state.isLoginPage && (
-            <Nav className="ml-auto">
+            <Nav className="ml-auto margin-right-sm">
               <NavItem>
                 <LanguageSelector />
               </NavItem>

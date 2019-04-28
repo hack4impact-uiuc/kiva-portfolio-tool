@@ -20,6 +20,15 @@ def get_field_partner():
     return create_response(data={"field_partner": field_partner_list})
 
 
+@fp.route("/field_partner/status/<app_status>", methods=["GET"])
+def get_fp_by_status(app_status):
+    field_partners = FieldPartner.query.filter(
+        FieldPartner.app_status == app_status
+    ).all()
+
+    return create_response(data={"field_partner": serialize_list(field_partners)})
+
+
 @fp.route("/field_partner/<id>", methods=["GET"])
 def get_fp_by_id(id):
     """ function that is called when you visit /field_partner/get/id/<id> that gets a field partner by id """
