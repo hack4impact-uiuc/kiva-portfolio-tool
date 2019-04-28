@@ -4,7 +4,11 @@
 
 .sandwich {
     margin-left: 8%;
-    margin-top: 1%
+    margin-top: 1%;
+}
+
+.sidebar-styles {
+    background: white;
 }
 
 .langSelect{
@@ -23,4 +27,8 @@
 .nav-absolute {
     position: absolute;
     z-index: 999;
+}
+
+.closed {
+    display: none;
 }

@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-class DocumentListItem extends Component {
+export class DocumentListItem extends Component {
   constructor(props) {
     super(props)
 

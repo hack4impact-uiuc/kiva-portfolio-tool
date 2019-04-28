@@ -1,7 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoginPage renders correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<div>
+  <Connect(withRouter(NavBar)) />
+  <div
+    style={
+      Object {
+        "paddingLeft": "5%",
+      }
+    }
+  >
+    <p>
+      Kiva
+    </p>
+  </div>
+  <form
+    onSubmit={[Function]}
+  >
+    <span>
+       Email: 
+    </span>
+    <input
+      onChange={[Function]}
+    />
+    <br />
+    <span>
+       Password: 
+    </span>
+    <input
+      onChange={[Function]}
+    />
+    <br />
+    <Button
+      color="secondary"
+      onClick={[Function]}
+      tag="button"
+      type="submit"
+    >
+      Sign In
+    </Button>
+  </form>
+</div>
 `;

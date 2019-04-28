@@ -23,7 +23,7 @@ const IconOption = props => (
   </Option>
 )
 
-class LanguageSelector extends Component {
+export class LanguageSelector extends Component {
   constructor(props) {
     super(props)
 

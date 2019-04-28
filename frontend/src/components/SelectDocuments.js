@@ -125,11 +125,11 @@ export class SelectDocumentsPage extends React.Component {
       }, [])
 
     const date =
-      this.state.dueDate.getUTCMonth() +
+      this.state.dueDate.getMonth() +
       ' ' +
-      this.state.dueDate.getUTCDay() +
+      this.state.dueDate.getDate() +
       ' ' +
-      this.state.dueDate.getUTCFullYear()
+      this.state.dueDate.getFullYear()
 
     await createDocuments(this.state.fp_id, docClassIDs, date)
     const documents = await getDocumentsByUser(this.state.fp_id)

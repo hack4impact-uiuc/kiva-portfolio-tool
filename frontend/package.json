@@ -65,6 +65,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.5",
     "react-select": "^2.4.2",
+    "react-sidebar": "^3.0.2",
     "react-tabs": "^3.0.0",
     "react-tether": "^2.0.0",
     "react-textarea-autosize": "^7.1.0",
