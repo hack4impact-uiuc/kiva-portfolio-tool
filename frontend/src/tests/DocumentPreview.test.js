@@ -1,5 +1,5 @@
 import React from 'react'
-import DocumentPreview from '../components/DocumentPreview'
+import {DocumentPreview} from '../components/DocumentPreview'
 import Adapter from 'enzyme-adapter-react-16'
 import { shallowToJson } from 'enzyme-to-json'
 import { configure, shallow } from 'enzyme'

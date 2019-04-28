@@ -33,10 +33,9 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-class DocumentPreview extends Component {
+export class DocumentPreview extends Component {
   constructor(props) {
     super(props)
-    console.log(this.props)
 
     if (this.props.match) {
       this.state = {

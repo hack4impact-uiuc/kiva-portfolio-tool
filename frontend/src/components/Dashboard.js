@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
   constructor(props) {
     super(props)
 

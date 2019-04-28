@@ -3,7 +3,7 @@ import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
 import '../styles/documentlist.css'
 
-class DocumentList extends Component {
+export class DocumentList extends Component {
   render() {
     return (
       <Table>

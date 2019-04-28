@@ -31,7 +31,7 @@ Name is represented normally
 Buttons exist to view, edit, and delete
 View shows the description and a Box preview
 */
-class DocumentClass extends Component {
+export class DocumentClass extends Component {
   constructor(props) {
     super(props)
 

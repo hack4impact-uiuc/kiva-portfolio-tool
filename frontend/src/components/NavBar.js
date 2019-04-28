@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-class NavBar extends Component {
+export class NavBar extends Component {
   constructor(props) {
     super(props)
 
