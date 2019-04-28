@@ -106,8 +106,12 @@ export class DocumentPreview extends Component {
     return (
       <>
         {this.props.location ? (
-          <>
-            <Iframe className="iframe-relative" url={this.state.fileURL} allowFullScreen />
+          <div className="maxheight">
+            <Iframe
+              className="iframe-relative maxheight"
+              url={this.state.fileURL}
+              allowFullScreen
+            />
             <div id="review-fullscreen">
               <div id="button-space">
                 <Button color="success" onClick={this.handleApproveClick}>
@@ -118,7 +122,7 @@ export class DocumentPreview extends Component {
                 </Button>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <>
             {this.state.fileName && (
