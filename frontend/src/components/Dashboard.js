@@ -77,7 +77,10 @@ export class Dashboard extends React.Component {
     /**
      * Contains all messages received from backend
      */
-    const messagesReceived = await getAllMessages()
+    const messagesReceived = await getAllMessages(
+      this.props.match.params.id,
+      this.props.match.params.user === 'pm'
+    )
 
     /**
      * Contains all information received from backend
