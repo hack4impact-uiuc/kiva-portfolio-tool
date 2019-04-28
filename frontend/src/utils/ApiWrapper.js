@@ -260,9 +260,8 @@ export const changePassword = (currentPassword, newPassword) => {
     })
 }
 
-export const verifyPIN = (email, password, pin) => {
+export const verifyPIN = (pin) => {
   let data = new FormData()
-  data.append('email', email)
   data.append('pin', pin)
   return axios
     .post(BACKEND_URL + '/verifyEmail', data, {

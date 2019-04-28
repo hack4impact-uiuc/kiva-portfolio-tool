@@ -168,7 +168,7 @@ class Register extends React.Component {
 
     let pinMessage = result.response.message
     this.setState({ pinMessage: pinMessage })
-    if (pinMessage === 200) {
+    if (result.response.status === 200) {
       this.props.history.push('/')
     }
   }
