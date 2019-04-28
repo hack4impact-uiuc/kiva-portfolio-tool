@@ -27,6 +27,17 @@ import {
   getSecurityQuestions,
   setSecurityQuestion
 } from '../utils/ApiWrapper'
+import BackgroundSlideshow from 'react-background-slideshow'
+import Navbar from './NavBar'
+
+import '../styles/login.css'
+
+import kivaLogo from '../media/kivaPlainLogo.png'
+import b1 from '../media/b1-min.jpg'
+import b3 from '../media/b3-min.jpg'
+import b4 from '../media/b4-min.jpg'
+import b5 from '../media/b5-min.jpg'
+import b6 from '../media/b6-min.jpg'
 
 // michael's baby
 const EMAIL_REGEX =
@@ -160,35 +171,42 @@ class Register extends React.Component {
 
   render = () => (
     <div>
-      {' '}
+      <Navbar className="nav-absolute" />
+      <div className="background">
+        <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
+      </div>
       {!this.state.successfulSubmit ? (
-        <div>
-          <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
+        <div className="foreground" id="register-foreground">
+          <Card className="interview-card center-background">
             <CardTitle>
-              <h3 style={{ textAlign: 'center', paddingTop: '10px' }}>Register</h3>
+              <div className="text-centered" id="login-kiva-logo">
+                <img src={kivaLogo} />
+              </div>
             </CardTitle>
             <CardBody>
               {!!this.state.questions ? (
                 <React.Fragment>
-                  <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                    <DropdownToggle caret>
-                      {this.state.questionIdx === -1
-                        ? 'Security Question'
-                        : this.state.questions[this.state.questionIdx]}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      {this.state.questions.map((question, idx) => (
-                        <DropdownItem onClick={this.pickDropDown.bind(null, idx)}>
-                          {question}
-                        </DropdownItem>
-                      ))}
-                    </DropdownMenu>
-                  </Dropdown>
-                  <Label for="exampleEmail">Answer</Label>
+                  <div className="text-centered">
+                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                      <DropdownToggle caret color="transparent">
+                        {this.state.questionIdx === -1
+                          ? 'Security Question'
+                          : this.state.questions[this.state.questionIdx]}
+                      </DropdownToggle>
+                      <DropdownMenu>
+                        {this.state.questions.map((question, idx) => (
+                          <DropdownItem onClick={this.pickDropDown.bind(null, idx)}>
+                            {question}
+                          </DropdownItem>
+                        ))}
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
                   <Input
                     type="email"
                     name="email"
-                    id="exampleEmail"
+                    placeholder="Answer"
+                    id="exampleAnswer"
                     maxLength="64"
                     pattern={EMAIL_REGEX}
                     value={this.state.securityQuestionAnswer}
@@ -199,10 +217,10 @@ class Register extends React.Component {
               ) : null}
               <Form>
                 <FormGroup>
-                  <Label for="exampleEmail">Email</Label>
                   <Input
                     type="email"
                     name="email"
+                    placeholder="Email"
                     id="exampleEmail"
                     maxLength="64"
                     pattern={EMAIL_REGEX}
@@ -212,10 +230,11 @@ class Register extends React.Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplePassword">Password</Label>
                   <Input
                     type="password"
                     name="password"
+                    placeholder="Password"
+                    id="registerPassword"
                     minLength="8"
                     maxLength="64"
                     value={this.state.password}
@@ -224,10 +243,11 @@ class Register extends React.Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplePassword">Confirm Password</Label>
                   <Input
                     type="password"
                     name="password2"
+                    placeholder="Confirm Password"
+                    id="exampleConfirm"
                     minLength="8"
                     maxLength="64"
                     value={this.state.password2}
@@ -235,32 +255,26 @@ class Register extends React.Component {
                     required
                   />
                 </FormGroup>
-                <Button
-                  color="success"
-                  size="lg"
-                  onClick={this.handleSubmit}
-                  style={{ float: 'left', width: '48%' }}
-                >
-                  Register
-                </Button>{' '}
-                <Button
-                  color="success"
-                  size="lg"
-                  onClick={() => this.props.history.push('/login')}
-                  style={{ float: 'right', width: '49%' }}
-                >
-                  Login
-                </Button>
-                <br />
-                <br />
-                <br />
-                <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
+                <div className="text-centered">
+                  <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
+                    Register
+                  </Button>{' '}
+                  <Button
+                    color="success"
+                    size="lg"
+                    onClick={() => this.props.history.push('/login')}
+                    className="left"
+                  >
+                    Login
+                  </Button>
+                  <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
+                </div>
               </Form>
             </CardBody>
           </Card>
         </div>
       ) : (
-        <div>
+        <div className="foreground">
           {!this.state.failed && !this.state.modal ? (
             <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
               <CardBody>

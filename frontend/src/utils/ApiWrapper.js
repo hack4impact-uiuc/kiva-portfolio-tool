@@ -353,6 +353,21 @@ export const getPartnersByPM = pm_id => {
     })
 }
 
+export const getPartnersByStatus = app_status => {
+  let requestString = BACKEND_URL + '/field_partner/status/' + app_status
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
 export const getAllPartners = () => {
   let requestString = BACKEND_URL + '/field_partner'
   return axios
