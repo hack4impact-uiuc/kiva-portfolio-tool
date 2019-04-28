@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => {
 A page accessible by admins and PMs with an overview of all Document Classes
 Functionality: Allows creation of new Document Classes and viewing/editing/deletion of existing ones through the DocumentClass component
 */
-class DocumentClassPage extends React.Component {
+export class DocumentClassPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

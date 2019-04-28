@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Basic whole app rendering with snapshot 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<div>
+  <Connect(withRouter(NavBar)) />
+  <Container
+    tag="div"
+  >
+    <Row
+      tag="div"
+    />
+  </Container>
+</div>
 `;

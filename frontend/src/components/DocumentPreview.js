@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-class DocumentPreview extends Component {
+export class DocumentPreview extends Component {
   constructor(props) {
     super(props)
 

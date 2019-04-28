@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-class NotificationsBar extends Component {
+export class NotificationsBar extends Component {
   constructor(props) {
     super(props)
   }

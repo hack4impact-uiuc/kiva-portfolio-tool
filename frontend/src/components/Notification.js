@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-class Notification extends Component {
+export class Notification extends Component {
   render() {
     const { isPM } = this.props
     return (
