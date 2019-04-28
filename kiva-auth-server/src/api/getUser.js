@@ -30,7 +30,9 @@ router.get(
           req.headers.token
         }`
       );
+      console.log(tokenInfoRes);
       const payload = await tokenInfoRes.json();
+      console.log(payload);
       user = await User.findOne({ email: payload.email, googleAuth: true });
       if (!user) {
         sendResponse(res, 400, "User does not exist in the database");
