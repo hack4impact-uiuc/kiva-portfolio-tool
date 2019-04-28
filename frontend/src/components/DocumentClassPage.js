@@ -1,7 +1,7 @@
 import React from 'react'
 import DocumentClass from './DocumentClass'
 import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
-import { Button, Modal, ModalBody, ModalFooter, Table, Label, Media } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import '../styles/dashboard.css'
