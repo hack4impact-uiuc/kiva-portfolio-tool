@@ -288,6 +288,42 @@ export const getAllDocuments = () => {
     })
 }
 
+export const getDocumentsByUser = userID => {
+  let requestString = BACKEND_URL + '/document?uid=' + userID
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.documents
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
+export const createDocuments = (userID, docClassIDs, dueDate) => {
+  let requestString = BACKEND_URL + '/document/create'
+  let data = new FormData()
+  data.append('userID', userID)
+  data.append('status', 'Missing')
+  data.append('docClassIDs', docClassIDs)
+  data.append('dueDate', dueDate)
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        type: 'CREATE_DOCUMENTS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_DOCUMENTS_FAIL',
+        error
+      }
+    })
+}
+
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
@@ -304,6 +340,21 @@ export const getAllInformation = () => {
 
 export const getPartnersByPM = pm_id => {
   let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+export const getPartnersByStatus = app_status => {
+  let requestString = BACKEND_URL + '/field_partner/status/' + app_status
   return axios
     .get(requestString)
     .then(response => {

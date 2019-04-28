@@ -4,5 +4,31 @@
 
 .sandwich {
     margin-left: 8%;
-    margin-top: 1%
+    margin-top: 1%;
+}
+
+.sidebar-styles {
+    background: white;
+}
+
+.langSelect{
+    margin-right: 2%;
+    min-width: 170px;
+}
+
+.flag-space {
+   margin-right: 1%;
+   max-width: 35px;
+   max-height: 35px;
+   float: right;
+   margin-top: -3.3%;
+}
+
+.nav-absolute {
+    position: absolute;
+    z-index: 999;
+}
+
+.closed {
+    display: none;
 }

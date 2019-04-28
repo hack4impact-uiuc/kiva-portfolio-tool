@@ -21,8 +21,8 @@ export class DocumentList extends Component {
             </th>
           </tr>
           <tr>
-            <th className="theader-centered">Document Name</th>
-            <th className="theader-centered">File</th>
+            <th className="text-centered">Document Name</th>
+            <th className="text-centered">File</th>
             <th />
           </tr>
           {this.props.documents

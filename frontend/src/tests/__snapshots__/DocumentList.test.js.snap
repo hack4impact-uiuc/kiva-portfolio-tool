@@ -18,12 +18,12 @@ exports[`DocumentList renders correctly when there are no documents 1`] = `
     </tr>
     <tr>
       <th
-        className="theader-centered"
+        className="text-centered"
       >
         Document Name
       </th>
       <th
-        className="theader-centered"
+        className="text-centered"
       >
         File
       </th>
@@ -51,12 +51,12 @@ exports[`DocumentList renders correctly with documents 1`] = `
     </tr>
     <tr>
       <th
-        className="theader-centered"
+        className="text-centered"
       >
         Document Name
       </th>
       <th
-        className="theader-centered"
+        className="text-centered"
       >
         File
       </th>

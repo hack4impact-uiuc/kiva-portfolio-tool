@@ -1,8 +1,10 @@
 import React from 'react'
 import { Selector } from './Selector'
-import { getAllDocumentClasses } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
+import { getAllDocumentClasses, createDocuments, getDocumentsByUser } from '../utils/ApiWrapper'
+import { updateDocuments } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
@@ -13,10 +15,23 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
+<<<<<<< HEAD
+=======
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateDocuments,
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
+
+>>>>>>> e7f92789976f46ed8eb9d0a78910e1ed9d70f66c
 export class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
-    var today = new Date()
     this.state = {
       // all docClasses
       documentClasses: [],
@@ -24,16 +39,19 @@ export class SelectDocumentsPage extends React.Component {
       // filtered DocClasses as the key with availability as the value
       filtered: {},
       // due date to be set by user so that it can be passed on, set to today (from date-picker)
-      DueDate: today,
+      dueDate: new Date(),
       // state that updates depending on what the user types in query bar
-      query: ''
+      query: '',
+      fp_id: null
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   /**
    * Gets all document classes from the backend and updates state
    */
   async componentDidMount() {
+    this.props.beginLoading()
     let document_classes = await getAllDocumentClasses()
 
     let available = {}
@@ -43,7 +61,12 @@ export class SelectDocumentsPage extends React.Component {
 
     let filtered = available
 
+    if (this.props.match) {
+      this.setState({ fp_id: this.props.match.params.id })
+    }
+
     this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
+    this.props.endLoading()
   }
 
   /***
@@ -91,8 +114,31 @@ export class SelectDocumentsPage extends React.Component {
    */
   newDueDate = date => {
     this.setState({
-      DueDate: date
+      dueDate: date
     })
+  }
+
+  async handleSubmit() {
+    this.props.beginLoading()
+    let docClassIDs = this.state.documentClasses
+      .filter(docClass => this.state.available[docClass.name] === false)
+      .reduce((array, docClass) => {
+        array.push(docClass._id)
+        return array
+      }, [])
+
+    const date =
+      this.state.dueDate.getMonth() +
+      ' ' +
+      this.state.dueDate.getDate() +
+      ' ' +
+      this.state.dueDate.getFullYear()
+
+    await createDocuments(this.state.fp_id, docClassIDs, date)
+    const documents = await getDocumentsByUser(this.state.fp_id)
+    this.props.updateDocuments(documents)
+    this.props.endLoading()
+    this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
 
   render() {
@@ -146,17 +192,22 @@ export class SelectDocumentsPage extends React.Component {
           <div className="blockCustom dateDisplay">
             Set a Due Date:
             <DatePicker
-              selected={this.state.DueDate}
+              selected={this.state.dueDate}
               onChange={this.newDueDate}
               className="datePicker"
             />
           </div>
 
-          <button className="nextButton">Next</button>
+          <button className="nextButton" onClick={this.handleSubmit}>
+            Assign
+          </button>
         </div>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps)(SelectDocumentsPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectDocumentsPage)

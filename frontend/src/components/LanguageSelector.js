@@ -17,9 +17,9 @@ const languages = [
 
 const { Option } = components
 const IconOption = props => (
-  <Option {...props}>
+  <Option {...props} className="flag-container">
     {props.data.label}
-    <img src={props.data.flag} width="35" height="35" className={'flag'} />
+    <img className="flag-space" src={props.data.flag} />
   </Option>
 )
 
@@ -41,13 +41,12 @@ class LanguageSelector extends Component {
     const { selectedOption } = this.state
     return (
       <Select
-        width="500"
-        height="500"
         placeholder={languages[0].label}
         value={selectedOption}
         onChange={this.handleChange}
         options={languages}
         components={{ Option: IconOption }}
+        className="langSelect"
       />
     )
   }

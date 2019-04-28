@@ -30,8 +30,17 @@ html, body {
   background-color: $rejected-color;
 }
 
-.theader-centered {
+.text-centered {
   text-align: center;
+}
+
+.margin-center {
+  display: block;
+  margin: auto;
+}
+
+.margin-right-sm {
+  margin-right: 3%;
 }
 
 .text-white {
@@ -51,37 +60,3 @@ html, body {
   margin-left: auto;
   margin-right: auto;
 }
-
-.left, .right {
-  display: inline-block; 
-  zoom: 1;
-  width:40%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.left {
-  position: absolute;
-  left: 30px;
-}
-
-.right {
-  position: absolute;
-  right: 30px;
-}
-
-#background,
-#foreground {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-}
-#foreground {
-  z-index: 10;
-  margin: auto;
-  vertical-align: middle;
-  display: flex;
-  align-items: center;
-}
-
