@@ -80,7 +80,6 @@ def add_message():
     if "status" in data:
         if data["status"] == "Missing":
             message_type = MessageType.NEW_DOC
-            message_body = contents[message_type.value]
         if data["status"] == "Pending":
             message_type = MessageType.UPLOADED_DOC
 
@@ -108,7 +107,7 @@ def add_message():
     # TODO: change the sender hardcode
     email = Flask_Message(
         subject=subjects[message_type.value],
-        sender="ky.cu303@gmail.com",
+        sender=os.environ["GMAIL_NAME"],
         recipients=[recipient.email],
         body=contents[message_type.value],
     )
