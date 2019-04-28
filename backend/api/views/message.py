@@ -1,9 +1,17 @@
 from flask import Blueprint, request, current_app
-from api.models import Message, FieldPartner, PortfolioManager, db
+from api.models import (
+    Message,
+    FieldPartner,
+    PortfolioManager,
+    Document,
+    DocumentClass,
+    db,
+)
 from flask_mail import Message as Flask_Message
 from flask_mail import Mail
 from api.core import create_response, serialize_list, logger
 from enum import Enum
+import os
 
 message = Blueprint("message", __name__)
 
@@ -49,11 +57,6 @@ def get_messages_by_pm(pm_id):
 def add_message():
     data = request.form
     subjects = ["New required document", "Document reviewed", "Document uploaded"]
-    contents = [
-        "Your Portfolio Manager has added a new required document: [documentclass name]",
-        "Your document has been reviewed and was [status, approved/rejected]",
-        "Your Field Partner from [organization] has uploaded a document for [documentclass name]",
-    ]
 
     if "pm_id" not in data:
         return create_response(status=400, message="No PM ID provided for new message")
@@ -77,8 +80,21 @@ def add_message():
     if "status" in data:
         if data["status"] == "Missing":
             message_type = MessageType.NEW_DOC
+            message_body = contents[message_type.value]
         if data["status"] == "Pending":
             message_type = MessageType.UPLOADED_DOC
+
+    docclass_name = DocumentClass.query.get(
+        Document.query.get(data["doc_id"]).docClassID
+    ).name
+    status = data["status"]
+    organization = FieldPartner.query.get(data["fp_id"]).org_name
+
+    contents = [
+        f"Your Portfolio Manager has added a new required document: {docclass_name}.",  # document class name
+        f"Your document has been reviewed and was {status}.",  # status [approved/rejected]
+        f"Your Field Partner from {organization} has uploaded a document for {docclass_name}.",  # organization, document class name
+    ]
 
     # Send a message
     recipient = (
@@ -88,6 +104,7 @@ def add_message():
     )
 
     mail = Mail(current_app)
+
     # TODO: change the sender hardcode
     email = Flask_Message(
         subject=subjects[message_type.value],
