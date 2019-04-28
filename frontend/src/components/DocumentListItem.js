@@ -112,4 +112,7 @@ export class DocumentListItem extends Component {
   }
 }
 
-export default connect(mapStateToProps)(withRouter(DocumentListItem))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(DocumentListItem))
