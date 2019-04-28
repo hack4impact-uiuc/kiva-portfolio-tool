@@ -1,24 +1,24 @@
-import React from "react";
-import { verify } from "../utils/ApiWrapper";
-import { setCookie } from "./../utils/cookie";
+import React from 'react'
+import { verify } from '../utils/ApiWrapper'
+import { setCookie } from './../utils/cookie'
 
 const withAuth = WrappedComponent => {
   class HOC extends React.Component {
     state = {
       verified: false
-    };
+    }
     async componentDidMount() {
-      const verifyResponse = await verify();
+      const verifyResponse = await verify()
       console.log(verifyResponse)
       if (verifyResponse.error) {
-        return;
+        return
       }
-      const verifyResponseParsed = await verifyResponse.json();
+      const verifyResponseParsed = await verifyResponse.json()
       if (verifyResponseParsed.status === 200) {
         if (verifyResponseParsed.newToken !== undefined) {
-          setCookie("token", verifyResponseParsed.newToken);
+          setCookie('token', verifyResponseParsed.newToken)
         }
-        this.setState({ verified: true });
+        this.setState({ verified: true })
       } else {
         this.props.history.push('/register')
       }
@@ -34,11 +34,11 @@ const withAuth = WrappedComponent => {
             </div>
           )}
         </div>
-      );
+      )
     }
   }
 
-  return HOC;
-};
+  return HOC
+}
 
-export default withAuth;
+export default withAuth

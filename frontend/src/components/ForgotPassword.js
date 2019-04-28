@@ -39,7 +39,7 @@ class ForgotPassword extends Component {
         this.setState({ question: resp.question, errorMessage: '' })
       } else {
         this.setState({ errorMessage: resp.message })
-      }  
+      }
     }
   }
 
@@ -48,7 +48,7 @@ class ForgotPassword extends Component {
 
     this.setState({ loadingAPI: true })
     const result = await submitSecurityQuestionAnswer(this.state.email, this.state.answer)
-    
+
     if (result) {
       const resp = await result.json()
       if (resp.status === 200) {

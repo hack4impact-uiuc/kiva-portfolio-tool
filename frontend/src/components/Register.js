@@ -102,12 +102,15 @@ class Register extends React.Component {
         this.state.securityQuestionAnswer,
         'fp'
       )
-      if (result.error != null && (result.error.response.status == 400 || result.error.response.status == 500)) {
+      if (
+        result.error != null &&
+        (result.error.response.status == 400 || result.error.response.status == 500)
+      ) {
         this.setState({
           wrongInfo: !this.state.wrongInfo,
           errorMessage: result.error.response.data.message
         })
-        return;
+        return
       }
 
       let token = result.response.data.result.token
@@ -141,12 +144,15 @@ class Register extends React.Component {
     e.preventDefault()
     const result = await verifyPIN(this.state.pin)
 
-    if (result.error != null && (result.error.response.status == 400 || result.error.response.status == 500)) {
+    if (
+      result.error != null &&
+      (result.error.response.status == 400 || result.error.response.status == 500)
+    ) {
       this.setState({
         wrongInfo: !this.state.wrongInfo,
         errorMessage: result.error.response.data.message
       })
-      return;
+      return
     }
 
     let pinMessage = result.response.message

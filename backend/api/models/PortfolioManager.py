@@ -22,5 +22,6 @@ class PortfolioManager(Mixin, db.Model):
         self.email = data["email"]
         self.name = data["name"]
         self.role = "pm"
+
     def __repr__(self):
         return f"<Portfolio Manager\nID: {self.id}\nEmail: {self.email}\nName: {self.name}\nRole: {self.role}\n>"

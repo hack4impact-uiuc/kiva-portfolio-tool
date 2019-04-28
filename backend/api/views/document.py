@@ -86,7 +86,7 @@ def get_document():
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
         for doc in docs:
-             doc.docClassName = DocumentClass.query.get(doc.docClassID).name
+            doc.docClassName = DocumentClass.query.get(doc.docClassID).name
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
@@ -166,7 +166,9 @@ def create_new_document():
         return create_response(status=400, message=message)
 
     if info == "fp":
-        return create_response(status=400, message="You do not have permission to create new documents!")
+        return create_response(
+            status=400, message="You do not have permission to create new documents!"
+        )
 
     if "userID" not in data:
         return create_response(
@@ -181,29 +183,30 @@ def create_new_document():
             status=400, message="No Document Class provided for new Document"
         )
 
-    userID = data.get("userID")		
+    userID = data.get("userID")
 
-    status = "Missing"		
+    status = "Missing"
 
-    date = data.get("dueDate")		
+    date = data.get("dueDate")
 
-    document_class_ids = data.get("docClassIDs").split(",")		
+    document_class_ids = data.get("docClassIDs").split(",")
 
-    for document_class_id in document_class_ids:		
-        data = {		
-            "userID": userID,		
-            "status": status,		
-            "docClassID": document_class_id,		
-            "date": date,		
-        }		
-        new_doc = Document(data)		
-        db.session.add(new_doc)		
+    for document_class_id in document_class_ids:
+        data = {
+            "userID": userID,
+            "status": status,
+            "docClassID": document_class_id,
+            "date": date,
+        }
+        new_doc = Document(data)
+        db.session.add(new_doc)
 
-    fp = FieldPartner.query.get(userID)		
-    fp.app_status = "In Process"		
+    fp = FieldPartner.query.get(userID)
+    fp.app_status = "In Process"
 
-    db.session.commit()		
+    db.session.commit()
     return create_response(status=200, message="success")
+
 
 @document.route("/document/delete/<docClassID>", methods=["DELETE"])
 def delete_document(docClassID):
@@ -219,7 +222,9 @@ def delete_document(docClassID):
         return create_response(status=400, message=message)
 
     if info[0] == "fp":
-        return create_response(status=400, message="You do not have permission to delete documents!")
+        return create_response(
+            status=400, message="You do not have permission to delete documents!"
+        )
 
     db.session.delete(
         # gets all document <id> native to db and sees if == to docClassID. Then deletes

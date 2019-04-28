@@ -4,95 +4,95 @@ import { getCookieFromBrowser } from './cookie'
 
 //import { BACKEND_KEY } from '../keys'
 
-export const getAllPMs = () => {		
-  let requestString = BACKEND_URL + '/portfolio_manager'		
-  return axios		
-    .get(requestString)		
-    .then(response => {		
-      return response.data.result.portfolio_manager		
-    })		
-    .catch(error => {		
-      console.log('ERROR: ', error)		
-      return null		
-    })		
+export const getAllPMs = () => {
+  let requestString = BACKEND_URL + '/portfolio_manager'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.portfolio_manager
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
 }
 
-export const getPartnersByPM = pm_id => {		
-  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id		
-  return axios		
-    .get(requestString)		
-    .then(response => {		
-      return response.data.result.field_partner		
-    })		
-    .catch(error => {		
-      return {		
-        type: 'GET_PARTNERS_FAIL',		
-        error		
-      }		
-    })		
-}		
+export const getPartnersByPM = pm_id => {
+  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
 
- export const getAllPartners = () => {		
-  let requestString = BACKEND_URL + '/field_partner'		
-  return axios		
-    .get(requestString)		
-    .then(response => {		
-      return response.data.result.field_partner		
-    })		
-    .catch(error => {		
-      return {		
-        type: 'GET_PARTNERS_FAIL',		
-        error		
-      }		
-    })		
-}		
+export const getAllPartners = () => {
+  let requestString = BACKEND_URL + '/field_partner'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
 
 export const getUserRole = () => {
-  let requestString = BACKEND_URL + '/getUser'		
-  return axios		
+  let requestString = BACKEND_URL + '/getUser'
+  return axios
     .get(requestString, {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        token: getCookieFromBrowser("token"),
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
-    })		
-    .then(response => {		
-      return response.data.result.userRole		
-    })		
-    .catch(error => {		
-      return {		
-        type: 'GET_PARTNERS_FAIL',		
-        error		
-      }		
-    })	
+    })
+    .then(response => {
+      return response.data.result.userRole
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
 }
 
- export const createFieldPartner = (org_name, email, pm_id) => {		
-  let requestString = BACKEND_URL + '/createFP'		
-  let data = new FormData()		
-  data.append('org_name', org_name)		
-  data.append('email', email)		
-  data.append('pm_id', pm_id)		
-  data.append('app_status', 'New Partner')		
-  return axios		
-    .post(requestString, data,  {
+export const createFieldPartner = (org_name, email, pm_id) => {
+  let requestString = BACKEND_URL + '/createFP'
+  let data = new FormData()
+  data.append('org_name', org_name)
+  data.append('email', email)
+  data.append('pm_id', pm_id)
+  data.append('app_status', 'New Partner')
+  return axios
+    .post(requestString, data, {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        token: getCookieFromBrowser("token"),
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
-    })		
-    .then(response => {		
-      return {		
-        type: 'CREATE_FP_SUCCESS',		
-        response		
-      }		
-    })		
-    .catch(error => {		
-      return {		
-        type: 'CREATE_FP_FAIL',		
-        error		
-      }		
-    })		
+    })
+    .then(response => {
+      return {
+        type: 'CREATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_FP_FAIL',
+        error
+      }
+    })
 }
 
 export const register = (email, password, questionIdx, answer, role) => {
@@ -221,8 +221,8 @@ export const getSecurityQuestionForUser = email => {
       }
     })
     .catch(error => {
-      console.log('ERROR: ', error)		
-      return null	
+      console.log('ERROR: ', error)
+      return null
     })
 }
 
@@ -240,8 +240,8 @@ export const submitSecurityQuestionAnswer = (email, answer, questionIdx) => {
       }
     })
     .catch(error => {
-      console.log('ERROR: ', error)		
-      return null	
+      console.log('ERROR: ', error)
+      return null
     })
 }
 
@@ -260,7 +260,7 @@ export const resetPassword = (email, answer, pin, password) => {
       }
     })
     .catch(error => {
-      console.log('ERROR: ', error)		
+      console.log('ERROR: ', error)
       return null
     })
 }
@@ -356,10 +356,10 @@ export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
     .get(requestString, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          token: getCookieFromBrowser('token')
-        }
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
     })
     .then(response => {
       return response.data.result.documents
@@ -387,7 +387,7 @@ export const getAllInformation = () => {
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
-    .get(requestString , {
+    .get(requestString, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -496,36 +496,34 @@ export const createDocumentClass = (name, description, file, file_name) => {
     })
 }
 
-export const createDocuments = (userID, docClassIDs, dueDate) => {		
-  let requestString = BACKEND_URL + '/document/create'		
-  let data = new FormData()		
-  data.append('userID', userID)		
-  data.append('status', 'Missing')		
-  data.append('docClassIDs', docClassIDs)		
-  data.append('dueDate', dueDate)		
-  return axios		
-    .post(requestString, data)		
-    .then(response => {		
-      return {		
-        type: 'CREATE_DOCUMENTS_SUCCESS',		
-        response		
-      }		
-    })		
-    .catch(error => {		
-      return {		
-        type: 'CREATE_DOCUMENTS_FAIL',		
-        error		
-      }		
-    })		
+export const createDocuments = (userID, docClassIDs, dueDate) => {
+  let requestString = BACKEND_URL + '/document/create'
+  let data = new FormData()
+  data.append('userID', userID)
+  data.append('status', 'Missing')
+  data.append('docClassIDs', docClassIDs)
+  data.append('dueDate', dueDate)
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        type: 'CREATE_DOCUMENTS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_DOCUMENTS_FAIL',
+        error
+      }
+    })
 }
 
-export const getDocumentsByUser = userID => {		
-  let requestString = BACKEND_URL + '/document?uid=' + userID		
-  return axios		
-    .get(requestString)		
-    .then(response => {		    
-      return response.data.result.documents		
-    })
+export const getDocumentsByUser = userID => {
+  let requestString = BACKEND_URL + '/document?uid=' + userID
+  return axios.get(requestString).then(response => {
+    return response.data.result.documents
+  })
 }
 
 export const updateDocumentClass = (id, name, description, file, file_name) => {
@@ -557,7 +555,7 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
 
 export const deleteDocumentClass = id => {
   return axios
-    .delete(BACKEND_URL + '/document_class/delete/' + id , {
+    .delete(BACKEND_URL + '/document_class/delete/' + id, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')

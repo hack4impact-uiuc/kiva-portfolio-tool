@@ -27,5 +27,6 @@ class FieldPartner(Mixin, db.Model):
         self.pm_id = data["pm_id"]
         self.app_status = data["app_status"]
         self.role = "fp"
+
     def __repr__(self):
         return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n:PM ID: {self.pm_id}\nRole: {self.role}>"
