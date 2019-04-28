@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentClass renders correctly 1`] = `
+<DocumentClass
+  documentClass={
+    Object {
+      "description": "testingaswell",
+      "name": "testing",
+    }
+  }
+>
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
+  />
+  <tr
+    className="hoverable"
+  >
+    <td
+      data-testid="docClass"
+    >
+      testing
+    </td>
+    <td
+      className="interaction"
+      data-testid="interaction"
+    >
+      <DocumentClassPreview
+        documentClass={
+          Object {
+            "description": "testingaswell",
+            "name": "testing",
+          }
+        }
+      >
+        <Button
+          color="transparent"
+          onClick={[Function]}
+          tag="button"
+        >
+          <button
+            aria-label={null}
+            className="btn btn-transparent"
+            onClick={[Function]}
+            type="button"
+          >
+            <img
+              className="buttonimg"
+              src="preview.png"
+            />
+          </button>
+        </Button>
+        <Modal
+          autoFocus={true}
+          backdrop={true}
+          backdropTransition={
+            Object {
+              "mountOnEnter": true,
+              "timeout": 150,
+            }
+          }
+          centered={false}
+          external={
+            <button
+              className="close"
+              onClick={[Function]}
+              style={
+                Object {
+                  "position": "absolute",
+                  "right": "15px",
+                  "top": "15px",
+                }
+              }
+            >
+              ×
+            </button>
+          }
+          fade={true}
+          isOpen={false}
+          keyboard={true}
+          modalTransition={
+            Object {
+              "timeout": 300,
+            }
+          }
+          onClosed={[Function]}
+          onOpened={[Function]}
+          role="dialog"
+          toggle={[Function]}
+          zIndex={1050}
+        />
+      </DocumentClassPreview>
+      <Button
+        color="transparent"
+        onClick={[Function]}
+        tag="button"
+      >
+        <button
+          aria-label={null}
+          className="btn btn-transparent"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            className="buttonimg"
+            src="greyEdit.png"
+          />
+        </button>
+      </Button>
+      <Button
+        color="transparent"
+        onClick={[Function]}
+        tag="button"
+      >
+        <button
+          aria-label={null}
+          className="btn btn-transparent"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            className="buttonimg"
+            src="remove.png"
+          />
+        </button>
+      </Button>
+      <Modal
+        autoFocus={true}
+        backdrop={true}
+        backdropTransition={
+          Object {
+            "mountOnEnter": true,
+            "timeout": 150,
+          }
+        }
+        centered={false}
+        fade={true}
+        isOpen={false}
+        keyboard={true}
+        modalTransition={
+          Object {
+            "timeout": 300,
+          }
+        }
+        onClosed={[Function]}
+        onOpened={[Function]}
+        role="dialog"
+        toggle={[Function]}
+        zIndex={1050}
+      />
+    </td>
+  </tr>
+</DocumentClass>
+`;
