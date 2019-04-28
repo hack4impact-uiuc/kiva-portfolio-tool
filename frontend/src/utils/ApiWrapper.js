@@ -17,36 +17,6 @@ export const getAllPMs = () => {
     })
 }
 
-export const getPartnersByPM = pm_id => {
-  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.field_partner
-    })
-    .catch(error => {
-      return {
-        type: 'GET_PARTNERS_FAIL',
-        error
-      }
-    })
-}
-
-export const getAllPartners = () => {
-  let requestString = BACKEND_URL + '/field_partner'
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.field_partner
-    })
-    .catch(error => {
-      return {
-        type: 'GET_PARTNERS_FAIL',
-        error
-      }
-    })
-}
-
 export const getUserRole = () => {
   let requestString = BACKEND_URL + '/getUser'
   return axios
@@ -382,6 +352,51 @@ export const getAllMessages = () => {
 export const getAllInformation = () => {
   // get information received by target user
   return ['I need you to not work on IST and get in the documents asap']
+}
+
+export const getPartnersByPM = pm_id => {
+  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+export const getPartnersByStatus = app_status => {
+  let requestString = BACKEND_URL + '/field_partner/status/' + app_status
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+export const getAllPartners = () => {
+  let requestString = BACKEND_URL + '/field_partner'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
 }
 
 export const getAccessToken = () => {

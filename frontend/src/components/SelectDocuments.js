@@ -2,6 +2,7 @@ import React from 'react'
 import { Selector } from './Selector'
 import { getAllDocumentClasses, createDocuments, getDocumentsByUser } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'
@@ -17,13 +18,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateDocuments
+      updateDocuments,
+      beginLoading,
+      endLoading
     },
     dispatch
   )
 }
 
-class SelectDocumentsPage extends React.Component {
+export class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -45,6 +48,7 @@ class SelectDocumentsPage extends React.Component {
    * Gets all document classes from the backend and updates state
    */
   async componentDidMount() {
+    this.props.beginLoading()
     let document_classes = await getAllDocumentClasses()
 
     let available = {}
@@ -59,6 +63,7 @@ class SelectDocumentsPage extends React.Component {
     }
 
     this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
+    this.props.endLoading()
   }
 
   /***
@@ -111,6 +116,7 @@ class SelectDocumentsPage extends React.Component {
   }
 
   async handleSubmit() {
+    this.props.beginLoading()
     let docClassIDs = this.state.documentClasses
       .filter(docClass => this.state.available[docClass.name] === false)
       .reduce((array, docClass) => {
@@ -128,6 +134,7 @@ class SelectDocumentsPage extends React.Component {
     await createDocuments(this.state.fp_id, docClassIDs, date)
     const documents = await getDocumentsByUser(this.state.fp_id)
     this.props.updateDocuments(documents)
+    this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
 

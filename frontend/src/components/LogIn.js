@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login } from '../utils/ApiWrapper'
+import { login, getPartnersByStatus } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import {
   Form,
@@ -17,21 +17,18 @@ import { connect } from 'react-redux'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
+import Navbar from './NavBar'
+import kivaLogo from '../media/kivaPlainLogo.png'
 
 import '../styles/index.css'
+import '../styles/login.css'
+import '../styles/navbar.css'
 
-import b1 from '../media/b1.jpg'
-import b2 from '../media/b2.jpg'
-import b3 from '../media/b3.jpg'
-import b4 from '../media/b4.jpg'
-import b5 from '../media/b5.jpg'
-import b6 from '../media/b6.jpg'
-import b7 from '../media/b7.jpg'
-import b8 from '../media/b8.jpg'
-import b9 from '../media/b9.jpg'
-import b10 from '../media/b10.jpg'
-import b11 from '../media/b11.jpg'
-import kivaLogo from '../media/kivaPlainLogo.png'
+import b1 from '../media/b1-min.jpg'
+import b3 from '../media/b3-min.jpg'
+import b4 from '../media/b4-min.jpg'
+import b5 from '../media/b5-min.jpg'
+import b6 from '../media/b6-min.jpg'
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({}, dispatch)
@@ -47,7 +44,14 @@ class LogIn extends Component {
     password: '',
     errorMessage: '',
     username: '',
-    wrongInfo: false
+    wrongInfo: false,
+    fp_id: null
+  }
+
+  async componentDidMount() {
+    const fps = await getPartnersByStatus('In Process')
+    //use first FP temporarily until auth integration
+    this.setState({ fp_id: fps[0]._id })
   }
 
   handleChange = event => {
@@ -82,35 +86,29 @@ class LogIn extends Component {
         wrongInfo: !this.state.wrongInfo
       })
       setCookie('token', token)
-      this.props.history.push('/dashboard')
+      this.props.history.push('/dashboard/fp/' + this.state.fp_id)
     }
   }
 
   render() {
     return (
       <div>
-        <div id="background">
-          <BackgroundSlideshow
-            images={[b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11]}
-            animationDelay={5000}
-          />
+        <Navbar className="nav-absolute" />
+        <div className="background">
+          <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
         </div>
-        <div id="foreground">
-          <Card
-            className="interview-card center-background"
-            style={{ width: '400px', height: '60%' }}
-          >
-            {/* <CardTitle>
-              <img id = "foreground" src={kivaLogo} />
-            </CardTitle> */}
-
+        <div className="foreground">
+          <Card className="interview-card center-background">
             <CardBody>
+              <div className="text-centered" id="login-kiva-logo">
+                <img src={kivaLogo} />
+              </div>
               <Form>
                 <FormGroup>
-                  <Label for="exampleEmail">Email</Label>
                   <Input
                     type="email"
                     name="email"
+                    placeholder="E-mail"
                     id="exampleEmail"
                     maxLength="64"
                     pattern={EMAIL_REGEX}
@@ -120,10 +118,10 @@ class LogIn extends Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="examplePassword">Password</Label>
                   <Input
                     type="password"
                     name="password"
+                    placeholder="Password"
                     id="examplePassword"
                     minLength="8"
                     maxLength="64"
@@ -132,22 +130,32 @@ class LogIn extends Component {
                     required
                   />
                 </FormGroup>
-                <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
-                  Log In
-                </Button>
-                {''}
-                <Button
-                  color="success"
-                  size="lg"
-                  onClick={() => this.props.history.push('/register')}
-                  className="left"
-                >
-                  Register
-                </Button>
+                <div className="text-centered">
+                  <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
+                    Log In
+                  </Button>
+                  {''}
+                  <Button
+                    color="success"
+                    size="lg"
+                    onClick={() => this.props.history.push('/register')}
+                    className="left left-margin-lg"
+                  >
+                    Register
+                  </Button>
+                </div>
               </Form>
-              <br />
-              <Link to="/forgotPassword" prefetch href="/forgotPassword">
-                <a>Forgot Password?</a>
+              <p style={{ color: 'red' }}>
+                {this.state.errorMessage ? this.state.errorMessage : ''}
+              </p>
+              <Link
+                id="forgot"
+                className="text-centered margin-center"
+                to="/forgotPassword"
+                prefetch
+                href="/forgotPassword"
+              >
+                Forgot Password?
               </Link>
               <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
             </CardBody>

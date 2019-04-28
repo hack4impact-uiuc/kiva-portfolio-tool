@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-class PMMainPage extends Component {
+export class PMMainPage extends Component {
   constructor(props) {
     super(props)
 
@@ -47,11 +47,13 @@ class PMMainPage extends Component {
    * Waits for component to load and get all the partners attached to pm
    */
   async componentDidMount() {
+    this.props.beginLoading()
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
     let pms = await getAllPMs()
     let pm = pms[0]
     this.setState({ pm_id: pm._id })
+    this.props.endLoading()
   }
 
   /**
@@ -105,10 +107,12 @@ class PMMainPage extends Component {
   }
 
   async handleNewFP() {
+    this.props.beginLoading()
+    this.toggle()
     await createFieldPartner(this.state.org_name, this.state.email, this.state.pm_id)
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
-    this.toggle()
+    this.props.endLoading()
   }
 
   handleClickIP = id => {

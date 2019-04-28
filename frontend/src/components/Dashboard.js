@@ -19,8 +19,7 @@ import {
   updateInformation,
   setUserType
 } from '../redux/modules/user'
-
-import Loader from 'react-loader-spinner'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/dashboard.css'
@@ -34,8 +33,7 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
   messages: state.user.messages,
-  information: state.user.information,
-  loading: state.auth.loading
+  information: state.user.information
 })
 
 const mapDispatchToProps = dispatch => {
@@ -44,7 +42,9 @@ const mapDispatchToProps = dispatch => {
       updateDocuments,
       updateMessages,
       updateInformation,
-      setUserType
+      setUserType,
+      beginLoading,
+      endLoading
     },
     dispatch
   )
@@ -65,6 +65,7 @@ class Dashboard extends React.Component {
      * Contains all documents received from backend
      */
 
+    this.props.beginLoading()
     let documentsReceived = []
 
     // temporary - REMOVE after auth integration
@@ -102,6 +103,7 @@ class Dashboard extends React.Component {
     } else {
       this.props.updateInformation([])
     }
+    this.props.endLoading()
   }
 
   pStyle = {
@@ -109,45 +111,33 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    if (this.props.loading) {
-      return (
-        <div
-          className="resultsText"
-          style={{ paddingTop: window.innerWidth >= 550 ? '10%' : '20%' }}
-        >
-          Loading
-          <Loader type="Puff" color="green" height="100" width="100" />
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <NavBar />
-          <Container>
-            <Row>
-              {this.props.documents
-                ? this.props.isPM
-                  ? this.state.pm_statuses.map(key => {
-                      return (
-                        <Col sm="12" md="6">
-                          <DocumentList documents={this.props.documents[key]} status={key} />
-                        </Col>
-                      )
-                    })
-                  : this.state.fp_statuses.map(key => {
-                      return (
-                        <Col sm="12" md="6">
-                          <DocumentList documents={this.props.documents[key]} status={key} />
-                        </Col>
-                      )
-                    })
-                : null}
-            </Row>
-            <NotificationsBar />
-          </Container>
-        </div>
-      )
-    }
+    return (
+      <div>
+        <NavBar />
+        <Container>
+          <Row>
+            {this.props.documents
+              ? this.props.isPM
+                ? this.state.pm_statuses.map(key => {
+                    return (
+                      <Col sm="12" md="6">
+                        <DocumentList documents={this.props.documents[key]} status={key} />
+                      </Col>
+                    )
+                  })
+                : this.state.fp_statuses.map(key => {
+                    return (
+                      <Col sm="12" md="6">
+                        <DocumentList documents={this.props.documents[key]} status={key} />
+                      </Col>
+                    )
+                  })
+              : null}
+          </Row>
+          <NotificationsBar />
+        </Container>
+      </div>
+    )
   }
 }
 
