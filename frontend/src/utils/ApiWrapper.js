@@ -111,10 +111,10 @@ export const login = (email, password) => {
 
 export const verify = () => {
   return axios
-    .post(BACKEND_URL + '/verify', null, {
+    .post(BACKEND_URL + '/verify', {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookie('token')
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {

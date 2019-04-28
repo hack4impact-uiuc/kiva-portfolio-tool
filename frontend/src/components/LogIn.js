@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login, getPartnersByStatus } from '../utils/ApiWrapper'
+import { login, getPartnersByStatus, verify } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import {
   Form,
@@ -86,7 +86,18 @@ class LogIn extends Component {
         wrongInfo: !this.state.wrongInfo
       })
       setCookie('token', token)
-      this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+      let role = await verify()
+      if (role.error) {
+        this.props.history.push('/oops')
+      } else {
+        role = role.response.data.result.role
+        if (role == "fp") {
+          this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+        } else {
+          this.props.history.push('/main')
+        }
+      }
+      
     }
   }
 

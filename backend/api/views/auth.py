@@ -110,12 +110,14 @@ def verify():
 
     token = request.headers.get("token")
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+    
     print(data)
     r = (requests.post(BACKEND_URL + "verify", headers=headers)).json()
     print(r)
+    
     if r.get("status") == 400 or r.get("status") == 500:
         return create_response(status=r.get("status"), message=r.get("message"))
-    return create_response(status=200, message=r.get("message"))
+    return create_response(status=200, message=r.get("message"), data=r.get("role"))
 
 
 @auth.route("/getUser", methods=["GET"])

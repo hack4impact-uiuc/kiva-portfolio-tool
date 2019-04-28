@@ -298,8 +298,7 @@ class Register extends React.Component {
           </Card>
         </div>
       ) : (
-        <div className="foreground">
-          {!this.state.failed && !this.state.modal ? (
+          <div className="check">
             <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
               <CardBody>
                 <Form>
@@ -356,26 +355,7 @@ class Register extends React.Component {
                 {this.state.passwordChangeMessage}
               </CardBody>
             </Card>
-          ) : (
-            <Modal isOpen={this.state.modal} toggle={this.errorToggle}>
-              <ModalBody>
-                <form>
-                  <p> Invalid Entry </p>
-                </form>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  className="invalidSearchButton"
-                  onClick={e => {
-                    this.errorToggle()
-                  }}
-                >
-                  Return
-                </Button>
-              </ModalFooter>
-            </Modal>
-          )}
-        </div>
+            </div>
       )}
     </div>
   )
