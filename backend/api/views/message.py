@@ -65,7 +65,7 @@ def get_messages_by_pm(pm_id):
 # TODO: Call this method every time something in the documents/fp/pm thing is changed
 @message.route("/messages/new", methods=["POST"])
 def add_message():
-    data = request.form
+    data = request.form.to_dict()
     subjects = ["New required document", "Document reviewed", "Document uploaded"]
 
     if "pm_id" not in data:
