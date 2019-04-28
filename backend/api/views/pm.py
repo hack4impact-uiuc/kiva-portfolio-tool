@@ -84,7 +84,7 @@ def new_pm():
     message, info = verify_token(token)
     if message != None:
         return create_response(status=400, message=message)
-
+    print("asdf")
     if info == "fp":
         return create_response(
             status=400, message="You do not have permission to create new documents!"

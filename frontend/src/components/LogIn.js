@@ -85,8 +85,9 @@ class LogIn extends Component {
       this.setState({
         wrongInfo: !this.state.wrongInfo
       })
-      setCookie('token', token)
+      await setCookie('token', token)
       let role = await verify()
+      console.log(role)
       if (role.error) {
         this.props.history.push('/oops')
       } else {

@@ -111,19 +111,21 @@ export const login = (email, password) => {
 
 export const verify = () => {
   return axios
-    .post(BACKEND_URL + '/verify', {
+    .post(BACKEND_URL + '/verify', null, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
+      console.log(response)
       return {
         type: 'REGISTER_SUCCESS',
         response
       }
     })
     .catch(error => {
+      console.log(error)
       return {
         type: 'REGISTER_FAIL',
         error
