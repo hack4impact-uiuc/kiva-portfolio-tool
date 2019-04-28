@@ -130,7 +130,7 @@ export class DocumentPreview extends Component {
               <ModalHeader>{this.state.fileName}</ModalHeader>
               <ModalBody id="modal-box">
                 <Iframe
-                  classname="iframe-relative iframe-modal"
+                  className="iframe-relative iframe-modal"
                   url={this.state.fileURL}
                   allowFullScreen
                 />
