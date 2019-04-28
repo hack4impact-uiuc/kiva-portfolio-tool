@@ -15,8 +15,6 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-<<<<<<< HEAD
-=======
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
@@ -28,7 +26,6 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
->>>>>>> e7f92789976f46ed8eb9d0a78910e1ed9d70f66c
 export class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
