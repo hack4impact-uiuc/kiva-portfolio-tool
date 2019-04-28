@@ -172,14 +172,14 @@ export class PMMainPage extends Component {
 
         <Container className="maxheight">
           <Row>
-            <Col className="text-center sidebar-background" md="3">
+            <Col className="text-center sidebar-background" md="2">
               <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
                 <img className="addImg" src={add} />
                 <span className="add-doc-text">Add New</span>
               </Button>
             </Col>
 
-            <Col className="fp-background" md="9">
+            <Col className="fp-background" md="10">
               <h2 className="margin-top-sm">Field Partners</h2>
               <form onSubmit={this.handleSubmit}>
                 <img src={search} width="23" />
@@ -198,7 +198,7 @@ export class PMMainPage extends Component {
 
           <Tabs className="tab-master maxheight">
             <Row className="maxheight">
-              <Col className="sidebar-background" md="3">
+              <Col className="sidebar-background" md="2">
                 <TabList className="react-tabs__tab-list">
                   <Tab>In Process</Tab>
                   <Tab>New Partner</Tab>
@@ -206,7 +206,7 @@ export class PMMainPage extends Component {
                 </TabList>
               </Col>
 
-              <Col className="fp-background" md="9">
+              <Col className="fp-background" md="10">
                 <TabPanel>
                   <div className="partnerPanel">
                     {this.state.filtered

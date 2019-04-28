@@ -6,6 +6,14 @@ body {
     background-attachment: fixed;
 }
 
+.progressAdditional {
+    padding-top: 2%;
+}
+
+.progressAdditional > .progress {
+    border-radius: 10px;
+}
+
 .progress > .bg-dashgrey {
     background-color: $missing-color;
 }
@@ -65,9 +73,9 @@ body {
     margin-top: 5%;
     justify-content: center;
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-column-gap: 2%;
-    grid-row-gap: 8%;
+    grid-template-columns: 40% 40%;
+    grid-column-gap: 3%;
+    grid-row-gap: 10%;
     position: relative;
 }
 
@@ -75,16 +83,16 @@ body {
     padding: 0%;
     margin: 0px;
     border-radius: 26px;
-    border-width: 0px
+    border-width: 0px;
+    box-shadow: 0px 1px 5px 0px $light-shadow;
 }
 
 .partnerBox {
     padding: 4%;
     padding-left: 0;
     padding-right: 0;
-    background-color: $background-color;
+    background-color: white;
     border-radius: 26px;
-    box-shadow: 0px 0px 7px 1px $shadow-color;
     display: flex;
     flex-flow: row;
 }
@@ -93,6 +101,7 @@ body {
     font-size: large;
     width: 60%;
     text-align: left;
+    margin-left: 5%;
 }
 
 .partnerBox .iconBox {
@@ -113,6 +122,7 @@ body {
 .partnerBox .duedate {
     font-size: large;
     width: 15%;
+    margin-left: 3%;
 }
 
 .partnerBox .due {
@@ -137,7 +147,7 @@ body {
 
 .react-tabs__tab {
     display: block;
-    padding: 5% 0;
+    padding: 7% 0;
     border: none;
     color: $gray-text-color;
     font-weight: 500;
@@ -151,7 +161,7 @@ body {
 
 .react-tabs__tab--selected {
     text-align: right;
-    margin-right: 15%;
+    margin-right: 5%;
     background: none;
     border-color: $accepted-color;
     color: $accepted-color;
@@ -166,9 +176,8 @@ body {
     color: white;
     font-size: 2.5rem;
     font-weight: 500;
-    border: $shadow-color solid 1px;
+    border: none;
     margin: 0% 2%;
-    vertical-align: middle;
 }
 
 .partner-org-initials {
@@ -180,6 +189,7 @@ body {
     background-color: white;
     border-radius: 50px;
     border: none;
-    padding: 15px 30px 15px 30px;
-    margin-top: 40%;
+    padding: 10% 15%;
+    margin-top: 50%;
+    box-shadow: 0px 1px 5px 0px $light-shadow;
 }
