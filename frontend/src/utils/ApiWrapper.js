@@ -324,13 +324,30 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
     })
 }
 
-export const getAllMessages = () => {
+export const getAllMessages = (user_id, is_pm) => {
   // get notifications received by target user
-  return [
-    { name: 'joe', time: '4/12/18', description: 'GO DO SHIT' },
-    { name: 'schmoe', time: '4/12/19', description: 'DO SOME OTHER CRAP' },
-    { name: 'bro', time: '4/12/17', description: 'OOF' }
-  ]
+  let requestString = BACKEND_URL + '/messages/'
+  if (is_pm) {
+    requestString = requestString + 'pm/' + user_id
+  } else {
+    requestString = requestString + 'fp/' + user_id
+  }
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.messages
+    })
+    .catch(error => {
+      return {
+        type: 'GET_MESSAGES_BY_ID_FAIL',
+        error
+      }
+    })
+  //   return [
+  //     { name: 'joe', time: '4/12/18', description: 'GO DO SHIT' },
+  //     { name: 'schmoe', time: '4/12/19', description: 'DO SOME OTHER CRAP' },
+  //     { name: 'bro', time: '4/12/17', description: 'OOF' }
+  //   ]
 }
 
 export const getAllInformation = () => {

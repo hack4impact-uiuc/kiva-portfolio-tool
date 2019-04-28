@@ -36,6 +36,11 @@ def get_messages_by_fp(fp_id):
     message_list = (
         Message.query.filter(Message.fp_id == fp_id).filter(Message.to_fp == True).all()
     )
+
+    # Adds a field called name to each message
+    for message in messages:
+        message.name = PortfolioManager.query.get(message.pm_id).name
+
     return create_response(data={"messages": serialize_list(message_list)})
 
 
@@ -49,6 +54,11 @@ def get_messages_by_pm(pm_id):
         .filter(Message.to_fp == False)
         .all()
     )
+
+    # Adds a field called name to each message
+    for message in messages:
+        message.name = FieldPartner.query.get(message.fp_id).org_name
+
     return create_response(data={"messages": serialize_list(message_list)})
 
 
@@ -94,6 +104,7 @@ def add_message():
         f"Your document has been reviewed and was {status}.",  # status [approved/rejected]
         f"Your Field Partner from {organization} has uploaded a document for {docclass_name}.",  # organization, document class name
     ]
+    data["description"] = contents[message_type.value]
 
     # Send a message
     recipient = (

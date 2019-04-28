@@ -18,7 +18,8 @@ class Message(Mixin, db.Model):
     # These are all nullable depending on the type of notification
     doc_id = db.Column(db.Integer, db.ForeignKey("documents.id"), nullable=True)
     status = db.Column(db.String, nullable=True)
-    comment = db.Column(db.String, nullable=True)
+    description = db.Column(db.String, nullable=True)
+    time = db.Column(db.String)
 
     def __init__(self, data):
 
@@ -29,6 +30,8 @@ class Message(Mixin, db.Model):
         self.to_fp = data["to_fp"]
         self.doc_id = data["doc_id"]
         self.status = data["status"]
+        self.description = data["description"]
+        self.time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         # optional fields checked manually
         if "comment" in data:
@@ -39,7 +42,7 @@ class Message(Mixin, db.Model):
             )
 
     def __repr__(self):
-        return f"<Message\nID: {self.id}\nPM ID: {self.pm_id}\n FP ID: {self.fp_id}\n To FP: {self.to_fp}\n Doc ID: {self.doc_id}\n <Status: {self.status}>\n "
+        return f"<Message\nID: {self.id}\nPM ID: {self.pm_id}\n FP ID: {self.fp_id}\n To FP: {self.to_fp}\n Doc ID: {self.doc_id}\n Status: {self.status}>\n Time: {self.time}>\n Description: {self.description}>\n  "
 
     def get_pm_id(self):
         return self.pm_id
