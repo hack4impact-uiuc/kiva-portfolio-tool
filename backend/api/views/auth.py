@@ -64,7 +64,6 @@ def register_user():
         data={"token": r.get("token"), "uid": r.get("uid")},
     )
 
-
 @auth.route("/login", methods=["POST"])
 def login_user():
     data = request.get_json()
@@ -96,6 +95,51 @@ def login_user():
         data={"token": r.get("token"), "uid": r.get("uid")},
     )
 
+@auth.route("/verify", methods=["POST"])
+def verify():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    r = (
+        requests.post(BACKEND_URL + "verify", headers=headers)
+    ).json()
+
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
+
+    return create_response(status=200, message=r.get("message"))
+
+@auth.route("/getUser", methods=["GET"])
+def get_user_role():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+    print(pin, token)
+    r = (
+        requests.post(BACKEND_URL + "getUser", headers=headers)
+    ).json()
+    print(r)
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
+
+    return create_response(status=200, data ={'userRole':r.get("user_role")})  
+
 
 @auth.route("/verifyEmail", methods=["POST"])
 def verify_email():
@@ -106,22 +150,18 @@ def verify_email():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    if "email" not in data:
-        return create_response(status=400, message="Missing email!")
-
-    if "password" not in data:
-        return create_response(status=400, message="Missing password!")
-
     if "pin" not in data:
         return create_response(status=400, message="Missing pin!")
 
-    email = data.get("email")
     pin = data.get("pin")
 
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+    print(pin, token)
     r = (
-        requests.post(BACKEND_URL + "verifyEmail", data={"email": email, "pin": pin})
+        requests.post(BACKEND_URL + "verifyEmail", data={"pin": pin}, headers=headers)
     ).json()
-
+    print(r)
     if r.get("status") == 400 or r.get("status") == 500:
         return create_response(status=r.get("status"), message=r.get("message"))
 
@@ -141,7 +181,7 @@ def resendPIN():
         return create_response(status=400, message="Missing token!")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     r = (requests.get(BACKEND_URL + "resendVerificationEmail", headers=headers)).json()
 
@@ -163,15 +203,35 @@ def create_fp():
     if "email" not in data:
         return create_response(status=400, message="Missing email!")
 
-    if "password" not in data:
-        return create_response(status=400, message="Missing password!")
+    if "org_name" not in data:
+        return create_response(status=400, message="Missing Org name!")
 
-    if "role" not in data:
-        return create_response(status=400, message="Missing role!")
+    if "app_status" not in data:
+        return create_response(status=400, message="Missing app status!")
+
+    if "pm_id" not in data:
+        return create_response(status=400, message="Missing pm id!")
+
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+
+    message, role = verify_token(token)
+
+    if role == "fp":
+        return create_response(status=400, message="You do not have permission!")
 
     email = data.get("email")
     password = randomStringDigits()
     role = "fp"
+    pm_id = data.get("pm_id")
+    app_status = data.get("app_status")
+    org_name = data.get("org_name")
+
 
     r = (
         requests.post(
@@ -182,6 +242,11 @@ def create_fp():
 
     if r.get("status") == 400 or r.get("status") == 500:
         return create_response(status=r.get("status"), message=r.get("message"))
+
+    local_r = (requests.post("http://localhost:5000/field_partner/new", data={"email": email, "pm_id": pm_id, "org_name": org_name, "app_status": app_status})).json()
+
+    if local_r.get("status") == 400 or local_r.get("status") == 500:
+        return create_response(status=local_r.get("status"), message=local_r.get("message"))
 
     return create_response(
         status=200,
@@ -334,7 +399,7 @@ def add_security_question():
     answer = data.get("answer")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     r = (
         requests.get(
@@ -364,7 +429,7 @@ def get_security_questions():
 
     token = request.headers.get("token")
 
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
     r = (requests.get(BACKEND_URL + "getSecurityQuestions", headers=headers)).json()
 
     return create_response(
@@ -411,7 +476,7 @@ def resend_verification():
         return create_response(status=400, message="Missing token!")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     r = (requests.get(BACKEND_URL + "resendVerificationEmail", headers=headers)).json()
 
@@ -426,9 +491,9 @@ def verify_token(token):
     if token is None:
         return "Token is required.", None
 
-    r = (requests.post(BACKEND_URL + "verify", headers={'token': headers['token']})).json()
+    r = (requests.post(BACKEND_URL + "getUser", headers={'token': headers['token']})).json()
 
     if r.get("status") == 400:
         return r.get("message"), None
 
-    return None, (r.get("role"), r.get("newToken"))
+    return None, r.get("role")

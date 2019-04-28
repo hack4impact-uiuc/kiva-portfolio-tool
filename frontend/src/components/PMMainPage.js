@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { Progress, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
+import WithAuth from './WithAuth'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -302,4 +303,4 @@ class PartnerBar extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PMMainPage)
+)(WithAuth(PMMainPage))

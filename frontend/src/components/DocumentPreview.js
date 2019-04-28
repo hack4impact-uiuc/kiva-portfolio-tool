@@ -12,6 +12,7 @@ import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import '../styles/documentpreview.css'
 import preview from '../media/preview.png'
+import WithAuth from './WithAuth'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
@@ -182,4 +183,4 @@ class DocumentPreview extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DocumentPreview)
+)(WithAuth(DocumentPreview))

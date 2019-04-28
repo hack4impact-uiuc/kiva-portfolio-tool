@@ -1,6 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-import { getCookie } from './cookie'
+import { getCookieFromBrowser } from './cookie'
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -47,15 +47,40 @@ export const getPartnersByPM = pm_id => {
     })		
 }		
 
+export const getUserRole = () => {
+  let requestString = BACKEND_URL + '/getUser'		
+  return axios		
+    .get(requestString, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        token: getCookieFromBrowser("token"),
+      }
+    })		
+    .then(response => {		
+      return response.data.result.userRole		
+    })		
+    .catch(error => {		
+      return {		
+        type: 'GET_PARTNERS_FAIL',		
+        error		
+      }		
+    })	
+}
+
  export const createFieldPartner = (org_name, email, pm_id) => {		
-  let requestString = BACKEND_URL + '/field_partner/new'		
+  let requestString = BACKEND_URL + '/createFP'		
   let data = new FormData()		
   data.append('org_name', org_name)		
   data.append('email', email)		
   data.append('pm_id', pm_id)		
   data.append('app_status', 'New Partner')		
   return axios		
-    .post(requestString, data)		
+    .post(requestString, data,  {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        token: getCookieFromBrowser("token"),
+      }
+    })		
     .then(response => {		
       return {		
         type: 'CREATE_FP_SUCCESS',		
@@ -114,12 +139,12 @@ export const login = (email, password) => {
     })
 }
 
-export const verify = (emailInput, passwordInput) => {
+export const verify = () => {
   return axios
     .post(BACKEND_URL + '/verify', {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -140,8 +165,8 @@ export const getSecurityQuestions = () => {
   return axios
     .get(BACKEND_URL + '/getSecurityQuestions', {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -164,7 +189,12 @@ export const setSecurityQuestion = (questionIdx, answer, password) => {
   data.append('answer', answer)
   data.append('password', password)
   return axios
-    .post(BACKEND_URL + '/addSecurityQuestionAnswer', data)
+    .post(BACKEND_URL + '/addSecurityQuestionAnswer', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',
@@ -191,10 +221,8 @@ export const getSecurityQuestionForUser = email => {
       }
     })
     .catch(error => {
-      return {
-        type: 'LOGIN_FAIL',
-        error
-      }
+      console.log('ERROR: ', error)		
+      return null	
     })
 }
 
@@ -212,10 +240,8 @@ export const submitSecurityQuestionAnswer = (email, answer, questionIdx) => {
       }
     })
     .catch(error => {
-      return {
-        type: 'LOGIN_FAIL',
-        error
-      }
+      console.log('ERROR: ', error)		
+      return null	
     })
 }
 
@@ -234,10 +260,8 @@ export const resetPassword = (email, answer, pin, password) => {
       }
     })
     .catch(error => {
-      return {
-        type: 'LOGIN_FAIL',
-        error
-      }
+      console.log('ERROR: ', error)		
+      return null
     })
 }
 
@@ -248,8 +272,8 @@ export const changePassword = (currentPassword, newPassword) => {
   return axios
     .post(BACKEND_URL + '/changePassword', data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -266,15 +290,15 @@ export const changePassword = (currentPassword, newPassword) => {
     })
 }
 
-export const verifyPIN = (email, pin) => {
+export const verifyPIN = (email, password, pin) => {
   let data = new FormData()
   data.append('email', email)
   data.append('pin', pin)
   return axios
     .post(BACKEND_URL + '/verifyEmail', data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -295,8 +319,8 @@ export const resendPIN = () => {
   return axios
     .post(BACKEND_URL + '/resendVerificaitonEmail', {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -333,8 +357,8 @@ export const getAllDocuments = () => {
   return axios
     .get(requestString, {
         headers: {
-          'Content-Type': 'application/json',
-          token: getCookie('token')
+          'Content-Type': 'application/x-www-form-urlencoded',
+          token: getCookieFromBrowser('token')
         }
     })
     .then(response => {
@@ -365,8 +389,8 @@ export const getAccessToken = () => {
   return axios
     .get(requestString , {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -383,8 +407,8 @@ export const downloadDocument = id => {
   return axios
     .get(requestString, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -402,8 +426,8 @@ export const updateDocumentStatus = (id, status) => {
   return axios
     .put(BACKEND_URL + '/document/status/' + id, data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -427,8 +451,8 @@ export const uploadDocument = (file, file_name, docID) => {
   return axios
     .put(BACKEND_URL + '/document/upload/' + docID, data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -454,8 +478,8 @@ export const createDocumentClass = (name, description, file, file_name) => {
   return axios
     .post(BACKEND_URL + '/document_class/new', data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -513,8 +537,8 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
   return axios
     .put(BACKEND_URL + '/document_class/update/' + id, data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -535,8 +559,8 @@ export const deleteDocumentClass = id => {
   return axios
     .delete(BACKEND_URL + '/document_class/delete/' + id , {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {

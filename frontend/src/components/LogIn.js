@@ -46,7 +46,8 @@ class LogIn extends Component {
     email: '',
     password: '',
     errorMessage: '',
-    username: ''
+    username: '',
+    wrongInfo: false,
   }
 
   handleChange = event => {
@@ -57,11 +58,25 @@ class LogIn extends Component {
     e.preventDefault()
 
     const result = await login(this.state.email, this.state.password)
+    if (result.error != null && (result.error.response.status == 400 || result.error.response.status == 500)) {
+      console.log(result.error.response.message)
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.error.response.data.message
+      })
+      return;
+    }
+
     let token = result.response.data.result.token
 
     if (!token) {
-      this.setState({ errorMessage: result.response.message })
+      this.setState({ 
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.response.message })
     } else {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo
+      })
       setCookie('token', token)
       this.props.history.push('/dashboard')
     }
@@ -127,12 +142,12 @@ class LogIn extends Component {
                 </Button>
               </Form>
               <br />
-              <p style={{ color: 'red' }}>
-                {this.state.errorMessage ? this.state.errorMessage : ''}
-              </p>
               <Link to="/forgotPassword" prefetch href="/forgotPassword">
                 <a>Forgot Password?</a>
               </Link>
+              <p style={{ color: 'red' }}>
+                {this.state.errorMessage}
+              </p>
             </CardBody>
           </Card>
           <br />

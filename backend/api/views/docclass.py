@@ -40,7 +40,7 @@ def add_document_class():
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
 
     if "name" not in data:
@@ -78,7 +78,7 @@ def update_document_class(id):
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
     
     docclass = DocumentClass.query.get(id)
@@ -110,7 +110,7 @@ def delete_document_class(id):
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
         
     # delete all associated Documents before deleting Document Class

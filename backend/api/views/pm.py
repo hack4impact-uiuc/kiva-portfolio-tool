@@ -17,7 +17,7 @@ def get_portfolio_manager():
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
 
     portfolio_manager = PortfolioManager.query.all()
@@ -37,7 +37,7 @@ def get_pm_by_id(id):
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
 
     portfolio_manager_by_id = PortfolioManager.query.get(id)
@@ -57,7 +57,7 @@ def get_pm_by_email(email):
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
 
     portfolio_manager_by_email = PortfolioManager.query.filter(
@@ -79,7 +79,7 @@ def new_pm():
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
 
     data = request.form

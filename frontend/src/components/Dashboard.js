@@ -1,6 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
 import Notification from './Notification'
+import WithAuth from './WithAuth'
 import NavBar from './NavBar'
 import NotificationsBar from './NotificationsBar'
 import {
@@ -18,6 +19,7 @@ import {
   updateInformation,
   setUserType
 } from '../redux/modules/user'
+
 import Loader from 'react-loader-spinner'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
@@ -152,4 +154,4 @@ class Dashboard extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dashboard)
+)(WithAuth(Dashboard))

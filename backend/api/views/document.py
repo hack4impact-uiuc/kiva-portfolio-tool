@@ -165,7 +165,7 @@ def create_new_document():
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(status=400, message="You do not have permission to create new documents!")
 
     if "userID" not in data:

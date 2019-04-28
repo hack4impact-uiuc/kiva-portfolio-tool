@@ -10,6 +10,7 @@ import { beginLoading, endLoading } from '../redux/modules/auth'
 import '../styles/index.css'
 import Dropzone from 'react-dropzone'
 import Loader from 'react-loader-spinner'
+import WithAuth from './WithAuth'
 
 const mapStateToProps = state => ({
   documentClasses: state.user.documentClasses,
@@ -175,4 +176,4 @@ class DocumentClassPage extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DocumentClassPage)
+)(WithAuth(DocumentClassPage))

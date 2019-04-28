@@ -17,7 +17,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   Modal,
-  ModalFooter
+  ModalFooter,
+  ModalBody
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
 import {
@@ -101,6 +102,14 @@ class Register extends React.Component {
         this.state.securityQuestionAnswer,
         'fp'
       )
+      if (result.error != null && (result.error.response.status == 400 || result.error.response.status == 500)) {
+        this.setState({
+          wrongInfo: !this.state.wrongInfo,
+          errorMessage: result.error.response.data.message
+        })
+        return;
+      }
+
       let token = result.response.data.result.token
 
       if (!token) {
@@ -131,6 +140,15 @@ class Register extends React.Component {
   handlePINVerify = async e => {
     e.preventDefault()
     const result = await verifyPIN(this.state.pin)
+
+    if (result.error != null && (result.error.response.status == 400 || result.error.response.status == 500)) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.error.response.data.message
+      })
+      return;
+    }
+
     let pinMessage = result.response.message
     this.setState({ pinMessage: pinMessage })
     if (pinMessage === 200) {
@@ -320,11 +338,16 @@ class Register extends React.Component {
             </Card>
           ) : (
             <Modal isOpen={this.state.modal} toggle={this.errorToggle}>
+              <ModalBody>
+                <form>
+                  <p> Invalid Entry </p>
+                </form>
+              </ModalBody>
               <ModalFooter>
                 <Button
                   className="invalidSearchButton"
                   onClick={e => {
-                    this.toggle()
+                    this.errorToggle()
                   }}
                 >
                   Return

@@ -1,6 +1,6 @@
 import cookie from 'js-cookie'
 
-const getCookieFromBrowser = key => {
+export const getCookieFromBrowser = key => {
   return cookie.get(key)
 }
 

@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/selectdocuments.css'
 import search from '../media/search.png'
-
+import WithAuth from './WithAuth'
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
@@ -200,4 +200,4 @@ class SelectDocumentsPage extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SelectDocumentsPage)
+)(WithAuth(SelectDocumentsPage))
