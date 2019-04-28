@@ -1,6 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-import { getCookieFromBrowser } from './cookie'
+import { getCookieFromBrowser, getCookie } from './cookie'
 
 //import { BACKEND_KEY } from '../keys'
 
@@ -111,10 +111,10 @@ export const login = (email, password) => {
 
 export const verify = () => {
   return axios
-    .post(BACKEND_URL + '/verify',null, {
+    .post(BACKEND_URL + '/verify', null, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
+        token: getCookie('token')
       }
     })
     .then(response => {
@@ -286,7 +286,7 @@ export const verifyPIN = pin => {
 
 export const resendPIN = () => {
   return axios
-    .post(BACKEND_URL + '/resendVerificaitonEmail', null, {
+    .post(BACKEND_URL + '/resendVerificaitonEmail', {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -324,7 +324,7 @@ export const getAllDocumentClasses = () => {
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
   return axios
-    .get(requestString, null, {
+    .get(requestString, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -401,7 +401,7 @@ export const getAllPartners = () => {
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
-    .get(requestString, null, {
+    .get(BACKEND_URL + '/box/token', {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -419,7 +419,7 @@ export const getAccessToken = () => {
 export const downloadDocument = id => {
   let requestString = BACKEND_URL + '/box/download?file_id' + id
   return axios
-    .get(requestString, null, {
+    .get(requestString, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -569,7 +569,7 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
 
 export const deleteDocumentClass = id => {
   return axios
-    .delete(BACKEND_URL + '/document_class/delete/' + id, null, {
+    .delete(BACKEND_URL + '/document_class/delete/' + id, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
