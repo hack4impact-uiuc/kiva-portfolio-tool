@@ -28,29 +28,7 @@ exports[`DocumentListItem renders correctly 1`] = `
     <td
       className="interaction"
       data-testid="interaction"
-    >
-      <Button
-        color="transparent"
-        tag="button"
-      >
-        <Link
-          replace={false}
-          to={
-            Object {
-              "pathname": "/view/undefined/undefined",
-              "state": Object {
-                "link": undefined,
-              },
-            }
-          }
-        >
-          <img
-            className="buttonimg"
-            src="visit.png"
-          />
-        </Link>
-      </Button>
-    </td>
+    />
     <td
       className="interaction padding-right-sm"
       data-testid="interaction"

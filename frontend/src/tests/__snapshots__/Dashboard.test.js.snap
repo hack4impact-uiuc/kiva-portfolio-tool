@@ -9,7 +9,6 @@ exports[`Basic whole app rendering with snapshot 1`] = `
     <Row
       tag="div"
     />
-    <Connect(NotificationsBar) />
   </Container>
 </div>
 `;

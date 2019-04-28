@@ -26,13 +26,9 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-<<<<<<< HEAD
-export class NavBar extends Component {
-=======
 const sidebarClassName = ['closed', 'opened']
 
-class NavBar extends Component {
->>>>>>> e7f92789976f46ed8eb9d0a78910e1ed9d70f66c
+export class NavBar extends Component {
   constructor(props) {
     super(props)
 

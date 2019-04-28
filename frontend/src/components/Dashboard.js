@@ -1,6 +1,5 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import NotificationsBar from './NotificationsBar'
 import Notification from './Notification'
 import NavBar from './NavBar'
 import NotificationsBar from './NotificationsBar'
