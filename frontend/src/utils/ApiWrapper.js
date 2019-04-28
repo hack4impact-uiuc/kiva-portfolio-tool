@@ -336,7 +336,9 @@ export const getAllMessages = () => {
 
 export const getAllInformation = () => {
   // get information received by target user
-  return ['Special instructions about the format of specific requiremeents or general information about the review process here.']
+  return [
+    'Special instructions about the format of specific requiremeents or general information about the review process here.'
+  ]
 }
 
 export const getPartnersByPM = pm_id => {
