@@ -102,7 +102,7 @@ def verify_email():
     data = request.get_json()
     if data is None:
         data = request.form
- 
+
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
