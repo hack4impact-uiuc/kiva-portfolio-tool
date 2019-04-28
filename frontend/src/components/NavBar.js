@@ -60,6 +60,7 @@ class NavBar extends Component {
     return (
       <div>
         <Sidebar
+          className="nav-bar"
           rootClassName="sidebar-root"
           sidebarClassName="sidebar-styles"
           sidebar={<NotificationsBar />}
