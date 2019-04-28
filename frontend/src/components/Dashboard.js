@@ -133,7 +133,6 @@ class Dashboard extends React.Component {
                   })
               : null}
           </Row>
-          <NotificationsBar />
         </Container>
       </div>
     )
