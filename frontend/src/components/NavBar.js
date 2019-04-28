@@ -26,13 +26,16 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
+const sidebarClassName = ['closed', 'opened']
+
 class NavBar extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       isLoginPage: null,
-      sidebarOpen: false
+      sidebarOpen: false,
+      sidebarClass: sidebarClassName[0]
     }
 
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this)
@@ -40,6 +43,12 @@ class NavBar extends Component {
 
   onSetSidebarOpen(open) {
     this.setState({ sidebarOpen: open })
+
+    if (this.state.sidebarClass === sidebarClassName[0]) {
+      this.setState({ sidebarClass: sidebarClassName[1] })
+    } else {
+      this.setState({ sidebarClass: sidebarClassName[0] })
+    }
   }
 
   componentDidMount() {
@@ -60,7 +69,7 @@ class NavBar extends Component {
     return (
       <div>
         <Sidebar
-          className="nav-bar"
+          className={this.state.sidebarClass}
           rootClassName="sidebar-root"
           sidebarClassName="sidebar-styles"
           sidebar={<NotificationsBar />}
