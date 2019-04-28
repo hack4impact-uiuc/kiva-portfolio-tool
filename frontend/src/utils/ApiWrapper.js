@@ -260,7 +260,7 @@ export const changePassword = (currentPassword, newPassword) => {
     })
 }
 
-export const verifyPIN = (pin) => {
+export const verifyPIN = pin => {
   let data = new FormData()
   data.append('pin', pin)
   return axios
