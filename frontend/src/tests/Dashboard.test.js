@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dashboard} from '../components/Dashboard.js'
+import { Dashboard } from '../components/Dashboard.js'
 import Adapter from 'enzyme-adapter-react-16'
 import { shallowToJson, mountToJson } from 'enzyme-to-json'
 import { configure, shallow, mount } from 'enzyme'
