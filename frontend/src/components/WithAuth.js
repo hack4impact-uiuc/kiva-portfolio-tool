@@ -13,7 +13,7 @@ const withAuth = WrappedComponent => {
       if (verifyResponse.error) {
         return
       }
-      const verifyResponseParsed = await verifyResponse.json()
+      const verifyResponseParsed = verifyResponse.response
       if (verifyResponseParsed.status === 200) {
         if (verifyResponseParsed.newToken !== undefined) {
           setCookie('token', verifyResponseParsed.newToken)

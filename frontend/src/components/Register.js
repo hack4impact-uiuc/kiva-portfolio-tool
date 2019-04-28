@@ -111,7 +111,7 @@ class Register extends React.Component {
         this.state.password,
         this.state.questionIdx,
         this.state.securityQuestionAnswer,
-        'fp'
+        'pm'
       )
       if (
         result.error != null &&

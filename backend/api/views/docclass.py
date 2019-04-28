@@ -34,7 +34,7 @@ def add_document_class():
         return create_response(status=400, message="No data provided")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -74,7 +74,7 @@ def update_document_class(id):
         return create_response(status=400, message="No body provided")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -108,7 +108,7 @@ def update_document_class(id):
 def delete_document_class(id):
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:

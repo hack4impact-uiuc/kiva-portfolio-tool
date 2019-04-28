@@ -117,7 +117,7 @@ def upload_document(id):
         return create_response(status=400, message="No body provided for new Document")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -159,7 +159,7 @@ def create_new_document():
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -215,7 +215,7 @@ def delete_document(docClassID):
     """
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -245,7 +245,7 @@ def update_documents(docClassID):
         return create_response(status=200, message="No data provided")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -283,7 +283,7 @@ def update_status(id):
         return create_response(status=400, message="No data provided")
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:

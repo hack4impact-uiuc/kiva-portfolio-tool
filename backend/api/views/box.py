@@ -41,8 +41,6 @@ SPACE = 1073741824
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
-
     message, info = verify_token(token)
     if message != None:
         return create_response(status=400, message=message)
@@ -102,8 +100,8 @@ def get_access_token():
 
     # Make the request, parse the JSON,
     # and extract the access token
-    request = Request(authentication_url, params)
-    response = urlopen(request).read()
+    check = Request(authentication_url, params)
+    response = urlopen(check).read()
     access_token = json.loads(response)["access_token"]
     return create_response(data={"access_token": access_token})
 

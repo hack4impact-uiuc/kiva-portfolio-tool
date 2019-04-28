@@ -11,7 +11,7 @@ def get_portfolio_manager():
     """ function that is called when you visit /portfolio_manager """
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -33,7 +33,7 @@ def get_pm_by_id(id):
     """ function that is called when you visit /portfolio_manager/get/id/<id> that gets a portfolio manager by id """
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -55,7 +55,7 @@ def get_pm_by_email(email):
     """ function that is called when you visit /portfolio_manager/<email>, gets a PM by email """
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
@@ -79,7 +79,7 @@ def new_pm():
     """ function that is called when you visit /portfolio_manager/new, creates a new PM """
 
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
     if message != None:
