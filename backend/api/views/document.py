@@ -200,6 +200,13 @@ def create_new_documents():
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
 
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
     if "userID" not in data:
         return create_response(
             status=400, message="No UserID provided for new Document"
