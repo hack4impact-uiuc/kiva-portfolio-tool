@@ -183,6 +183,46 @@ def create_new_document():
             status=400, message="No Document Class provided for new Document"
         )
 
+    new_data = Document(data)
+
+    db.session.add(new_data)
+    db.session.commit()
+    return create_response(status=200, message="success")
+
+
+@document.route("/document/create", methods=["POST"])
+def create_new_documents():
+    """
+    used upon assignment of documents to field partner
+    """
+    data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No body provided for new Document")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(
+            status=400, message="You do not have permission to delete documents!"
+        )
+
+    if "userID" not in data:
+        return create_response(
+            status=400, message="No UserID provided for new Document"
+        )
+
+    if "docClassIDs" not in data:
+        return create_response(status=400, message="No document classes provided")
+
+    if "dueDate" not in data:
+        return create_response(status=400, message="No due date provided")
+
     userID = data.get("userID")
 
     status = "Missing"
