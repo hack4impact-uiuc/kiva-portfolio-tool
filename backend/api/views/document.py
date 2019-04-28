@@ -207,6 +207,11 @@ def create_new_documents():
     if message != None:
         return create_response(status=400, message=message)
 
+    if info[0] == "fp":
+        return create_response(
+            status=400, message="You do not have permission to delete documents!"
+        )
+
     if "userID" not in data:
         return create_response(
             status=400, message="No UserID provided for new Document"
