@@ -73,7 +73,7 @@ export class DocumentListItem extends Component {
             <DocumentPreview document={this.state.document} />
           </td>
           <td data-testid="interaction" className="interaction">
-            {this.state.fileName ? (
+            {this.props.fileName ? (
               <Button color="transparent">
                 <Link
                   to={{
