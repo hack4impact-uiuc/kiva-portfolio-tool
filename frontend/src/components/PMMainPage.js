@@ -172,10 +172,10 @@ export class PMMainPage extends Component {
 
         <Container className="maxheight">
           <Row>
-            <Col className="text-left sidebar-background" md="3">
-              <Button className="add-doc-text" onClick={this.toggle}>
+            <Col className="text-center sidebar-background" md="3">
+              <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
                 <img className="addImg" src={add} />
-                <span className="add-doc-text">Add New Field Partner</span>
+                <span className="add-doc-text">Add New</span>
               </Button>
             </Col>
 
