@@ -36,6 +36,18 @@
     max-height: 100px;
 }
 
+.returnBtnContainer .returnButton{
+    background-color: $link-color;
+    border: 1px solid $link-color;
+    border-radius: 50px;
+}
+
+.returnBtnContainer .returnButton:hover {
+    background-color: white;
+    color: $link-color;
+    border: 1px solid $link-color;
+}
+
 .addImg{
     max-width: 25px;
     max-height: 25px;

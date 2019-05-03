@@ -171,6 +171,12 @@ export class DocumentClassPage extends React.Component {
             </tbody>
           </Table>
         </div>
+
+        <div className="returnBtnContainer text-centered margin-bottom-xs">
+          <Button className="returnButton" onClick={this.props.history.goBack}>
+            Return
+          </Button>
+        </div>
       </>
     )
   }
