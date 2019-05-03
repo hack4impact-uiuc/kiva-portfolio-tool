@@ -6,7 +6,7 @@ const UPDATE_INFORMATION = 'user/update_information'
 const UPDATE_DUE_DATE = 'user/update_due_date'
 
 const initialState = {
-  isPM: false,
+  isPM: true,
   documents: [],
   documentClasses: [],
   messages: [],
