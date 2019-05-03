@@ -38,7 +38,7 @@ exports[`DocumentPreview renders correctly 1`] = `
     >
       <Iframe
         allowFullScreen={true}
-        classname="iframe-relative iframe-modal"
+        className="iframe-relative iframe-modal"
       />
     </ModalBody>
     <ModalFooter
