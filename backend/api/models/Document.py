@@ -11,7 +11,6 @@ class Document(Mixin, db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     fileID = db.Column(db.String, unique=True, nullable=True)
     userID = db.Column(db.String)  # , db.ForeignKey("user.id",ondelete="SET NULL")
-    date = db.Column(db.Date, unique=False, nullable=True)
     status = db.Column(
         db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
         unique=False,
@@ -33,8 +32,6 @@ class Document(Mixin, db.Model):
         self.docClassID = data["docClassID"]
 
         # optional fields checked manually
-        if "date" in data:
-            self.date = data["date"]
         if "fileID" in data:
             self.fileID = data["fileID"]
         if "fileName" in data:
@@ -47,7 +44,7 @@ class Document(Mixin, db.Model):
             self.link = data["link"]
 
     def __repr__(self):
-        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n <link: {self.link}>\n"
+        return f"<FileID: {self.fileID}>\n <userID: {self.userID}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n <link: {self.link}>\n"
 
     def get_docclass_id(self):
         return self.docClassID

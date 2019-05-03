@@ -13,6 +13,7 @@ class FieldPartner(Mixin, db.Model):
     email = db.Column(db.String)
     org_name = db.Column(db.String)
     pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
+    date = db.Column(db.Date, unique=False, nullable=True)
     app_status = db.Column(
         db.Enum("New Partner", "In Process", "Complete", name="app_status")
     )

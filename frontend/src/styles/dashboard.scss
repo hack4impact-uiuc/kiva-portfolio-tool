@@ -1,5 +1,13 @@
+@import "variables.scss";
+
 body {
     background: url(../media/dashboard_bg.svg) no-repeat center center;
     background-size: cover; 
     background-attachment: fixed;
+}
+
+.due-date {
+    color: $accepted_color;
+    font-family: rubik;
+    margin-left: 40%
 }

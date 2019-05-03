@@ -1,8 +1,6 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import Notification from './Notification'
 import NavBar from './NavBar'
-import NotificationsBar from './NotificationsBar'
 import {
   getAllDocuments,
   getDocumentsByUser,
@@ -32,7 +30,8 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
   messages: state.user.messages,
-  information: state.user.information
+  information: state.user.information,
+  duedate: state.user.duedate
 })
 
 const mapDispatchToProps = dispatch => {
@@ -112,6 +111,7 @@ export class Dashboard extends React.Component {
     return (
       <div>
         <NavBar />
+        <h2 className="due-date"> Due Date: {this.props.duedate} </h2>
         <Container>
           <Row>
             {this.props.documents
