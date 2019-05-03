@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-class DocumentPreview extends Component {
+export class DocumentPreview extends Component {
   constructor(props) {
     super(props)
 
@@ -107,8 +107,12 @@ class DocumentPreview extends Component {
     return (
       <>
         {this.props.location ? (
-          <>
-            <Iframe className="iframe-relative" url={this.state.fileURL} allowFullScreen />
+          <div className="maxheight">
+            <Iframe
+              className="iframe-relative maxheight"
+              url={this.state.fileURL}
+              allowFullScreen
+            />
             <div id="review-fullscreen">
               <div id="button-space">
                 <Button color="success" onClick={this.handleApproveClick}>
@@ -119,7 +123,7 @@ class DocumentPreview extends Component {
                 </Button>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <>
             {this.state.fileName && (
@@ -131,7 +135,7 @@ class DocumentPreview extends Component {
               <ModalHeader>{this.state.fileName}</ModalHeader>
               <ModalBody id="modal-box">
                 <Iframe
-                  classname="iframe-relative iframe-modal"
+                  className="iframe-relative iframe-modal"
                   url={this.state.fileURL}
                   allowFullScreen
                 />

@@ -1,7 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DocumentListItem renders correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Fragment>
+  <tr
+    className="hoverable"
+  >
+    <td
+      data-testid="docClass"
+    />
+    <td
+      data-testid="fileName"
+    >
+      N/A
+    </td>
+    <td
+      className="interaction"
+    >
+      <Connect(DocumentPreview)
+        document={
+          Object {
+            "docClass": "Board of Directors",
+            "status": "Missing",
+          }
+        }
+      />
+    </td>
+    <td
+      className="interaction"
+      data-testid="interaction"
+    />
+    <td
+      className="interaction padding-right-sm"
+      data-testid="interaction"
+    >
+      <Dropzone
+        onDrop={[Function]}
+      >
+        <Component />
+      </Dropzone>
+    </td>
+  </tr>
+</Fragment>
 `;

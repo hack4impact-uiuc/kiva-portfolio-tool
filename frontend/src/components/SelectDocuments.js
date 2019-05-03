@@ -8,9 +8,12 @@ import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import '../styles/index.css'
 import '../styles/selectdocuments.css'
 import search from '../media/search.png'
 import WithAuth from './WithAuth'
+import Navbar from './NavBar'
+
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
@@ -125,11 +128,11 @@ export class SelectDocumentsPage extends React.Component {
       }, [])
 
     const date =
-      this.state.dueDate.getUTCMonth() +
+      this.state.dueDate.getMonth() +
       ' ' +
-      this.state.dueDate.getUTCDay() +
+      this.state.dueDate.getDate() +
       ' ' +
-      this.state.dueDate.getUTCFullYear()
+      this.state.dueDate.getFullYear()
 
     await createDocuments(this.state.fp_id, docClassIDs, date)
     const documents = await getDocumentsByUser(this.state.fp_id)
@@ -141,6 +144,7 @@ export class SelectDocumentsPage extends React.Component {
   render() {
     return (
       <div>
+        <Navbar />
         <div className="topBar">
           <div className="iconTop">
             <p className="iconInfo">FP</p>
@@ -150,7 +154,7 @@ export class SelectDocumentsPage extends React.Component {
           </div>
         </div>
 
-        <div className="pageSD">
+        <div className="pageSD margin-top-sm">
           <h1>Select Documents</h1>
 
           <form onSubmit={this.handleSubmit}>
@@ -195,7 +199,7 @@ export class SelectDocumentsPage extends React.Component {
             />
           </div>
 
-          <button className="nextButton" onClick={this.handleSubmit}>
+          <button className="nextButton margin-bottom-sm" onClick={this.handleSubmit}>
             Assign
           </button>
         </div>
