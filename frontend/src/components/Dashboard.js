@@ -56,7 +56,11 @@ export class Dashboard extends React.Component {
     this.state = {
       fp_statuses: ['Missing', 'Rejected', 'Pending', 'Approved'],
       pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved'],
+<<<<<<< HEAD
       due_date: null
+=======
+      dueDate: null
+>>>>>>> 7eb86176aac20333a49c7d14d6f56147d3c94a38
     }
   }
 
@@ -89,7 +93,7 @@ export class Dashboard extends React.Component {
     /**
      * Contains due date of Field Partner from backend
      */
-    const dueDateReceived = await getDueDateByPartner()
+    const dueDateReceived = await getDueDateByPartner(this.props.match.params.id)
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
@@ -110,7 +114,11 @@ export class Dashboard extends React.Component {
     }
 
     if (dueDateReceived) {
+<<<<<<< HEAD
       this.state.due_date = dueDateReceived
+=======
+      this.setState({ dueDate: dueDateReceived })
+>>>>>>> 7eb86176aac20333a49c7d14d6f56147d3c94a38
     }
     this.props.endLoading()
   }
