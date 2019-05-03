@@ -49,7 +49,7 @@ def get_fp_by_email(email):
 def get_duedate_by_fp(id):
     """ function that is called when you visit /due_date/<id>, gets an FP's due date by its ID """
     fp_by_id = FieldPartner.query.get(id)
-    due_date = fp_by_id.to_dict()["date"]
+    due_date = fp_by_id.date
     return create_response(data={"due_date": due_date})
 
 
