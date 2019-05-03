@@ -111,7 +111,11 @@ export class NavBar extends Component {
                     <img src={sandwich_image} width="30" height="35" />
                   </DropdownToggle>
                   <DropdownMenu right>
-                    {isPM && <DropdownItem>Manage Documents</DropdownItem>}
+                    {isPM && (
+                      <DropdownItem onClick={() => this.props.history.push('/documentclasspage')}>
+                        Manage Documents
+                      </DropdownItem>
+                    )}
                     <DropdownItem>Log Out</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
