@@ -92,13 +92,12 @@ class LogIn extends Component {
         this.props.history.push('/oops')
       } else {
         role = role.response.data.result.role
-        if (role == "fp") {
+        if (role == 'fp') {
           this.props.history.push('/dashboard/fp/' + this.state.fp_id)
         } else {
           this.props.history.push('/main')
         }
       }
-      
     }
   }
 

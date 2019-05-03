@@ -62,15 +62,12 @@ def register_user():
     token = r.get("token")
     print(email)
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-    
+
     local_r = (
         requests.post(
             "http://localhost:5000/portfolio_manager/new",
-            data={
-                "email": email,
-                "name": "Daniel",
-            },
-            headers=headers
+            data={"email": email, "name": "Daniel"},
+            headers=headers,
         )
     ).json()
 
@@ -128,14 +125,16 @@ def verify():
 
     token = request.headers.get("token")
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-    
+
     r = (requests.post(BACKEND_URL + "verify", headers=headers)).json()
-    
+
     if r.get("status") == 400 or r.get("status") == 500:
         print(r)
         return create_response(status=r.get("status"), message=r.get("message"))
     print("passed")
-    return create_response(status=200, message=r.get("message"), data={"role": r.get("role")})
+    return create_response(
+        status=200, message=r.get("message"), data={"role": r.get("role")}
+    )
 
 
 @auth.route("/getUser", methods=["GET"])
@@ -515,9 +514,7 @@ def verify_token(token):
         return "Token is required.", None
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
-    r = (
-        requests.get(BACKEND_URL + "getUser", headers=headers)
-    ).json()
+    r = (requests.get(BACKEND_URL + "getUser", headers=headers)).json()
 
     if r.get("status") == 400:
         return r.get("message"), None

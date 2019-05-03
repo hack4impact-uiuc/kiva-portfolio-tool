@@ -40,10 +40,10 @@ SPACE = 1073741824
 
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
-    token = request.headers.get('token')
+    token = request.headers.get("token")
     message, info = verify_token(token)
 
-    #if message != None:
+    # if message != None:
     #    return create_response(status=400, message=message)
 
     config = json.load(open("api/views/171399529_b8tan54x_config.json"))

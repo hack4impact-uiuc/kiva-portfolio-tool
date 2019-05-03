@@ -298,64 +298,64 @@ class Register extends React.Component {
           </Card>
         </div>
       ) : (
-          <div className="check">
-            <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
-              <CardBody>
-                <Form>
-                  <FormGroup>
-                    <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
-                    <Label>PIN</Label>
-                    <Input
-                      name="pin"
-                      type="number"
-                      maxLength="10"
-                      minLength="4"
-                      value={this.state.pin}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </FormGroup>
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={this.handlePINResend}
-                    style={{
-                      float: 'left',
-                      marginBottom: '3%',
-                      width: '100%'
-                    }}
-                  >
-                    Resend PIN
-                  </Button>
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={this.handlePINVerify}
-                    style={{
-                      float: 'left',
-                      marginBotton: '3%',
-                      width: '100%'
-                    }}
-                  >
-                    Verify Email
-                  </Button>
-                  <Button
-                    color="link"
-                    size="sm"
-                    onClick={() => this.props.history.push('/')}
-                    style={{
-                      float: 'right',
-                      width: '25%',
-                      marginRight: '6%'
-                    }}
-                  >
-                    Skip Verification
-                  </Button>
-                </Form>
-                {this.state.passwordChangeMessage}
-              </CardBody>
-            </Card>
-            </div>
+        <div className="check">
+          <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
+            <CardBody>
+              <Form>
+                <FormGroup>
+                  <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
+                  <Label>PIN</Label>
+                  <Input
+                    name="pin"
+                    type="number"
+                    maxLength="10"
+                    minLength="4"
+                    value={this.state.pin}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </FormGroup>
+                <Button
+                  color="success"
+                  size="lg"
+                  onClick={this.handlePINResend}
+                  style={{
+                    float: 'left',
+                    marginBottom: '3%',
+                    width: '100%'
+                  }}
+                >
+                  Resend PIN
+                </Button>
+                <Button
+                  color="success"
+                  size="lg"
+                  onClick={this.handlePINVerify}
+                  style={{
+                    float: 'left',
+                    marginBotton: '3%',
+                    width: '100%'
+                  }}
+                >
+                  Verify Email
+                </Button>
+                <Button
+                  color="link"
+                  size="sm"
+                  onClick={() => this.props.history.push('/')}
+                  style={{
+                    float: 'right',
+                    width: '25%',
+                    marginRight: '6%'
+                  }}
+                >
+                  Skip Verification
+                </Button>
+              </Form>
+              {this.state.passwordChangeMessage}
+            </CardBody>
+          </Card>
+        </div>
       )}
     </div>
   )

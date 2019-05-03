@@ -10,7 +10,6 @@ import '../styles/login.css'
 import '../styles/navbar.css'
 
 class Wrong extends Component {
-
   render() {
     return (
       <div>

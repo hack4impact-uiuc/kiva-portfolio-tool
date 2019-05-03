@@ -577,14 +577,16 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
 
 export const getDocumentsByUser = userID => {
   let requestString = BACKEND_URL + '/document?uid=' + userID
-  return axios.get(requestString, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      token: getCookieFromBrowser('token')
-    }
-  }).then(response => {
-    return response.data.result.documents
-  })
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.documents
+    })
 }
 
 export const updateDocumentClass = (id, name, description, file, file_name) => {
