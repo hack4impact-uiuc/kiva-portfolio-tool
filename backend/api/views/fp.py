@@ -44,9 +44,8 @@ def get_fp_by_email(email):
         data={"field_partner": serialize_list(field_partner_by_email)}
     )
 
-
 @fp.route("/due_date/<id>", methods=["GET"])
-def get_duedate_by_fp(id):
+def get_duedate_by_fp(email):
     """ function that is called when you visit /due_date/<id>, gets an FP's due date by its ID """
     fp_by_id = FieldPartner.query.get(id)
     due_date = fp_by_id.date
