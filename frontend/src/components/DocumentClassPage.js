@@ -1,7 +1,7 @@
 import React from 'react'
 import DocumentClass from './DocumentClass'
 import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
-import { Button, Modal, ModalBody, ModalFooter, Table, Label, Media } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import '../styles/dashboard.css'
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => {
 A page accessible by admins and PMs with an overview of all Document Classes
 Functionality: Allows creation of new Document Classes and viewing/editing/deletion of existing ones through the DocumentClass component
 */
-class DocumentClassPage extends React.Component {
+export class DocumentClassPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -171,6 +171,12 @@ class DocumentClassPage extends React.Component {
                 : null}
             </tbody>
           </Table>
+        </div>
+
+        <div className="returnBtnContainer text-centered margin-bottom-xs">
+          <Button className="returnButton" onClick={this.props.history.goBack}>
+            Return
+          </Button>
         </div>
       </>
     )

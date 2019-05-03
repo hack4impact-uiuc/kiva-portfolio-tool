@@ -12,11 +12,13 @@ import {
   UncontrolledDropdown
 } from 'reactstrap'
 import LanguageSelector from './LanguageSelector'
+import NotificationsBar from './NotificationsBar'
 import { withRouter } from 'react-router-dom'
 import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
+import Sidebar from 'react-sidebar'
 import '../styles/index.css'
 import '../styles/navbar.css'
 
@@ -24,12 +26,28 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-class NavBar extends Component {
+const sidebarClassName = ['closed', 'opened']
+
+export class NavBar extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      isLoginPage: null
+      isLoginPage: null,
+      sidebarOpen: false,
+      sidebarClass: sidebarClassName[0]
+    }
+
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this)
+  }
+
+  onSetSidebarOpen(open) {
+    this.setState({ sidebarOpen: open })
+
+    if (this.state.sidebarClass === sidebarClassName[0]) {
+      this.setState({ sidebarClass: sidebarClassName[1] })
+    } else {
+      this.setState({ sidebarClass: sidebarClassName[0] })
     }
   }
 
@@ -50,6 +68,16 @@ class NavBar extends Component {
     const { isPM } = this.props
     return (
       <div>
+        <Sidebar
+          className={this.state.sidebarClass}
+          rootClassName="sidebar-root"
+          sidebarClassName="sidebar-styles"
+          sidebar={<NotificationsBar />}
+          open={this.state.sidebarOpen}
+          onSetOpen={this.onSetSidebarOpen}
+          pullRight={true}
+        />
+
         <Navbar className={this.props.className} color="white" light expand="md">
           {this.state.isLoginPage && (
             <NavbarBrand href="/">
@@ -73,11 +101,9 @@ class NavBar extends Component {
 
           {!this.state.isLoginPage && (
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <Button color="clear">
-                  <img src={info_image} width="29" height="29" />
-                </Button>
-              </NavItem>
+              <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
+                <img src={info_image} width="29" height="29" />
+              </Button>
 
               <NavItem className="sandwich">
                 <UncontrolledDropdown nav inNavbar>
@@ -85,7 +111,11 @@ class NavBar extends Component {
                     <img src={sandwich_image} width="30" height="35" />
                   </DropdownToggle>
                   <DropdownMenu right>
-                    {isPM && <DropdownItem>Manage Documents</DropdownItem>}
+                    {isPM && (
+                      <DropdownItem onClick={() => this.props.history.push('/documentclasspage')}>
+                        Manage Documents
+                      </DropdownItem>
+                    )}
                     <DropdownItem>Log Out</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>

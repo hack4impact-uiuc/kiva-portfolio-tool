@@ -13,7 +13,7 @@ beforeAll(() => {
 })
 
 test('PMMainPage renders correctly', () => {
-  const component = mount(<PMMainPage />)
+  const component = shallow(<PMMainPage />)
 
   let tree = mountToJson(component)
   jestExpect(tree).toMatchSnapshot()
@@ -22,7 +22,7 @@ test('PMMainPage renders correctly', () => {
 describe('<PMMainPage />', () => {
   it('calls componentDidMount', () => {
     sinon.spy(PMMainPage.prototype, 'componentDidMount')
-    const wrapper = mount(<PMMainPage />)
+    const wrapper = shallow(<PMMainPage />)
     expect(PMMainPage.prototype.componentDidMount).to.have.property('callCount', 1)
     PMMainPage.prototype.componentDidMount.restore()
   })

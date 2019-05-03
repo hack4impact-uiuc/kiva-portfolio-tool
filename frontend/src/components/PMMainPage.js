@@ -5,10 +5,26 @@ import 'react-tabs/style/react-tabs.css'
 import { bindActionCreators } from 'redux'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
-import { Progress, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import {
+  Container,
+  Row,
+  Col,
+  Progress,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
 import WithAuth from './WithAuth'
+import Navbar from './NavBar'
+
+import add from '../media/add.png'
+// same button styling as in document class page
+// 'Add New Doc Class' button styling the same
+import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -125,7 +141,8 @@ export class PMMainPage extends Component {
 
   render() {
     return (
-      <div className="page">
+      <div className="page maxheight">
+        <Navbar />
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>Add New Field Partner</ModalHeader>
           <ModalBody>
@@ -153,84 +170,101 @@ export class PMMainPage extends Component {
             <Button onClick={this.handleNewFP}>Create</Button>
           </ModalFooter>
         </Modal>
-        <div>
-          <span />
-          <p>Fieldy McPartnerson</p>
-        </div>
-        <h2>Field Partners</h2>
-        <Button onClick={this.toggle}>Add New Field Partner</Button>
-        <form onSubmit={this.handleSubmit}>
-          <img src={search} width="25" />
-          <input
-            className="input-master"
-            type="text"
-            value={this.state.query}
-            placeholder="Search for a Field Partner..."
-            onChange={this.handleQueryChange}
-          />
-        </form>
 
-        <Tabs className="tab-master">
-          <TabList className="react-tabs__tab-list">
-            <Tab>In Process</Tab>
-            <Tab>New Partner</Tab>
-            <Tab>Complete</Tab>
-          </TabList>
+        <Container className="maxheight">
+          <Row>
+            <Col className="text-center sidebar-background" md="2">
+              <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
+                <img className="addImg" src={add} />
+                <span className="add-doc-text">Add New</span>
+              </Button>
+            </Col>
 
-          <TabPanel>
-            <div className="partnerPanel">
-              {this.state.filtered
-                .filter(partner => partner.app_status == 'In Process')
-                .map(partner => {
-                  return (
-                    <Button
-                      className="partnerButton"
-                      color="transparent"
-                      onClick={() => this.handleClickIP(partner._id)}
-                    >
-                      <PartnerBar partner={partner} />
-                    </Button>
-                  )
-                })}
-            </div>
-          </TabPanel>
+            <Col className="fp-background" md="10">
+              <h2 className="margin-top-sm">Field Partners</h2>
+              <form onSubmit={this.handleSubmit}>
+                <img src={search} width="23" />
+                <span>
+                  <input
+                    className="input-master margin-bottom-xs margin-top-xs"
+                    type="text"
+                    value={this.state.query}
+                    placeholder="Search for a Field Partner..."
+                    onChange={this.handleQueryChange}
+                  />
+                </span>
+              </form>
+            </Col>
+          </Row>
 
-          <TabPanel>
-            <div className="partnerPanel">
-              {this.state.filtered
-                .filter(partner => partner.app_status == 'New Partner')
-                .map(partner => {
-                  return (
-                    <Button
-                      className="partnerButton"
-                      color="transparent"
-                      onClick={() => this.handleClickNew(partner._id)}
-                    >
-                      <PartnerBar partner={partner} />
-                    </Button>
-                  )
-                })}
-            </div>
-          </TabPanel>
+          <Tabs className="tab-master maxheight">
+            <Row className="maxheight">
+              <Col className="sidebar-background" md="2">
+                <TabList className="react-tabs__tab-list">
+                  <Tab>In Process</Tab>
+                  <Tab>New Partner</Tab>
+                  <Tab>Complete</Tab>
+                </TabList>
+              </Col>
 
-          <TabPanel>
-            <div className="partnerPanel">
-              {this.state.filtered
-                .filter(partner => partner.app_status == 'Complete')
-                .map(partner => {
-                  return (
-                    <Button
-                      className="partnerButton"
-                      color="transparent"
-                      onClick={() => this.handleClickNew(partner._id)}
-                    >
-                      <PartnerBar partner={partner} />
-                    </Button>
-                  )
-                })}
-            </div>
-          </TabPanel>
-        </Tabs>
+              <Col className="fp-background" md="10">
+                <TabPanel>
+                  <div className="partnerPanel">
+                    {this.state.filtered
+                      .filter(partner => partner.app_status == 'In Process')
+                      .map(partner => {
+                        return (
+                          <Button
+                            className="partnerButton"
+                            color="transparent"
+                            onClick={() => this.handleClickIP(partner._id)}
+                          >
+                            <PartnerBar partner={partner} />
+                          </Button>
+                        )
+                      })}
+                  </div>
+                </TabPanel>
+
+                <TabPanel>
+                  <div className="partnerPanel">
+                    {this.state.filtered
+                      .filter(partner => partner.app_status == 'New Partner')
+                      .map(partner => {
+                        return (
+                          <Button
+                            className="partnerButton"
+                            color="transparent"
+                            onClick={() => this.handleClickNew(partner._id)}
+                          >
+                            <PartnerBar partner={partner} />
+                          </Button>
+                        )
+                      })}
+                  </div>
+                </TabPanel>
+
+                <TabPanel>
+                  <div className="partnerPanel">
+                    {this.state.filtered
+                      .filter(partner => partner.app_status == 'Complete')
+                      .map(partner => {
+                        return (
+                          <Button
+                            className="partnerButton"
+                            color="transparent"
+                            onClick={() => this.handleClickNew(partner._id)}
+                          >
+                            <PartnerBar partner={partner} />
+                          </Button>
+                        )
+                      })}
+                  </div>
+                </TabPanel>
+              </Col>
+            </Row>
+          </Tabs>
+        </Container>
       </div>
     )
   }
@@ -286,7 +320,9 @@ class PartnerBar extends Component {
           <div className="due">Due</div>
           {partner.duedate}
         </div>
-        <div className="iconBox">{partner.org_name[0]}</div>
+        <div className="partner-icon">
+          <p className="partner-org-initials">{partner.org_name[0]}</p>
+        </div>
         <div className="nameProgressDisplay">
           <div>{partner.org_name}</div>
           <div className="progressAdditional">

@@ -22,8 +22,8 @@ import {
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-import '../styles/dashboard.css'
 import '../styles/index.css'
+import '../styles/dashboard.css'
 import 'box-ui-elements/dist/preview.css'
 
 // Not needed unless working with non "en" locales
@@ -49,8 +49,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-
-class Dashboard extends React.Component {
+export class Dashboard extends React.Component {
   constructor(props) {
     super(props)
 
@@ -134,13 +133,11 @@ class Dashboard extends React.Component {
                   })
               : null}
           </Row>
-          <NotificationsBar />
         </Container>
       </div>
     )
   }
 }
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps

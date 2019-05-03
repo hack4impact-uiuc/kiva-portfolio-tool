@@ -1,7 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DocumentPreview renders correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Fragment>
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
+  >
+    <ModalHeader
+      charCode={215}
+      closeAriaLabel="Close"
+      tag="h5"
+      wrapTag="div"
+    />
+    <ModalBody
+      id="modal-box"
+      tag="div"
+    >
+      <Iframe
+        allowFullScreen={true}
+        className="iframe-relative iframe-modal"
+      />
+    </ModalBody>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Close
+      </Button>
+    </ModalFooter>
+  </Modal>
+</Fragment>
 `;

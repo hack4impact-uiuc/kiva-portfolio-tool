@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-class DocumentListItem extends Component {
+export class DocumentListItem extends Component {
   constructor(props) {
     super(props)
 
@@ -73,7 +73,7 @@ class DocumentListItem extends Component {
             <DocumentPreview document={this.state.document} />
           </td>
           <td data-testid="interaction" className="interaction">
-            {this.state.fileName ? (
+            {this.props.fileName ? (
               <Button color="transparent">
                 <Link
                   to={{
@@ -112,4 +112,7 @@ class DocumentListItem extends Component {
   }
 }
 
-export default connect(mapStateToProps)(withRouter(DocumentListItem))
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(DocumentListItem))

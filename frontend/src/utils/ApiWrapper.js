@@ -364,15 +364,18 @@ export const getAllDocuments = () => {
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
-    { name: 'joe', time: '4/12/18', description: 'GO DO SHIT' },
-    { name: 'schmoe', time: '4/12/19', description: 'DO SOME OTHER CRAP' },
-    { name: 'bro', time: '4/12/17', description: 'OOF' }
+    { name: 'PM', time: '4/12/18', description: 'Rejected Strategic Plan' },
+    { name: 'PM', time: '4/12/19', description: 'Rejected Annual Plan' },
+    { name: 'PM', time: '4/12/17', description: 'Approved Financial Projections' },
+    { name: 'PM', time: '4/12/17', description: 'Approved Organizational Chart' }
   ]
 }
 
 export const getAllInformation = () => {
   // get information received by target user
-  return ['I need you to not work on IST and get in the documents asap']
+  return [
+    'Special instructions about the format of specific requiremeents or general information about the review process here.'
+  ]
 }
 
 export const getPartnersByPM = pm_id => {

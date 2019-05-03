@@ -5,7 +5,7 @@ const UPDATE_MESSAGES = 'user/update_messages'
 const UPDATE_INFORMATION = 'user/update_information'
 
 const initialState = {
-  isPM: false,
+  isPM: true,
   documents: [],
   documentClasses: [],
   messages: [],

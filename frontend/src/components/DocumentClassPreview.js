@@ -13,7 +13,7 @@ Used to view information about a Document CLass when pressing 'View'
 Allows users to see the name & description of a Document Class
 ALso has a box Preview
 */
-class DocumentClassPreview extends Component {
+export class DocumentClassPreview extends Component {
   constructor(props) {
     super(props)
     this.state = {
