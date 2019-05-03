@@ -3,6 +3,7 @@ const UPDATE_DOCUMENTS = 'user/update_documents'
 const UPDATE_DOCUMENT_CLASSES = 'user/update_document_classes'
 const UPDATE_MESSAGES = 'user/update_messages'
 const UPDATE_INFORMATION = 'user/update_information'
+const UPDATE_DUE_DATE = 'user/update_due_date'
 
 const initialState = {
   isPM: false,
@@ -38,6 +39,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         information: action.value
       }
+    case UPDATE_DUE_DATE:
+      return {
+        ...state,
+        due_date: action.value
+      }
     default:
       return state
   }
@@ -65,5 +71,10 @@ export const updateMessages = value => ({
 
 export const updateInformation = value => ({
   type: UPDATE_INFORMATION,
+  value
+})
+
+export const updateDueDate = value => ({
+  type: UPDATE_DUE_DATE,
   value
 })

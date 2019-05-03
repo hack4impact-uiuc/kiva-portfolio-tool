@@ -28,4 +28,4 @@ class FieldPartner(Mixin, db.Model):
         self.app_status = data["app_status"]
 
     def __repr__(self):
-        return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n:PM ID: {self.pm_id}>"
+        return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n:PM ID: {self.pm_id}\nDate: {self.date}>"

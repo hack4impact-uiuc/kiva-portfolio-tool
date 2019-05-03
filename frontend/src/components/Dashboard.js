@@ -5,7 +5,8 @@ import {
   getAllDocuments,
   getDocumentsByUser,
   getAllMessages,
-  getAllInformation
+  getAllInformation,
+  getDueDateByPartner
 } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -14,6 +15,7 @@ import {
   updateDocuments,
   updateMessages,
   updateInformation,
+  updateDueDate,
   setUserType
 } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
@@ -30,8 +32,7 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
   messages: state.user.messages,
-  information: state.user.information,
-  duedate: state.user.duedate
+  information: state.user.information
 })
 
 const mapDispatchToProps = dispatch => {
@@ -40,6 +41,7 @@ const mapDispatchToProps = dispatch => {
       updateDocuments,
       updateMessages,
       updateInformation,
+      updateDueDate,
       setUserType,
       beginLoading,
       endLoading
@@ -83,6 +85,11 @@ export class Dashboard extends React.Component {
      */
     const informationReceived = await getAllInformation()
 
+    /**
+     * Contains due date of Field Partner from backend
+     */
+    const dueDateReceived = await getDueDateByPartner()
+
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
     } else {
@@ -100,6 +107,12 @@ export class Dashboard extends React.Component {
     } else {
       this.props.updateInformation([])
     }
+
+    if (dueDateReceived) {
+      this.props.updateDueDate(dueDateReceived)
+    } else {
+      this.props.updateDueDate([])
+    }
     this.props.endLoading()
   }
 
@@ -111,7 +124,7 @@ export class Dashboard extends React.Component {
     return (
       <div>
         <NavBar />
-        <h2 className="due-date"> Due Date: {this.props.duedate} </h2>
+        <h1 className="due-date"> Due Date: {this.props.duedate} </h1>
         <Container>
           <Row>
             {this.props.documents

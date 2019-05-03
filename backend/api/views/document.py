@@ -20,8 +20,7 @@ def get_document():
     kwargs["fileName"] = request.args.get("fileName")
     kwargs["latest"] = request.args.get("latest")
 
-    # stores date and time for parse searching
-    date = request.args.get("date")
+    # stores time for parse searching
     description = request.args.get("description")
 
     # refines kwargs to remove all the None values and only search by values provided
@@ -42,8 +41,6 @@ def get_document():
                 if i.description is not None
                 and description.lower() in i.description.lower()
             ]
-        if date is not None:
-            docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
         # Adds a field called docClassName to each document
         for doc in docs:
@@ -81,9 +78,6 @@ def get_document():
                 if i.description is not None
                 and description.lower() in i.description.lower()
             ]
-
-        if date is not None:
-            docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
         for doc in docs:
             doc.docClassName = DocumentClass.query.get(doc.docClassID).name
@@ -188,14 +182,9 @@ def create_new_documents():
     if "docClassIDs" not in data:
         return create_response(status=400, message="No document classes provided")
 
-    if "dueDate" not in data:
-        return create_response(status=400, message="No due date provided")
-
     userID = data.get("userID")
 
     status = "Missing"
-
-    date = data.get("dueDate")
 
     document_class_ids = data.get("docClassIDs").split(",")
 
@@ -204,7 +193,6 @@ def create_new_documents():
             "userID": userID,
             "status": status,
             "docClassID": document_class_id,
-            "date": date,
         }
         new_doc = Document(data)
         db.session.add(new_doc)
@@ -248,7 +236,6 @@ def update_documents(docClassID):
     #   replace if updated item data provided
     #   else keep old value
     doc.fileID = data.get("fileID", doc.fileID)
-    doc.date = data.get("date", doc.date)
     doc.status = data.get("status", doc.status)
     doc.docClassID = data.get("docClassID", doc.docClassID)
     doc.fileName = data.get("fileName", doc.fileName)

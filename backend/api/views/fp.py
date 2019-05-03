@@ -44,6 +44,15 @@ def get_fp_by_email(email):
         data={"field_partner": serialize_list(field_partner_by_email)}
     )
 
+@fp.route("/due_date/<id>", methods=["GET"])
+def get_duedate_by_fp(email):
+    """ function that is called when you visit /due_date/<id>, gets an FP's due date by its ID """
+    fp_by_id = FieldPartner.query.get(id)
+    due_date = fp_by_id.to_dict()[date]
+    return create_response(
+        data={"due_date": due_date}
+    )
+
 
 @fp.route("/field_partner/org_name/<id>", methods=["GET"])
 def get_org_by_id(id):
@@ -82,6 +91,8 @@ def new_fp():
         )
     if "pm_id" not in data:
         return create_response(status=400, message="No PM ID provided for new FP")
+    if "dueDate" not in data:
+        return create_response(status=400, message="No due date provided")
     if "app_status" not in data:
         return create_response(
             status=400, message="No application status provided for new FP"
