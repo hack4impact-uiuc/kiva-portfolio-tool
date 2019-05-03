@@ -60,7 +60,7 @@ def register_user():
         return create_response(status=400, message=r.get("message"))
 
     token = r.get("token")
-    print(email)
+
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     local_r = (
@@ -70,8 +70,6 @@ def register_user():
             headers=headers,
         )
     ).json()
-
-    print(local_r)
 
     return create_response(
         status=200,
@@ -129,9 +127,7 @@ def verify():
     r = (requests.post(BACKEND_URL + "verify", headers=headers)).json()
 
     if r.get("status") == 400 or r.get("status") == 500:
-        print(r)
         return create_response(status=r.get("status"), message=r.get("message"))
-    print("passed")
     return create_response(
         status=200, message=r.get("message"), data={"role": r.get("role")}
     )
