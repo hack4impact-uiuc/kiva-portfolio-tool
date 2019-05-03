@@ -1,5 +1,19 @@
 @import "variables.scss";
 
+body {
+    background: url(../media/PMFPPageBG.svg) no-repeat center center;
+    background-size: cover; 
+    background-attachment: fixed;
+}
+
+.progressAdditional {
+    padding-top: 2%;
+}
+
+.progressAdditional > .progress {
+    border-radius: 10px;
+}
+
 .progress > .bg-dashgrey {
     background-color: $missing-color;
 }
@@ -16,67 +30,78 @@
     background-color: $pending-color;
 }
   
-
 .page {
     text-align: center ;
     font-family: rubik;
 }
 
 .page h2 {
-    // font-weight: bold;
     color: $accepted-color;
-    font-size: 5rem;
+    font-size: 3rem;
 }
 
+.page .container {
+    /* override reactstrap styling */
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
 
 .input-master {
     border: none;
     border-bottom: $shadow-color solid 1px;
     background-color: transparent;
-    width: 23%; 
-    text-indent: 5px;
+    max-width: 75%; 
     margin: 0;
-
 }
 
-::placeholder{text-indent: 40px; font-size: large; } 
+::placeholder{font-size: large;} 
 
-.tab-master {
-    margin-top: 4%;
+.fp-background {
+    background-color: $fp-background-shadow;
+}
+
+.sidebar-background {
+    background-color: $fp-sidebar-shadow;
+}
+
+.fp-background .react-tabs__tab-panel {
+    margin: 0% 2%;
 }
 
 .partnerPanel {
+    margin-top: 5%;
     justify-content: center;
     display: grid;
-    grid-template-columns: 30% 30%;
-    /*grid-template-rows: 60% 60%;*/
-    grid-column-gap: 2%;
-    grid-row-gap: 8%;
-    margin-top: 2%;
+    grid-template-columns: 40% 40%;
+    grid-column-gap: 3%;
+    grid-row-gap: 10%;
+    position: relative;
 }
 
 .partnerPanel .partnerButton {
     padding: 0%;
     margin: 0px;
     border-radius: 26px;
-    border-width: 0px
+    border-width: 0px;
+    box-shadow: 0px 1px 5px 0px $light-shadow;
 }
 
 .partnerBox {
     padding: 4%;
     padding-left: 0;
     padding-right: 0;
-    background-color: $background-color;
+    background-color: white;
     border-radius: 26px;
-    box-shadow: 0px 0px 7px 1px $shadow-color;
     display: flex;
     flex-flow: row;
 }
 
 .partnerBox .nameProgressDisplay {
-    font-size: x-large;
+    font-size: large;
     width: 60%;
     text-align: left;
+    margin-left: 5%;
 }
 
 .partnerBox .iconBox {
@@ -88,20 +113,20 @@
     display: inline-block;
     color: #ffffff;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 500;
     margin-left: 2%;
     margin-right: 4%;
-    zoom: 150%;
 }
 
 .partnerBox .duedate {
-    font-size: x-large;
+    font-size: large;
     width: 15%;
+    margin-left: 3%;
 }
 
 .partnerBox .due {
-    font-size: x-large;
+    font-size: large;
 }
 
 .progressAdditional {
@@ -117,20 +142,54 @@
 
 .react-tabs__tab-list {
     border-bottom: none;
-    font-size: 2rem;
+    font-size: 16pt;
 }
 
 .react-tabs__tab {
+    display: block;
+    padding: 7% 0;
     border: none;
     color: $gray-text-color;
     font-weight: 500;
-    margin-left: 50px;
-    margin-right: 50px;
+}
+
+.react-tabs__tab:hover {
+    background: none;
+    border-color: $accepted-color;
+    color: $accepted-color;
 }
 
 .react-tabs__tab--selected {
+    text-align: right;
+    margin-right: 5%;
     background: none;
-    border-bottom: 1px solid;
     border-color: $accepted-color;
     color: $accepted-color;
+}
+
+.partner-icon {
+    display: block;
+    height:60px;
+    width: 60px;
+    background-color: $link-color;
+    border-radius: 100%;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 500;
+    border: none;
+    margin: 0% 2%;
+}
+
+.partner-org-initials {
+    padding: 0;
+    text-align: center;
+}
+
+#new-fp-button {
+    background-color: white;
+    border-radius: 50px;
+    border: none;
+    padding: 10% 15%;
+    margin-top: 50%;
+    box-shadow: 0px 1px 5px 0px $light-shadow;
 }
