@@ -7,7 +7,12 @@ import { getCookieFromBrowser, getCookie } from './cookie'
 export const getAllPMs = () => {
   let requestString = BACKEND_URL + '/portfolio_manager'
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.portfolio_manager
     })
@@ -20,7 +25,7 @@ export const getAllPMs = () => {
 export const getUserRole = () => {
   let requestString = BACKEND_URL + '/getUser'
   return axios
-    .get(requestString, null, {
+    .get(requestString, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -185,7 +190,12 @@ export const getSecurityQuestionForUser = email => {
   let data = new FormData()
   data.append('email', email)
   return axios
-    .post(BACKEND_URL + '/getSecurityQuestionForUser', data)
+    .post(BACKEND_URL + '/getSecurityQuestionForUser', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',
@@ -224,7 +234,12 @@ export const resetPassword = (email, answer, pin, password) => {
   data.append('pin', pin)
   data.append('password', password)
   return axios
-    .post(BACKEND_URL + '/resetPassword', data)
+    .post(BACKEND_URL + '/resetPassword', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',
@@ -313,7 +328,12 @@ export const resendPIN = () => {
 export const getAllDocumentClasses = () => {
   let requestString = BACKEND_URL + '/document_class'
   return axios
-    .get(requestString)
+    .get(requestString, null, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.document_class
     })
@@ -358,7 +378,12 @@ export const getAllInformation = () => {
 export const getPartnersByPM = pm_id => {
   let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.field_partner
     })
@@ -373,7 +398,12 @@ export const getPartnersByPM = pm_id => {
 export const getPartnersByStatus = app_status => {
   let requestString = BACKEND_URL + '/field_partner/status/' + app_status
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.field_partner
     })
@@ -388,7 +418,12 @@ export const getPartnersByStatus = app_status => {
 export const getAllPartners = () => {
   let requestString = BACKEND_URL + '/field_partner'
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.field_partner
     })
@@ -520,7 +555,12 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
   data.append('docClassIDs', docClassIDs)
   data.append('dueDate', dueDate)
   return axios
-    .post(requestString, data)
+    .post(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'CREATE_DOCUMENTS_SUCCESS',
@@ -537,7 +577,12 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
 
 export const getDocumentsByUser = userID => {
   let requestString = BACKEND_URL + '/document?uid=' + userID
-  return axios.get(requestString).then(response => {
+  return axios.get(requestString, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      token: getCookieFromBrowser('token')
+    }
+  }).then(response => {
     return response.data.result.documents
   })
 }

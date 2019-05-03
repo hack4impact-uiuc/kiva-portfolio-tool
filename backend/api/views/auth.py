@@ -60,6 +60,7 @@ def register_user():
         return create_response(status=400, message=r.get("message"))
 
     token = r.get("token")
+    print(email)
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
     
     local_r = (
@@ -512,7 +513,6 @@ def verify_token(token):
 
     if token is None:
         return "Token is required.", None
-    print("token: ", token)
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     r = (
