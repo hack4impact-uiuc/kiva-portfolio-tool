@@ -43,6 +43,22 @@ html, body {
   margin-right: 3%;
 }
 
+.margin-bottom-xs {
+  margin-bottom: 2%;
+}
+
+.margin-top-xs {
+  margin-top: 2%;
+}
+
+.margin-bottom-sm {
+  margin-bottom: 5%;
+}
+
+.margin-top-sm {
+  margin-top: 5%;
+}
+
 .text-white {
   color: white;
 }
@@ -59,4 +75,8 @@ html, body {
 .center-background {
   margin-left: auto;
   margin-right: auto;
+}
+
+.maxheight {
+  height: 100%;
 }

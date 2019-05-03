@@ -25,7 +25,7 @@ const store = configureStore()
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter onUpdate={() => window.scrollTo(0, 0)} history={history}>
-      <div>
+      <div className="maxheight">
         <Load />
         <Switch>
           <Route exact path="/" component={LogIn} />
