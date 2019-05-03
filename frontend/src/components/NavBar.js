@@ -68,15 +68,27 @@ export class NavBar extends Component {
     const { isPM } = this.props
     return (
       <div>
-        <Sidebar
-          className={this.state.sidebarClass}
-          rootClassName="sidebar-root"
-          sidebarClassName="sidebar-styles"
-          sidebar={<NotificationsBar />}
-          open={this.state.sidebarOpen}
-          onSetOpen={this.onSetSidebarOpen}
-          pullRight={true}
-        />
+        {this.state.sidebarOpen ? (
+          <Sidebar
+            className={this.state.sidebarClass}
+            rootClassName="sidebar-root"
+            sidebarClassName="sidebar-styles"
+            sidebar={<NotificationsBar />}
+            open={this.state.sidebarOpen}
+            onSetOpen={this.onSetSidebarOpen}
+            pullRight={true}
+          />
+        ) : (
+          <Sidebar
+            className={this.state.sidebarClass}
+            rootClassName="sidebar-root hide"
+            sidebarClassName="sidebar-styles"
+            sidebar={<NotificationsBar />}
+            open={this.state.sidebarOpen}
+            onSetOpen={this.onSetSidebarOpen}
+            pullRight={true}
+          />
+        )}
 
         <Navbar className={this.props.className} color="white" light expand="md">
           {this.state.isLoginPage && (
