@@ -167,7 +167,12 @@ def test_get_messages_by_fp(client):
     db.session.commit()
 
     temp_message_not_fp = create_message(
-        helper_portfolio_manager, helper_field_partner, False, helper_doc, "Approved"
+        helper_portfolio_manager,
+        helper_field_partner,
+        False,
+        helper_doc,
+        "Approved",
+        "Your document has been reviewed and has been Approved.",
     )
     # TODO: just use the given document's status instead of passing it to the message?
     db.session.add(temp_message_not_fp)
@@ -209,7 +214,12 @@ def test_get_messages_by_pm(client):
     db.session.commit()
 
     temp_message_not_fp = create_message(
-        helper_portfolio_manager, helper_field_partner, False, helper_doc, "Approved"
+        helper_portfolio_manager,
+        helper_field_partner,
+        False,
+        helper_doc,
+        "Approved",
+        "Your document has been reviewed and has been Approved.",
     )
     # TODO: just use the given document's status instead of passing it to the message?
     db.session.add(temp_message_not_fp)
