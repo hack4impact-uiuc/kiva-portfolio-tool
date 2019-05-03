@@ -326,7 +326,6 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
 
 export const getAllMessages = (user_id, is_pm) => {
   // get notifications received by target user
-<<<<<<< HEAD
   let requestString = BACKEND_URL + '/messages/'
   if (is_pm) {
     requestString = requestString + 'pm/' + user_id
@@ -349,14 +348,6 @@ export const getAllMessages = (user_id, is_pm) => {
   //     { name: 'schmoe', time: '4/12/19', description: 'DO SOME OTHER CRAP' },
   //     { name: 'bro', time: '4/12/17', description: 'OOF' }
   //   ]
-=======
-  return [
-    { name: 'PM', time: '4/12/18', description: 'Rejected Strategic Plan' },
-    { name: 'PM', time: '4/12/19', description: 'Rejected Annual Plan' },
-    { name: 'PM', time: '4/12/17', description: 'Approved Financial Projections' },
-    { name: 'PM', time: '4/12/17', description: 'Approved Organizational Chart' }
-  ]
->>>>>>> master
 }
 
 export const getAllInformation = () => {
