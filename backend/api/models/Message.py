@@ -30,8 +30,7 @@ class Message(Mixin, db.Model):
         self.to_fp = data["to_fp"]
         self.doc_id = data["doc_id"]
         self.status = data["status"]
-        if "description" in data:
-            self.description = data["description"]
+        self.description = data["description"]
         self.time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         # optional fields checked manually

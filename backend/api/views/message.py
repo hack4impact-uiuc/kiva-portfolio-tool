@@ -104,9 +104,9 @@ def add_message():
         f"Your document has been reviewed and was {status}.",  # status [approved/rejected]
         f"Your Field Partner from {organization} has uploaded a document for {docclass_name}.",  # organization, document class name
     ]
+    # Add a field called "description" to the message
     data["description"] = contents[message_type.value]
 
-    # Send a message
     recipient = (
         FieldPartner.query.get(data["fp_id"])
         if data["to_fp"]
