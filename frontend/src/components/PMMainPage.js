@@ -153,6 +153,7 @@ export class PMMainPage extends Component {
                 size="50"
                 placeholder="Enter the Field Partner's organization name here..."
                 onChange={this.handleNameChange}
+                className="input-master2"
               />
               <p>Email:</p>
               <input
@@ -161,6 +162,7 @@ export class PMMainPage extends Component {
                 size="50"
                 placeholder="Enter the Field Partner's email here..."
                 onChange={this.handleEmailChange}
+                className="input-master2"
               />
             </form>
           </ModalBody>
