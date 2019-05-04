@@ -12,6 +12,7 @@ import LoginPage from './LoginPage'
 import ForgotPassword from './ForgotPassword'
 import Load from './Load'
 import WrongPage from './WrongPage'
+import ErrorMessage from './ErrorMessage'
 
 export {
   Dashboard,
@@ -28,4 +29,5 @@ export {
   DocumentPreview,
   Load,
   WrongPage
+  ErrorMessage
 }
