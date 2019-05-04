@@ -288,7 +288,7 @@ export const getAllDocuments = () => {
     })
 }
 
-export const getFPNameByID = (id) => {
+export const getFPNameByID = id => {
   let requestString = BACKEND_URL + '/field_partner/' + id
   return axios
     .get(requestString)
@@ -421,8 +421,6 @@ export const createFieldPartner = (org_name, email, pm_id) => {
       }
     })
 }
-
-
 
 /*
 export const getAllPartners = () => {

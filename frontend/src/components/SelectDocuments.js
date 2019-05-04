@@ -1,6 +1,11 @@
 import React from 'react'
 import { Selector } from './Selector'
-import { getAllDocumentClasses, createDocuments, getDocumentsByUser, getFPNameByID } from '../utils/ApiWrapper'
+import {
+  getAllDocumentClasses,
+  createDocuments,
+  getDocumentsByUser,
+  getFPNameByID
+} from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
@@ -42,7 +47,7 @@ export class SelectDocumentsPage extends React.Component {
       // state that updates depending on what the user types in query bar
       query: '',
       fp_id: null,
-      fp_org_name: '',
+      fp_org_name: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -66,7 +71,7 @@ export class SelectDocumentsPage extends React.Component {
     if (this.props.match) {
       this.setState({ fp_id: this.props.match.params.id })
       fp_info = await getFPNameByID(this.props.match.params.id)
-      this.setState({fp_org_name: fp_info})
+      this.setState({ fp_org_name: fp_info })
     }
 
     this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
@@ -151,7 +156,12 @@ export class SelectDocumentsPage extends React.Component {
         <Navbar />
         <div className="topBar">
           <div className="iconTop">
-            <p className="iconInfo">{this.state.fp_org_name.replace(/\W*(\w)\w*/g, '$1').toUpperCase().substring(0,2)}</p>
+            <p className="iconInfo">
+              {this.state.fp_org_name
+                .replace(/\W*(\w)\w*/g, '$1')
+                .toUpperCase()
+                .substring(0, 2)}
+            </p>
           </div>
           <div className="partnernamebox">
             <h3 className="partnername">{this.state.fp_org_name}</h3>
