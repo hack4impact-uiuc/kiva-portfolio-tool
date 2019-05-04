@@ -15,7 +15,7 @@ import {
   LoginPage,
   ForgotPassword,
   Load,
-  WrongPage
+  WrongPage,
   ErrorMessage
 } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'

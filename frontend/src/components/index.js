@@ -28,6 +28,6 @@ export {
   DocumentClassPage,
   DocumentPreview,
   Load,
-  WrongPage
+  WrongPage,
   ErrorMessage
 }
