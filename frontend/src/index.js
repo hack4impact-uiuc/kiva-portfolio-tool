@@ -16,6 +16,7 @@ import {
   ForgotPassword,
   Load,
   WrongPage
+  ErrorMessage
 } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
@@ -39,6 +40,7 @@ ReactDOM.render(
           <Route path="/documentclasspage" component={DocumentClassPage} />
           <Route path="/view/:name/:id" component={DocumentPreview} />
           <Route path="/oops" component={WrongPage} />
+          <Route path="*" component={ErrorMessage} />
         </Switch>
       </div>
     </ConnectedRouter>
