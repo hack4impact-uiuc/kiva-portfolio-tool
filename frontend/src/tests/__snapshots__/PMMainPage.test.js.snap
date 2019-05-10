@@ -87,77 +87,6 @@ exports[`PMMainPage renders correctly 1`] = `
     className="maxheight"
     tag="div"
   >
-    <Row
-      tag="div"
-    >
-      <Col
-        className="text-center sidebar-background"
-        md="2"
-        tag="div"
-        widths={
-          Array [
-            "xs",
-            "sm",
-            "md",
-            "lg",
-            "xl",
-          ]
-        }
-      >
-        <Button
-          className="add-doc-text"
-          color="secondary"
-          id="new-fp-button"
-          onClick={[Function]}
-          tag="button"
-        >
-          <img
-            className="addImg"
-            src="add.png"
-          />
-          <span
-            className="add-doc-text"
-          >
-            Add New
-          </span>
-        </Button>
-      </Col>
-      <Col
-        className="fp-background"
-        md="10"
-        tag="div"
-        widths={
-          Array [
-            "xs",
-            "sm",
-            "md",
-            "lg",
-            "xl",
-          ]
-        }
-      >
-        <h2
-          className="margin-top-sm"
-        >
-          Field Partners
-        </h2>
-        <form>
-          <img
-            src="search.png"
-            width="23"
-          />
-          <span>
-            <input
-              className="input-master margin-bottom-xs margin-top-xs"
-              onChange={[Function]}
-              placeholder="Search for a Field Partner..."
-              type="text"
-              value=""
-            />
-          </span>
-        </form>
-      </Col>
-    </Row>
     <Tabs
       className="tab-master maxheight"
       defaultFocus={false}
@@ -172,6 +101,7 @@ exports[`PMMainPage renders correctly 1`] = `
         <Col
           className="sidebar-background"
           md="2"
+          sm="12"
           tag="div"
           widths={
             Array [
@@ -186,6 +116,25 @@ exports[`PMMainPage renders correctly 1`] = `
           <TabList
             className="react-tabs__tab-list"
           >
+            <Button
+              className="add-doc-text maxWidthFull"
+              color="secondary"
+              id="new-fp-button"
+              onClick={[Function]}
+              tag="button"
+            >
+              <img
+                className="addImg"
+                id="new-fp-button-img"
+                src="add.png"
+              />
+              <span
+                className="add-doc-text"
+                id="new-fp-button-text"
+              >
+                Add New
+              </span>
+            </Button>
             <Tab
               className="react-tabs__tab"
               disabledClassName="react-tabs__tab--disabled"
@@ -224,6 +173,7 @@ exports[`PMMainPage renders correctly 1`] = `
         <Col
           className="fp-background"
           md="10"
+          sm="12"
           tag="div"
           widths={
             Array [
@@ -235,6 +185,46 @@ exports[`PMMainPage renders correctly 1`] = `
             ]
           }
         >
+          <Row
+            className="text-centered"
+            tag="div"
+          >
+            <Col
+              className="fp-background"
+              md="10"
+              tag="div"
+              widths={
+                Array [
+                  "xs",
+                  "sm",
+                  "md",
+                  "lg",
+                  "xl",
+                ]
+              }
+            >
+              <h2
+                className="margin-top-sm"
+              >
+                Field Partners
+              </h2>
+              <form>
+                <img
+                  src="search.png"
+                  width="23"
+                />
+                <span>
+                  <input
+                    className="input-master margin-bottom-xs margin-top-xs"
+                    onChange={[Function]}
+                    placeholder="Search for a Field Partner..."
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </form>
+            </Col>
+          </Row>
           <TabPanel
             className="react-tabs__tab-panel"
             forceRender={false}
