@@ -14,7 +14,7 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
+  ModalFooter
 } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
