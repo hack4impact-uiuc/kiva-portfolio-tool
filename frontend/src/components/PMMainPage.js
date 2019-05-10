@@ -14,10 +14,15 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  UncontrolledDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle
 } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
+import sandwich_image from '../media/sandwich.png'
 import Navbar from './NavBar'
 
 import add from '../media/add.png'
@@ -174,7 +179,7 @@ export class PMMainPage extends Component {
           <Tabs className="tab-master maxheight">
             <Row className="maxheight">
               <Col className="sidebar-background" sm="12" md="2">
-                <TabList className="react-tabs__tab-list">
+                <TabList className="react-tabs__tab-list hide-small">
                   <Button
                     className="add-doc-text maxWidthFull"
                     id="new-fp-button"

@@ -204,6 +204,10 @@ body {
     font-size: 1.3vw;
 }
 
+.show-small {
+    display: none;
+}
+
 @media only screen and (max-width: 767px) {
     .page h2 {
         font-size: 2rem;
@@ -215,15 +219,20 @@ body {
     
     .partnerPanel {
         display: block;
+        width: 70%;
+        margin: auto;
+        margin-top: 5%;
     }
     
     .partnerPanel .partnerButton {
         width: 100%;
+        margin: 2% 0%;
     }    
     
     .react-tabs__tab {
         padding: 2% 0;
         font-size: 3vw;
+        text-align: center;
     }
     
     .react-tabs__tab--selected {
@@ -239,11 +248,26 @@ body {
     }
     
     #new-fp-button-img {
-        max-width: 20%;
+        width: 100%;
         margin-right: 15%;
+    }
+
+    #new-fp-button-img {
+        margin-right: 7%;
     }
     
     #new-fp-button-text {
-        font-size: 3vw;
+        font-size: 2vw;
+    }
+
+    .fp-background .show-small {
+        display: block;
+        position: absolute;
+        top: 25px;
+        right: 20px;
+    }
+
+    .hide-small {
+        display: none;
     }
 }
