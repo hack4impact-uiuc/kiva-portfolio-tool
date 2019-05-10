@@ -15,14 +15,9 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  UncontrolledDropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle
 } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
-import sandwich_image from '../media/sandwich.png'
 import Navbar from './NavBar'
 
 import add from '../media/add.png'
@@ -331,7 +326,7 @@ class PartnerBar extends Component {
           <p className="partner-org-initials">{partner.org_name[0]}</p>
         </div>
         <div className="nameProgressDisplay">
-          <div>{partner.org_name}</div>
+          <p>{partner.org_name}</p>
           <div className="progressAdditional">
             {approved}%
             <Progress multi>
