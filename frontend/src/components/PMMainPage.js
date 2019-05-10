@@ -191,9 +191,9 @@ export class PMMainPage extends Component {
                 </TabList>
               </Col>
 
-              <Col className="fp-background" sm="12" md="10">
+              <Col className="fp-background maxheight" sm="12" md="10">
                 <Row className="text-centered">
-                  <Col className="fp-background" md="10">
+                  <Col md="10">
                     <h2 className="margin-top-sm">Field Partners</h2>
                     <form onSubmit={this.handleSubmit}>
                       <img src={search} width="23" />
