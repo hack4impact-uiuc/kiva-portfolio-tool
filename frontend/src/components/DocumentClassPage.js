@@ -12,7 +12,7 @@ import '../styles/documentclasspage.css'
 import Dropzone from 'react-dropzone'
 import Loader from 'react-loader-spinner'
 import NavBar from './NavBar'
-import '../styles/variable.scss'
+import '../styles/variables.scss'
 import add from '../media/add.png'
 
 const mapStateToProps = state => ({
