@@ -11,6 +11,7 @@ import DocumentClassPage from './DocumentClassPage.js'
 import LoginPage from './LoginPage'
 import ForgotPassword from './ForgotPassword'
 import Load from './Load'
+import ErrorMessage from './ErrorMessage'
 
 export {
   Dashboard,
@@ -25,5 +26,6 @@ export {
   ForgotPassword,
   DocumentClassPage,
   DocumentPreview,
-  Load
+  Load,
+  ErrorMessage
 }

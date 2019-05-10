@@ -1,3 +1,8 @@
+.navbar .navbar-nav {
+    flex-direction: row;
+    margin-right: 2%;
+}
+
 .flag {
     margin-left: 1%;
 }
@@ -7,12 +12,15 @@
     margin-top: 1%;
 }
 
+.hide {
+    display: none;
+}
+
 .sidebar-styles {
     background: white;
 }
 
 .langSelect{
-    margin-right: 2%;
     min-width: 170px;
 }
 
