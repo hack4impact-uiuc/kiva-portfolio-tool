@@ -27,7 +27,7 @@ Then navigate into the newly cloned repository. Follow the READMEs in both the f
 ## Backend Resources
 [Database Schema](https://docs.google.com/document/d/1KIfpPRFF79QpSVBjARBpSYpPUxpMPimn_KEcjvi9qI8/edit?usp=sharing)
 
-Authentication documentation coming soon
+[Authentication Documentation](https://h4i-auth-infra-docs.now.sh/)
 
 [Backend Boilerplate Documentation](https://github.com/tko22/flask-boilerplate/wiki)
 
@@ -45,15 +45,15 @@ Over the course of the 3 month timeline for building out this tool, we accumulat
 Special thanks to the team of developers and product designer that contributed to building the product:
 
 ### Product Designer
-Chloe Chan (chloegchan@gmail.com)
+Chloe Chan (chloegchan)
 
 ### Software Developers
-Kelley Chau (kelleyc2@illinois.edu)
+Kelley Chau (chyku)
 
-Danielle Yang (dy6@illinois.edu)
+Danielle Yang (dyang5200)
 
-Jeffy Lin (jlin79@illinois.edu)
+Jeffy Lin (jeffylin)
 
-Daniel Choi (dschoi3@illinois.edu)
+Daniel Choi (choiboy98)
 
-Navam Awasthi (uawasth2@illinois.edu)
+Navam Awasthi (uawasth2)
