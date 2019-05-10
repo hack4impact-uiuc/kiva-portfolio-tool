@@ -112,10 +112,12 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar>
-              <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
-                <img src={info_image} width="29" height="29" />
-              </Button>
+            <Nav className="ml-auto" navbar pullRight>
+              <NavItem>
+                <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
+                  <img src={info_image} width="29" height="29" />
+                </Button>
+              </NavItem>
 
               <NavItem className="sandwich">
                 <UncontrolledDropdown nav inNavbar>

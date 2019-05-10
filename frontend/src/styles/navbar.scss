@@ -1,3 +1,8 @@
+.navbar .navbar-nav {
+    flex-direction: row;
+    margin-right: 2%;
+}
+
 .flag {
     margin-left: 1%;
 }
@@ -16,7 +21,6 @@
 }
 
 .langSelect{
-    margin-right: 2%;
     min-width: 170px;
 }
 
