@@ -33,11 +33,41 @@
   margin: 0;
 }
 
-Button {
+.expandButton {
   margin: 0;
   padding: 0;
+  border-color: #ffffff;
+  margin-bottom: 1.5px;
+  width: 100%;
 }
+
 
 .modal-footer Button {
   margin-right: 1px;
+}
+
+.expandButtonImage{
+  max-width: 25px;
+  max-height: 25px;
+  border: none;
+}
+
+#buttonRowData {
+  padding: 1%;
+}
+
+.ApprovedColor {
+  background: $accepted-color
+}
+
+.RejectedColor {
+  background: $rejected-color
+}
+
+.PendingColor {
+  background: $pending-color
+}
+
+.MissingColor {
+  background: $missing-color
 }
