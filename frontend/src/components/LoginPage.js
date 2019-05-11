@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'reactstrap'
 import { bindActionCreators } from 'redux'
-import { login } from '../redux/modules/auth'
+import { login, beginLoading, endLoading } from '../redux/modules/auth'
 import { setUserType } from '../redux/modules/user'
+import { getAllPartners } from '../utils/ApiWrapper'
+import NavBar from './NavBar'
 
 const mapStateToProps = state => ({
   verified: state.auth.verified,
@@ -14,23 +16,32 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       login,
-      setUserType
-      /* beginLoading,
-      endLoading */
+      setUserType,
+      beginLoading,
+      endLoading
     },
     dispatch
   )
 }
 
-class LoginPage extends Component {
+export class LoginPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       password: '',
       email: '',
-      valid: ['pm@kiva.org', 'fp@kiva.org', 'kiva']
+      valid: ['pm@kiva.org', 'fp@kiva.org', 'kiva'],
+      fp_id: null
     }
+  }
+
+  async componentDidMount() {
+    this.props.beginLoading()
+    const fps = await getAllPartners()
+    //use first FP temporarily until auth integration
+    this.setState({ fp_id: fps[0]._id })
+    this.props.endLoading()
   }
 
   updatePassword = event => {
@@ -50,8 +61,10 @@ class LoginPage extends Component {
     // This should look at email/password to determine if they are a Portfolio Manager or Field Partner
     this.props.setUserType(this.state.email === 'pm@kiva.org' && this.state.password === 'kiva')
     // If login was successful, then bring user to dashboard
-    if (this.props.verified === true) {
-      this.props.history.push('/dashboard')
+    if (this.props.verified && this.props.isPM) {
+      this.props.history.push('/main')
+    } else if (this.props.verified) {
+      this.props.history.push('/dashboard/fp/' + this.state.fp_id)
     }
     /* else{
 			alert('Email or password is invalid.\nPlease try again.')
@@ -61,6 +74,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
+        <NavBar />
         <div style={{ paddingLeft: '5%' }}>
           <p>Kiva</p>
         </div>

@@ -1,0 +1,48 @@
+.navbar .navbar-nav {
+    flex-direction: row;
+    margin-right: 2%;
+}
+
+.flag {
+    margin-left: 1%;
+}
+
+.sandwich {
+    margin-left: 8%;
+    margin-top: 1%;
+}
+
+.hide {
+    display: none;
+}
+
+.sidebar-styles {
+    /* override inline styling */
+    position: fixed !important;
+    background: white;
+}
+
+.sandwich .dropdown .dropdown-menu {
+    position: absolute;
+}
+
+.langSelect{
+    min-width: 170px;
+}
+
+.flag-space {
+   margin-right: 1%;
+   max-width: 35px;
+   max-height: 35px;
+   float: right;
+   margin-top: -3.3%;
+}
+
+.nav-absolute {
+    position: absolute;
+    z-index: 999;
+}
+
+.closed {
+    display: none;
+}

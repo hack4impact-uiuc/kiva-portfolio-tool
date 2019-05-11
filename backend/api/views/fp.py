@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import FieldPartner, db
+from api.models import FieldPartner, Document, db
 from api.core import create_response, serialize_list, logger
 
 import requests, json
@@ -10,8 +10,23 @@ fp = Blueprint("fp", __name__)
 @fp.route("/field_partner", methods=["GET"])
 def get_field_partner():
     """ function that is called when you visit /field_partner, gets all the FPs """
-    field_partner = FieldPartner.query.all()
-    return create_response(data={"field_partner": serialize_list(field_partner)})
+    field_partner_list = serialize_list(FieldPartner.query.all())
+
+    for field_partner in field_partner_list:
+        field_partner["documents"] = serialize_list(
+            Document.query.filter(Document.userID == field_partner["_id"]).all()
+        )
+
+    return create_response(data={"field_partner": field_partner_list})
+
+
+@fp.route("/field_partner/status/<app_status>", methods=["GET"])
+def get_fp_by_status(app_status):
+    field_partners = FieldPartner.query.filter(
+        FieldPartner.app_status == app_status
+    ).all()
+
+    return create_response(data={"field_partner": serialize_list(field_partners)})
 
 
 @fp.route("/field_partner/<id>", methods=["GET"])
@@ -40,17 +55,25 @@ def get_org_by_id(id):
 @fp.route("/field_partner/pm/<pm_id>", methods=["GET"])
 def get_fp_by_pm(pm_id):
     """ function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs """
-    field_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
-    return create_response(data={"field_partner": serialize_list(field_partner_list)})
+    field_partner_list = serialize_list(
+        FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
+    )
+    for field_partner in field_partner_list:
+        field_partner["documents"] = serialize_list(
+            Document.query.filter(Document.userID == field_partner["_id"]).all()
+        )
+
+    return create_response(data={"field_partner": field_partner_list})
 
 
 @fp.route("/field_partner/new", methods=["POST"])
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
-    data = request.get_json()
+    data = request.form
 
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
+
     if "email" not in data:
         return create_response(status=400, message="No email provided for new FP")
     if "org_name" not in data:
@@ -63,16 +86,21 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
-    sample_args = request.args
-    new_fp = FieldPartner(**data)
-    return create_response(data={"field_partner": new_fp.to_dict()})
+
+    new_fp = FieldPartner(data)
+    res = new_fp.to_dict()
+
+    db.session.add(new_fp)
+    db.session.commit()
+
+    return create_response(data={"field_partner": res})
 
 
 @fp.route("/field_partner/update/<id>", methods=["PUT"])
 def update_app_status(id):
     """ function that is called when you visit /field_partner/update/<id>, updates an FP's app status info """
     fp = FieldPartner.query.get(id)
-    fp.app_status = request.get_json().get("app_status", "")
+    fp.app_status = request.form.get("app_status", "")
     ret = fp.to_dict()
 
     db.session.commit()

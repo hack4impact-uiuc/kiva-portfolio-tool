@@ -1,19 +1,31 @@
-import LoginPage from './LoginPage.js'
+import LogIn from './LogIn'
 import Dashboard from './Dashboard'
 import DocumentList from './DocumentList'
 import DocumentListItem from './DocumentListItem'
-import Upload from './Upload'
+import DocumentPreview from './DocumentPreview'
+import Register from './Register'
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
+import DocumentClassPage from './DocumentClassPage.js'
+import LoginPage from './LoginPage'
+import ForgotPassword from './ForgotPassword'
+import Load from './Load'
+import ErrorMessage from './ErrorMessage'
 
 export {
   Dashboard,
   DocumentList,
   DocumentListItem,
-  LoginPage,
-  Upload,
+  LogIn,
   BoxPreview,
+  Register,
+  LoginPage,
   SelectDocumentsPage,
-  PMMainPage
+  PMMainPage,
+  ForgotPassword,
+  DocumentClassPage,
+  DocumentPreview,
+  Load,
+  ErrorMessage
 }

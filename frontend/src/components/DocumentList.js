@@ -3,14 +3,14 @@ import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
 import '../styles/documentlist.css'
 
-class DocumentList extends Component {
+export class DocumentList extends Component {
   render() {
     return (
       <Table>
         <tbody>
           <tr className="dlist-header">
             <th
-              colSpan="3"
+              colSpan="5"
               className={
                 'background-' +
                 (this.props.status ? this.props.status.toLowerCase() : 'null') +
@@ -21,8 +21,8 @@ class DocumentList extends Component {
             </th>
           </tr>
           <tr>
-            <th className="theader-centered">Document Name</th>
-            <th className="theader-centered">File</th>
+            <th className="text-centered">Document Name</th>
+            <th className="text-centered">File</th>
             <th />
           </tr>
           {this.props.documents

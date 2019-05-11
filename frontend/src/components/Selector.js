@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import '../styles/selector.css'
+import add from '../media/add.png'
+import remove from '../media/remove.png'
+import info from '../media/blueinfo.png'
 
 export class Selector extends React.Component {
   constructor(props) {
@@ -7,30 +11,30 @@ export class Selector extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.props.name}</h2>
+      <div className="surround-box">
+        <h3>{this.props.name}</h3>
         <div>
-          {Object.keys(this.props.documents).map(docClass => {
+          {this.props.documents.map(docClass => {
             let buttonType
             if (this.props.name === 'Selected') {
-              buttonType = 'X' // placeholders for red delete X
+              buttonType = remove // placeholders for red delete X
             } else {
-              buttonType = '+' // placeholder for green add button (see chloe design documentation)
+              buttonType = add // placeholder for green add button (see chloe design documentation)
             }
-            if (this.props.documents[docClass] === this.props.name) {
-              return (
-                <div>
-                  {docClass} i {/** i is a placeholder for an information view over */}
-                  <button
-                    onClick={() => {
-                      this.props.update(docClass)
-                    }}
-                  >
-                    {buttonType}
-                  </button>
-                </div>
-              )
-            }
+            return (
+              <div className="panel">
+                <div className="docClassValue">{docClass.name}</div>
+                <img src={info} className="imageValue" />
+                <button
+                  onClick={() => {
+                    this.props.update(docClass.name)
+                  }}
+                  className="buttonValue"
+                >
+                  <img src={buttonType} width="30" />
+                </button>
+              </div>
+            )
           })}
         </div>
       </div>

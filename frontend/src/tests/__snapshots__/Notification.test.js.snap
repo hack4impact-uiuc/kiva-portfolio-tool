@@ -1,7 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notification renders correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<ListGroupItem
+  tag="li"
+>
+  <p
+    className="person-name"
+  >
+     
+    <b>
+       
+       
+    </b>
+     
+  </p>
+  <p
+    className="time"
+  >
+     
+     
+  </p>
+  <p
+    className="notif-description"
+  >
+     
+     
+  </p>
+  <button
+    onClick={[Function]}
+  >
+    X
+  </button>
+</ListGroupItem>
 `;

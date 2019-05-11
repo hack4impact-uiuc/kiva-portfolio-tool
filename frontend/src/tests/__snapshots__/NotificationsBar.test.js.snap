@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` renders correctly 1`] = `
+<Tabs
+  defaultFocus={false}
+  defaultIndex={null}
+  forceRenderTabPanel={false}
+  selectedIndex={null}
+>
+  <TabList
+    className="react-tabs__tab-list"
+  >
+    <Tab
+      className="tab"
+      disabledClassName="react-tabs__tab--disabled"
+      focus={false}
+      id={null}
+      panelId={null}
+      selected={false}
+      selectedClassName="react-tabs__tab--selected"
+    >
+      <span
+        className="tab-font"
+      >
+        Activity
+      </span>
+    </Tab>
+    <Tab
+      className="tab"
+      disabledClassName="react-tabs__tab--disabled"
+      focus={false}
+      id={null}
+      panelId={null}
+      selected={false}
+      selectedClassName="react-tabs__tab--selected"
+    >
+      <span
+        className="tab-font"
+      >
+        Information
+      </span>
+    </Tab>
+  </TabList>
+  <TabPanel
+    className="react-tabs__tab-panel"
+    forceRender={false}
+    selectedClassName="react-tabs__tab-panel--selected"
+  >
+    <Connect(Notification)
+      index={0}
+      removeMessage={[Function]}
+    />
+  </TabPanel>
+  <TabPanel
+    className="react-tabs__tab-panel"
+    forceRender={false}
+    selectedClassName="react-tabs__tab-panel--selected"
+  >
+    <div>
+      info here
+      <button
+        onClick={[Function]}
+      >
+        X
+      </button>
+    </div>
+  </TabPanel>
+</Tabs>
+`;

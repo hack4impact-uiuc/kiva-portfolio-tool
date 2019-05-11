@@ -1,30 +1,57 @@
 import React, { Component } from 'react'
+import { withRouter, Link } from 'react-router-dom'
+import Dropzone from 'react-dropzone'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalFooter } from 'reactstrap'
-import Upload from './Upload'
-import { downloadDocument } from '../utils/ApiWrapper'
+import { downloadDocument, uploadDocument, getDocumentsByUser } from '../utils/ApiWrapper'
+import { updateDocuments } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
+import uploadImg from '../media/greyUpload.png'
+import downloadImg from '../media/downloadGrey.png'
+import visit from '../media/visit.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
 
-class DocumentListItem extends Component {
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      beginLoading,
+      endLoading,
+      updateDocuments
+    },
+    dispatch
+  )
+}
+export class DocumentListItem extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       document: this.props.document,
-      modal: false
+      files: []
     }
 
     this.handleDownloadClick = this.handleDownloadClick.bind(this)
-    this.handleUploadClick = this.handleUploadClick.bind(this)
-    this.toggle = this.toggle.bind(this)
+    this.onDrop = this.onDrop.bind(this)
   }
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal })
+  async onDrop(files) {
+    this.setState({
+      files
+    })
+    this.props.beginLoading()
+    await uploadDocument(this.state.files[0], this.state.files[0].name, this.state.document._id)
+    const documents = await getDocumentsByUser(this.state.document.userID)
+    if (documents) {
+      this.props.updateDocuments(documents)
+    } else {
+      this.props.updateDocuments([])
+    }
+    this.props.endLoading()
   }
 
   handleDownloadClick() {
@@ -32,45 +59,52 @@ class DocumentListItem extends Component {
     downloadDocument(document.fileID)
   }
 
-  handleUploadClick() {
-    // Upload click handling
-    this.setState({ modal: !this.state.modal })
-  }
-
   render() {
     const { isPM } = this.props
+
     return (
       <>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <Upload docID={this.props.document._id} />
-          <ModalFooter>
-            <Button
-              className="invalidSearchButton"
-              onClick={e => {
-                this.toggle()
-              }}
-            >
-              Return
-            </Button>
-          </ModalFooter>
-        </Modal>
-        <tr>
+        <tr className="hoverable">
           <td data-testid="docClass">{this.state.document.docClassName}</td>
           <td data-testid="fileName">
             {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
           </td>
+          <td className="interaction">
+            <DocumentPreview document={this.state.document} />
+          </td>
           <td data-testid="interaction" className="interaction">
+            {this.props.fileName ? (
+              <Button color="transparent">
+                <Link
+                  to={{
+                    pathname:
+                      '/view/' + this.state.document.fileName + '/' + this.state.document._id,
+                    state: { link: this.state.document.link }
+                  }}
+                >
+                  <img className="buttonimg" src={visit} />
+                </Link>
+              </Button>
+            ) : null}
+          </td>
+          <td data-testid="interaction" className="interaction padding-right-sm">
             {this.state.fileName && (
-              <Button color="primary" onClick={this.handleDownloadClick}>
-                DOWNLOAD
+              <Button color="transparent" onClick={this.handleDownloadClick}>
+                <img className="buttonimg" src={downloadImg} />
               </Button>
             )}
             {!isPM && (
-              <Button color="primary" onClick={this.handleUploadClick}>
-                UPLOAD
-              </Button>
+              <Dropzone onDrop={this.onDrop}>
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <img className="buttonimg" src={uploadImg} />
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
             )}
-            <DocumentPreview document={this.state.document} />
           </td>
         </tr>
       </>
@@ -78,4 +112,7 @@ class DocumentListItem extends Component {
   }
 }
 
-export default connect(mapStateToProps)(DocumentListItem)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(DocumentListItem))

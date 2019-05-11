@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PMMainPage renders correctly 1`] = `
+<div
+  className="page maxheight"
+>
+  <Connect(withRouter(NavBar)) />
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
+  >
+    <ModalHeader
+      charCode={215}
+      closeAriaLabel="Close"
+      tag="h5"
+      wrapTag="div"
+    >
+      Add New Field Partner
+    </ModalHeader>
+    <ModalBody
+      tag="div"
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <p>
+          Organization Name:
+        </p>
+        <input
+          onChange={[Function]}
+          placeholder="Enter the Field Partner's organization name here..."
+          size="50"
+          type="text"
+        />
+        <p>
+          Email:
+        </p>
+        <input
+          onChange={[Function]}
+          placeholder="Enter the Field Partner's email here..."
+          size="50"
+          type="text"
+          value=""
+        />
+      </form>
+    </ModalBody>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Exit
+      </Button>
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Create
+      </Button>
+    </ModalFooter>
+  </Modal>
+  <Container
+    className="maxheight"
+    tag="div"
+  >
+    <Tabs
+      className="tab-master maxheight"
+      defaultFocus={false}
+      defaultIndex={null}
+      forceRenderTabPanel={false}
+      selectedIndex={null}
+    >
+      <Row
+        className="maxheight"
+        tag="div"
+      >
+        <Col
+          className="sidebar-background"
+          md="2"
+          sm="12"
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
+        >
+          <TabList
+            className="react-tabs__tab-list hide-small"
+          >
+            <Button
+              className="add-doc-text maxWidthFull"
+              color="secondary"
+              id="new-fp-button"
+              onClick={[Function]}
+              tag="button"
+            >
+              <img
+                className="addImg"
+                id="new-fp-button-img"
+                src="add.png"
+              />
+              <span
+                className="add-doc-text"
+                id="new-fp-button-text"
+              >
+                Add New
+              </span>
+            </Button>
+            <Tab
+              className="react-tabs__tab"
+              disabledClassName="react-tabs__tab--disabled"
+              focus={false}
+              id={null}
+              panelId={null}
+              selected={false}
+              selectedClassName="react-tabs__tab--selected"
+            >
+              In Process
+            </Tab>
+            <Tab
+              className="react-tabs__tab"
+              disabledClassName="react-tabs__tab--disabled"
+              focus={false}
+              id={null}
+              panelId={null}
+              selected={false}
+              selectedClassName="react-tabs__tab--selected"
+            >
+              New Partner
+            </Tab>
+            <Tab
+              className="react-tabs__tab"
+              disabledClassName="react-tabs__tab--disabled"
+              focus={false}
+              id={null}
+              panelId={null}
+              selected={false}
+              selectedClassName="react-tabs__tab--selected"
+            >
+              Complete
+            </Tab>
+          </TabList>
+        </Col>
+        <Col
+          className="fp-background maxheight"
+          md="10"
+          sm="12"
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
+        >
+          <Row
+            className="text-centered"
+            tag="div"
+          >
+            <Col
+              md="10"
+              tag="div"
+              widths={
+                Array [
+                  "xs",
+                  "sm",
+                  "md",
+                  "lg",
+                  "xl",
+                ]
+              }
+            >
+              <h2
+                className="margin-top-sm"
+              >
+                Field Partners
+              </h2>
+              <form>
+                <img
+                  src="search.png"
+                  width="23"
+                />
+                <span>
+                  <input
+                    className="input-master margin-bottom-xs margin-top-xs"
+                    onChange={[Function]}
+                    placeholder="Search for a Field Partner..."
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </form>
+            </Col>
+          </Row>
+          <TabPanel
+            className="react-tabs__tab-panel"
+            forceRender={false}
+            selectedClassName="react-tabs__tab-panel--selected"
+          >
+            <div
+              className="partnerPanel"
+            />
+          </TabPanel>
+          <TabPanel
+            className="react-tabs__tab-panel"
+            forceRender={false}
+            selectedClassName="react-tabs__tab-panel--selected"
+          >
+            <div
+              className="partnerPanel"
+            />
+          </TabPanel>
+          <TabPanel
+            className="react-tabs__tab-panel"
+            forceRender={false}
+            selectedClassName="react-tabs__tab-panel--selected"
+          >
+            <div
+              className="partnerPanel"
+            />
+          </TabPanel>
+        </Col>
+      </Row>
+    </Tabs>
+  </Container>
+</div>
+`;
