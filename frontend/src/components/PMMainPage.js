@@ -171,42 +171,45 @@ export class PMMainPage extends Component {
         </Modal>
 
         <Container className="maxheight">
-          <Row>
-            <Col className="text-center sidebar-background" md="2">
-              <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
-                <img className="addImg" src={add} />
-                <span className="add-doc-text">Add New</span>
-              </Button>
-            </Col>
-
-            <Col className="fp-background" md="10">
-              <h2 className="margin-top-sm">Field Partners</h2>
-              <form onSubmit={this.handleSubmit}>
-                <img src={search} width="23" />
-                <span>
-                  <input
-                    className="input-master margin-bottom-xs margin-top-xs"
-                    type="text"
-                    value={this.state.query}
-                    placeholder="Search for a Field Partner..."
-                    onChange={this.handleQueryChange}
-                  />
-                </span>
-              </form>
-            </Col>
-          </Row>
-
           <Tabs className="tab-master maxheight">
             <Row className="maxheight">
-              <Col className="sidebar-background" md="2">
-                <TabList className="react-tabs__tab-list">
+              <Col className="sidebar-background" sm="12" md="2">
+                <TabList className="react-tabs__tab-list hide-small">
+                  <Button
+                    className="add-doc-text maxWidthFull"
+                    id="new-fp-button"
+                    onClick={this.toggle}
+                  >
+                    <img className="addImg" id="new-fp-button-img" src={add} />
+                    <span className="add-doc-text" id="new-fp-button-text">
+                      Add New
+                    </span>
+                  </Button>
                   <Tab>In Process</Tab>
                   <Tab>New Partner</Tab>
                   <Tab>Complete</Tab>
                 </TabList>
               </Col>
 
-              <Col className="fp-background" md="10">
+              <Col className="fp-background maxheight" sm="12" md="10">
+                <Row className="text-centered">
+                  <Col md="10">
+                    <h2 className="margin-top-sm">Field Partners</h2>
+                    <form onSubmit={this.handleSubmit}>
+                      <img src={search} width="23" />
+                      <span>
+                        <input
+                          className="input-master margin-bottom-xs margin-top-xs"
+                          type="text"
+                          value={this.state.query}
+                          placeholder="Search for a Field Partner..."
+                          onChange={this.handleQueryChange}
+                        />
+                      </span>
+                    </form>
+                  </Col>
+                </Row>
+
                 <TabPanel>
                   <div className="partnerPanel">
                     {this.state.filtered
@@ -323,7 +326,7 @@ class PartnerBar extends Component {
           <p className="partner-org-initials">{partner.org_name[0]}</p>
         </div>
         <div className="nameProgressDisplay">
-          <div>{partner.org_name}</div>
+          <p>{partner.org_name}</p>
           <div className="progressAdditional">
             {approved}%
             <Progress multi>

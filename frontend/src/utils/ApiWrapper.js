@@ -288,6 +288,19 @@ export const getAllDocuments = () => {
     })
 }
 
+export const getFPNameByID = id => {
+  let requestString = BACKEND_URL + '/field_partner/' + id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner.org_name
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const getDocumentsByUser = userID => {
   let requestString = BACKEND_URL + '/document?uid=' + userID
   return axios
