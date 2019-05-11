@@ -58,7 +58,6 @@ export class SelectDocumentsPage extends React.Component {
   async componentDidMount() {
     this.props.beginLoading()
     let document_classes = await getAllDocumentClasses()
-    console.log(document_classes)
 
     let available = {}
     for (const index in document_classes) {
