@@ -58,7 +58,11 @@ export class DocumentPreview extends Component {
   async handleApproveClick() {
     this.props.beginLoading()
     this.toggle()
-    await updateDocumentStatus(this.state.id, 'Approved')
+    if (this.props.match) {
+      await updateDocumentStatus(this.props.match.params.id, 'Approved')
+    } else {
+      await updateDocumentStatus(this.props.document._id, 'Approved')
+    }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
       this.props.updateDocuments(res)
@@ -71,7 +75,11 @@ export class DocumentPreview extends Component {
   async handleRejectClick() {
     this.props.beginLoading()
     this.toggle()
-    await updateDocumentStatus(this.state.id, 'Rejected')
+    if (this.props.match) {
+      await updateDocumentStatus(this.props.match.params.id, 'Rejected')
+    } else {
+      await updateDocumentStatus(this.props.document._id, 'Rejected')
+    }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
       this.props.updateDocuments(res)
