@@ -34,20 +34,8 @@ export class DocumentPreview extends Component {
   constructor(props) {
     super(props)
 
-    if (this.props.match) {
-      this.state = {
-        id: this.props.match.params.id,
-        fileName: this.props.match.params.name,
-        accessToken: null,
-        fileURL: this.props.location.state.link
-      }
-    } else {
-      this.state = {
-        id: this.props.document._id,
-        fileName: this.props.document.fileName,
-        accessToken: null,
-        fileURL: this.props.document.link
-      }
+    this.state = {
+      accessToken: null
     }
 
     this.toggle = this.toggle.bind(this)
@@ -133,17 +121,20 @@ export class DocumentPreview extends Component {
           </div>
         ) : (
           <>
-            {this.state.fileName && (
-              <Button color="transparent" onClick={this.toggle}>
-                <img className="buttonimg" src={preview} />
-              </Button>
-            )}
+            {(this.props.match && this.props.match.params.name) ||
+              (this.props.document.fileName && (
+                <Button color="transparent" onClick={this.toggle}>
+                  <img className="buttonimg" src={preview} />
+                </Button>
+              ))}
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader>{this.state.fileName}</ModalHeader>
+              <ModalHeader>
+                {this.props.match ? this.props.match.params.name : this.props.document.fileName}
+              </ModalHeader>
               <ModalBody id="modal-box">
                 <Iframe
                   className="iframe-relative iframe-modal"
-                  url={this.state.fileURL}
+                  url={this.props.match ? this.props.location.state.link : this.props.document.link}
                   allowFullScreen
                 />
               </ModalBody>
