@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
 import '../styles/documentlist.css'
+import '../styles/index.css'
 import expand from '../media/expand.png'
 import collapse from '../media/collapse.png'
 
@@ -17,7 +18,6 @@ export class DocumentList extends Component {
 
   toggleExpand = () => {
     this.setState({ expanded: !this.state.expanded })
-    // console.log(this.props.documents.length)
   }
 
   render() {
@@ -68,14 +68,22 @@ export class DocumentList extends Component {
                 <td colSpan="5" id="buttonRowData">
                   {this.state.expanded ? (
                     <button
-                      className={'expandButton ' + this.props.status + 'Color'}
+                      className={
+                        'expandButton ' +
+                        'background-' +
+                        (this.props.status ? this.props.status.toLowerCase() : 'null')
+                      }
                       onClick={this.toggleExpand}
                     >
                       <img className="expandButtonImage" src={collapse} />
                     </button>
                   ) : (
                     <button
-                      className={'expandButton ' + this.props.status + 'Color'}
+                      className={
+                        'expandButton ' +
+                        'background-' +
+                        (this.props.status ? this.props.status.toLowerCase() : 'null')
+                      }
                       onClick={this.toggleExpand}
                     >
                       <img className="expandButtonImage" src={expand} />
