@@ -16,7 +16,6 @@ h1 {
     border: none;
     background-color: transparent;
     width: 35%; 
-    text-indent: 5px;
     margin-top: 2%;
     margin-bottom: 2%;
 }
@@ -27,6 +26,7 @@ h1 {
     display: table;
     margin:auto;
     border-spacing: 30px;
+    margin-top: 2%;
 }
 
 .blockCustom {
@@ -48,7 +48,7 @@ h1 {
     font-weight: bold;
     font-size: x-large;
     width: 40%;
-    margin:auto;
+    margin: 2% auto;
     padding-left: 15px;
 }
 
@@ -63,12 +63,13 @@ h1 {
 .nextButton {
     -webkit-appearance: none;
     margin-top:2%;
-    height: 30px;
-    width: 7%;
-    color: #ffffff;
-    background-color: $link-color;
+    font-size: 14pt;
+    height: 40px;
+    width: 15%;
+    color: $link-color;
+    background-color: #ffffff;
     border: none;
-    border-radius: 13px;
+    border-radius: 25px;
 }
 
 .topBar {

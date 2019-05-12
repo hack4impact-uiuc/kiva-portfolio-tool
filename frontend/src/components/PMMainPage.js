@@ -140,7 +140,7 @@ export class PMMainPage extends Component {
 
   render() {
     return (
-      <div className="page maxheight">
+      <div className="page background-circles-green maxheight">
         <Navbar />
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>Add New Field Partner</ModalHeader>
@@ -173,27 +173,21 @@ export class PMMainPage extends Component {
         <Container className="maxheight">
           <Tabs className="tab-master maxheight">
             <Row className="maxheight">
-              <Col className="sidebar-background" sm="12" md="2">
-                <TabList className="react-tabs__tab-list hide-small">
-                  <Button
-                    className="add-doc-text maxWidthFull"
-                    id="new-fp-button"
-                    onClick={this.toggle}
-                  >
-                    <img className="addImg" id="new-fp-button-img" src={add} />
-                    <span className="add-doc-text" id="new-fp-button-text">
-                      Add New
-                    </span>
-                  </Button>
+              <Col className="text-centered sidebar-background" sm="12" md="2">
+                <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
+                  <img className="addImg" src={add} />
+                  <span>Add New</span>
+                </Button>
+                <TabList className="react-tabs__tab-list">
                   <Tab>In Process</Tab>
                   <Tab>New Partner</Tab>
                   <Tab>Complete</Tab>
                 </TabList>
               </Col>
 
-              <Col className="fp-background maxheight" sm="12" md="10">
+              <Col className="fp-background" sm="12" md="10">
                 <Row className="text-centered">
-                  <Col md="10">
+                  <Col md="12">
                     <h2 className="margin-top-sm">Field Partners</h2>
                     <form onSubmit={this.handleSubmit}>
                       <img src={search} width="23" />
@@ -210,59 +204,67 @@ export class PMMainPage extends Component {
                   </Col>
                 </Row>
 
-                <TabPanel>
-                  <div className="partnerPanel">
-                    {this.state.filtered
-                      .filter(partner => partner.app_status == 'In Process')
-                      .map(partner => {
-                        return (
-                          <Button
-                            className="partnerButton"
-                            color="transparent"
-                            onClick={() => this.handleClickIP(partner._id)}
-                          >
-                            <PartnerBar partner={partner} />
-                          </Button>
-                        )
-                      })}
-                  </div>
-                </TabPanel>
+                <Row>
+                  <TabPanel>
+                    <div className="partnerPanel">
+                      {this.state.filtered
+                        .filter(partner => partner.app_status == 'In Process')
+                        .map(partner => {
+                          return (
+                            <Col md="6">
+                              <Button
+                                className="partnerButton"
+                                color="transparent"
+                                onClick={() => this.handleClickIP(partner._id)}
+                              >
+                                <PartnerBar partner={partner} />
+                              </Button>
+                            </Col>
+                          )
+                        })}
+                    </div>
+                  </TabPanel>
 
-                <TabPanel>
-                  <div className="partnerPanel">
-                    {this.state.filtered
-                      .filter(partner => partner.app_status == 'New Partner')
-                      .map(partner => {
-                        return (
-                          <Button
-                            className="partnerButton"
-                            color="transparent"
-                            onClick={() => this.handleClickNew(partner._id)}
-                          >
-                            <PartnerBar partner={partner} />
-                          </Button>
-                        )
-                      })}
-                  </div>
-                </TabPanel>
+                  <TabPanel>
+                    <div className="partnerPanel">
+                      {this.state.filtered
+                        .filter(partner => partner.app_status == 'New Partner')
+                        .map(partner => {
+                          return (
+                            <Col md="6">
+                              <Button
+                                className="partnerButton"
+                                color="transparent"
+                                onClick={() => this.handleClickNew(partner._id)}
+                              >
+                                <PartnerBar partner={partner} />
+                              </Button>
+                            </Col>
+                          )
+                        })}
+                    </div>
+                  </TabPanel>
 
-                <TabPanel>
-                  <div className="partnerPanel">
-                    {this.state.filtered
-                      .filter(partner => partner.app_status == 'Complete')
-                      .map(partner => {
-                        return (
-                          <Button
-                            className="partnerButton"
-                            color="transparent"
-                            onClick={() => this.handleClickNew(partner._id)}
-                          >
-                            <PartnerBar partner={partner} />
-                          </Button>
-                        )
-                      })}
-                  </div>
-                </TabPanel>
+                  <TabPanel>
+                    <div className="partnerPanel">
+                      {this.state.filtered
+                        .filter(partner => partner.app_status == 'Complete')
+                        .map(partner => {
+                          return (
+                            <Col md="6">
+                              <Button
+                                className="partnerButton"
+                                color="transparent"
+                                onClick={() => this.handleClickNew(partner._id)}
+                              >
+                                <PartnerBar partner={partner} />
+                              </Button>
+                            </Col>
+                          )
+                        })}
+                    </div>
+                  </TabPanel>
+                </Row>
               </Col>
             </Row>
           </Tabs>
