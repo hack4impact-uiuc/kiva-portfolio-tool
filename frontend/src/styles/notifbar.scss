@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 .react-tabs__tab-list {
     width: 100%;
     text-align: center;
@@ -6,6 +8,7 @@
 /* override react-tab styling from pm dashboard page */
 .react-tabs__tab--selected {
     margin: 0;
+    border-bottom: 10px solid $accepted-color;
 }
 
 .tab {

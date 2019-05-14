@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { ListGroupItem } from 'reactstrap'
 import 'react-tabs/style/react-tabs.css'
 import { bindActionCreators } from 'redux'
 import Notification from './Notification'
@@ -80,16 +81,21 @@ export class NotificationsBar extends Component {
         <TabPanel>
           {allInformation.map((info, index) => {
             return (
-              <div>
-                {info}
-                <button
-                  onClick={() => {
-                    this.removeInformation(index)
-                  }}
-                >
-                  <img className="exit-button" src={close}/>
-                </button>
-              </div>
+              <ListGroupItem>
+                <div>
+                  <p>
+                    <button
+                      className="exit-button-wrapper"
+                      onClick={() => {
+                        this.removeInformation(index)
+                      }}
+                    >
+                      <img className="exit-button" src={close}/>
+                    </button>
+                    {info}
+                  </p>
+                </div>
+              </ListGroupItem>
             )
           })}
         </TabPanel>
