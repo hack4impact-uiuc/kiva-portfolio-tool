@@ -68,15 +68,27 @@ export class NavBar extends Component {
     const { isPM } = this.props
     return (
       <div>
-        <Sidebar
-          className={this.state.sidebarClass}
-          rootClassName="sidebar-root"
-          sidebarClassName="sidebar-styles"
-          sidebar={<NotificationsBar />}
-          open={this.state.sidebarOpen}
-          onSetOpen={this.onSetSidebarOpen}
-          pullRight={true}
-        />
+        {this.state.sidebarOpen ? (
+          <Sidebar
+            className={this.state.sidebarClass}
+            rootClassName="sidebar-root"
+            sidebarClassName="sidebar-styles"
+            sidebar={<NotificationsBar />}
+            open={this.state.sidebarOpen}
+            onSetOpen={this.onSetSidebarOpen}
+            pullRight={true}
+          />
+        ) : (
+          <Sidebar
+            className={this.state.sidebarClass}
+            rootClassName="sidebar-root hide"
+            sidebarClassName="sidebar-styles"
+            sidebar={<NotificationsBar />}
+            open={this.state.sidebarOpen}
+            onSetOpen={this.onSetSidebarOpen}
+            pullRight={true}
+          />
+        )}
 
         <Navbar className={this.props.className} color="white" light expand="md">
           {this.state.isLoginPage && (
@@ -100,10 +112,12 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar>
-              <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
-                <img src={info_image} width="29" height="29" />
-              </Button>
+            <Nav className="ml-auto" navbar pullRight>
+              <NavItem>
+                <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
+                  <img src={info_image} width="29" height="29" />
+                </Button>
+              </NavItem>
 
               <NavItem className="sandwich">
                 <UncontrolledDropdown nav inNavbar>
@@ -111,7 +125,11 @@ export class NavBar extends Component {
                     <img src={sandwich_image} width="30" height="35" />
                   </DropdownToggle>
                   <DropdownMenu right>
-                    {isPM && <DropdownItem>Manage Documents</DropdownItem>}
+                    {isPM && (
+                      <DropdownItem onClick={() => this.props.history.push('/documentclasspage')}>
+                        Manage Documents
+                      </DropdownItem>
+                    )}
                     <DropdownItem>Log Out</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>

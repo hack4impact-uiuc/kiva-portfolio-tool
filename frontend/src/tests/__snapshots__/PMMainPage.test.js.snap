@@ -1,224 +1,259 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PMMainPage renders correctly 1`] = `
-<PMMainPage>
-  <div
-    className="page"
+<div
+  className="page background-circles-green maxheight"
+>
+  <Connect(withRouter(NavBar)) />
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
   >
-    <Modal
-      autoFocus={true}
-      backdrop={true}
-      backdropTransition={
-        Object {
-          "mountOnEnter": true,
-          "timeout": 150,
-        }
-      }
-      centered={false}
-      fade={true}
-      isOpen={false}
-      keyboard={true}
-      modalTransition={
-        Object {
-          "timeout": 300,
-        }
-      }
-      onClosed={[Function]}
-      onOpened={[Function]}
-      role="dialog"
-      toggle={[Function]}
-      zIndex={1050}
-    />
-    <div>
-      <span />
-      <p>
-        Fieldy McPartnerson
-      </p>
-    </div>
-    <h2>
-      Field Partners
-    </h2>
-    <Button
-      color="secondary"
-      onClick={[Function]}
-      tag="button"
+    <ModalHeader
+      charCode={215}
+      closeAriaLabel="Close"
+      tag="h5"
+      wrapTag="div"
     >
-      <button
-        aria-label={null}
-        className="btn btn-secondary"
-        onClick={[Function]}
-        type="button"
+      Add New Field Partner
+    </ModalHeader>
+    <ModalBody
+      tag="div"
+    >
+      <form
+        onSubmit={[Function]}
       >
-        Add New Field Partner
-      </button>
-    </Button>
-    <form>
-      <img
-        src="search.png"
-        width="25"
-      />
-      <input
-        className="input-master"
-        onChange={[Function]}
-        placeholder="Search for a Field Partner..."
-        type="text"
-        value=""
-      />
-    </form>
+        <p>
+          Organization Name:
+        </p>
+        <input
+          onChange={[Function]}
+          placeholder="Enter the Field Partner's organization name here..."
+          size="50"
+          type="text"
+        />
+        <p>
+          Email:
+        </p>
+        <input
+          onChange={[Function]}
+          placeholder="Enter the Field Partner's email here..."
+          size="50"
+          type="text"
+          value=""
+        />
+      </form>
+    </ModalBody>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Exit
+      </Button>
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Create
+      </Button>
+    </ModalFooter>
+  </Modal>
+  <Container
+    className="maxheight"
+    tag="div"
+  >
     <Tabs
-      className="tab-master"
+      className="tab-master maxheight"
       defaultFocus={false}
       defaultIndex={null}
       forceRenderTabPanel={false}
       selectedIndex={null}
     >
-      <UncontrolledTabs
-        className="tab-master"
-        focus={false}
-        forceRenderTabPanel={false}
-        onSelect={[Function]}
-        selectedIndex={0}
+      <Row
+        className="maxheight"
+        tag="div"
       >
-        <div
-          className="tab-master"
-          data-tabs={true}
-          onClick={[Function]}
-          onKeyDown={[Function]}
+        <Col
+          className="text-centered sidebar-background"
+          md="2"
+          sm="12"
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
         >
+          <Button
+            className="add-doc-text"
+            color="secondary"
+            id="new-fp-button"
+            onClick={[Function]}
+            tag="button"
+          >
+            <img
+              className="addImg"
+              src="add.png"
+            />
+            <span>
+              Add New
+            </span>
+          </Button>
           <TabList
             className="react-tabs__tab-list"
-            key=".0"
           >
-            <ul
-              className="react-tabs__tab-list"
-              role="tablist"
+            <Tab
+              className="react-tabs__tab"
+              disabledClassName="react-tabs__tab--disabled"
+              focus={false}
+              id={null}
+              panelId={null}
+              selected={false}
+              selectedClassName="react-tabs__tab--selected"
             >
-              <Tab
-                className="react-tabs__tab"
-                disabledClassName="react-tabs__tab--disabled"
-                focus={false}
-                id="react-tabs-0"
-                key=".0"
-                panelId="react-tabs-1"
-                selected={true}
-                selectedClassName="react-tabs__tab--selected"
-                tabRef={[Function]}
-              >
-                <li
-                  aria-controls="react-tabs-1"
-                  aria-disabled="false"
-                  aria-selected="true"
-                  className="react-tabs__tab react-tabs__tab--selected"
-                  id="react-tabs-0"
-                  role="tab"
-                  tabIndex="0"
-                >
-                  In Process
-                </li>
-              </Tab>
-              <Tab
-                className="react-tabs__tab"
-                disabledClassName="react-tabs__tab--disabled"
-                focus={false}
-                id="react-tabs-2"
-                key=".1"
-                panelId="react-tabs-3"
-                selected={false}
-                selectedClassName="react-tabs__tab--selected"
-                tabRef={[Function]}
-              >
-                <li
-                  aria-controls="react-tabs-3"
-                  aria-disabled="false"
-                  aria-selected="false"
-                  className="react-tabs__tab"
-                  id="react-tabs-2"
-                  role="tab"
-                  tabIndex={null}
-                >
-                  New Partner
-                </li>
-              </Tab>
-              <Tab
-                className="react-tabs__tab"
-                disabledClassName="react-tabs__tab--disabled"
-                focus={false}
-                id="react-tabs-4"
-                key=".2"
-                panelId="react-tabs-5"
-                selected={false}
-                selectedClassName="react-tabs__tab--selected"
-                tabRef={[Function]}
-              >
-                <li
-                  aria-controls="react-tabs-5"
-                  aria-disabled="false"
-                  aria-selected="false"
-                  className="react-tabs__tab"
-                  id="react-tabs-4"
-                  role="tab"
-                  tabIndex={null}
-                >
-                  Complete
-                </li>
-              </Tab>
-            </ul>
+              In Process
+            </Tab>
+            <Tab
+              className="react-tabs__tab"
+              disabledClassName="react-tabs__tab--disabled"
+              focus={false}
+              id={null}
+              panelId={null}
+              selected={false}
+              selectedClassName="react-tabs__tab--selected"
+            >
+              New Partner
+            </Tab>
+            <Tab
+              className="react-tabs__tab"
+              disabledClassName="react-tabs__tab--disabled"
+              focus={false}
+              id={null}
+              panelId={null}
+              selected={false}
+              selectedClassName="react-tabs__tab--selected"
+            >
+              Complete
+            </Tab>
           </TabList>
-          <TabPanel
-            className="react-tabs__tab-panel"
-            forceRender={false}
-            id="react-tabs-1"
-            key=".1"
-            selected={true}
-            selectedClassName="react-tabs__tab-panel--selected"
-            tabId="react-tabs-0"
+        </Col>
+        <Col
+          className="fp-background"
+          md="10"
+          sm="12"
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
+        >
+          <Row
+            className="text-centered"
+            tag="div"
           >
-            <div
-              aria-labelledby="react-tabs-0"
-              className="react-tabs__tab-panel react-tabs__tab-panel--selected"
-              id="react-tabs-1"
-              role="tabpanel"
+            <Col
+              md="12"
+              tag="div"
+              widths={
+                Array [
+                  "xs",
+                  "sm",
+                  "md",
+                  "lg",
+                  "xl",
+                ]
+              }
+            >
+              <h2
+                className="margin-top-sm"
+              >
+                Field Partners
+              </h2>
+              <form>
+                <img
+                  src="search.png"
+                  width="23"
+                />
+                <span>
+                  <input
+                    className="input-master margin-bottom-xs margin-top-xs"
+                    onChange={[Function]}
+                    placeholder="Search for a Field Partner..."
+                    type="text"
+                    value=""
+                  />
+                </span>
+              </form>
+            </Col>
+          </Row>
+          <Row
+            tag="div"
+          >
+            <TabPanel
+              className="react-tabs__tab-panel"
+              forceRender={false}
+              selectedClassName="react-tabs__tab-panel--selected"
             >
               <div
                 className="partnerPanel"
               />
-            </div>
-          </TabPanel>
-          <TabPanel
-            className="react-tabs__tab-panel"
-            forceRender={false}
-            id="react-tabs-3"
-            key=".2"
-            selected={false}
-            selectedClassName="react-tabs__tab-panel--selected"
-            tabId="react-tabs-2"
-          >
-            <div
-              aria-labelledby="react-tabs-2"
+            </TabPanel>
+            <TabPanel
               className="react-tabs__tab-panel"
-              id="react-tabs-3"
-              role="tabpanel"
-            />
-          </TabPanel>
-          <TabPanel
-            className="react-tabs__tab-panel"
-            forceRender={false}
-            id="react-tabs-5"
-            key=".3"
-            selected={false}
-            selectedClassName="react-tabs__tab-panel--selected"
-            tabId="react-tabs-4"
-          >
-            <div
-              aria-labelledby="react-tabs-4"
+              forceRender={false}
+              selectedClassName="react-tabs__tab-panel--selected"
+            >
+              <div
+                className="partnerPanel"
+              />
+            </TabPanel>
+            <TabPanel
               className="react-tabs__tab-panel"
-              id="react-tabs-5"
-              role="tabpanel"
-            />
-          </TabPanel>
-        </div>
-      </UncontrolledTabs>
+              forceRender={false}
+              selectedClassName="react-tabs__tab-panel--selected"
+            >
+              <div
+                className="partnerPanel"
+              />
+            </TabPanel>
+          </Row>
+        </Col>
+      </Row>
     </Tabs>
-  </div>
-</PMMainPage>
+  </Container>
+</div>
 `;

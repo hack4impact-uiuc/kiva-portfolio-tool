@@ -1,8 +1,6 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import Notification from './Notification'
 import NavBar from './NavBar'
-import NotificationsBar from './NotificationsBar'
 import {
   getAllDocuments,
   getDocumentsByUser,
@@ -22,7 +20,6 @@ import { beginLoading, endLoading } from '../redux/modules/auth'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
-import '../styles/dashboard.css'
 import 'box-ui-elements/dist/preview.css'
 
 // Not needed unless working with non "en" locales
@@ -113,7 +110,7 @@ export class Dashboard extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="background-rectangles maxheight">
         <NavBar />
         <Container>
           <Row>

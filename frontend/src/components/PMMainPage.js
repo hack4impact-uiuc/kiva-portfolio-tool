@@ -140,7 +140,7 @@ export class PMMainPage extends Component {
 
   render() {
     return (
-      <div className="page maxheight">
+      <div className="page background-circles-green maxheight">
         <Navbar />
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader>Add New Field Partner</ModalHeader>
@@ -171,34 +171,13 @@ export class PMMainPage extends Component {
         </Modal>
 
         <Container className="maxheight">
-          <Row>
-            <Col className="text-center sidebar-background" md="2">
-              <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
-                <img className="addImg" src={add} />
-                <span className="add-doc-text">Add New</span>
-              </Button>
-            </Col>
-
-            <Col className="fp-background" md="10">
-              <h2 className="margin-top-sm">Field Partners</h2>
-              <form onSubmit={this.handleSubmit}>
-                <img src={search} width="23" />
-                <span>
-                  <input
-                    className="input-master margin-bottom-xs margin-top-xs"
-                    type="text"
-                    value={this.state.query}
-                    placeholder="Search for a Field Partner..."
-                    onChange={this.handleQueryChange}
-                  />
-                </span>
-              </form>
-            </Col>
-          </Row>
-
           <Tabs className="tab-master maxheight">
             <Row className="maxheight">
-              <Col className="sidebar-background" md="2">
+              <Col className="text-centered sidebar-background" sm="12" md="2">
+                <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
+                  <img className="addImg" src={add} />
+                  <span>Add New</span>
+                </Button>
                 <TabList className="react-tabs__tab-list">
                   <Tab>In Process</Tab>
                   <Tab>New Partner</Tab>
@@ -206,60 +185,86 @@ export class PMMainPage extends Component {
                 </TabList>
               </Col>
 
-              <Col className="fp-background" md="10">
-                <TabPanel>
-                  <div className="partnerPanel">
-                    {this.state.filtered
-                      .filter(partner => partner.app_status == 'In Process')
-                      .map(partner => {
-                        return (
-                          <Button
-                            className="partnerButton"
-                            color="transparent"
-                            onClick={() => this.handleClickIP(partner._id)}
-                          >
-                            <PartnerBar partner={partner} />
-                          </Button>
-                        )
-                      })}
-                  </div>
-                </TabPanel>
+              <Col className="fp-background" sm="12" md="10">
+                <Row className="text-centered">
+                  <Col md="12">
+                    <h2 className="margin-top-sm">Field Partners</h2>
+                    <form onSubmit={this.handleSubmit}>
+                      <img src={search} width="23" />
+                      <span>
+                        <input
+                          className="input-master margin-bottom-xs margin-top-xs"
+                          type="text"
+                          value={this.state.query}
+                          placeholder="Search for a Field Partner..."
+                          onChange={this.handleQueryChange}
+                        />
+                      </span>
+                    </form>
+                  </Col>
+                </Row>
 
-                <TabPanel>
-                  <div className="partnerPanel">
-                    {this.state.filtered
-                      .filter(partner => partner.app_status == 'New Partner')
-                      .map(partner => {
-                        return (
-                          <Button
-                            className="partnerButton"
-                            color="transparent"
-                            onClick={() => this.handleClickNew(partner._id)}
-                          >
-                            <PartnerBar partner={partner} />
-                          </Button>
-                        )
-                      })}
-                  </div>
-                </TabPanel>
+                <Row>
+                  <TabPanel>
+                    <div className="partnerPanel">
+                      {this.state.filtered
+                        .filter(partner => partner.app_status == 'In Process')
+                        .map(partner => {
+                          return (
+                            <Col md="6">
+                              <Button
+                                className="partnerButton"
+                                color="transparent"
+                                onClick={() => this.handleClickIP(partner._id)}
+                              >
+                                <PartnerBar partner={partner} />
+                              </Button>
+                            </Col>
+                          )
+                        })}
+                    </div>
+                  </TabPanel>
 
-                <TabPanel>
-                  <div className="partnerPanel">
-                    {this.state.filtered
-                      .filter(partner => partner.app_status == 'Complete')
-                      .map(partner => {
-                        return (
-                          <Button
-                            className="partnerButton"
-                            color="transparent"
-                            onClick={() => this.handleClickNew(partner._id)}
-                          >
-                            <PartnerBar partner={partner} />
-                          </Button>
-                        )
-                      })}
-                  </div>
-                </TabPanel>
+                  <TabPanel>
+                    <div className="partnerPanel">
+                      {this.state.filtered
+                        .filter(partner => partner.app_status == 'New Partner')
+                        .map(partner => {
+                          return (
+                            <Col md="6">
+                              <Button
+                                className="partnerButton"
+                                color="transparent"
+                                onClick={() => this.handleClickNew(partner._id)}
+                              >
+                                <PartnerBar partner={partner} />
+                              </Button>
+                            </Col>
+                          )
+                        })}
+                    </div>
+                  </TabPanel>
+
+                  <TabPanel>
+                    <div className="partnerPanel">
+                      {this.state.filtered
+                        .filter(partner => partner.app_status == 'Complete')
+                        .map(partner => {
+                          return (
+                            <Col md="6">
+                              <Button
+                                className="partnerButton"
+                                color="transparent"
+                                onClick={() => this.handleClickNew(partner._id)}
+                              >
+                                <PartnerBar partner={partner} />
+                              </Button>
+                            </Col>
+                          )
+                        })}
+                    </div>
+                  </TabPanel>
+                </Row>
               </Col>
             </Row>
           </Tabs>
@@ -323,7 +328,7 @@ class PartnerBar extends Component {
           <p className="partner-org-initials">{partner.org_name[0]}</p>
         </div>
         <div className="nameProgressDisplay">
-          <div>{partner.org_name}</div>
+          <p>{partner.org_name}</p>
           <div className="progressAdditional">
             {approved}%
             <Progress multi>

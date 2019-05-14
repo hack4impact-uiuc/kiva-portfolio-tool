@@ -4,7 +4,6 @@ import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import '../styles/dashboard.css'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import '../styles/index.css'
@@ -12,7 +11,7 @@ import '../styles/documentclasspage.css'
 import Dropzone from 'react-dropzone'
 import Loader from 'react-loader-spinner'
 import NavBar from './NavBar'
-import '../styles/variable.scss'
+import '../styles/variables.scss'
 import add from '../media/add.png'
 
 const mapStateToProps = state => ({
@@ -95,7 +94,7 @@ export class DocumentClassPage extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="background-rectangles maxheight">
         <NavBar />
         <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
@@ -171,7 +170,13 @@ export class DocumentClassPage extends React.Component {
             </tbody>
           </Table>
         </div>
-      </>
+
+        <div className="returnBtnContainer text-centered padding-bottom-sm">
+          <Button className="returnButton" onClick={this.props.history.goBack}>
+            Return
+          </Button>
+        </div>
+      </div>
     )
   }
 }
