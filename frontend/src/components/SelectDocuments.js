@@ -151,7 +151,7 @@ export class SelectDocumentsPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="background-wave-blue maxheight">
         <Navbar />
         <div className="topBar">
           <div className="iconTop">
