@@ -17,6 +17,7 @@ import {
   setUserType
 } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'

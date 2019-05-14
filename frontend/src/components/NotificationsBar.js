@@ -7,7 +7,7 @@ import Notification from './Notification'
 import { connect } from 'react-redux'
 import { updateMessages, updateInformation } from '../redux/modules/user'
 
-import '../styles/notifbar.scss'
+import '../styles/notifbar.css'
 
 import close from '../media/greyX.png'
 

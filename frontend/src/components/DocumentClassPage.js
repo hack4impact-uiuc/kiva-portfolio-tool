@@ -6,12 +6,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
-import '../styles/index.css'
-import '../styles/documentclasspage.css'
 import Dropzone from 'react-dropzone'
 import Loader from 'react-loader-spinner'
 import NavBar from './NavBar'
-import '../styles/variables.scss'
+
+import '../styles/variables.css'
+import '../styles/index.css'
+import '../styles/documentclasspage.css'
+
 import add from '../media/add.png'
 
 const mapStateToProps = state => ({

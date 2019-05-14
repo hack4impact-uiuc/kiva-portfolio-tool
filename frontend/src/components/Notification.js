@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Button, ListGroupItem } from 'reactstrap'
-import '../styles/notification.css'
 import { connect } from 'react-redux'
 
+import '../styles/notification.css'
 import '../styles/partnerbar.css'
 import '../styles/notifbar.css'
 
