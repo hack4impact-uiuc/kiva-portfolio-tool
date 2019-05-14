@@ -308,6 +308,10 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
   data.append('status', 'Missing')
   data.append('docClassIDs', docClassIDs)
   data.append('dueDate', dueDate)
+
+  // TODO: CREATE DOCUMENT HERE  
+  // TODO: can't you only do this after the document bc foreign key issues?
+
   return axios
     .post(requestString, data)
     .then(response => {
@@ -343,11 +347,38 @@ export const getAllMessages = (user_id, is_pm) => {
         error
       }
     })
-  //   return [
-  //     { name: 'joe', time: '4/12/18', description: 'GO DO SHIT' },
-  //     { name: 'schmoe', time: '4/12/19', description: 'DO SOME OTHER CRAP' },
-  //     { name: 'bro', time: '4/12/17', description: 'OOF' }
-  //   ]
+}
+
+export const createMessage = (user_id, is_pm_id, document_id, status) => {
+  // get pm_id from fp_id? depends on 
+  let requestString = BACKEND_URL + '/messages/new'
+  let data = new FormData()
+
+  if (is_pm_id) {
+    data.append('pm_id', user_id)
+  } else {
+    data.append('fp_id', user_id)
+  }
+
+  data.append('doc_id', document_id)
+  data.append('status', status)
+
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        type: 'CREATE_MESSAGE_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_MESSAGE_FAIL',
+        error
+      }
+    })
+
+    // MAKE SHIT MORE VERSATILE
 }
 
 export const getAllInformation = () => {
@@ -425,83 +456,6 @@ export const createFieldPartner = (org_name, email, pm_id) => {
     })
 }
 
-/*
-export const getAllPartners = () => {
-  return [
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Mario',
-      duedate: 1.423,
-      status: 'Active',
-      documents: {
-        Already: 'Approved',
-        In: 'Missing',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Peach',
-      duedate: 12534.0,
-      status: 'Dormant',
-      documents: {
-        Already: 'Rejected',
-        In: 'Rejected',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    }
-  ]
-}
-*/
-
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
@@ -531,6 +485,10 @@ export const downloadDocument = id => {
 export const updateDocumentStatus = (id, status) => {
   var data = new FormData()
   data.append('status', status)
+
+  // TODO: add here too
+  createMessage(userID, false, id, "Pending")
+
   return axios
     .put(BACKEND_URL + '/document/status/' + id, data)
     .then(response => {
@@ -551,6 +509,10 @@ export const uploadDocument = (file, file_name, docID) => {
   var data = new FormData()
   data.append('file', file)
   data.append('fileName', file_name)
+
+  // TODO: create notification here - need id?
+  createMessage(userID, false, docID, "Pending")
+
   return axios
     .put(BACKEND_URL + '/document/upload/' + docID, data)
     .then(response => {
