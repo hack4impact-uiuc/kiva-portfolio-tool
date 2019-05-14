@@ -54,7 +54,7 @@ export class NotificationsBar extends Component {
     const allMessages = this.props.allMessages
     const allInformation = this.props.allInformation
     return (
-      <Tabs>
+      <Tabs className="notifications-tabs">
         <TabList>
           <Tab className="tab">
             <span className="tab-font">Activity</span>

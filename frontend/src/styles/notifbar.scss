@@ -1,24 +1,25 @@
 @import "variables.scss";
 
-.react-tabs__tab-list {
+/* prevent overlap of css styles */
+.notifications-tabs .react-tabs__tab-list {
     width: 100%;
     text-align: center;
 }
 
 /* override react-tab styling from pm dashboard page */
-.react-tabs__tab--selected {
+.notifications-tabs .react-tabs__tab--selected {
     margin: 0;
     border-bottom: 7px solid $accepted-color;
     text-align: center;
 }
 
-.tab {
+.notifications-tabs .tab {
     display: inline-block;
     width: 50%;
     padding: 7px 0;
 }
 
-.tab-font {
+.notifications-tabs .tab-font {
     font-size: 16pt;
     font-weight: 400;
 }
