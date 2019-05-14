@@ -5,7 +5,10 @@ import { bindActionCreators } from 'redux'
 import Notification from './Notification'
 import { connect } from 'react-redux'
 import { updateMessages, updateInformation } from '../redux/modules/user'
+
 import '../styles/notifbar.scss'
+
+import close from '../media/greyX.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -73,6 +76,7 @@ export class NotificationsBar extends Component {
             )
           })}
         </TabPanel>
+
         <TabPanel>
           {allInformation.map((info, index) => {
             return (
@@ -83,7 +87,7 @@ export class NotificationsBar extends Component {
                     this.removeInformation(index)
                   }}
                 >
-                  X
+                  <img className="exit-button" src={close}/>
                 </button>
               </div>
             )

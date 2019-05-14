@@ -10,6 +10,31 @@
   color: $gray_text_color;
 }
 
+.react-tabs__tab-panel .list-group-item {
+  padding: 2% 1%;
+  display: flex;
+  align-items: center;
+}
+
+.list-group-item .partner-icon, .list-group-item .notif-info {
+  display: inline-block;
+}
+
+.list-group-item .partner-icon {
+  margin-right: 6%;
+}
+
+.notif-info {
+  width: 70%;
+}
+
+.notif-info p {
+  margin: 0;
+}
+
 .notif-description {
   color: $gray_text_color;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }

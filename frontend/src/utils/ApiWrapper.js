@@ -340,7 +340,7 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
-    { name: 'PM', time: '4/12/18', description: 'Rejected Strategic Plan' },
+    { name: 'PM', time: '4/12/18', description: 'Rejected Strategic Plan. This also tests for activity overflow.' },
     { name: 'PM', time: '4/12/19', description: 'Rejected Annual Plan' },
     { name: 'PM', time: '4/12/17', description: 'Approved Financial Projections' },
     { name: 'PM', time: '4/12/17', description: 'Approved Organizational Chart' }

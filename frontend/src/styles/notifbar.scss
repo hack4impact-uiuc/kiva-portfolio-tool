@@ -7,3 +7,18 @@
     font-size: 25px;
     font-weight: 500;
 }
+
+.exit-button-wrapper {
+    float: right;
+}
+
+.exit-button {
+    max-width: 15px;
+    max-height: 15px;
+
+    /*
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    */
+}
