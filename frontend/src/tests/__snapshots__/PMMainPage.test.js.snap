@@ -2,7 +2,7 @@
 
 exports[`PMMainPage renders correctly 1`] = `
 <div
-  className="page maxheight"
+  className="page background-circles-green maxheight"
 >
   <Connect(withRouter(NavBar)) />
   <Modal
@@ -99,7 +99,7 @@ exports[`PMMainPage renders correctly 1`] = `
         tag="div"
       >
         <Col
-          className="sidebar-background"
+          className="text-centered sidebar-background"
           md="2"
           sm="12"
           tag="div"
@@ -113,28 +113,24 @@ exports[`PMMainPage renders correctly 1`] = `
             ]
           }
         >
-          <TabList
-            className="react-tabs__tab-list hide-small"
+          <Button
+            className="add-doc-text"
+            color="secondary"
+            id="new-fp-button"
+            onClick={[Function]}
+            tag="button"
           >
-            <Button
-              className="add-doc-text maxWidthFull"
-              color="secondary"
-              id="new-fp-button"
-              onClick={[Function]}
-              tag="button"
-            >
-              <img
-                className="addImg"
-                id="new-fp-button-img"
-                src="add.png"
-              />
-              <span
-                className="add-doc-text"
-                id="new-fp-button-text"
-              >
-                Add New
-              </span>
-            </Button>
+            <img
+              className="addImg"
+              src="add.png"
+            />
+            <span>
+              Add New
+            </span>
+          </Button>
+          <TabList
+            className="react-tabs__tab-list"
+          >
             <Tab
               className="react-tabs__tab"
               disabledClassName="react-tabs__tab--disabled"
@@ -171,7 +167,7 @@ exports[`PMMainPage renders correctly 1`] = `
           </TabList>
         </Col>
         <Col
-          className="fp-background maxheight"
+          className="fp-background"
           md="10"
           sm="12"
           tag="div"
@@ -190,7 +186,7 @@ exports[`PMMainPage renders correctly 1`] = `
             tag="div"
           >
             <Col
-              md="10"
+              md="12"
               tag="div"
               widths={
                 Array [
@@ -224,33 +220,37 @@ exports[`PMMainPage renders correctly 1`] = `
               </form>
             </Col>
           </Row>
-          <TabPanel
-            className="react-tabs__tab-panel"
-            forceRender={false}
-            selectedClassName="react-tabs__tab-panel--selected"
+          <Row
+            tag="div"
           >
-            <div
-              className="partnerPanel"
-            />
-          </TabPanel>
-          <TabPanel
-            className="react-tabs__tab-panel"
-            forceRender={false}
-            selectedClassName="react-tabs__tab-panel--selected"
-          >
-            <div
-              className="partnerPanel"
-            />
-          </TabPanel>
-          <TabPanel
-            className="react-tabs__tab-panel"
-            forceRender={false}
-            selectedClassName="react-tabs__tab-panel--selected"
-          >
-            <div
-              className="partnerPanel"
-            />
-          </TabPanel>
+            <TabPanel
+              className="react-tabs__tab-panel"
+              forceRender={false}
+              selectedClassName="react-tabs__tab-panel--selected"
+            >
+              <div
+                className="partnerPanel"
+              />
+            </TabPanel>
+            <TabPanel
+              className="react-tabs__tab-panel"
+              forceRender={false}
+              selectedClassName="react-tabs__tab-panel--selected"
+            >
+              <div
+                className="partnerPanel"
+              />
+            </TabPanel>
+            <TabPanel
+              className="react-tabs__tab-panel"
+              forceRender={false}
+              selectedClassName="react-tabs__tab-panel--selected"
+            >
+              <div
+                className="partnerPanel"
+              />
+            </TabPanel>
+          </Row>
         </Col>
       </Row>
     </Tabs>
