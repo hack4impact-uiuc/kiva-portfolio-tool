@@ -18,6 +18,7 @@ import {
 import Navbar from './NavBar'
 
 import 'react-tabs/style/react-tabs.css'
+import '../styles/index.css'
 // same button styling as in document class page
 // 'Add New Doc Class' button styling the same
 import '../styles/documentclasspage.css'
@@ -149,6 +150,7 @@ export class PMMainPage extends Component {
             <form onSubmit={this.handleNewFP}>
               <p>Organization Name:</p>
               <input
+                className="modal-input-master"
                 type="text"
                 value={this.state.name}
                 size="50"
@@ -157,6 +159,7 @@ export class PMMainPage extends Component {
               />
               <p>Email:</p>
               <input
+                className="modal-input-master"
                 type="text"
                 value={this.state.email}
                 size="50"
