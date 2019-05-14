@@ -8,24 +8,37 @@
 /* override react-tab styling from pm dashboard page */
 .react-tabs__tab--selected {
     margin: 0;
-    border-bottom: 10px solid $accepted-color;
+    border-bottom: 7px solid $accepted-color;
+    text-align: center;
 }
 
 .tab {
-    display: inline;
-    padding: 0.5rem 2.25rem;
+    display: inline-block;
+    width: 50%;
+    padding: 7px 0;
 }
 
 .tab-font {
-    font-size: 25px;
-    font-weight: 500;
+    font-size: 16pt;
+    font-weight: 400;
 }
 
-.exit-button-wrapper {
+.list-group-item .exit-button-wrapper {
+    position: absolute;
+    top: 0;
+    right: 1px;
     float: right;
 }
 
 .exit-button {
     max-width: 15px;
     max-height: 15px;
+}
+
+.instruction {
+    width: 85%;
+}
+
+.instruction p, .instruction b {
+    padding-left: 5px;
 }

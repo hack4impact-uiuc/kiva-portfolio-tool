@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { ListGroupItem } from 'reactstrap'
+import { Button, ListGroupItem } from 'reactstrap'
 import 'react-tabs/style/react-tabs.css'
 import { bindActionCreators } from 'redux'
 import Notification from './Notification'
@@ -83,17 +83,21 @@ export class NotificationsBar extends Component {
             return (
               <ListGroupItem>
                 <div>
-                  <p>
-                    <button
+                  <div className="instruction">
+                    <b>Instruction</b>
+                    <p>{info}</p>
+                  </div>
+                  <div>
+                    <Button
                       className="exit-button-wrapper"
+                      color="transparent"
                       onClick={() => {
                         this.removeInformation(index)
                       }}
                     >
                       <img className="exit-button" src={close}/>
-                    </button>
-                    {info}
-                  </p>
+                    </Button>
+                  </div>
                 </div>
               </ListGroupItem>
             )

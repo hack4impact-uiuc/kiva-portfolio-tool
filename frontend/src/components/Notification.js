@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ListGroupItem } from 'reactstrap'
+import { Button, ListGroupItem } from 'reactstrap'
 import '../styles/notification.css'
 import { connect } from 'react-redux'
 
@@ -24,17 +24,20 @@ export class Notification extends Component {
           <p className="person-name">
             {' '}
             <b> {this.props.name} </b>{' '}
-            <button
-              className="exit-button-wrapper"
-              onClick={() => {
-                this.props.removeMessage(this.props.index)
-              }}
-            >
-              <img className="exit-button" src={close}/>
-            </button>
           </p>
           <p className="time"> {this.props.time} </p>
           <p className="notif-description"> {this.props.description} </p>
+        </div>
+        <div>
+          <Button
+            className="exit-button-wrapper"
+            color="transparent"
+            onClick={() => {
+              this.props.removeMessage(this.props.index)
+            }}
+          >
+            <img className="exit-button" src={close}/>
+          </Button>
         </div>
       </ListGroupItem>
     )
