@@ -17,9 +17,15 @@ export class Notification extends Component {
     const { isPM } = this.props
     return (
       <ListGroupItem>
-        <div className="partner-icon">
-          <p className="partner-org-initials">{this.props.name[0]}</p>
-        </div>
+        {this.props.name ? (
+          <div className="partner-icon">
+            <p className="partner-org-initials">{this.props.name[0]}</p>
+          </div>
+        ) : (
+          <div className="kiva-icon">
+            <p className="partner-org-initials">k</p>
+          </div>
+        )}
         <div className="notif-info">
           <p className="person-name">
             {' '}
@@ -36,7 +42,7 @@ export class Notification extends Component {
               this.props.removeMessage(this.props.index)
             }}
           >
-            <img className="exit-button" src={close}/>
+            <img className="exit-button" src={close} />
           </Button>
         </div>
       </ListGroupItem>

@@ -95,7 +95,7 @@ export class NotificationsBar extends Component {
                         this.removeInformation(index)
                       }}
                     >
-                      <img className="exit-button" src={close}/>
+                      <img className="exit-button" src={close} />
                     </Button>
                   </div>
                 </div>
