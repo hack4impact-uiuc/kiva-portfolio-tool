@@ -5,7 +5,7 @@ import {
   getAllDocuments,
   getDocumentsByUser,
   getAllMessages,
-  finishFieldPartner,
+  updateFieldPartnerStatus,
   getFPByID
 } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
@@ -114,7 +114,7 @@ export class Dashboard extends React.Component {
    */
   async handleFinish() {
     this.props.beginLoading()
-    await finishFieldPartner(this.props.match.params.id)
+    await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
     this.props.history.push('/main')
     this.props.endLoading()
   }
