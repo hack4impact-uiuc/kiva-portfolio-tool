@@ -1,5 +1,14 @@
 # Backend Documentation
 
+## Box API Setup
+
+To start using Box, you must create a box account [here](https://account.box.com/login).
+
+
+
+box api document
+https://developer.box.com/reference
+
 ## Postgres Setup
 
 Follow the instructions for your operating system's setup in the [Flask Boilerplate Wiki](https://github.com/tko22/flask-boilerplate/wiki).
