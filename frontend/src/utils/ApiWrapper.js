@@ -324,6 +324,7 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
 
   // TODO: CREATE DOCUMENT HERE  
   // TODO: can't you only do this after the document bc foreign key issues?
+  // can i just die
 
   return axios
     .post(requestString, data)
@@ -495,12 +496,11 @@ export const downloadDocument = id => {
     })
 }
 
-export const updateDocumentStatus = (id, status) => {
+export const updateDocumentStatus = (userId, id, status) => {
   var data = new FormData()
   data.append('status', status)
 
-  // TODO: add here too
-  createMessage(userID, false, id, "Pending")
+  createMessage(userId, false, id, "Pending")
 
   return axios
     .put(BACKEND_URL + '/document/status/' + id, data)
