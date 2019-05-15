@@ -58,10 +58,10 @@ export class PMMainPage extends Component {
       query: '',
       email: '',
       org_name: '',
-      newModal: false,
+      newModal: false, // for creating a new FP
       pm_id: null,
       completeModal: false,
-      complete_id: null
+      complete_id: null // for confirmation of process restart for a 'Complete' FP
     }
     this.newToggle = this.newToggle.bind(this)
     this.completeToggle = this.completeToggle.bind(this)
@@ -139,6 +139,9 @@ export class PMMainPage extends Component {
     this.setState({ completeModal: !this.state.completeModal, complete_id: id })
   }
 
+  /**
+   * Called on submission of a new Field Partner
+   */
   async handleNewFP() {
     this.props.beginLoading()
     this.newToggle()
@@ -148,18 +151,30 @@ export class PMMainPage extends Component {
     this.props.endLoading()
   }
 
+  /**
+   * Called when clicking on an 'In Process' Field Partner
+   */
   handleClickIP = id => {
     this.props.history.push('/dashboard/pm/' + id)
   }
 
+  /**
+   * Called when clicking on a 'New Parter' Field Partner
+   */
   handleClickNew = id => {
     this.props.history.push('/selectdocumentspage/' + id)
   }
 
+  /**
+   * Called from the 'Complete' Field Partner modal when the user wants to just view the corresponding dashboard
+   */
   handleClickComplete = () => {
     this.props.history.push('/dashboard/pm/' + this.state.complete_id)
   }
 
+  /**
+   * Called from the 'Complete' Field Partner modal when the user wants to restart the process
+   */
   async handleClickCompleteRestart() {
     this.completeToggle()
     this.props.beginLoading()

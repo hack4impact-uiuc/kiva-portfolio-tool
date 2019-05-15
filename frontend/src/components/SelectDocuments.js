@@ -156,6 +156,7 @@ export class SelectDocumentsPage extends React.Component {
         return array
       }, [])
 
+    // Currently breaks when no docClassIDs provided, so I (Arpan) wrapped it in an if statement - need to fix
     if (docClassIDs.length > 0) {
       const date =
         this.state.dueDate.getMonth() +

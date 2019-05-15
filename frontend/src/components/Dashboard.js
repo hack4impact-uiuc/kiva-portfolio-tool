@@ -87,7 +87,6 @@ export class Dashboard extends React.Component {
      */
     const fp = await getFPByID(this.props.match.params.id)
     const instructionsReceived = fp.instructions
-    console.log(instructionsReceived)
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
