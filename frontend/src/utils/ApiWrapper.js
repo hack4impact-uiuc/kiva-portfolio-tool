@@ -446,6 +446,26 @@ export const finishFieldPartner = id => {
     })
 }
 
+export const updateFPInstructions = (id, instructions) => {
+  let requestString = BACKEND_URL + '/field_partner/update/' + id
+  let data = new FormData()
+  data.append('instructions', instructions)
+  return axios
+    .put(requestString, data)
+    .then(response => {
+      return {
+        type: 'UPDATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_FP_FAIL',
+        error
+      }
+    })
+}
+
 export const deleteDocument = id => {
   let requestString = BACKEND_URL + '/document/delete/' + id
   return axios
