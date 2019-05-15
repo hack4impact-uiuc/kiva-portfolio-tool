@@ -5,7 +5,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap'
-import { downloadDocument, uploadDocument, getDocumentsByUser } from '../utils/ApiWrapper'
+import {
+  downloadDocument,
+  uploadDocument,
+  getDocumentsByUser,
+  deleteDocument
+} from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 
@@ -63,7 +68,18 @@ export class DocumentListItem extends Component {
     downloadDocument(document.fileID)
   }
 
-  handleDelete() {}
+  async handleDelete() {
+    this.toggle()
+    this.props.beginLoading()
+    await deleteDocument(this.props.document._id)
+    const documents = await getDocumentsByUser(this.props.document.userID)
+    if (documents) {
+      this.props.updateDocuments(documents)
+    } else {
+      this.props.updateDocuments([])
+    }
+    this.props.endLoading()
+  }
 
   toggle() {
     this.setState({ modal: !this.state.modal })
