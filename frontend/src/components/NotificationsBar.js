@@ -48,6 +48,10 @@ export class NotificationsBar extends Component {
     information.splice(index, 1)
     this.props.updateInformation(information)
   }
+  
+  closeSidebar = open => {
+    this.props.closeFunc(open)
+  }
 
   render() {
     const { isPM } = this.props.isPM
@@ -62,6 +66,14 @@ export class NotificationsBar extends Component {
           <Tab className="tab">
             <span className="tab-font">Information</span>
           </Tab>
+          <Button
+            color="transparent"
+            onClick={() => {
+              this.closeSidebar(false)
+            }}
+          >
+            <img className="exit-button" src={close} />
+          </Button>
         </TabList>
 
         <TabPanel>
