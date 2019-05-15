@@ -67,6 +67,7 @@ export class NotificationsBar extends Component {
             <span className="tab-font">Information</span>
           </Tab>
           <Button
+            id="sidebar-close-button"
             color="transparent"
             onClick={() => {
               this.closeSidebar(false)
