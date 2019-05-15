@@ -28,7 +28,6 @@ import '../styles/documentclasspage.css'
 import '../styles/partnerbar.css'
 
 import add from '../media/add.png'
-import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM

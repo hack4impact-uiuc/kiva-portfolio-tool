@@ -20,7 +20,6 @@ import '../styles/selectdocuments.css'
 
 import search from '../media/search.png'
 import WithAuth from './WithAuth'
-import Navbar from './NavBar'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
