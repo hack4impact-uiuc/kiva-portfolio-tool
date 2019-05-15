@@ -228,6 +228,7 @@ def delete_document(id):
     db.session.commit()
     return create_response(status=200, message="success")
 
+
 @document.route("/document/delete/fp/<id>", methods=["DELETE"])
 def delete_documents_by_fp(id):
     """
@@ -238,6 +239,7 @@ def delete_documents_by_fp(id):
 
     db.session.commit()
     return create_response(status=200, message="success")
+
 
 @document.route("/document/update/<docClassID>", methods=["PUT"])
 def update_documents(docClassID):
