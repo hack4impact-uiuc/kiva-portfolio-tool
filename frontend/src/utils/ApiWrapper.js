@@ -427,7 +427,7 @@ export const createFieldPartner = (org_name, email, pm_id) => {
 }
 
 export const deleteDocument = id => {
-  let requestString = BACKEND_URL + '/delete/' + id
+  let requestString = BACKEND_URL + '/document/delete/' + id
   return axios
     .delete(requestString)
     .then(response => {
