@@ -115,7 +115,6 @@ export class Dashboard extends React.Component {
         {this.props.isPM ? (
           <Button
             className="add-doc-text"
-            id="add-new-class"
             color="transparent"
             onClick={() =>
               this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
