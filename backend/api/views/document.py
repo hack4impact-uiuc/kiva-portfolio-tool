@@ -207,11 +207,10 @@ def create_new_documents():
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(
             status=400, message="You do not have permission to delete documents!"
         )
-
     if "userID" not in data:
         return create_response(
             status=400, message="No UserID provided for new Document"
@@ -261,13 +260,25 @@ def delete_document(id):
     if message != None:
         return create_response(status=400, message=message)
 
-    if info[0] == "fp":
+    if info == "fp":
         return create_response(
             status=400, message="You do not have permission to delete documents!"
         )
 
     # gets all document <id> native to db and sees if == to docClassID. Then deletes
     Document.query.filter((Document.id == str(id))).delete()
+
+    db.session.commit()
+    return create_response(status=200, message="success")
+
+
+@document.route("/document/delete/fp/<id>", methods=["DELETE"])
+def delete_documents_by_fp(id):
+    """
+    Deletes all documents belonging to the specified user
+    """
+
+    Document.query.filter((Document.userID == str(id))).delete()
 
     db.session.commit()
     return create_response(status=200, message="success")

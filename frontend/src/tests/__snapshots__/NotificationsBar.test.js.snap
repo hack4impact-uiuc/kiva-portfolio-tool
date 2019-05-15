@@ -68,35 +68,14 @@ exports[` renders correctly 1`] = `
     forceRender={false}
     selectedClassName="react-tabs__tab-panel--selected"
   >
-    <ListGroupItem
-      tag="li"
+    <div
+      className="instruction"
     >
-      <div>
-        <div
-          className="instruction"
-        >
-          <b>
-            Instruction
-          </b>
-          <p>
-            info here
-          </p>
-        </div>
-        <div>
-          <Button
-            className="exit-button-wrapper"
-            color="transparent"
-            onClick={[Function]}
-            tag="button"
-          >
-            <img
-              className="exit-button"
-              src="greyX.png"
-            />
-          </Button>
-        </div>
-      </div>
-    </ListGroupItem>
+      <b>
+        Instructions
+      </b>
+      <p />
+    </div>
   </TabPanel>
 </Tabs>
 `;

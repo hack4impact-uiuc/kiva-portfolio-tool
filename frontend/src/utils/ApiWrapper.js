@@ -353,12 +353,12 @@ export const getAllDocuments = () => {
   })
 }
 
-export const getFPNameByID = id => {
+export const getFPByID = id => {
   let requestString = BACKEND_URL + '/field_partner/' + id
   return axios
     .get(requestString)
     .then(response => {
-      return response.data.result.field_partner.org_name
+      return response.data.result.field_partner
     })
     .catch(error => {
       console.log('ERROR: ', error)
@@ -447,10 +447,30 @@ export const getAllPartners = () => {
     })
 }
 
-export const finishFieldPartner = id => {
+export const updateFieldPartnerStatus = (id, status) => {
   let requestString = BACKEND_URL + '/field_partner/update/' + id
   let data = new FormData()
-  data.append('app_status', 'Complete')
+  data.append('app_status', status)
+  return axios
+    .put(requestString, data)
+    .then(response => {
+      return {
+        type: 'UPDATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_FP_FAIL',
+        error
+      }
+    })
+}
+
+export const updateFPInstructions = (id, instructions) => {
+  let requestString = BACKEND_URL + '/field_partner/update/' + id
+  let data = new FormData()
+  data.append('instructions', instructions)
   return axios
     .put(requestString, data)
     .then(response => {
@@ -480,6 +500,24 @@ export const deleteDocument = id => {
     .catch(error => {
       return {
         type: 'DELETE_DOCUMENT_FAIL',
+        error
+      }
+    })
+}
+
+export const deleteDocumentsByFP = id => {
+  let requestString = BACKEND_URL + '/document/delete/fp/' + id
+  return axios
+    .delete(requestString)
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENTS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENTS_FAIL',
         error
       }
     })
