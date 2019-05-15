@@ -6,11 +6,13 @@ To start using Box, you must create a box account [here](https://account.box.com
 
 After you create your new box account, you must visit the [Console](https://app.box.com/developers/console) to create your project.
 
-After creating your project, click into the project and go to *configuration*.
+After creating your project, click into the project and go to **configuration**.
 
 In *configuration* tab, decide whether or not you want to authenticate using _OAuth_ or _JWT_. You can find more documentation about these two methods [here](https://developer.box.com/docs/quickstart-guides).
 
 Follow each step in the chosen authentication method, and you are all set!
+
+This project uses the _JWT_ method to authenticate one master user and allow anyone with access to the project upload, delete, and more with box. By using the _JWT_ method, you must download the **App Settings** from your **configuration**, which is located all the way down in the page. After you download it, follow the [documentation](https://developer.box.com/docs/construct-jwt-claim-manually), and you will be able to set up the box account similar to this project's.
 
 ###box api document
 This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
