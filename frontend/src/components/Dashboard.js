@@ -135,7 +135,7 @@ export class Dashboard extends React.Component {
               }
             >
               <img className="addImg" src={add} />
-              <span className="add-doc-text">Add New Requirements</span>
+              <span className="add-doc-text">Update requirements/instructions</span>
             </Button>
             <br />
             <Button color="success" onClick={this.handleFinish}>
