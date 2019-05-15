@@ -484,6 +484,24 @@ export const deleteDocument = id => {
     })
 }
 
+export const deleteDocumentsByFP = id => {
+  let requestString = BACKEND_URL + '/document/delete/fp/' + id
+  return axios
+    .delete(requestString)
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENT_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENT_FAIL',
+        error
+      }
+    })
+}
+
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios

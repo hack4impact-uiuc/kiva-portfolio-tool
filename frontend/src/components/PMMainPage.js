@@ -155,7 +155,6 @@ export class PMMainPage extends Component {
   async handleClickCompleteRestart(id) {
     this.completeToggle()
     this.props.beginLoading()
-    
   }
 
   render() {
