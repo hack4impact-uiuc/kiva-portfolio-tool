@@ -5,8 +5,8 @@ import {
   getAllDocuments,
   getDocumentsByUser,
   getAllMessages,
-  getAllInformation,
-  finishFieldPartner
+  finishFieldPartner,
+  getFPByID
 } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -14,7 +14,7 @@ import { Container, Row, Col, Button } from 'reactstrap'
 import {
   updateDocuments,
   updateMessages,
-  updateInformation,
+  updateInstructions,
   setUserType
 } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
@@ -41,10 +41,10 @@ const mapDispatchToProps = dispatch => {
     {
       updateDocuments,
       updateMessages,
-      updateInformation,
       setUserType,
       beginLoading,
-      endLoading
+      endLoading,
+      updateInstructions
     },
     dispatch
   )
@@ -85,7 +85,9 @@ export class Dashboard extends React.Component {
     /**
      * Contains all information received from backend
      */
-    const informationReceived = await getAllInformation()
+    const fp = await getFPByID(this.props.match.params.id)
+    const instructionsReceived = fp.instructions
+    console.log(instructionsReceived)
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
@@ -99,10 +101,10 @@ export class Dashboard extends React.Component {
       this.props.updateMessages([])
     }
 
-    if (informationReceived) {
-      this.props.updateInformation(informationReceived)
+    if (instructionsReceived) {
+      this.props.updateInstructions(instructionsReceived)
     } else {
-      this.props.updateInformation([])
+      this.props.updateInstructions('')
     }
     this.props.endLoading()
   }

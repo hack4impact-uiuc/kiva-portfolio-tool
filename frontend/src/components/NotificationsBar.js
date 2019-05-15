@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { Button, ListGroupItem } from 'reactstrap'
+import { Button } from 'reactstrap'
 import 'react-tabs/style/react-tabs.css'
 import { bindActionCreators } from 'redux'
 import Notification from './Notification'
 import { connect } from 'react-redux'
-import { updateMessages, updateInformation } from '../redux/modules/user'
+import { updateMessages } from '../redux/modules/user'
 
 import '../styles/notifbar.css'
 
@@ -14,14 +14,13 @@ import close from '../media/greyX.png'
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   allMessages: state.user.messages,
-  allInformation: state.user.information
+  instructions: state.user.instructions
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateMessages,
-      updateInformation
+      updateMessages
     },
     dispatch
   )
@@ -40,15 +39,6 @@ export class NotificationsBar extends Component {
     this.props.updateMessages(messages)
   }
 
-  /**
-   * Helper function that removes infos upon click by index in array
-   */
-  removeInformation = index => {
-    let information = [...this.props.allInformation]
-    information.splice(index, 1)
-    this.props.updateInformation(information)
-  }
-
   closeSidebar = open => {
     this.props.closeFunc(open)
   }
@@ -56,7 +46,7 @@ export class NotificationsBar extends Component {
   render() {
     const { isPM } = this.props.isPM
     const allMessages = this.props.allMessages
-    const allInformation = this.props.allInformation
+    const information = this.props.instructions
     return (
       <Tabs className="notifications-tabs">
         <TabList>
@@ -92,29 +82,10 @@ export class NotificationsBar extends Component {
         </TabPanel>
 
         <TabPanel>
-          {allInformation.map((info, index) => {
-            return (
-              <ListGroupItem>
-                <div>
-                  <div className="instruction">
-                    <b>Instruction</b>
-                    <p>{info}</p>
-                  </div>
-                  <div>
-                    <Button
-                      className="exit-button-wrapper"
-                      color="transparent"
-                      onClick={() => {
-                        this.removeInformation(index)
-                      }}
-                    >
-                      <img className="exit-button" src={close} />
-                    </Button>
-                  </div>
-                </div>
-              </ListGroupItem>
-            )
-          })}
+          <div className="instruction">
+            <b>Instructions</b>
+            <p>{information}</p>
+          </div>
         </TabPanel>
       </Tabs>
     )
