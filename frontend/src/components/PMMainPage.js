@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { getAllPartners, createFieldPartner, getAllPMs } from '../utils/ApiWrapper'
+import {
+  getAllPartners,
+  createFieldPartner,
+  getAllPMs,
+  deleteDocumentsByFP,
+  updateFPInstructions,
+  updateFieldPartnerStatus
+} from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { bindActionCreators } from 'redux'
 import { beginLoading, endLoading } from '../redux/modules/auth'
@@ -53,7 +60,8 @@ export class PMMainPage extends Component {
       org_name: '',
       newModal: false,
       pm_id: null,
-      completeModal: false
+      completeModal: false,
+      complete_id: null
     }
     this.newToggle = this.newToggle.bind(this)
     this.completeToggle = this.completeToggle.bind(this)
@@ -127,8 +135,8 @@ export class PMMainPage extends Component {
     this.setState({ newModal: !this.state.newModal })
   }
 
-  completeToggle = () => {
-    this.setState({ completeModal: !this.state.completeModal })
+  completeToggle = id => {
+    this.setState({ completeModal: !this.state.completeModal, complete_id: id })
   }
 
   async handleNewFP() {
@@ -148,13 +156,17 @@ export class PMMainPage extends Component {
     this.props.history.push('/selectdocumentspage/' + id)
   }
 
-  handleClickComplete = id => {
-    this.props.history.push('/dashboard/pm/' + id)
+  handleClickComplete = () => {
+    this.props.history.push('/dashboard/pm/' + this.state.complete_id)
   }
 
-  async handleClickCompleteRestart(id) {
+  async handleClickCompleteRestart() {
     this.completeToggle()
     this.props.beginLoading()
+    let id = this.state.complete_id
+    await deleteDocumentsByFP(id)
+    await updateFPInstructions(id, '')
+    this.props.history.push('/selectdocumentspage/' + id)
   }
 
   render() {
@@ -294,7 +306,7 @@ export class PMMainPage extends Component {
                               <Button
                                 className="partnerButton"
                                 color="transparent"
-                                onClick={this.completeToggle}
+                                onClick={() => this.completeToggle(partner._id)}
                               >
                                 <PartnerBar partner={partner} />
                               </Button>
