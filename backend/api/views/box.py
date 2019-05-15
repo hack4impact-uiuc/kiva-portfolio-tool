@@ -2,6 +2,7 @@ from boxsdk import Client, OAuth2
 from boxsdk.network.default_network import DefaultNetwork
 from boxsdk.exception import BoxAPIException
 
+from api.views.auth import verify_token
 from boxsdk import JWTAuth
 
 from io import BytesIO
@@ -39,6 +40,12 @@ SPACE = 1073741824
 
 @box.route("/box/token", methods=["GET"])
 def get_access_token():
+    token = request.headers.get("token")
+    message, info = verify_token(token)
+
+    # if message != None:
+    #    return create_response(status=400, message=message)
+
     config = json.load(open("api/views/171399529_b8tan54x_config.json"))
 
     keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
@@ -94,8 +101,8 @@ def get_access_token():
 
     # Make the request, parse the JSON,
     # and extract the access token
-    request = Request(authentication_url, params)
-    response = urlopen(request).read()
+    check = Request(authentication_url, params)
+    response = urlopen(check).read()
     access_token = json.loads(response)["access_token"]
     return create_response(data={"access_token": access_token})
 

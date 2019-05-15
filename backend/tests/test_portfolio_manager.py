@@ -1,4 +1,32 @@
 from api.models import db, PortfolioManager, FieldPartner
+import enum, requests, json, random, string
+
+BACKEND_URL = "http://localhost:8000/"
+
+r = (
+    requests.post(
+        BACKEND_URL + "register",
+        data={
+            "email": "test@gmail.com",
+            "password": "test",
+            "securityQuestionAnswer": "answer",
+            "answer": "yo",
+            "questionIdx": 1,
+            "role": "pm",
+        },
+    )
+).json()
+
+if r.get("status") == 400:
+    r = (
+        requests.post(
+            BACKEND_URL + "login", data={"email": "test@gmail.com", "password": "test"}
+        )
+    ).json()
+
+token = r.get("token")
+
+headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
@@ -20,12 +48,15 @@ def create_pm():
     return helper_portfolio_manager
 
 
+# ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
+
+
 def test_get_portfolio_manager(client):
     FieldPartner.query.delete()
     PortfolioManager.query.delete()
     db.session.commit()
 
-    rs = client.get("/portfolio_manager")
+    rs = client.get("/portfolio_manager", headers=headers)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -36,11 +67,14 @@ def test_get_portfolio_manager(client):
     db.session.add(helper_portfolio_manager)
     db.session.commit()
 
-    rs = client.get("/portfolio_manager")
+    rs = client.get("/portfolio_manager", headers=headers)
     ret_dict = rs.json
     assert len(ret_dict["result"]["portfolio_manager"]) == 1
     assert ret_dict["result"]["portfolio_manager"][0]["email"] == "hello"
     assert ret_dict["result"]["portfolio_manager"][0]["name"] == "Tim"
+
+
+# ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
 
 
 def test_get_pm_by_id(client):
@@ -51,7 +85,7 @@ def test_get_pm_by_id(client):
     db.session.commit()
 
     url = "/portfolio_manager/" + helper_portfolio_manager.id
-    rs = client.get(url)
+    rs = client.get(url, headers=headers)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -62,6 +96,9 @@ def test_get_pm_by_id(client):
     assert ret_dict["result"]["portfolio_manager"]["name"] == "Tim"
 
 
+# ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
+
+
 def test_get_pm_by_email(client):
     db.session.query(PortfolioManager).delete()
 
@@ -70,7 +107,7 @@ def test_get_pm_by_email(client):
     db.session.commit()
 
     url = "/portfolio_manager/email/" + helper_portfolio_manager.email
-    rs = client.get(url)
+    rs = client.get(url, headers=headers)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -79,6 +116,9 @@ def test_get_pm_by_email(client):
     assert len(ret_dict["result"]["portfolio_manager"]) == 1
     assert ret_dict["result"]["portfolio_manager"][0]["email"] == "hello"
     assert ret_dict["result"]["portfolio_manager"][0]["name"] == "Tim"
+
+
+# ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
 
 
 def test_new_pm(client):
@@ -91,6 +131,7 @@ def test_new_pm(client):
         "/portfolio_manager/new",
         content_type="multipart/form-data",
         data={"email": "angad", "name": "royuwu"},
+        headers=headers,
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -105,6 +146,7 @@ def test_new_pm(client):
         "/portfolio_manager/new",
         content_type="multipart/form-data",
         data={"email": "angad"},
+        headers=headers,
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary

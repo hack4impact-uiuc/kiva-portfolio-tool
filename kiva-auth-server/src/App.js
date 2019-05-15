@@ -8,8 +8,6 @@ const router = require("./api/index");
 const app = express();
 require("dotenv").config();
 
-// var SECRET_TOKEN = process.env.SECRET_TOKEN;
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,7 +20,7 @@ app.use(function(err, req, res, next) {
   sendResponse(
     res,
     500,
-    "An uncaught exception occured on the server. Please run `now logs [DEPLOYMENT_URL]` on the commandline to debug."
+    "An uncaught exception occured on the server. Please contact the Hack4Impact Infrastructure Team"
   );
   next();
 });

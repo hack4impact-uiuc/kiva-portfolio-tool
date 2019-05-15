@@ -2,6 +2,7 @@ from flask import Blueprint, request, json
 from api.models import Document, Message, db, DocumentClass, FieldPartner
 from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
+from api.views.auth import verify_token
 
 document = Blueprint("document", __name__)
 
@@ -81,7 +82,6 @@ def get_document():
                 if i.description is not None
                 and description.lower() in i.description.lower()
             ]
-
         if date is not None:
             docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
@@ -115,6 +115,13 @@ def upload_document(id):
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
 
     if "fileName" not in data:
         return create_response(status=400, message="No file name provided")
@@ -150,6 +157,19 @@ def create_new_document():
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
     # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
+    if info == "fp":
+        return create_response(
+            status=400, message="You do not have permission to create new documents!"
+        )
+
     if "userID" not in data:
         return create_response(
             status=400, message="No UserID provided for new Document"
@@ -179,6 +199,18 @@ def create_new_documents():
 
     if data is None:
         return create_response(status=400, message="No body provided for new Document")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/json", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(
+            status=400, message="You do not have permission to delete documents!"
+        )
 
     if "userID" not in data:
         return create_response(
@@ -222,6 +254,18 @@ def delete_document(id):
     Deletes all documents related to a document class in database
     """
 
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
+    if info[0] == "fp":
+        return create_response(
+            status=400, message="You do not have permission to delete documents!"
+        )
+
     # gets all document <id> native to db and sees if == to docClassID. Then deletes
     Document.query.filter((Document.id == str(id))).delete()
 
@@ -250,6 +294,13 @@ def update_documents(docClassID):
 
     if data is None:
         return create_response(status=200, message="No data provided")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
 
     # takes in updated docClassID information by json in request
     # receives all documents by docClassID
@@ -281,6 +332,13 @@ def update_status(id):
     data = request.form
     if data is None:
         return create_response(status=400, message="No data provided")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
 
     if "status" not in data:
         return create_response(status=400, message="No document status provided")

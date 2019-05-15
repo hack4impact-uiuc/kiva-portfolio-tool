@@ -8,12 +8,13 @@ roles:
     - pm
   pm: null
   fp: null
-useGoogleAuth: false
 security_questions:
   - Do you love this shit?
   - Are you high right now?
   - Do you ever get nervous?
   - Are you single?
   - 'I heard you fucked your girl, is it true?'
-gmail: true
+useGoogleAuth: true
 security_question: true
+gmail: true
+expire_after_hrs: 1
