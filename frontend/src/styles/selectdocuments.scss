@@ -12,12 +12,10 @@ h1 {
     font-size: 3rem;
 }
 
-.input-master {
-    border: none;
+.pageSD .input-master {
     background-color: transparent;
-    width: 35%; 
+    width: 20%; 
     margin-top: 2%;
-    margin-bottom: 2%;
 }
 
 ::placeholder{text-indent: 20px; font-size: small; } 
@@ -54,6 +52,7 @@ h1 {
 
 .datePicker {
     display: inline-block;
+    width: 100%;
     font-weight: bold;
     color: $link-color;
     text-align: center;

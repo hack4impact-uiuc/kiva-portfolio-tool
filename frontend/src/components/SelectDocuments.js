@@ -11,12 +11,14 @@ import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'
+import Navbar from './NavBar'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
 import '../styles/selectdocuments.css'
+
 import search from '../media/search.png'
-import Navbar from './NavBar'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM

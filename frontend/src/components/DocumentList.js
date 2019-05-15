@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap'
 import DocumentListItem from './DocumentListItem'
+
 import '../styles/documentlist.css'
 import '../styles/index.css'
+
 import expand from '../media/expand.png'
 import collapse from '../media/collapse.png'
 

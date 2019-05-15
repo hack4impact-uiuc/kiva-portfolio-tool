@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
+
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
+
 import preview from '../media/preview.png'
 
 // Not needed unless working with non "en" locales

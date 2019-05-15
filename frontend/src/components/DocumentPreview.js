@@ -6,9 +6,11 @@ import { bindActionCreators } from 'redux'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Iframe from 'react-iframe'
+
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import '../styles/documentpreview.css'
+
 import preview from '../media/preview.png'
 
 // Not needed unless working with non "en" locales
