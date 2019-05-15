@@ -75,7 +75,7 @@ export class NavBar extends Component {
             className={this.state.sidebarClass}
             rootClassName="sidebar-root"
             sidebarClassName="sidebar-styles"
-            sidebar={<NotificationsBar closeFunc={this.onSetSidebarOpen}/>}
+            sidebar={<NotificationsBar closeFunc={this.onSetSidebarOpen} />}
             open={this.state.sidebarOpen}
             onSetOpen={this.onSetSidebarOpen}
             pullRight={true}
@@ -85,7 +85,7 @@ export class NavBar extends Component {
             className={this.state.sidebarClass}
             rootClassName="sidebar-root hide"
             sidebarClassName="sidebar-styles"
-            sidebar={<NotificationsBar closeFunc={this.onSetSidebarOpen}/>}
+            sidebar={<NotificationsBar closeFunc={this.onSetSidebarOpen} />}
             onSetOpen={this.onSetSidebarOpen}
             pullRight={true}
           />

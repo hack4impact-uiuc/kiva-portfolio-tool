@@ -48,7 +48,7 @@ export class NotificationsBar extends Component {
     information.splice(index, 1)
     this.props.updateInformation(information)
   }
-  
+
   closeSidebar = open => {
     this.props.closeFunc(open)
   }
