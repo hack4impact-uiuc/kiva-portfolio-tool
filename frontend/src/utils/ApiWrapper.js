@@ -288,12 +288,12 @@ export const getAllDocuments = () => {
     })
 }
 
-export const getFPNameByID = id => {
+export const getFPByID = id => {
   let requestString = BACKEND_URL + '/field_partner/' + id
   return axios
     .get(requestString)
     .then(response => {
-      return response.data.result.field_partner.org_name
+      return response.data.result.field_partner
     })
     .catch(error => {
       console.log('ERROR: ', error)
