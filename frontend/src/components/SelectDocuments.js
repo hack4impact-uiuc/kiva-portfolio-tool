@@ -170,6 +170,8 @@ export class SelectDocumentsPage extends React.Component {
 
     await updateFPInstructions(this.state.fp_id, this.state.instructions)
 
+    await updateFieldPartnerStatus(this.state.fp_id, 'In Process')
+
     this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
