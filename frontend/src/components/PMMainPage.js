@@ -51,13 +51,17 @@ export class PMMainPage extends Component {
       query: '',
       email: '',
       org_name: '',
-      modal: false,
-      pm_id: null
+      newModal: false,
+      pm_id: null,
+      completeModal: false
     }
-    this.toggle = this.toggle.bind(this)
+    this.newToggle = this.newToggle.bind(this)
+    this.completeToggle = this.completeToggle.bind(this)
     this.handleNewFP = this.handleNewFP.bind(this)
     this.handleClickIP = this.handleClickIP.bind(this)
     this.handleClickNew = this.handleClickNew.bind(this)
+    this.handleClickComplete = this.handleClickComplete.bind(this)
+    this.handleClickCompleteRestart = this.handleClickCompleteRestart.bind(this)
   }
 
   /**
@@ -119,13 +123,17 @@ export class PMMainPage extends Component {
     this.setState({ email: event.target.value })
   }
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal })
+  newToggle = () => {
+    this.setState({ newModal: !this.state.newModal })
+  }
+
+  completeToggle = () => {
+    this.setState({ completeModal: !this.state.completeModal })
   }
 
   async handleNewFP() {
     this.props.beginLoading()
-    this.toggle()
+    this.newToggle()
     await createFieldPartner(this.state.org_name, this.state.email, this.state.pm_id)
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
@@ -140,11 +148,21 @@ export class PMMainPage extends Component {
     this.props.history.push('/selectdocumentspage/' + id)
   }
 
+  handleClickComplete = id => {
+    this.props.history.push('/dashboard/pm/' + id)
+  }
+
+  async handleClickCompleteRestart(id) {
+    this.completeToggle()
+    this.props.beginLoading()
+    
+  }
+
   render() {
     return (
       <div className="page background-circles-green maxheight">
         <Navbar />
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.newModal} toggle={this.newToggle}>
           <ModalHeader>Add New Field Partner</ModalHeader>
           <ModalBody>
             <form onSubmit={this.handleNewFP}>
@@ -169,8 +187,26 @@ export class PMMainPage extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={this.toggle}>Exit</Button>
-            <Button onClick={this.handleNewFP}>Create</Button>
+            <Button onClick={this.newToggle}>Exit</Button>
+            <Button onClick={this.handleNewFP} color="success ">
+              Create
+            </Button>
+          </ModalFooter>
+        </Modal>
+
+        <Modal isOpen={this.state.completeModal} toggle={this.completeToggle}>
+          <ModalHeader>
+            Are you sure you want to restart the process? This will delete all documents associated
+            with this field partner.
+          </ModalHeader>
+          <ModalFooter>
+            <Button onClick={this.completeToggle}>Exit</Button>
+            <Button onClick={this.handleClickComplete} color="primary">
+              View dashboard
+            </Button>
+            <Button onClick={this.handleClickCompleteRestart} color="success">
+              Restart Process
+            </Button>
           </ModalFooter>
         </Modal>
 
@@ -178,7 +214,7 @@ export class PMMainPage extends Component {
           <Tabs className="tab-master maxheight">
             <Row className="maxheight">
               <Col className="text-centered sidebar-background" sm="12" md="2">
-                <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
+                <Button className="add-doc-text" id="new-fp-button" onClick={this.newToggle}>
                   <img className="addImg" src={add} />
                   <span>Add New</span>
                 </Button>
@@ -259,7 +295,7 @@ export class PMMainPage extends Component {
                               <Button
                                 className="partnerButton"
                                 color="transparent"
-                                onClick={() => this.handleClickNew(partner._id)}
+                                onClick={this.completeToggle}
                               >
                                 <PartnerBar partner={partner} />
                               </Button>
