@@ -24,7 +24,7 @@ export class Selector extends React.Component {
             return (
               <div className="panel">
                 <div className="docClassValue">{docClass.name}</div>
-                <img src={info} className="imageValue" />
+                <img src={info} className="imageValue" width="26" />
                 <button
                   onClick={() => {
                     this.props.update(docClass.name)

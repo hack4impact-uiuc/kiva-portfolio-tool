@@ -47,6 +47,7 @@ exports[`PMMainPage renders correctly 1`] = `
           Organization Name:
         </p>
         <input
+          className="modal-input-master"
           onChange={[Function]}
           placeholder="Enter the Field Partner's organization name here..."
           size="50"
@@ -56,6 +57,7 @@ exports[`PMMainPage renders correctly 1`] = `
           Email:
         </p>
         <input
+          className="modal-input-master"
           onChange={[Function]}
           placeholder="Enter the Field Partner's email here..."
           size="50"

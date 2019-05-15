@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { getAllPartners, createFieldPartner, getAllPMs } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.css'
 import { bindActionCreators } from 'redux'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
@@ -16,14 +15,17 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap'
-import '../styles/partnerbar.css'
-import search from '../media/search.png'
 import Navbar from './NavBar'
 
-import add from '../media/add.png'
+import 'react-tabs/style/react-tabs.css'
+import '../styles/index.css'
 // same button styling as in document class page
 // 'Add New Doc Class' button styling the same
 import '../styles/documentclasspage.css'
+import '../styles/partnerbar.css'
+
+import add from '../media/add.png'
+import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -148,6 +150,7 @@ export class PMMainPage extends Component {
             <form onSubmit={this.handleNewFP}>
               <p>Organization Name:</p>
               <input
+                className="modal-input-master"
                 type="text"
                 value={this.state.name}
                 size="50"
@@ -156,6 +159,7 @@ export class PMMainPage extends Component {
               />
               <p>Email:</p>
               <input
+                className="modal-input-master"
                 type="text"
                 value={this.state.email}
                 size="50"

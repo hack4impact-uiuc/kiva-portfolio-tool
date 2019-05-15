@@ -8,6 +8,7 @@ import { Button, Modal, ModalFooter } from 'reactstrap'
 import { downloadDocument, uploadDocument, getDocumentsByUser } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+
 import uploadImg from '../media/greyUpload.png'
 import downloadImg from '../media/downloadGrey.png'
 import visit from '../media/visit.png'
