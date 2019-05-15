@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import DocumentPreview from './DocumentPreview'
-import { Button, Modal, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap'
 import { downloadDocument, uploadDocument, getDocumentsByUser } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
@@ -33,11 +33,14 @@ export class DocumentListItem extends Component {
     super(props)
 
     this.state = {
-      files: []
+      files: [],
+      modal: false
     }
 
     this.handleDownloadClick = this.handleDownloadClick.bind(this)
     this.onDrop = this.onDrop.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.toggle = this.toggle.bind(this)
   }
 
   async onDrop(files) {
@@ -60,11 +63,24 @@ export class DocumentListItem extends Component {
     downloadDocument(document.fileID)
   }
 
+  handleDelete() {}
+
+  toggle() {
+    this.setState({ modal: !this.state.modal })
+  }
+
   render() {
     const { isPM } = this.props
 
     return (
       <>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          <ModalHeader>Are you sure you want to delete this document?</ModalHeader>
+          <ModalFooter>
+            <Button onClick={this.toggle}>No</Button>
+            <Button onClick={this.handleDelete}>Yes</Button>
+          </ModalFooter>
+        </Modal>
         <tr className="hoverable">
           <td data-testid="docClass">{this.props.document.docClassName}</td>
           <td data-testid="fileName">
@@ -95,7 +111,7 @@ export class DocumentListItem extends Component {
               </Button>
             )}
             {isPM ? (
-              <button className="buttonValue">
+              <button className="buttonValue" onClick={this.toggle}>
                 <img src={remove} width="25" />
               </button>
             ) : (
