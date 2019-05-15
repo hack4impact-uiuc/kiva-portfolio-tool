@@ -1,13 +1,38 @@
 from api.models import db, Document, DocumentClass
 from datetime import date
-import enum
+import enum, requests, json, random, string
 
+BACKEND_URL = "http://localhost:8000/"
 
 class MyEnum(enum.Enum):
     one = 1
     two = 2
     three = 3
 
+r = (
+    requests.post(
+        BACKEND_URL + "register",
+        data={
+            "email": "test@gmail.com",
+            "password": "test",
+            "securityQuestionAnswer": "answer",
+            "answer": "yo",
+            "questionIdx": 1,
+            "role": "pm",
+        },
+    )
+).json()
+
+if r.get("status") == 400:
+    r = (
+        requests.post(
+            BACKEND_URL + "login", data={"email": "test@gmail.com", "password": "test"}
+        )
+    ).json()
+
+token = r.get("token")
+
+headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
@@ -77,7 +102,6 @@ def test_get_document(client):
 
 
 # ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
-"""
 def test_update_status(client):
     # Adding a docclass to the database
     docclass_id = add_mock_docclass("test_update_status")
@@ -100,7 +124,7 @@ def test_update_status(client):
     rs = client.put(
         "/document/status/" + str(temp_document.id),
         content_type="multipart/form-data",
-        data={"status": "Missing"},
+        data={"status": "Missing"}, headers=headers
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -110,10 +134,10 @@ def test_update_status(client):
     assert ret_dict["result"]["document"]["fileID"] == "Navam"
     assert ret_dict["result"]["document"]["userID"] == "Why"
     assert ret_dict["result"]["document"]["status"] == "Missing"
-"""
+
 
 # ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
-"""
+
 # test functionality of adding new Documents
 # files ignored for the time being for simplicity's sake
 def test_create_new_document(client):
@@ -125,7 +149,7 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"userID": 1, "status": "Pending"},
+        data={"userID": 1, "status": "Pending"}, headers=headers
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -135,7 +159,7 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"userID": 1, "docClassID": docclass_id},
+        data={"userID": 1, "docClassID": docclass_id}, headers=headers
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -145,7 +169,7 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"docClassID": docclass_id, "status": "Pending"},
+        data={"docClassID": docclass_id, "status": "Pending"}, headers=headers
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -155,9 +179,9 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"userID": 1, "status": "Pending", "docClassID": docclass_id},
+        data={"userID": 1, "status": "Pending", "docClassID": docclass_id}, headers=headers
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-"""
+
