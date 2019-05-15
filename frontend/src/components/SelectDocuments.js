@@ -1,11 +1,12 @@
 import React from 'react'
 import { Selector } from './Selector'
+import { Input } from 'reactstrap'
 import {
   getAllDocumentClasses,
   createDocuments,
   getDocumentsByUser,
   getFPNameByID,
-  getAllDocuments
+  getFPByID
 } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
@@ -50,7 +51,8 @@ export class SelectDocumentsPage extends React.Component {
       // state that updates depending on what the user types in query bar
       query: '',
       fp_id: null,
-      fp_org_name: ''
+      fp_org_name: '',
+      instructions: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -78,15 +80,16 @@ export class SelectDocumentsPage extends React.Component {
     }
 
     let filtered = available
-    let fp_info
+    let fp_info = await getFPByID(this.props.match.params.id)
 
-    if (this.props.match) {
-      this.setState({ fp_id: this.props.match.params.id })
-      fp_info = await getFPNameByID(this.props.match.params.id)
-      this.setState({ fp_org_name: fp_info })
-    }
-
-    this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
+    this.setState({
+      documentClasses: document_classes,
+      available: available,
+      filtered: filtered,
+      fp_id: this.props.match.params.id,
+      fp_org_name: fp_info.org_name,
+      instructions: fp_info.instructions
+    })
     this.props.endLoading()
   }
 
@@ -217,11 +220,23 @@ export class SelectDocumentsPage extends React.Component {
           </div>
 
           <div className="blockCustom dateDisplay">
-            Set a Due Date:
+            Set a due date:
             <DatePicker
               selected={this.state.dueDate}
               onChange={this.newDueDate}
               className="datePicker"
+            />
+          </div>
+
+          <div className="blockCustom dateDisplay">
+            Add additional instructions:
+            <br />
+            <Input
+              type="textarea"
+              className="textarea-input"
+              style={{ height: '200px' }}
+              value={this.state.instructions}
+              onChange={this.updateInstructions}
             />
           </div>
 
