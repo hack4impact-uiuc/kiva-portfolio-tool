@@ -49,6 +49,10 @@ export class NotificationsBar extends Component {
     this.props.updateInformation(information)
   }
 
+  closeSidebar = open => {
+    this.props.closeFunc(open)
+  }
+
   render() {
     const { isPM } = this.props.isPM
     const allMessages = this.props.allMessages
@@ -62,6 +66,15 @@ export class NotificationsBar extends Component {
           <Tab className="tab">
             <span className="tab-font">Information</span>
           </Tab>
+          <Button
+            id="sidebar-close-button"
+            color="transparent"
+            onClick={() => {
+              this.closeSidebar(false)
+            }}
+          >
+            <img className="exit-button" src={close} />
+          </Button>
         </TabList>
 
         <TabPanel>

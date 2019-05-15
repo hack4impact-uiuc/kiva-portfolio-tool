@@ -15,7 +15,7 @@
 
 .notifications-tabs .tab {
     display: inline-block;
-    width: 50%;
+    width: 40%;
     padding: 7px 0;
 }
 
@@ -34,6 +34,11 @@
 .exit-button {
     max-width: 15px;
     max-height: 15px;
+}
+
+#sidebar-close-button {
+    float: right;
+    margin-right: 10px;
 }
 
 .instruction {

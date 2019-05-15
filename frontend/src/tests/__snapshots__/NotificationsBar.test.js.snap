@@ -41,6 +41,17 @@ exports[` renders correctly 1`] = `
         Information
       </span>
     </Tab>
+    <Button
+      color="transparent"
+      id="sidebar-close-button"
+      onClick={[Function]}
+      tag="button"
+    >
+      <img
+        className="exit-button"
+        src="greyX.png"
+      />
+    </Button>
   </TabList>
   <TabPanel
     className="react-tabs__tab-panel"
