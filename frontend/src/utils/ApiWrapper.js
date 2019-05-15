@@ -321,14 +321,16 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
   data.append('status', 'Missing')
   data.append('docClassIDs', docClassIDs)
   data.append('dueDate', dueDate)
-
-  // TODO: CREATE DOCUMENT HERE  
-  // TODO: can't you only do this after the document bc foreign key issues?
-  // can i just die
-
+  
   return axios
     .post(requestString, data)
     .then(response => {
+      // create the message here with the given docId
+      let docIDs = response.data.result.docIDs
+      docIDs.array.forEach(docID => {
+        createMessage(userID, false, docID, "Missing")
+      });
+
       return {
         type: 'CREATE_DOCUMENTS_SUCCESS',
         response
