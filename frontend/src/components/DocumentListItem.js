@@ -48,6 +48,9 @@ export class DocumentListItem extends Component {
     this.toggle = this.toggle.bind(this)
   }
 
+  /**
+   * Called upon uploading a file to a requirement
+   */
   async onDrop(files) {
     this.setState({
       files
@@ -68,6 +71,10 @@ export class DocumentListItem extends Component {
     downloadDocument(document.fileID)
   }
 
+  /**
+   * Called when a user attempts to delete a document
+   * The user will be prompted to confirm before the document is actually deleted
+   */
   async handleDelete() {
     this.toggle()
     this.props.beginLoading()

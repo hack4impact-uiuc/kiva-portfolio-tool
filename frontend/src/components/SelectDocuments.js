@@ -69,6 +69,7 @@ export class SelectDocumentsPage extends React.Component {
       available[document_classes[index].name] = true
     }
 
+    //The user should only be able to add document classes which aren't already assigned to the Field Partner
     for (const key in current_documents) {
       let docs_by_status = current_documents[key]
       for (const index in docs_by_status) {

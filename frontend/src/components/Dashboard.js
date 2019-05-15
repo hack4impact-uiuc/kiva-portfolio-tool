@@ -107,6 +107,9 @@ export class Dashboard extends React.Component {
     this.props.endLoading()
   }
 
+  /**
+   * When a Field Partner has finished the process, this method is called to move their status to 'Complete'
+   */
   async handleFinish() {
     this.props.beginLoading()
     await finishFieldPartner(this.props.match.params.id)
