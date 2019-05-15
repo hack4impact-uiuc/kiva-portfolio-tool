@@ -50,6 +50,7 @@ def create_pm():
 
 # ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
 
+
 def test_get_portfolio_manager(client):
     FieldPartner.query.delete()
     PortfolioManager.query.delete()
@@ -75,6 +76,7 @@ def test_get_portfolio_manager(client):
 
 # ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
 
+
 def test_get_pm_by_id(client):
     db.session.query(PortfolioManager).delete()
 
@@ -95,6 +97,7 @@ def test_get_pm_by_id(client):
 
 
 # ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
+
 
 def test_get_pm_by_email(client):
     db.session.query(PortfolioManager).delete()
@@ -117,6 +120,7 @@ def test_get_pm_by_email(client):
 
 # ADD BACK IN ONCE AUTH TOKEN TESTING IS FIGURED OUT
 
+
 def test_new_pm(client):
     rs = client.post("/portfolio_manager/new")
     assert rs.status_code == 400
@@ -126,7 +130,8 @@ def test_new_pm(client):
     rs = client.post(
         "/portfolio_manager/new",
         content_type="multipart/form-data",
-        data={"email": "angad", "name": "royuwu"}, headers=headers
+        data={"email": "angad", "name": "royuwu"},
+        headers=headers,
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -140,9 +145,9 @@ def test_new_pm(client):
     rs = client.post(
         "/portfolio_manager/new",
         content_type="multipart/form-data",
-        data={"email": "angad"}, headers=headers
+        data={"email": "angad"},
+        headers=headers,
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
-

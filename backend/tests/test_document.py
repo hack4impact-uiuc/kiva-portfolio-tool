@@ -4,10 +4,12 @@ import enum, requests, json, random, string
 
 BACKEND_URL = "http://localhost:8000/"
 
+
 class MyEnum(enum.Enum):
     one = 1
     two = 2
     three = 3
+
 
 r = (
     requests.post(
@@ -124,7 +126,8 @@ def test_update_status(client):
     rs = client.put(
         "/document/status/" + str(temp_document.id),
         content_type="multipart/form-data",
-        data={"status": "Missing"}, headers=headers
+        data={"status": "Missing"},
+        headers=headers,
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -149,7 +152,8 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"userID": 1, "status": "Pending"}, headers=headers
+        data={"userID": 1, "status": "Pending"},
+        headers=headers,
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -159,7 +163,8 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"userID": 1, "docClassID": docclass_id}, headers=headers
+        data={"userID": 1, "docClassID": docclass_id},
+        headers=headers,
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -169,7 +174,8 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"docClassID": docclass_id, "status": "Pending"}, headers=headers
+        data={"docClassID": docclass_id, "status": "Pending"},
+        headers=headers,
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -179,9 +185,9 @@ def test_create_new_document(client):
     rs = client.post(
         "document/new",
         content_type="multipart/form-data",
-        data={"userID": 1, "status": "Pending", "docClassID": docclass_id}, headers=headers
+        data={"userID": 1, "status": "Pending", "docClassID": docclass_id},
+        headers=headers,
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-

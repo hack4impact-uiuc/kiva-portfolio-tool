@@ -345,13 +345,12 @@ export const getAllDocumentClasses = () => {
 
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
-  return axios
-    .get(requestString, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
+  return axios.get(requestString, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      token: getCookieFromBrowser('token')
+    }
+  })
 }
 
 export const getFPNameByID = id => {
@@ -360,19 +359,6 @@ export const getFPNameByID = id => {
     .get(requestString)
     .then(response => {
       return response.data.result.field_partner.org_name
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
-export const getDocumentsByUser = userID => {
-  let requestString = BACKEND_URL + '/document?uid=' + userID
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.documents
     })
     .catch(error => {
       console.log('ERROR: ', error)
@@ -612,6 +598,10 @@ export const getDocumentsByUser = userID => {
     })
     .then(response => {
       return response.data.result.documents
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
     })
 }
 
