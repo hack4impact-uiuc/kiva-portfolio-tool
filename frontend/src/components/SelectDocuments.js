@@ -5,7 +5,7 @@ import {
   getAllDocumentClasses,
   createDocuments,
   getDocumentsByUser,
-  getFPNameByID,
+  updateFPInstructions,
   getFPByID
 } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
@@ -142,6 +142,10 @@ export class SelectDocumentsPage extends React.Component {
     })
   }
 
+  updateInstructions = event => {
+    this.setState({ instructions: event.target.value })
+  }
+
   async handleSubmit() {
     this.props.beginLoading()
     let docClassIDs = this.state.documentClasses
@@ -151,16 +155,21 @@ export class SelectDocumentsPage extends React.Component {
         return array
       }, [])
 
-    const date =
-      this.state.dueDate.getMonth() +
-      ' ' +
-      this.state.dueDate.getDate() +
-      ' ' +
-      this.state.dueDate.getFullYear()
+    if (docClassIDs.length > 0) {
+      const date =
+        this.state.dueDate.getMonth() +
+        ' ' +
+        this.state.dueDate.getDate() +
+        ' ' +
+        this.state.dueDate.getFullYear()
 
-    await createDocuments(this.state.fp_id, docClassIDs, date)
-    const documents = await getDocumentsByUser(this.state.fp_id)
-    this.props.updateDocuments(documents)
+      await createDocuments(this.state.fp_id, docClassIDs, date)
+      const documents = await getDocumentsByUser(this.state.fp_id)
+      this.props.updateDocuments(documents)
+    }
+
+    await updateFPInstructions(this.state.fp_id, this.state.instructions)
+
     this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
