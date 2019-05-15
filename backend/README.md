@@ -14,6 +14,8 @@ Follow each step in the chosen authentication method, and you are all set!
 
 This project uses the _JWT_ method to authenticate one master user and allow anyone with access to the project upload, delete, and more with box. By using the _JWT_ method, you must download the **App Settings** from your **configuration**, which is located all the way down in the page. After you download it, follow the [documentation](https://developer.box.com/docs/construct-jwt-claim-manually), and you will be able to set up the box account similar to this project's.
 
+Our box backend first generates the access token for the authenticated user (information in the document provided above) and lets the user upload a file or delete a file. More on these endpoints can be found [here](https://developer.box.com/reference)
+
 ###box api document
 This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
 
