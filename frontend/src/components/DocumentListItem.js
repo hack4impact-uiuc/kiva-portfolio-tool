@@ -11,6 +11,7 @@ import { beginLoading, endLoading } from '../redux/modules/auth'
 import uploadImg from '../media/greyUpload.png'
 import downloadImg from '../media/downloadGrey.png'
 import visit from '../media/visit.png'
+import remove from '../media/remove.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -92,7 +93,11 @@ export class DocumentListItem extends Component {
                 <img className="buttonimg" src={downloadImg} />
               </Button>
             )}
-            {!isPM && (
+            {isPM ? (
+              <button className="buttonValue">
+                <img src={remove} width="25" />
+              </button>
+            ) : (
               <Dropzone onDrop={this.onDrop}>
                 {({ getRootProps, getInputProps }) => (
                   <section>
