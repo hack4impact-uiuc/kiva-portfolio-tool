@@ -12,13 +12,10 @@ h1 {
     font-size: 3rem;
 }
 
-.input-master {
-    border: none;
+.pageSD .input-master {
     background-color: transparent;
-    width: 35%; 
-    text-indent: 5px;
+    width: 20%; 
     margin-top: 2%;
-    margin-bottom: 2%;
 }
 
 ::placeholder{text-indent: 20px; font-size: small; } 
@@ -27,6 +24,7 @@ h1 {
     display: table;
     margin:auto;
     border-spacing: 30px;
+    margin-top: 2%;
 }
 
 .blockCustom {
@@ -48,12 +46,13 @@ h1 {
     font-weight: bold;
     font-size: x-large;
     width: 40%;
-    margin:auto;
+    margin: 2% auto;
     padding-left: 15px;
 }
 
 .datePicker {
     display: inline-block;
+    width: 100%;
     font-weight: bold;
     color: $link-color;
     text-align: center;
@@ -63,12 +62,13 @@ h1 {
 .nextButton {
     -webkit-appearance: none;
     margin-top:2%;
-    height: 30px;
-    width: 7%;
-    color: #ffffff;
-    background-color: $link-color;
+    font-size: 14pt;
+    height: 40px;
+    width: 15%;
+    color: $link-color;
+    background-color: #ffffff;
     border: none;
-    border-radius: 13px;
+    border-radius: 25px;
 }
 
 .topBar {

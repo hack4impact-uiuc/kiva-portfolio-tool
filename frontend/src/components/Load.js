@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Loader from 'react-loader-spinner'
+
 import '../styles/load.css'
 import '../styles/variables.css'
-import Loader from 'react-loader-spinner'
 
 const mapStateToProps = state => ({
   loading: state.auth.loading

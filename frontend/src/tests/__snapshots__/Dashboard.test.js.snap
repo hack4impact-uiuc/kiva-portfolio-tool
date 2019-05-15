@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Basic whole app rendering with snapshot 1`] = `
-<div>
+<div
+  className="background-rectangles maxheight"
+>
   <Connect(withRouter(NavBar)) />
   <Container
     tag="div"

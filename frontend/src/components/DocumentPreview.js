@@ -6,9 +6,11 @@ import { bindActionCreators } from 'redux'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Iframe from 'react-iframe'
+
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import '../styles/documentpreview.css'
+
 import preview from '../media/preview.png'
 import WithAuth from './WithAuth'
 
@@ -35,20 +37,8 @@ export class DocumentPreview extends Component {
   constructor(props) {
     super(props)
 
-    if (this.props.match) {
-      this.state = {
-        id: this.props.match.params.id,
-        fileName: this.props.match.params.name,
-        accessToken: null,
-        fileURL: this.props.location.state.link
-      }
-    } else {
-      this.state = {
-        id: this.props.document._id,
-        fileName: this.props.document.fileName,
-        accessToken: null,
-        fileURL: this.props.document.link
-      }
+    this.state = {
+      accessToken: null
     }
 
     this.toggle = this.toggle.bind(this)
@@ -59,7 +49,11 @@ export class DocumentPreview extends Component {
   async handleApproveClick() {
     this.props.beginLoading()
     this.toggle()
-    await updateDocumentStatus(this.state.id, 'Approved')
+    if (this.props.match) {
+      await updateDocumentStatus(this.props.match.params.id, 'Approved')
+    } else {
+      await updateDocumentStatus(this.props.document._id, 'Approved')
+    }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
       this.props.updateDocuments(res)
@@ -72,7 +66,11 @@ export class DocumentPreview extends Component {
   async handleRejectClick() {
     this.props.beginLoading()
     this.toggle()
-    await updateDocumentStatus(this.state.id, 'Rejected')
+    if (this.props.match) {
+      await updateDocumentStatus(this.props.match.params.id, 'Rejected')
+    } else {
+      await updateDocumentStatus(this.props.document._id, 'Rejected')
+    }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
       this.props.updateDocuments(res)
@@ -126,17 +124,20 @@ export class DocumentPreview extends Component {
           </div>
         ) : (
           <>
-            {this.state.fileName && (
-              <Button color="transparent" onClick={this.toggle}>
-                <img className="buttonimg" src={preview} />
-              </Button>
-            )}
+            {(this.props.match && this.props.match.params.name) ||
+              (this.props.document.fileName && (
+                <Button color="transparent" onClick={this.toggle}>
+                  <img className="buttonimg" src={preview} />
+                </Button>
+              ))}
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader>{this.state.fileName}</ModalHeader>
+              <ModalHeader>
+                {this.props.match ? this.props.match.params.name : this.props.document.fileName}
+              </ModalHeader>
               <ModalBody id="modal-box">
                 <Iframe
                   className="iframe-relative iframe-modal"
-                  url={this.state.fileURL}
+                  url={this.props.match ? this.props.location.state.link : this.props.document.link}
                   allowFullScreen
                 />
               </ModalBody>

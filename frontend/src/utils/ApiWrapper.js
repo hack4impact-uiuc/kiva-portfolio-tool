@@ -352,6 +352,25 @@ export const getAllDocuments = () => {
         token: getCookieFromBrowser('token')
       }
     })
+}
+
+export const getFPNameByID = id => {
+  let requestString = BACKEND_URL + '/field_partner/' + id
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.field_partner.org_name
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
+export const getDocumentsByUser = userID => {
+  let requestString = BACKEND_URL + '/document?uid=' + userID
+  return axios
+    .get(requestString)
     .then(response => {
       return response.data.result.documents
     })
@@ -364,7 +383,11 @@ export const getAllDocuments = () => {
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
-    { name: 'PM', time: '4/12/18', description: 'Rejected Strategic Plan' },
+    {
+      name: 'PM',
+      time: '4/12/18',
+      description: 'Rejected Strategic Plan. This also tests for activity overflow.'
+    },
     { name: 'PM', time: '4/12/19', description: 'Rejected Annual Plan' },
     { name: 'PM', time: '4/12/17', description: 'Approved Financial Projections' },
     { name: 'PM', time: '4/12/17', description: 'Approved Organizational Chart' }

@@ -4,32 +4,53 @@ exports[`Notification renders correctly 1`] = `
 <ListGroupItem
   tag="li"
 >
-  <p
-    className="person-name"
+  <div
+    className="kiva-icon"
   >
-     
-    <b>
+    <p
+      className="partner-org-initials"
+    >
+      k
+    </p>
+  </div>
+  <div
+    className="notif-info"
+  >
+    <p
+      className="person-name"
+    >
+       
+      <b>
+         
+         
+      </b>
+       
+    </p>
+    <p
+      className="time"
+    >
        
        
-    </b>
-     
-  </p>
-  <p
-    className="time"
-  >
-     
-     
-  </p>
-  <p
-    className="notif-description"
-  >
-     
-     
-  </p>
-  <button
-    onClick={[Function]}
-  >
-    X
-  </button>
+    </p>
+    <p
+      className="notif-description"
+    >
+       
+       
+    </p>
+  </div>
+  <div>
+    <Button
+      className="exit-button-wrapper"
+      color="transparent"
+      onClick={[Function]}
+      tag="button"
+    >
+      <img
+        className="exit-button"
+        src="greyX.png"
+      />
+    </Button>
+  </div>
 </ListGroupItem>
 `;

@@ -14,13 +14,15 @@ import {
 import LanguageSelector from './LanguageSelector'
 import NotificationsBar from './NotificationsBar'
 import { withRouter } from 'react-router-dom'
+
+import '../styles/index.css'
+import '../styles/navbar.css'
+
 import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
 import Sidebar from 'react-sidebar'
-import '../styles/index.css'
-import '../styles/navbar.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -112,10 +114,12 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar>
-              <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
-                <img src={info_image} width="29" height="29" />
-              </Button>
+            <Nav className="ml-auto" navbar pullRight>
+              <NavItem>
+                <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
+                  <img src={info_image} width="29" height="29" />
+                </Button>
+              </NavItem>
 
               <NavItem className="sandwich">
                 <UncontrolledDropdown nav inNavbar>

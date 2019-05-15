@@ -11,15 +11,15 @@ import { setCookie } from '../utils/cookie'
 import Navbar from './NavBar'
 import BackgroundSlideshow from 'react-background-slideshow'
 
+import '../styles/index.css'
+import '../styles/login.css'
+
 import kivaLogo from '../media/kivaPlainLogo.png'
 import b1 from '../media/b1-min.jpg'
 import b3 from '../media/b3-min.jpg'
 import b4 from '../media/b4-min.jpg'
 import b5 from '../media/b5-min.jpg'
 import b6 from '../media/b6-min.jpg'
-
-import '../styles/index.css'
-import '../styles/login.css'
 
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"

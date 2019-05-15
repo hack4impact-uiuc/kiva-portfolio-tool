@@ -18,7 +18,6 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from './NavBar'
-import kivaLogo from '../media/kivaPlainLogo.png'
 
 import '../styles/index.css'
 import '../styles/login.css'
@@ -29,6 +28,7 @@ import b3 from '../media/b3-min.jpg'
 import b4 from '../media/b4-min.jpg'
 import b5 from '../media/b5-min.jpg'
 import b6 from '../media/b6-min.jpg'
+import kivaLogo from '../media/kivaPlainLogo.png'
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({}, dispatch)

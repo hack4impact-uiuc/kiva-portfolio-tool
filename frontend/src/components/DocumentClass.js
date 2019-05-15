@@ -11,9 +11,11 @@ import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Dropzone from 'react-dropzone'
+
+import '../styles/documentclasspage.css'
+
 import edit from '../media/greyEdit.png'
 import remove from '../media/remove.png'
-import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({})
 

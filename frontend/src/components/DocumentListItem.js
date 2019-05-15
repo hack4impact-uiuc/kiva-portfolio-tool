@@ -8,6 +8,7 @@ import { Button, Modal, ModalFooter } from 'reactstrap'
 import { downloadDocument, uploadDocument, getDocumentsByUser } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+
 import uploadImg from '../media/greyUpload.png'
 import downloadImg from '../media/downloadGrey.png'
 import visit from '../media/visit.png'
@@ -31,7 +32,6 @@ export class DocumentListItem extends Component {
     super(props)
 
     this.state = {
-      document: this.props.document,
       files: []
     }
 
@@ -44,8 +44,8 @@ export class DocumentListItem extends Component {
       files
     })
     this.props.beginLoading()
-    await uploadDocument(this.state.files[0], this.state.files[0].name, this.state.document._id)
-    const documents = await getDocumentsByUser(this.state.document.userID)
+    await uploadDocument(this.state.files[0], this.state.files[0].name, this.props.document._id)
+    const documents = await getDocumentsByUser(this.props.document.userID)
     if (documents) {
       this.props.updateDocuments(documents)
     } else {
@@ -65,12 +65,12 @@ export class DocumentListItem extends Component {
     return (
       <>
         <tr className="hoverable">
-          <td data-testid="docClass">{this.state.document.docClassName}</td>
+          <td data-testid="docClass">{this.props.document.docClassName}</td>
           <td data-testid="fileName">
-            {this.state.document.fileName ? this.state.document.fileName : 'N/A'}
+            {this.props.document.fileName ? this.props.document.fileName : 'N/A'}
           </td>
           <td className="interaction">
-            <DocumentPreview document={this.state.document} />
+            <DocumentPreview document={this.props.document} />
           </td>
           <td data-testid="interaction" className="interaction">
             {this.props.fileName ? (
@@ -78,8 +78,8 @@ export class DocumentListItem extends Component {
                 <Link
                   to={{
                     pathname:
-                      '/view/' + this.state.document.fileName + '/' + this.state.document._id,
-                    state: { link: this.state.document.link }
+                      '/view/' + this.props.document.fileName + '/' + this.props.document._id,
+                    state: { link: this.props.document.link }
                   }}
                 >
                   <img className="buttonimg" src={visit} />

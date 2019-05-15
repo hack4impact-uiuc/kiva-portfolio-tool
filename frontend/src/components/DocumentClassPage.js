@@ -4,16 +4,17 @@ import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import '../styles/dashboard.css'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
-import '../styles/index.css'
-import '../styles/documentclasspage.css'
 import Dropzone from 'react-dropzone'
 import Loader from 'react-loader-spinner'
 import WithAuth from './WithAuth'
 import NavBar from './NavBar'
-import '../styles/variable.scss'
+
+import '../styles/variables.css'
+import '../styles/index.css'
+import '../styles/documentclasspage.css'
+
 import add from '../media/add.png'
 
 const mapStateToProps = state => ({
@@ -96,16 +97,17 @@ export class DocumentClassPage extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="background-rectangles maxheight">
         <NavBar />
         <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
             <form>
               <span> Name: </span>
-              <input onChange={this.updateName} />
+              <input className="modal-input-master" onChange={this.updateName} />
               <br />
               <span> Description: </span>
               <textarea
+                className="modal-input-master"
                 name="paragraph_text"
                 cols="50"
                 rows="10"
@@ -137,7 +139,7 @@ export class DocumentClassPage extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button className="invalidSearchButton" onClick={this.toggle}>
-              Return
+              Close
             </Button>
             <Button disabled={this.state.files.length === 0} onClick={this.handleSubmit}>
               Create Document Class
@@ -173,12 +175,12 @@ export class DocumentClassPage extends React.Component {
           </Table>
         </div>
 
-        <div className="returnBtnContainer text-centered margin-bottom-xs">
+        <div className="returnBtnContainer text-centered padding-bottom-sm">
           <Button className="returnButton" onClick={this.props.history.goBack}>
             Return
           </Button>
         </div>
-      </>
+      </div>
     )
   }
 }
