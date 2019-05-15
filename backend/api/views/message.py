@@ -62,30 +62,33 @@ def get_messages_by_pm(pm_id):
     return create_response(data={"messages": serialize_list(message_list)})
 
 
-# TODO: Call this method every time something in the documents/fp/pm thing is changed
 @message.route("/messages/new", methods=["POST"])
 def add_message():
     data = request.form.to_dict()
-    subjects = ["New required document", "Document reviewed", "Document uploaded"]
-
-    # this doesn't entirely work because it also depends on what the notif is
-    if "pm_id" not in data:
-        if "fp_id" not in data:
-            return create_response(
-                status=400, message="No FP ID provided for new message"
-            )
-        data["pm_id"] = PortfolioManager.query.get(data["fp_id"]).id
-    if "fp_id" not in data:
-        if "pm_id" not in data:
-            return create_response(
-                status=400, message="No PM ID provided for new message"
-            )
-        data["fp_id"] = FieldPartner.query.get(data["pm_id"]).id
+    subjects = [
+        "[Kiva] New required document",
+        "[Kiva] Document reviewed",
+        "[Kiva] Document uploaded",
+    ]
 
     # If to_fp is true, then this notification is meant for the fp
     if "to_fp" not in data:
         return create_response(
             status=400, message="No boolean to_fp provided for new message"
+        )
+
+    if "pm_id" not in data:
+        if "fp_id" not in data:
+            return create_response(
+                status=400, message="No FP or PM ID provided for new message"
+            )
+        data["pm_id"] = FieldPartner.query.get(data["fp_id"]).pm_id
+
+    # Because we can't get the FP ID from PM, we need the FP ID explicity when it's to FP
+    # Otherwise, the fp_id field can be empty
+    if "fp_id" not in data and data.to_fp:
+        return create_response(
+            status=400, message="No FP ID provided for new message to FP"
         )
 
     # This might not be necessary if we're not notifying on due dates
@@ -107,7 +110,11 @@ def add_message():
         Document.query.get(data["doc_id"]).docClassID
     ).name
     status = data["status"]
-    organization = FieldPartner.query.get(data["fp_id"]).org_name
+    if "fp_id" in data:
+        organization = FieldPartner.query.get(data["fp_id"]).org_name
+    else:
+        organization = ""
+        # Well this is terrible code practice but we shouldn't run into an issue with this.. i rlly hope
 
     contents = [
         f"Your Portfolio Manager has added a new required document: {docclass_name}.",  # document class name
