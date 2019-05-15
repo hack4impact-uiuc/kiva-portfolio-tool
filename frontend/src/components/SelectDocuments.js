@@ -237,7 +237,7 @@ export class SelectDocumentsPage extends React.Component {
             />
           </div>
 
-          <div className="blockCustom dateDisplay">
+          <div className="blockCustom instructionsDisplay">
             Add additional instructions:
             <br />
             <Input
