@@ -217,8 +217,8 @@ def create_new_documents():
     ret = {"docIDs": document_ids}
 
     db.session.commit()
-    
-    # Make it return the document ids 
+
+    # Make it return the document ids
     return create_response(ret)
 
 

@@ -71,11 +71,15 @@ def add_message():
     # this doesn't entirely work because it also depends on what the notif is
     if "pm_id" not in data:
         if "fp_id" not in data:
-            return create_response(status=400, message="No FP ID provided for new message")
+            return create_response(
+                status=400, message="No FP ID provided for new message"
+            )
         data["pm_id"] = PortfolioManager.query.get(data["fp_id"]).id
     if "fp_id" not in data:
         if "pm_id" not in data:
-            return create_response(status=400, message="No PM ID provided for new message")
+            return create_response(
+                status=400, message="No PM ID provided for new message"
+            )
         data["fp_id"] = FieldPartner.query.get(data["pm_id"]).id
 
     # If to_fp is true, then this notification is meant for the fp

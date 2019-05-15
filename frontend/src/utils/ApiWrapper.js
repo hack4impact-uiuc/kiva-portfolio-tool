@@ -321,15 +321,15 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
   data.append('status', 'Missing')
   data.append('docClassIDs', docClassIDs)
   data.append('dueDate', dueDate)
-  
+
   return axios
     .post(requestString, data)
     .then(response => {
       // create the message here with the given docId
       let docIDs = response.data.result.docIDs
       docIDs.array.forEach(docID => {
-        createMessage(userID, false, docID, "Missing")
-      });
+        createMessage(userID, false, docID, 'Missing')
+      })
 
       return {
         type: 'CREATE_DOCUMENTS_SUCCESS',
@@ -366,7 +366,7 @@ export const getAllMessages = (user_id, is_pm) => {
 }
 
 export const createMessage = (user_id, is_pm_id, document_id, status) => {
-  // get pm_id from fp_id? depends on 
+  // get pm_id from fp_id? depends on
   let requestString = BACKEND_URL + '/messages/new'
   let data = new FormData()
 
@@ -394,7 +394,7 @@ export const createMessage = (user_id, is_pm_id, document_id, status) => {
       }
     })
 
-    // MAKE SHIT MORE VERSATILE
+  // MAKE SHIT MORE VERSATILE
 }
 
 export const getAllInformation = () => {
@@ -502,7 +502,7 @@ export const updateDocumentStatus = (userID, id, status) => {
   var data = new FormData()
   data.append('status', status)
 
-  createMessage(userID, false, id, "Pending")
+  createMessage(userID, false, id, 'Pending')
 
   return axios
     .put(BACKEND_URL + '/document/status/' + id, data)
@@ -526,7 +526,7 @@ export const uploadDocument = (userID, file, file_name, docID) => {
   data.append('fileName', file_name)
 
   // TODO: create notification here - need id?
-  createMessage(userID, false, docID, "Pending")
+  createMessage(userID, false, docID, 'Pending')
 
   return axios
     .put(BACKEND_URL + '/document/upload/' + docID, data)
