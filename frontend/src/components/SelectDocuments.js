@@ -6,7 +6,8 @@ import {
   createDocuments,
   getDocumentsByUser,
   updateFPInstructions,
-  getFPByID
+  getFPByID,
+  updateFieldPartnerStatus
 } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
