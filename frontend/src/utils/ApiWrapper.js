@@ -426,6 +426,24 @@ export const createFieldPartner = (org_name, email, pm_id) => {
     })
 }
 
+export const deleteDocument = id => {
+  let requestString = BACKEND_URL + '/delete/' + id
+  return axios
+    .delete(requestString)
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENT_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENT_FAIL',
+        error
+      }
+    })
+}
+
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
