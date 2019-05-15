@@ -1,5 +1,7 @@
 import React from 'react'
 import DocumentList from './DocumentList'
+import Notification from './Notification'
+import WithAuth from './WithAuth'
 import NavBar from './NavBar'
 import {
   getAllDocuments,
@@ -171,4 +173,4 @@ export class Dashboard extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dashboard)
+)(WithAuth(Dashboard))

@@ -67,7 +67,7 @@ exports[`DocumentListItem renders correctly 1`] = `
     <td
       className="interaction"
     >
-      <Connect(DocumentPreview)
+      <Connect(HOC)
         document={
           Object {
             "docClass": "Board of Directors",

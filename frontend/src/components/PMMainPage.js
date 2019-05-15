@@ -15,6 +15,9 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap'
+import '../styles/partnerbar.css'
+import search from '../media/search.png'
+import WithAuth from './WithAuth'
 import Navbar from './NavBar'
 
 import 'react-tabs/style/react-tabs.css'
@@ -25,7 +28,6 @@ import '../styles/documentclasspage.css'
 import '../styles/partnerbar.css'
 
 import add from '../media/add.png'
-import search from '../media/search.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -351,4 +353,4 @@ class PartnerBar extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PMMainPage)
+)(WithAuth(PMMainPage))

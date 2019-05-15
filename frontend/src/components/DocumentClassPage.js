@@ -8,6 +8,7 @@ import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Dropzone from 'react-dropzone'
 import Loader from 'react-loader-spinner'
+import WithAuth from './WithAuth'
 import NavBar from './NavBar'
 
 import '../styles/variables.css'
@@ -187,4 +188,4 @@ export class DocumentClassPage extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DocumentClassPage)
+)(WithAuth(DocumentClassPage))

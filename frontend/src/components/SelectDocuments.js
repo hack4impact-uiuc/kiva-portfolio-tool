@@ -20,6 +20,7 @@ import '../styles/index.css'
 import '../styles/selectdocuments.css'
 
 import search from '../media/search.png'
+import WithAuth from './WithAuth'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -237,4 +238,4 @@ export class SelectDocumentsPage extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SelectDocumentsPage)
+)(WithAuth(SelectDocumentsPage))

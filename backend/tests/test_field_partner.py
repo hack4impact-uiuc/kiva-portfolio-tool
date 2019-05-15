@@ -232,7 +232,7 @@ def test_update_app_status(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
-
+    print("hihihi", ret_dict["result"]["field_partner"])
     assert len(ret_dict["result"]["field_partner"]) == 5
     assert ret_dict["result"]["field_partner"]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
