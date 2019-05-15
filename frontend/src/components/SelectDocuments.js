@@ -4,7 +4,8 @@ import {
   getAllDocumentClasses,
   createDocuments,
   getDocumentsByUser,
-  getFPNameByID
+  getFPNameByID,
+  getAllDocuments
 } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
@@ -60,10 +61,20 @@ export class SelectDocumentsPage extends React.Component {
   async componentDidMount() {
     this.props.beginLoading()
     let document_classes = await getAllDocumentClasses()
+    let current_documents = await getDocumentsByUser(this.props.match.params.id)
 
     let available = {}
+
     for (const index in document_classes) {
       available[document_classes[index].name] = true
+    }
+
+    //The user should only be able to add document classes which aren't already assigned to the Field Partner
+    for (const key in current_documents) {
+      let docs_by_status = current_documents[key]
+      for (const index in docs_by_status) {
+        delete available[docs_by_status[index].docClassName]
+      }
     }
 
     let filtered = available

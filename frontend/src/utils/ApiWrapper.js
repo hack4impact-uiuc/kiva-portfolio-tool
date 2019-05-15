@@ -426,82 +426,43 @@ export const createFieldPartner = (org_name, email, pm_id) => {
     })
 }
 
-/*
-export const getAllPartners = () => {
-  return [
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
+export const finishFieldPartner = id => {
+  let requestString = BACKEND_URL + '/field_partner/update/' + id
+  let data = new FormData()
+  data.append('app_status', 'Complete')
+  return axios
+    .put(requestString, data)
+    .then(response => {
+      return {
+        type: 'UPDATE_FP_SUCCESS',
+        response
       }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_FP_FAIL',
+        error
       }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Mario',
-      duedate: 1.423,
-      status: 'Active',
-      documents: {
-        Already: 'Approved',
-        In: 'Missing',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Peach',
-      duedate: 12534.0,
-      status: 'Dormant',
-      documents: {
-        Already: 'Rejected',
-        In: 'Rejected',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    }
-  ]
+    })
 }
-*/
+
+export const deleteDocument = id => {
+  let requestString = BACKEND_URL + '/document/delete/' + id
+  return axios
+    .delete(requestString)
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENT_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENT_FAIL',
+        error
+      }
+    })
+}
 
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
