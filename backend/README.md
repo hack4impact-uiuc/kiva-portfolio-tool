@@ -4,10 +4,16 @@
 
 To start using Box, you must create a box account [here](https://account.box.com/login).
 
+After you create your new box account, you must visit the [Console](https://app.box.com/developers/console) to create your project.
 
+After creating your project, click into the project and go to *configuration*.
 
-box api document
-https://developer.box.com/reference
+In *configuration* tab, decide whether or not you want to authenticate using _OAuth_ or _JWT_. You can find more documentation about these two methods [here](https://developer.box.com/docs/quickstart-guides).
+
+Follow each step in the chosen authentication method, and you are all set!
+
+###box api document
+This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
 
 ## Postgres Setup
 
