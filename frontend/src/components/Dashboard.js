@@ -5,7 +5,8 @@ import {
   getAllDocuments,
   getDocumentsByUser,
   getAllMessages,
-  getAllInformation
+  getAllInformation,
+  finishFieldPartner
 } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -56,6 +57,8 @@ export class Dashboard extends React.Component {
       fp_statuses: ['Missing', 'Rejected', 'Pending', 'Approved'],
       pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved']
     }
+
+    this.handleFinish = this.handleFinish.bind(this)
   }
 
   async componentDidMount() {
@@ -104,6 +107,13 @@ export class Dashboard extends React.Component {
     this.props.endLoading()
   }
 
+  async handleFinish() {
+    this.props.beginLoading()
+    await finishFieldPartner(this.props.match.params.id)
+    this.props.history.push('/main')
+    this.props.endLoading()
+  }
+
   pStyle = {
     margin: 'auto'
   }
@@ -113,16 +123,22 @@ export class Dashboard extends React.Component {
       <div className="background-rectangles maxheight">
         <NavBar />
         {this.props.isPM ? (
-          <Button
-            className="add-doc-text"
-            color="transparent"
-            onClick={() =>
-              this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
-            }
-          >
-            <img className="addImg" src={add} />
-            <span className="add-doc-text">Add New Requirements</span>
-          </Button>
+          <div>
+            <Button
+              className="add-doc-text"
+              color="transparent"
+              onClick={() =>
+                this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
+              }
+            >
+              <img className="addImg" src={add} />
+              <span className="add-doc-text">Add New Requirements</span>
+            </Button>
+            <br />
+            <Button color="success" onClick={this.handleFinish}>
+              Finish Process
+            </Button>
+          </div>
         ) : null}
         <Container>
           <Row>
