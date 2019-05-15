@@ -9,7 +9,7 @@ import {
 } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
 import {
   updateDocuments,
   updateMessages,
@@ -17,6 +17,8 @@ import {
   setUserType
 } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+
+import add from '../media/add.png'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
@@ -110,6 +112,19 @@ export class Dashboard extends React.Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar />
+        {this.props.isPM ? (
+          <Button
+            className="add-doc-text"
+            id="add-new-class"
+            color="transparent"
+            onClick={() =>
+              this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
+            }
+          >
+            <img className="addImg" src={add} />
+            <span className="add-doc-text">Add New Requirements</span>
+          </Button>
+        ) : null}
         <Container>
           <Row>
             {this.props.documents
