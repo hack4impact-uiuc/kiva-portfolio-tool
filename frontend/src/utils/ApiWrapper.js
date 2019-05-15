@@ -447,6 +447,44 @@ export const getAllPartners = () => {
     })
 }
 
+export const finishFieldPartner = id => {
+  let requestString = BACKEND_URL + '/field_partner/update/' + id
+  let data = new FormData()
+  data.append('app_status', 'Complete')
+  return axios
+    .put(requestString, data)
+    .then(response => {
+      return {
+        type: 'UPDATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_FP_FAIL',
+        error
+      }
+    })
+}
+
+export const deleteDocument = id => {
+  let requestString = BACKEND_URL + '/document/delete/' + id
+  return axios
+    .delete(requestString)
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENT_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENT_FAIL',
+        error
+      }
+    })
+}
+
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios

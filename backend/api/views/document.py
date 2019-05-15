@@ -248,8 +248,8 @@ def create_new_documents():
     return create_response(status=200, message="success")
 
 
-@document.route("/document/delete/<docClassID>", methods=["DELETE"])
-def delete_document(docClassID):
+@document.route("/document/delete/<id>", methods=["DELETE"])
+def delete_document(id):
     """
     Deletes all documents related to a document class in database
     """
@@ -266,10 +266,9 @@ def delete_document(docClassID):
             status=400, message="You do not have permission to delete documents!"
         )
 
-    db.session.delete(
-        # gets all document <id> native to db and sees if == to docClassID. Then deletes
-        Document.query.filter((Document.docClassID == str(docClassID))).first()
-    )
+    # gets all document <id> native to db and sees if == to docClassID. Then deletes
+    Document.query.filter((Document.id == str(id))).delete()
+
     db.session.commit()
     return create_response(status=200, message="success")
 
