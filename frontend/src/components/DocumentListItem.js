@@ -43,7 +43,7 @@ export class DocumentListItem extends Component {
       files
     })
     this.props.beginLoading()
-    await uploadDocument(this.state.files[0], this.state.files[0].name, this.props.document._id)
+    await uploadDocument(this.props.document.userID, this.state.files[0], this.state.files[0].name, this.props.document._id)
     const documents = await getDocumentsByUser(this.props.document.userID)
     if (documents) {
       this.props.updateDocuments(documents)

@@ -496,11 +496,11 @@ export const downloadDocument = id => {
     })
 }
 
-export const updateDocumentStatus = (userId, id, status) => {
+export const updateDocumentStatus = (userID, id, status) => {
   var data = new FormData()
   data.append('status', status)
 
-  createMessage(userId, false, id, "Pending")
+  createMessage(userID, false, id, "Pending")
 
   return axios
     .put(BACKEND_URL + '/document/status/' + id, data)
@@ -518,7 +518,7 @@ export const updateDocumentStatus = (userId, id, status) => {
     })
 }
 
-export const uploadDocument = (file, file_name, docID) => {
+export const uploadDocument = (userID, file, file_name, docID) => {
   var data = new FormData()
   data.append('file', file)
   data.append('fileName', file_name)
