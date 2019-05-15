@@ -20,6 +20,14 @@
     /* override inline styling */
     position: fixed !important;
     background: white;
+    width: 37%;
+}
+
+@media screen and (max-width: 870px) {
+    .sidebar-styles {
+        /* increase sidebar width */
+        width: 45%;
+    }
 }
 
 .sandwich .dropdown .dropdown-menu {

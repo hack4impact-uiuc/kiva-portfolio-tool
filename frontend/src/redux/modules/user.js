@@ -2,14 +2,14 @@ const SET_USER_TYPE = 'user/set_user_type'
 const UPDATE_DOCUMENTS = 'user/update_documents'
 const UPDATE_DOCUMENT_CLASSES = 'user/update_document_classes'
 const UPDATE_MESSAGES = 'user/update_messages'
-const UPDATE_INFORMATION = 'user/update_information'
+const UPDATE_INSTRUCTIONS = 'user/update_instructions'
 
 const initialState = {
   isPM: true,
   documents: [],
   documentClasses: [],
   messages: [],
-  information: []
+  instructions: ''
 }
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -33,10 +33,10 @@ export default function reducer(state = initialState, action) {
         ...state,
         messages: action.value
       }
-    case UPDATE_INFORMATION:
+    case UPDATE_INSTRUCTIONS:
       return {
         ...state,
-        information: action.value
+        instructions: action.value
       }
     default:
       return state
@@ -63,7 +63,7 @@ export const updateMessages = value => ({
   value
 })
 
-export const updateInformation = value => ({
-  type: UPDATE_INFORMATION,
+export const updateInstructions = value => ({
+  type: UPDATE_INSTRUCTIONS,
   value
 })

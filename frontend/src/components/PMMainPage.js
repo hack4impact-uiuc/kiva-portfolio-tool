@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { getAllPartners, createFieldPartner, getAllPMs } from '../utils/ApiWrapper'
+import {
+  getAllPartners,
+  createFieldPartner,
+  getAllPMs,
+  deleteDocumentsByFP,
+  updateFPInstructions,
+  updateFieldPartnerStatus
+} from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.css'
 import { bindActionCreators } from 'redux'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
@@ -18,12 +24,17 @@ import {
 } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
+import WithAuth from './WithAuth'
 import Navbar from './NavBar'
 
-import add from '../media/add.png'
+import 'react-tabs/style/react-tabs.css'
+import '../styles/index.css'
 // same button styling as in document class page
 // 'Add New Doc Class' button styling the same
 import '../styles/documentclasspage.css'
+import '../styles/partnerbar.css'
+
+import add from '../media/add.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -49,13 +60,18 @@ export class PMMainPage extends Component {
       query: '',
       email: '',
       org_name: '',
-      modal: false,
-      pm_id: null
+      newModal: false, // for creating a new FP
+      pm_id: null,
+      completeModal: false,
+      complete_id: null // for confirmation of process restart for a 'Complete' FP
     }
-    this.toggle = this.toggle.bind(this)
+    this.newToggle = this.newToggle.bind(this)
+    this.completeToggle = this.completeToggle.bind(this)
     this.handleNewFP = this.handleNewFP.bind(this)
     this.handleClickIP = this.handleClickIP.bind(this)
     this.handleClickNew = this.handleClickNew.bind(this)
+    this.handleClickComplete = this.handleClickComplete.bind(this)
+    this.handleClickCompleteRestart = this.handleClickCompleteRestart.bind(this)
   }
 
   /**
@@ -117,24 +133,56 @@ export class PMMainPage extends Component {
     this.setState({ email: event.target.value })
   }
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal })
+  newToggle = () => {
+    this.setState({ newModal: !this.state.newModal })
   }
 
+  completeToggle = id => {
+    this.setState({ completeModal: !this.state.completeModal, complete_id: id })
+  }
+
+  /**
+   * Called on submission of a new Field Partner
+   */
   async handleNewFP() {
     this.props.beginLoading()
-    this.toggle()
+    this.newToggle()
     await createFieldPartner(this.state.org_name, this.state.email, this.state.pm_id)
     let partners = await getAllPartners()
     this.setState(this.loadPartners(partners))
     this.props.endLoading()
   }
 
+  /**
+   * Called when clicking on an 'In Process' Field Partner
+   */
   handleClickIP = id => {
     this.props.history.push('/dashboard/pm/' + id)
   }
 
+  /**
+   * Called when clicking on a 'New Parter' Field Partner
+   */
   handleClickNew = id => {
+    this.props.history.push('/selectdocumentspage/' + id)
+  }
+
+  /**
+   * Called from the 'Complete' Field Partner modal when the user wants to just view the corresponding dashboard
+   */
+  handleClickComplete = () => {
+    this.props.history.push('/dashboard/pm/' + this.state.complete_id)
+  }
+
+  /**
+   * Called from the 'Complete' Field Partner modal when the user wants to restart the process
+   */
+  async handleClickCompleteRestart() {
+    this.completeToggle()
+    this.props.beginLoading()
+    let id = this.state.complete_id
+    await deleteDocumentsByFP(id)
+    await updateFPInstructions(id, '')
     this.props.history.push('/selectdocumentspage/' + id)
   }
 
@@ -142,12 +190,13 @@ export class PMMainPage extends Component {
     return (
       <div className="page background-circles-green maxheight">
         <Navbar />
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.newModal} toggle={this.newToggle}>
           <ModalHeader>Add New Field Partner</ModalHeader>
           <ModalBody>
             <form onSubmit={this.handleNewFP}>
               <p>Organization Name:</p>
               <input
+                className="modal-input-master"
                 type="text"
                 value={this.state.name}
                 size="50"
@@ -156,6 +205,7 @@ export class PMMainPage extends Component {
               />
               <p>Email:</p>
               <input
+                className="modal-input-master"
                 type="text"
                 value={this.state.email}
                 size="50"
@@ -165,8 +215,26 @@ export class PMMainPage extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={this.toggle}>Exit</Button>
-            <Button onClick={this.handleNewFP}>Create</Button>
+            <Button onClick={this.newToggle}>Exit</Button>
+            <Button onClick={this.handleNewFP} color="success ">
+              Create
+            </Button>
+          </ModalFooter>
+        </Modal>
+
+        <Modal isOpen={this.state.completeModal} toggle={this.completeToggle}>
+          <ModalHeader>
+            Are you sure you want to restart the process? This will delete all documents associated
+            with this field partner.
+          </ModalHeader>
+          <ModalFooter>
+            <Button onClick={this.completeToggle}>Exit</Button>
+            <Button onClick={this.handleClickComplete} color="primary">
+              View dashboard
+            </Button>
+            <Button onClick={this.handleClickCompleteRestart} color="success">
+              Restart Process
+            </Button>
           </ModalFooter>
         </Modal>
 
@@ -174,7 +242,7 @@ export class PMMainPage extends Component {
           <Tabs className="tab-master maxheight">
             <Row className="maxheight">
               <Col className="text-centered sidebar-background" sm="12" md="2">
-                <Button className="add-doc-text" id="new-fp-button" onClick={this.toggle}>
+                <Button className="add-doc-text" id="new-fp-button" onClick={this.newToggle}>
                   <img className="addImg" src={add} />
                   <span>Add New</span>
                 </Button>
@@ -255,7 +323,7 @@ export class PMMainPage extends Component {
                               <Button
                                 className="partnerButton"
                                 color="transparent"
-                                onClick={() => this.handleClickNew(partner._id)}
+                                onClick={() => this.completeToggle(partner._id)}
                               >
                                 <PartnerBar partner={partner} />
                               </Button>
@@ -347,4 +415,4 @@ class PartnerBar extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PMMainPage)
+)(WithAuth(PMMainPage))

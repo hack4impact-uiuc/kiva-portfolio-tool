@@ -37,13 +37,19 @@ describe('<SelectDocumentsPage />', () => {
     const wrapper = shallow(<SelectDocumentsPage />)
     expect(wrapper.find('.displayView')).to.have.lengthOf(1)
     expect(wrapper.find('.displayCell')).to.have.lengthOf(2)
-    expect(wrapper.find('.blockCustom')).to.have.lengthOf(3)
+    expect(wrapper.find('.blockCustom')).to.have.lengthOf(4)
   })
 
   it('renders date selection', () => {
     const wrapper = shallow(<SelectDocumentsPage />)
     expect(wrapper.find('.dateDisplay')).to.have.lengthOf(1)
     expect(wrapper.find('.datePicker')).to.have.lengthOf(1)
+  })
+
+  it('renders instructions input', () => {
+    const wrapper = shallow(<SelectDocumentsPage />)
+    expect(wrapper.find('.instructionsDisplay')).to.have.lengthOf(1)
+    expect(wrapper.find('.textarea-input')).to.have.lengthOf(1)
   })
 
   it('renders nextButton', () => {

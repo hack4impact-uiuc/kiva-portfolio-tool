@@ -14,13 +14,15 @@ import {
 import LanguageSelector from './LanguageSelector'
 import NotificationsBar from './NotificationsBar'
 import { withRouter } from 'react-router-dom'
+import Sidebar from 'react-sidebar'
+
+import '../styles/index.css'
+import '../styles/navbar.css'
+
 import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
-import Sidebar from 'react-sidebar'
-import '../styles/index.css'
-import '../styles/navbar.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -73,7 +75,7 @@ export class NavBar extends Component {
             className={this.state.sidebarClass}
             rootClassName="sidebar-root"
             sidebarClassName="sidebar-styles"
-            sidebar={<NotificationsBar />}
+            sidebar={<NotificationsBar closeFunc={this.onSetSidebarOpen} />}
             open={this.state.sidebarOpen}
             onSetOpen={this.onSetSidebarOpen}
             pullRight={true}
@@ -83,8 +85,7 @@ export class NavBar extends Component {
             className={this.state.sidebarClass}
             rootClassName="sidebar-root hide"
             sidebarClassName="sidebar-styles"
-            sidebar={<NotificationsBar />}
-            open={this.state.sidebarOpen}
+            sidebar={<NotificationsBar closeFunc={this.onSetSidebarOpen} />}
             onSetOpen={this.onSetSidebarOpen}
             pullRight={true}
           />
