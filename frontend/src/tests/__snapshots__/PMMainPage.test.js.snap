@@ -77,11 +77,69 @@ exports[`PMMainPage renders correctly 1`] = `
         Exit
       </Button>
       <Button
-        color="secondary"
+        color="success "
         onClick={[Function]}
         tag="button"
       >
         Create
+      </Button>
+    </ModalFooter>
+  </Modal>
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
+  >
+    <ModalHeader
+      charCode={215}
+      closeAriaLabel="Close"
+      tag="h5"
+      wrapTag="div"
+    >
+      Are you sure you want to restart the process? This will delete all documents associated with this field partner.
+    </ModalHeader>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Exit
+      </Button>
+      <Button
+        color="primary"
+        onClick={[Function]}
+        tag="button"
+      >
+        View dashboard
+      </Button>
+      <Button
+        color="success"
+        onClick={[Function]}
+        tag="button"
+      >
+        Restart Process
       </Button>
     </ModalFooter>
   </Modal>
