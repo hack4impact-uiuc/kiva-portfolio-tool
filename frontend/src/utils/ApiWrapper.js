@@ -426,10 +426,10 @@ export const createFieldPartner = (org_name, email, pm_id) => {
     })
 }
 
-export const finishFieldPartner = id => {
+export const updateFieldPartnerStatus = (id, status) => {
   let requestString = BACKEND_URL + '/field_partner/update/' + id
   let data = new FormData()
-  data.append('app_status', 'Complete')
+  data.append('app_status', status)
   return axios
     .put(requestString, data)
     .then(response => {
@@ -490,13 +490,13 @@ export const deleteDocumentsByFP = id => {
     .delete(requestString)
     .then(response => {
       return {
-        type: 'DELETE_DOCUMENT_SUCCESS',
+        type: 'DELETE_DOCUMENTS_SUCCESS',
         response
       }
     })
     .catch(error => {
       return {
-        type: 'DELETE_DOCUMENT_FAIL',
+        type: 'DELETE_DOCUMENTS_FAIL',
         error
       }
     })
