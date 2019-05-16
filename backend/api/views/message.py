@@ -55,9 +55,10 @@ def get_messages_by_pm(pm_id):
         .all()
     )
 
-    # Adds a field called name to each message
+    # Adds a field called name to each message, but there might not be a fp_id 
     for message in message_list:
-        message.name = FieldPartner.query.get(message.fp_id).org_name
+        if message.fp_id:
+            message.name = FieldPartner.query.get(message.fp_id).org_name
 
     return create_response(data={"messages": serialize_list(message_list)})
 
@@ -126,13 +127,12 @@ def add_message():
 
     recipient = (
         FieldPartner.query.get(data["fp_id"])
-        if data["to_fp"]
+        if data["to_fp"] == "true"
         else PortfolioManager.query.get(data["pm_id"])
     )
 
     mail = Mail(current_app)
 
-    # TODO: change the sender hardcode
     email = Flask_Message(
         subject=subjects[message_type.value],
         sender=os.environ["GMAIL_NAME"],
