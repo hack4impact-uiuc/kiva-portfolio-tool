@@ -507,6 +507,10 @@ export const getAllMessages = (user_id, is_pm) => {
 }
 
 export const createMessage = (user_id, is_pm_id, to_fp, document_id, status) => {
+  /*
+   * user_id: either fp or pm, will be determined by is_pm_id
+   * status: document status that it is being changed to
+   */
   let requestString = BACKEND_URL + '/messages/new'
   let data = new FormData()
 

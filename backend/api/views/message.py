@@ -80,6 +80,7 @@ def add_message():
             status=400, message="No boolean to_fp provided for new message"
         )
 
+    # Get a PM id if it's not provided
     if "pm_id" not in data:
         if "fp_id" not in data:
             return create_response(
@@ -94,7 +95,6 @@ def add_message():
             status=400, message="No FP ID provided for new message to FP"
         )
 
-    # This might not be necessary if we're not notifying on due dates
     if "doc_id" not in data:
         return create_response(
             status=400, message="No document ID provided for new message"
@@ -117,14 +117,14 @@ def add_message():
     organization = ""
     if "fp_id" in data:
         organization = FieldPartner.query.get(data["fp_id"]).org_name
-        # Well this is terrible code practice but we shouldn't run into an issue with this.. i rlly hope
 
     contents = [
         f"Your Portfolio Manager has added a new required document: {docclass_name}.",  # document class name
-        f"Your document has been reviewed and was {status}.",  # status [approved/rejected]
+        f"Your document, {docclass_name}, has been reviewed and was {status}.",  # document class name, status [approved/rejected]
         f"Your Field Partner from {organization} has uploaded a document for {docclass_name}.",  # organization, document class name
     ]
-    # Add a field called "description" to the message
+
+    # Add the contents as a description field
     data["description"] = contents[message_type.value]
 
     recipient = (
@@ -133,6 +133,7 @@ def add_message():
         else PortfolioManager.query.get(data["pm_id"])
     )
 
+    # Send the email
     mail = Mail(current_app)
 
     email = Flask_Message(
