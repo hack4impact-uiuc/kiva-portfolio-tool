@@ -9,9 +9,13 @@ import { setCookie } from './../utils/cookie'
  */
 const withAuth = WrappedComponent => {
   class HOC extends Component {
-    state = {
-      verified: false
+    constructor(props) {
+      super(props)
+      this.state = {
+        verified: false
+      }
     }
+
     async componentDidMount() {
       const verifyResponse = await verify()
       console.log(verifyResponse)

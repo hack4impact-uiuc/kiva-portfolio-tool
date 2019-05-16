@@ -38,21 +38,24 @@ const EMAIL_REGEX =
  * it also has inputs for a verification pin to verify if a legit user is creating an account
  */
 class Register extends Component {
-  state = {
-    email: '',
-    password: '',
-    password2: '',
-    errorMessage: '',
-    pinMessage: '',
-    pin: '',
-    successfulSubmit: false,
-    loading: false,
-    questions: [],
-    questionIdx: -1,
-    dropdownOpen: false,
-    securityQuestionAnswer: '',
-    failed: false,
-    modal: false
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+      password2: '',
+      errorMessage: '',
+      pinMessage: '',
+      pin: '',
+      successfulSubmit: false,
+      loading: false,
+      questions: [],
+      questionIdx: -1,
+      dropdownOpen: false,
+      securityQuestionAnswer: '',
+      failed: false,
+      modal: false
+    }
   }
 
   pickDropDown = (idx, e) => {
