@@ -34,9 +34,7 @@ import '../styles/partnerbar.css'
 
 import add from '../media/add.png'
 
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(

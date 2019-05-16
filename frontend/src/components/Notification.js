@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import { Button, ListGroupItem } from 'reactstrap'
-import { connect } from 'react-redux'
 
 import '../styles/notification.css'
 import '../styles/partnerbar.css'
 import '../styles/notifbar.css'
 
 import close from '../media/greyX.png'
-
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
 
 export class Notification extends Component {
   render() {
@@ -49,4 +44,4 @@ export class Notification extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Notification)
+export default Notification

@@ -24,9 +24,7 @@ import '../styles/selectdocuments.css'
 import search from '../media/search.png'
 import WithAuth from './WithAuth'
 
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(

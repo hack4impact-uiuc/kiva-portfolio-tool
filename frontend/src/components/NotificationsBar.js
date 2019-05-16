@@ -12,7 +12,6 @@ import '../styles/notifbar.css'
 import close from '../media/greyX.png'
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM,
   allMessages: state.user.messages,
   instructions: state.user.instructions
 })
