@@ -109,7 +109,7 @@ def get_document():
 
 # new put route only for uploading documents
 # was previously in post when we shouldn't really be creating a new document in the database
-@document.route("/document/upload/<id>", methods=["PUT"])
+@document.route("/document/<id>", methods=["PUT"])
 def upload_document(id):
     data = request.form
 
@@ -123,74 +123,27 @@ def upload_document(id):
     if message != None:
         return create_response(status=400, message=message)
 
-    if "fileName" not in data:
-        return create_response(status=400, message="No file name provided")
-
-    fileName = data.get("fileName")
-
-    if request.files is None or "file" not in request.files:
-        return create_response(status=400, message="No file provided")
-
-    file = request.files.get("file")
-
-    file_info = upload_file(file, fileName)
-
     doc = Document.query.get(id)
 
-    doc.fileID = file_info["file"].id
-    doc.link = file_info["link"]
-    doc.status = "Pending"
-    doc.fileName = fileName
+    if "fileName" in data and request.files is not None and file in request.files:
+        fileName = data.get("fileName")
+        file = request.files.get("file")
+        file_info = upload_file(file, fileName)
+        doc.fileID = file_info["file"].id
+        doc.link = file_info["link"]
+        doc.fileName = fileName
+
+    if "status" in data:
+        doc.status = data.get("status")
+
+    ret_dict = doc.to_dict
 
     db.session.commit()
 
-    return create_response(status=200, message="success")
+    return create_response(status=200, data={document: ret_dict})
 
 
-@document.route("/document/new", methods=["POST"])
-def create_new_document():
-    """
-    functionality used to add a new document to database
-    """
-    data = request.form
-
-    if data is None:
-        return create_response(status=400, message="No body provided for new Document")
-    # Each document requires a mandatory userID, status (By Default Missing), and a Document Class
-
-    token = request.headers.get("token")
-    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-
-    message, info = verify_token(token)
-    if message != None:
-        return create_response(status=400, message=message)
-
-    if info == "fp":
-        return create_response(
-            status=400, message="You do not have permission to create new documents!"
-        )
-
-    if "userID" not in data:
-        return create_response(
-            status=400, message="No UserID provided for new Document"
-        )
-    if "status" not in data:
-        return create_response(
-            status=400, message="No Status provided for new Document"
-        )
-    if "docClassID" not in data:
-        return create_response(
-            status=400, message="No Document Class provided for new Document"
-        )
-
-    new_data = Document(data)
-
-    db.session.add(new_data)
-    db.session.commit()
-    return create_response(status=200, message="success")
-
-
-@document.route("/document/create", methods=["POST"])
+@document.route("/document", methods=["POST"])
 def create_new_documents():
     """
     used upon assignment of documents to field partner
@@ -247,7 +200,7 @@ def create_new_documents():
     return create_response(status=200, message="success")
 
 
-@document.route("/document/delete/<id>", methods=["DELETE"])
+@document.route("/document/<id>", methods=["DELETE"])
 def delete_document(id):
     """
     Deletes all documents related to a document class in database
@@ -272,7 +225,7 @@ def delete_document(id):
     return create_response(status=200, message="success")
 
 
-@document.route("/document/delete/fp/<id>", methods=["DELETE"])
+@document.route("/document/delete_by_fp/<id>", methods=["DELETE"])
 def delete_documents_by_fp(id):
     """
     Deletes all documents belonging to the specified user
@@ -282,73 +235,3 @@ def delete_documents_by_fp(id):
 
     db.session.commit()
     return create_response(status=200, message="success")
-
-
-@document.route("/document/update/<docClassID>", methods=["PUT"])
-def update_documents(docClassID):
-    """
-    functionality that updates a document/documentClass
-    """
-    data = request.form
-
-    if data is None:
-        return create_response(status=200, message="No data provided")
-
-    token = request.headers.get("token")
-    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-
-    message, info = verify_token(token)
-    if message != None:
-        return create_response(status=400, message=message)
-
-    # takes in updated docClassID information by json in request
-    # receives all documents by docClassID
-    doc = Document.query.filter((Document.docClassID == docClassID)).first()
-
-    # for each item in a document:
-    #   replace if updated item data provided
-    #   else keep old value
-    doc.fileID = data.get("fileID", doc.fileID)
-    doc.date = data.get("date", doc.date)
-    doc.status = data.get("status", doc.status)
-    doc.docClassID = data.get("docClassID", doc.docClassID)
-    doc.fileName = data.get("fileName", doc.fileName)
-    doc.latest = data.get("latest", doc.latest)
-    doc.description = data.get("description", doc.description)
-    db.session.commit()
-    return create_response(status=200, message="success")
-
-
-# given id of document, can update its status to new status provided in url
-@document.route("/document/status/<id>", methods=["PUT"])
-def update_status(id):
-    """ 
-    function called when you visit /document/update/<id>/<status>. Updates a doc's status 
-    """
-
-    # why does get_json() work sometimes and form does other times?
-    # this tries both to be safe
-    data = request.form
-    if data is None:
-        return create_response(status=400, message="No data provided")
-
-    token = request.headers.get("token")
-    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-
-    message, info = verify_token(token)
-    if message != None:
-        return create_response(status=400, message=message)
-
-    if "status" not in data:
-        return create_response(status=400, message="No document status provided")
-
-    status = data.get("status")
-
-    # get document by id
-    doc = Document.query.get(id)
-    # update doc status to new status and return
-    doc.status = status
-    ret = doc.to_dict()
-
-    db.session.commit()
-    return create_response(data={"document": ret})

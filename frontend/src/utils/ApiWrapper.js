@@ -532,7 +532,7 @@ export const updateFPInstructions = (id, instructions) => {
 }
 
 export const deleteDocument = id => {
-  let requestString = BACKEND_URL + '/document/delete/' + id
+  let requestString = BACKEND_URL + '/document/' + id
   return axios
     .delete(requestString, {
       headers: {
@@ -555,7 +555,7 @@ export const deleteDocument = id => {
 }
 
 export const deleteDocumentsByFP = id => {
-  let requestString = BACKEND_URL + '/document/delete/fp/' + id
+  let requestString = BACKEND_URL + '/document/delete_by_fp/' + id
   return axios
     .delete(requestString, {
       headers: {
@@ -617,7 +617,7 @@ export const updateDocumentStatus = (id, status) => {
   var data = new FormData()
   data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/status/' + id, data, {
+    .put(BACKEND_URL + '/document/' + id, data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -641,8 +641,9 @@ export const uploadDocument = (file, file_name, docID) => {
   var data = new FormData()
   data.append('file', file)
   data.append('fileName', file_name)
+  data.append('status', 'Pending')
   return axios
-    .put(BACKEND_URL + '/document/upload/' + docID, data, {
+    .put(BACKEND_URL + '/document/' + docID, data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -690,7 +691,7 @@ export const createDocumentClass = (name, description, file, file_name) => {
 }
 
 export const createDocuments = (userID, docClassIDs, dueDate) => {
-  let requestString = BACKEND_URL + '/document/create'
+  let requestString = BACKEND_URL + '/document'
   let data = new FormData()
   data.append('userID', userID)
   data.append('status', 'Missing')
