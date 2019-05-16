@@ -65,7 +65,7 @@ def add_document_class():
     return create_response(status=200, message="success")
 
 
-@docclass.route("/document_class/update/<id>", methods=["PUT"])
+@docclass.route("/document_class/<id>", methods=["PUT"])
 def update_document_class(id):
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     data = request.form
@@ -104,7 +104,7 @@ def update_document_class(id):
     return create_response(status=200, data={"document_class": updated_docclass})
 
 
-@docclass.route("/document_class/delete/<id>", methods=["DELETE"])
+@docclass.route("/document_class/<id>", methods=["DELETE"])
 def delete_document_class(id):
 
     token = request.headers.get("token")

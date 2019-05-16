@@ -742,7 +742,7 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
   data.append('name', name)
   data.append('description', description)
   return axios
-    .put(BACKEND_URL + '/document_class/update/' + id, data, {
+    .put(BACKEND_URL + '/document_class/' + id, data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -764,7 +764,7 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
 
 export const deleteDocumentClass = id => {
   return axios
-    .delete(BACKEND_URL + '/document_class/delete/' + id, {
+    .delete(BACKEND_URL + '/document_class/' + id, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
