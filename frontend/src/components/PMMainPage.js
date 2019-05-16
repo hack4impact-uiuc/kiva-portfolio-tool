@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import {
   getAllPartners,
   createFieldPartner,
-  getAllPMs,
   deleteDocumentsByFP,
   updateFPInstructions,
-  updateFieldPartnerStatus
+  getPartnersByPM
 } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { bindActionCreators } from 'redux'
@@ -61,7 +60,6 @@ export class PMMainPage extends Component {
       email: '',
       org_name: '',
       newModal: false, // for creating a new FP
-      pm_id: null,
       completeModal: false,
       complete_id: null // for confirmation of process restart for a 'Complete' FP
     }
@@ -79,11 +77,10 @@ export class PMMainPage extends Component {
    */
   async componentDidMount() {
     this.props.beginLoading()
-    let partners = await getAllPartners()
+    let pm_id = this.props.match.params.id
+    let partners = await getPartnersByPM(pm_id)
     this.setState(this.loadPartners(partners))
-    let pms = await getAllPMs()
-    let pm = pms[0]
-    this.setState({ pm_id: pm._id })
+    this.setState({ pm_id: pm_id })
     this.props.endLoading()
   }
 
@@ -147,8 +144,8 @@ export class PMMainPage extends Component {
   async handleNewFP() {
     this.props.beginLoading()
     this.newToggle()
-    await createFieldPartner(this.state.org_name, this.state.email, this.state.pm_id)
-    let partners = await getAllPartners()
+    await createFieldPartner(this.state.org_name, this.state.email, this.props.match.params.id)
+    let partners = await getPartnersByPM(this.props.match.params.id)
     this.setState(this.loadPartners(partners))
     this.props.endLoading()
   }

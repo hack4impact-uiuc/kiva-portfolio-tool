@@ -1,20 +1,9 @@
 import { Link } from 'react-router-dom'
-import { login, getPartnersByStatus, verify } from '../utils/ApiWrapper'
+import { login, getPartnersByStatus, verify, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
-import {
-  Form,
-  Button,
-  ButtonGroup,
-  FormGroup,
-  Label,
-  Input,
-  Card,
-  CardBody,
-  CardTitle
-} from 'reactstrap'
+import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
 import { connect } from 'react-redux'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from './NavBar'
@@ -92,10 +81,13 @@ class LogIn extends Component {
         this.props.history.push('/oops')
       } else {
         role = role.response.data.result.role
+
         if (role == 'fp') {
-          this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+          let fp = await getFPByEmail(this.state.email)
+          this.props.history.push('/dashboard/fp/' + fp._id)
         } else {
-          this.props.history.push('/main')
+          let pm = await getPMByEmail(this.state.email)
+          this.props.history.push('/main/' + pm._id)
         }
       }
     }

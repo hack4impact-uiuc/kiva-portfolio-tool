@@ -35,7 +35,7 @@ def recreate_db():
     db.drop_all()
     db.create_all()
 
-    pm_id = create_mock_pm("pm@kiva.org", "PM")
+    pm_id = create_mock_pm("kivaportfolio@gmail.com", "PM")
 
     db.session.commit()
 

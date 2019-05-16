@@ -366,6 +366,42 @@ export const getFPByID = id => {
     })
 }
 
+export const getFPByEmail = email => {
+  let requestString = BACKEND_URL + '/field_partner/email/' + email
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.field_partner[0]
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
+export const getPMByEmail = email => {
+  let requestString = BACKEND_URL + '/portfolio_manager/email/' + email
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.portfolio_manager[0]
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
@@ -452,7 +488,12 @@ export const updateFieldPartnerStatus = (id, status) => {
   let data = new FormData()
   data.append('app_status', status)
   return axios
-    .put(requestString, data)
+    .put(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_FP_SUCCESS',
@@ -472,7 +513,12 @@ export const updateFPInstructions = (id, instructions) => {
   let data = new FormData()
   data.append('instructions', instructions)
   return axios
-    .put(requestString, data)
+    .put(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_FP_SUCCESS',
@@ -490,7 +536,12 @@ export const updateFPInstructions = (id, instructions) => {
 export const deleteDocument = id => {
   let requestString = BACKEND_URL + '/document/delete/' + id
   return axios
-    .delete(requestString)
+    .delete(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'DELETE_DOCUMENT_SUCCESS',
@@ -508,7 +559,12 @@ export const deleteDocument = id => {
 export const deleteDocumentsByFP = id => {
   let requestString = BACKEND_URL + '/document/delete/fp/' + id
   return axios
-    .delete(requestString)
+    .delete(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'DELETE_DOCUMENTS_SUCCESS',
@@ -526,7 +582,7 @@ export const deleteDocumentsByFP = id => {
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
-    .get(BACKEND_URL + '/box/token', {
+    .get(requestString, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
