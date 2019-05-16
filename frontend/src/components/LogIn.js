@@ -42,12 +42,6 @@ class LogIn extends Component {
     fp_id: null
   }
 
-  async componentDidMount() {
-    const fps = await getPartnersByStatus('In Process')
-    //use first FP temporarily until auth integration
-    this.setState({ fp_id: fps[0]._id })
-  }
-
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value })
   }
