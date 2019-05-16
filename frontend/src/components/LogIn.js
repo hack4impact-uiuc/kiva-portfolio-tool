@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login, getPartnersByStatus, verify, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
+import { login, verify, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
