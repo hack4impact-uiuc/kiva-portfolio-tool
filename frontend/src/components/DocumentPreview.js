@@ -6,10 +6,13 @@ import { bindActionCreators } from 'redux'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Iframe from 'react-iframe'
+
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import '../styles/documentpreview.css'
+
 import preview from '../media/preview.png'
+import WithAuth from './WithAuth'
 
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
@@ -164,4 +167,4 @@ export class DocumentPreview extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DocumentPreview)
+)(WithAuth(DocumentPreview))

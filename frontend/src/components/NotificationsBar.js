@@ -1,23 +1,26 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { Button } from 'reactstrap'
 import 'react-tabs/style/react-tabs.css'
 import { bindActionCreators } from 'redux'
 import Notification from './Notification'
 import { connect } from 'react-redux'
-import { updateMessages, updateInformation } from '../redux/modules/user'
-import '../styles/notifbar.scss'
+import { updateMessages } from '../redux/modules/user'
+
+import '../styles/notifbar.css'
+
+import close from '../media/greyX.png'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   allMessages: state.user.messages,
-  allInformation: state.user.information
+  instructions: state.user.instructions
 })
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      updateMessages,
-      updateInformation
+      updateMessages
     },
     dispatch
   )
@@ -36,21 +39,16 @@ export class NotificationsBar extends Component {
     this.props.updateMessages(messages)
   }
 
-  /**
-   * Helper function that removes infos upon click by index in array
-   */
-  removeInformation = index => {
-    let information = [...this.props.allInformation]
-    information.splice(index, 1)
-    this.props.updateInformation(information)
+  closeSidebar = open => {
+    this.props.closeFunc(open)
   }
 
   render() {
     const { isPM } = this.props.isPM
     const allMessages = this.props.allMessages
-    const allInformation = this.props.allInformation
+    const information = this.props.instructions
     return (
-      <Tabs>
+      <Tabs className="notifications-tabs">
         <TabList>
           <Tab className="tab">
             <span className="tab-font">Activity</span>
@@ -58,6 +56,15 @@ export class NotificationsBar extends Component {
           <Tab className="tab">
             <span className="tab-font">Information</span>
           </Tab>
+          <Button
+            id="sidebar-close-button"
+            color="transparent"
+            onClick={() => {
+              this.closeSidebar(false)
+            }}
+          >
+            <img className="exit-button" src={close} />
+          </Button>
         </TabList>
 
         <TabPanel>
@@ -73,21 +80,12 @@ export class NotificationsBar extends Component {
             )
           })}
         </TabPanel>
+
         <TabPanel>
-          {allInformation.map((info, index) => {
-            return (
-              <div>
-                {info}
-                <button
-                  onClick={() => {
-                    this.removeInformation(index)
-                  }}
-                >
-                  X
-                </button>
-              </div>
-            )
-          })}
+          <div className="instruction">
+            <b>Instructions</b>
+            <p>{information}</p>
+          </div>
         </TabPanel>
       </Tabs>
     )

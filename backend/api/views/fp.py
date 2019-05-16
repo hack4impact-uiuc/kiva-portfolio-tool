@@ -100,7 +100,27 @@ def new_fp():
 def update_app_status(id):
     """ function that is called when you visit /field_partner/update/<id>, updates an FP's app status info """
     fp = FieldPartner.query.get(id)
-    fp.app_status = request.form.get("app_status", "")
+
+    data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No data provided to update FP")
+
+    if "app_status" in data:
+        fp.app_status = data.get("app_status")
+
+    if "instructions" in data:
+        fp.instructions = data.get("instructions")
+
+    if "email" in data:
+        fp.email = data.get("email")
+
+    if "org_name" in data:
+        fp.org_name = data.get("org_name")
+
+    if "pm_id" in data:
+        fp.pm_id = data.get("pm_id")
+
     ret = fp.to_dict()
 
     db.session.commit()

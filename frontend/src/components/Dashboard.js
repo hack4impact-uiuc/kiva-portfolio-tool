@@ -1,22 +1,28 @@
 import React from 'react'
 import DocumentList from './DocumentList'
+import Notification from './Notification'
+import WithAuth from './WithAuth'
 import NavBar from './NavBar'
 import {
   getAllDocuments,
   getDocumentsByUser,
   getAllMessages,
-  getAllInformation
+  updateFieldPartnerStatus,
+  getFPByID
 } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col, Button } from 'reactstrap'
 import {
   updateDocuments,
   updateMessages,
-  updateInformation,
+  updateInstructions,
   setUserType
 } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+
+import add from '../media/add.png'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
@@ -37,10 +43,10 @@ const mapDispatchToProps = dispatch => {
     {
       updateDocuments,
       updateMessages,
-      updateInformation,
       setUserType,
       beginLoading,
-      endLoading
+      endLoading,
+      updateInstructions
     },
     dispatch
   )
@@ -53,6 +59,8 @@ export class Dashboard extends React.Component {
       fp_statuses: ['Missing', 'Rejected', 'Pending', 'Approved'],
       pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved']
     }
+
+    this.handleFinish = this.handleFinish.bind(this)
   }
 
   async componentDidMount() {
@@ -79,7 +87,8 @@ export class Dashboard extends React.Component {
     /**
      * Contains all information received from backend
      */
-    const informationReceived = await getAllInformation()
+    const fp = await getFPByID(this.props.match.params.id)
+    const instructionsReceived = fp.instructions
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
@@ -93,11 +102,21 @@ export class Dashboard extends React.Component {
       this.props.updateMessages([])
     }
 
-    if (informationReceived) {
-      this.props.updateInformation(informationReceived)
+    if (instructionsReceived) {
+      this.props.updateInstructions(instructionsReceived)
     } else {
-      this.props.updateInformation([])
+      this.props.updateInstructions('')
     }
+    this.props.endLoading()
+  }
+
+  /**
+   * When a Field Partner has finished the process, this method is called to move their status to 'Complete'
+   */
+  async handleFinish() {
+    this.props.beginLoading()
+    await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
+    this.props.history.push('/main')
     this.props.endLoading()
   }
 
@@ -109,6 +128,24 @@ export class Dashboard extends React.Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar />
+        {this.props.isPM ? (
+          <div>
+            <Button
+              className="add-doc-text"
+              color="transparent"
+              onClick={() =>
+                this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
+              }
+            >
+              <img className="addImg" src={add} />
+              <span className="add-doc-text">Update requirements/instructions</span>
+            </Button>
+            <br />
+            <Button color="success" onClick={this.handleFinish}>
+              Finish Process
+            </Button>
+          </div>
+        ) : null}
         <Container>
           <Row>
             {this.props.documents
@@ -137,4 +174,4 @@ export class Dashboard extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dashboard)
+)(WithAuth(Dashboard))

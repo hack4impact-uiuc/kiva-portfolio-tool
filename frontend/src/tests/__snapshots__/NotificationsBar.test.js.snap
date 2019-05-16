@@ -2,6 +2,7 @@
 
 exports[` renders correctly 1`] = `
 <Tabs
+  className="notifications-tabs"
   defaultFocus={false}
   defaultIndex={null}
   forceRenderTabPanel={false}
@@ -40,6 +41,17 @@ exports[` renders correctly 1`] = `
         Information
       </span>
     </Tab>
+    <Button
+      color="transparent"
+      id="sidebar-close-button"
+      onClick={[Function]}
+      tag="button"
+    >
+      <img
+        className="exit-button"
+        src="greyX.png"
+      />
+    </Button>
   </TabList>
   <TabPanel
     className="react-tabs__tab-panel"
@@ -56,13 +68,13 @@ exports[` renders correctly 1`] = `
     forceRender={false}
     selectedClassName="react-tabs__tab-panel--selected"
   >
-    <div>
-      info here
-      <button
-        onClick={[Function]}
-      >
-        X
-      </button>
+    <div
+      className="instruction"
+    >
+      <b>
+        Instructions
+      </b>
+      <p />
     </div>
   </TabPanel>
 </Tabs>

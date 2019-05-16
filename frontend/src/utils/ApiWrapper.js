@@ -1,8 +1,74 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-import { getCookie } from './cookie'
+import { getCookieFromBrowser, getCookie } from './cookie'
 
 //import { BACKEND_KEY } from '../keys'
+
+export const getAllPMs = () => {
+  let requestString = BACKEND_URL + '/portfolio_manager'
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.portfolio_manager
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
+export const getUserRole = () => {
+  let requestString = BACKEND_URL + '/getUser'
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.userRole
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+export const createFieldPartner = (org_name, email, pm_id) => {
+  let requestString = BACKEND_URL + '/createFP'
+  let data = new FormData()
+  data.append('org_name', org_name)
+  data.append('email', email)
+  data.append('pm_id', pm_id)
+  data.append('app_status', 'New Partner')
+  return axios
+    .post(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'CREATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_FP_FAIL',
+        error
+      }
+    })
+}
 
 export const register = (email, password, questionIdx, answer, role) => {
   let data = new FormData()
@@ -48,21 +114,23 @@ export const login = (email, password) => {
     })
 }
 
-export const verify = (emailInput, passwordInput) => {
+export const verify = () => {
   return axios
-    .post(BACKEND_URL + '/verify', {
+    .post(BACKEND_URL + '/verify', null, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
+      console.log(response)
       return {
         type: 'REGISTER_SUCCESS',
         response
       }
     })
     .catch(error => {
+      console.log(error)
       return {
         type: 'REGISTER_FAIL',
         error
@@ -74,8 +142,8 @@ export const getSecurityQuestions = () => {
   return axios
     .get(BACKEND_URL + '/getSecurityQuestions', {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -98,7 +166,12 @@ export const setSecurityQuestion = (questionIdx, answer, password) => {
   data.append('answer', answer)
   data.append('password', password)
   return axios
-    .post(BACKEND_URL + '/addSecurityQuestionAnswer', data)
+    .post(BACKEND_URL + '/addSecurityQuestionAnswer', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',
@@ -117,7 +190,12 @@ export const getSecurityQuestionForUser = email => {
   let data = new FormData()
   data.append('email', email)
   return axios
-    .post(BACKEND_URL + '/getSecurityQuestionForUser', data)
+    .post(BACKEND_URL + '/getSecurityQuestionForUser', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',
@@ -125,10 +203,8 @@ export const getSecurityQuestionForUser = email => {
       }
     })
     .catch(error => {
-      return {
-        type: 'LOGIN_FAIL',
-        error
-      }
+      console.log('ERROR: ', error)
+      return null
     })
 }
 
@@ -146,10 +222,8 @@ export const submitSecurityQuestionAnswer = (email, answer, questionIdx) => {
       }
     })
     .catch(error => {
-      return {
-        type: 'LOGIN_FAIL',
-        error
-      }
+      console.log('ERROR: ', error)
+      return null
     })
 }
 
@@ -160,7 +234,12 @@ export const resetPassword = (email, answer, pin, password) => {
   data.append('pin', pin)
   data.append('password', password)
   return axios
-    .post(BACKEND_URL + '/resetPassword', data)
+    .post(BACKEND_URL + '/resetPassword', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'LOGIN_SUCCESSFUL',
@@ -168,10 +247,8 @@ export const resetPassword = (email, answer, pin, password) => {
       }
     })
     .catch(error => {
-      return {
-        type: 'LOGIN_FAIL',
-        error
-      }
+      console.log('ERROR: ', error)
+      return null
     })
 }
 
@@ -182,8 +259,8 @@ export const changePassword = (currentPassword, newPassword) => {
   return axios
     .post(BACKEND_URL + '/changePassword', data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -200,15 +277,14 @@ export const changePassword = (currentPassword, newPassword) => {
     })
 }
 
-export const verifyPIN = (email, pin) => {
+export const verifyPIN = pin => {
   let data = new FormData()
-  data.append('email', email)
   data.append('pin', pin)
   return axios
     .post(BACKEND_URL + '/verifyEmail', data, {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -229,8 +305,8 @@ export const resendPIN = () => {
   return axios
     .post(BACKEND_URL + '/resendVerificaitonEmail', {
       headers: {
-        'Content-Type': 'application/json',
-        token: getCookie('token')
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
@@ -249,23 +325,15 @@ export const resendPIN = () => {
 
 //import { BACKEND_KEY } from '../keys'
 
-export const getAllPMs = () => {
-  let requestString = BACKEND_URL + '/portfolio_manager'
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.portfolio_manager
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
 export const getAllDocumentClasses = () => {
   let requestString = BACKEND_URL + '/document_class'
   return axios
-    .get(requestString)
+    .get(requestString, null, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.document_class
     })
@@ -277,23 +345,20 @@ export const getAllDocumentClasses = () => {
 
 export const getAllDocuments = () => {
   let requestString = BACKEND_URL + '/document'
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.documents
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
+  return axios.get(requestString, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      token: getCookieFromBrowser('token')
+    }
+  })
 }
 
-export const getFPNameByID = id => {
+export const getFPByID = id => {
   let requestString = BACKEND_URL + '/field_partner/' + id
   return axios
     .get(requestString)
     .then(response => {
-      return response.data.result.field_partner.org_name
+      return response.data.result.field_partner
     })
     .catch(error => {
       console.log('ERROR: ', error)
@@ -301,12 +366,17 @@ export const getFPNameByID = id => {
     })
 }
 
-export const getDocumentsByUser = userID => {
-  let requestString = BACKEND_URL + '/document?uid=' + userID
+export const getFPByEmail = email => {
+  let requestString = BACKEND_URL + '/field_partner/email/' + email
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
-      return response.data.result.documents
+      return response.data.result.field_partner[0]
     })
     .catch(error => {
       console.log('ERROR: ', error)
@@ -314,33 +384,32 @@ export const getDocumentsByUser = userID => {
     })
 }
 
-export const createDocuments = (userID, docClassIDs, dueDate) => {
-  let requestString = BACKEND_URL + '/document/create'
-  let data = new FormData()
-  data.append('userID', userID)
-  data.append('status', 'Missing')
-  data.append('docClassIDs', docClassIDs)
-  data.append('dueDate', dueDate)
+export const getPMByEmail = email => {
+  let requestString = BACKEND_URL + '/portfolio_manager/email/' + email
   return axios
-    .post(requestString, data)
-    .then(response => {
-      return {
-        type: 'CREATE_DOCUMENTS_SUCCESS',
-        response
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
     })
+    .then(response => {
+      return response.data.result.portfolio_manager[0]
+    })
     .catch(error => {
-      return {
-        type: 'CREATE_DOCUMENTS_FAIL',
-        error
-      }
+      console.log('ERROR: ', error)
+      return null
     })
 }
 
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
-    { name: 'PM', time: '4/12/18', description: 'Rejected Strategic Plan' },
+    {
+      name: 'PM',
+      time: '4/12/18',
+      description: 'Rejected Strategic Plan. This also tests for activity overflow.'
+    },
     { name: 'PM', time: '4/12/19', description: 'Rejected Annual Plan' },
     { name: 'PM', time: '4/12/17', description: 'Approved Financial Projections' },
     { name: 'PM', time: '4/12/17', description: 'Approved Organizational Chart' }
@@ -357,7 +426,12 @@ export const getAllInformation = () => {
 export const getPartnersByPM = pm_id => {
   let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.field_partner
     })
@@ -372,7 +446,12 @@ export const getPartnersByPM = pm_id => {
 export const getPartnersByStatus = app_status => {
   let requestString = BACKEND_URL + '/field_partner/status/' + app_status
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.field_partner
     })
@@ -387,7 +466,12 @@ export const getPartnersByStatus = app_status => {
 export const getAllPartners = () => {
   let requestString = BACKEND_URL + '/field_partner'
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.field_partner
     })
@@ -399,105 +483,101 @@ export const getAllPartners = () => {
     })
 }
 
-export const createFieldPartner = (org_name, email, pm_id) => {
-  let requestString = BACKEND_URL + '/field_partner/new'
+export const updateFieldPartnerStatus = (id, status) => {
+  let requestString = BACKEND_URL + '/field_partner/update/' + id
   let data = new FormData()
-  data.append('org_name', org_name)
-  data.append('email', email)
-  data.append('pm_id', pm_id)
-  data.append('app_status', 'New Partner')
+  data.append('app_status', status)
   return axios
-    .post(requestString, data)
+    .put(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
-        type: 'CREATE_FP_SUCCESS',
+        type: 'UPDATE_FP_SUCCESS',
         response
       }
     })
     .catch(error => {
       return {
-        type: 'CREATE_FP_FAIL',
+        type: 'UPDATE_FP_FAIL',
         error
       }
     })
 }
 
-/*
-export const getAllPartners = () => {
-  return [
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
+export const updateFPInstructions = (id, instructions) => {
+  let requestString = BACKEND_URL + '/field_partner/update/' + id
+  let data = new FormData()
+  data.append('instructions', instructions)
+  return axios
+    .put(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
       }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
+    })
+    .then(response => {
+      return {
+        type: 'UPDATE_FP_SUCCESS',
+        response
       }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_FP_FAIL',
+        error
       }
-    },
-    {
-      name: 'Waluigi',
-      duedate: 1.23,
-      status: 'Active',
-      documents: {
-        Put: 'Pending',
-        Me: 'Approved',
-        In: 'Missing',
-        Smash: 'Rejected',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Mario',
-      duedate: 1.423,
-      status: 'Active',
-      documents: {
-        Already: 'Approved',
-        In: 'Missing',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    },
-    {
-      name: 'Peach',
-      duedate: 12534.0,
-      status: 'Dormant',
-      documents: {
-        Already: 'Rejected',
-        In: 'Rejected',
-        Smash: 'Missing',
-        Ultimate: 'Approved'
-      }
-    }
-  ]
+    })
 }
-*/
+
+export const deleteDocument = id => {
+  let requestString = BACKEND_URL + '/document/delete/' + id
+  return axios
+    .delete(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENT_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENT_FAIL',
+        error
+      }
+    })
+}
+
+export const deleteDocumentsByFP = id => {
+  let requestString = BACKEND_URL + '/document/delete/fp/' + id
+  return axios
+    .delete(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENTS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENTS_FAIL',
+        error
+      }
+    })
+}
 
 export const getAllMessages = () => {
   return ['joe', 'schmoe', 'bro']
@@ -506,7 +586,12 @@ export const getAllMessages = () => {
 export const getAccessToken = () => {
   let requestString = BACKEND_URL + '/box/token'
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.access_token
     })
@@ -519,7 +604,12 @@ export const getAccessToken = () => {
 export const downloadDocument = id => {
   let requestString = BACKEND_URL + '/box/download?file_id' + id
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.output
     })
@@ -533,7 +623,12 @@ export const updateDocumentStatus = (id, status) => {
   var data = new FormData()
   data.append('status', status)
   return axios
-    .put(BACKEND_URL + '/document/status/' + id, data)
+    .put(BACKEND_URL + '/document/status/' + id, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
@@ -553,7 +648,12 @@ export const uploadDocument = (file, file_name, docID) => {
   data.append('file', file)
   data.append('fileName', file_name)
   return axios
-    .put(BACKEND_URL + '/document/upload/' + docID, data)
+    .put(BACKEND_URL + '/document/upload/' + docID, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',
@@ -575,7 +675,12 @@ export const createDocumentClass = (name, description, file, file_name) => {
   data.append('name', name)
   data.append('description', description)
   return axios
-    .post(BACKEND_URL + '/document_class/new', data)
+    .post(BACKEND_URL + '/document_class/new', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPLOAD_FILE_SUCCESS',
@@ -590,6 +695,52 @@ export const createDocumentClass = (name, description, file, file_name) => {
     })
 }
 
+export const createDocuments = (userID, docClassIDs, dueDate) => {
+  let requestString = BACKEND_URL + '/document/create'
+  let data = new FormData()
+  data.append('userID', userID)
+  data.append('status', 'Missing')
+  data.append('docClassIDs', docClassIDs)
+  data.append('dueDate', dueDate)
+  return axios
+    .post(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'CREATE_DOCUMENTS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_DOCUMENTS_FAIL',
+        error
+      }
+    })
+}
+
+export const getDocumentsByUser = userID => {
+  let requestString = BACKEND_URL + '/document?uid=' + userID
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.documents
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const updateDocumentClass = (id, name, description, file, file_name) => {
   var data = new FormData()
   data.append('file', file)
@@ -597,7 +748,12 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
   data.append('name', name)
   data.append('description', description)
   return axios
-    .put(BACKEND_URL + '/document_class/update/' + id, data)
+    .put(BACKEND_URL + '/document_class/update/' + id, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_DOCUMENT_CLASS_SUCCESS',
@@ -614,7 +770,12 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
 
 export const deleteDocumentClass = id => {
   return axios
-    .delete(BACKEND_URL + '/document_class/delete/' + id)
+    .delete(BACKEND_URL + '/document_class/delete/' + id, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'DELETE_DOCUMENT_CLASS_SUCCESS',

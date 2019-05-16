@@ -17,7 +17,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   Modal,
-  ModalFooter
+  ModalFooter,
+  ModalBody
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
 import {
@@ -110,8 +111,19 @@ class Register extends React.Component {
         this.state.password,
         this.state.questionIdx,
         this.state.securityQuestionAnswer,
-        'fp'
+        'pm'
       )
+      if (
+        result.error != null &&
+        (result.error.response.status == 400 || result.error.response.status == 500)
+      ) {
+        this.setState({
+          wrongInfo: !this.state.wrongInfo,
+          errorMessage: result.error.response.data.message
+        })
+        return
+      }
+
       let token = result.response.data.result.token
 
       if (!token) {
@@ -142,9 +154,21 @@ class Register extends React.Component {
   handlePINVerify = async e => {
     e.preventDefault()
     const result = await verifyPIN(this.state.pin)
+
+    if (
+      result.error != null &&
+      (result.error.response.status == 400 || result.error.response.status == 500)
+    ) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.error.response.data.message
+      })
+      return
+    }
+
     let pinMessage = result.response.message
     this.setState({ pinMessage: pinMessage })
-    if (pinMessage === 200) {
+    if (result.response.status === 200) {
       this.props.history.push('/')
     }
   }
@@ -274,78 +298,63 @@ class Register extends React.Component {
           </Card>
         </div>
       ) : (
-        <div className="foreground">
-          {!this.state.failed && !this.state.modal ? (
-            <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
-              <CardBody>
-                <Form>
-                  <FormGroup>
-                    <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
-                    <Label>PIN</Label>
-                    <Input
-                      name="pin"
-                      type="number"
-                      maxLength="10"
-                      minLength="4"
-                      value={this.state.pin}
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </FormGroup>
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={this.handlePINResend}
-                    style={{
-                      float: 'left',
-                      marginBottom: '3%',
-                      width: '100%'
-                    }}
-                  >
-                    Resend PIN
-                  </Button>
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={this.handlePINVerify}
-                    style={{
-                      float: 'left',
-                      marginBotton: '3%',
-                      width: '100%'
-                    }}
-                  >
-                    Verify Email
-                  </Button>
-                  <Button
-                    color="link"
-                    size="sm"
-                    onClick={() => this.props.history.push('/')}
-                    style={{
-                      float: 'right',
-                      width: '25%',
-                      marginRight: '6%'
-                    }}
-                  >
-                    Skip Verification
-                  </Button>
-                </Form>
-                {this.state.passwordChangeMessage}
-              </CardBody>
-            </Card>
-          ) : (
-            <Modal isOpen={this.state.modal} toggle={this.errorToggle}>
-              <ModalFooter>
+        <div className="check">
+          <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
+            <CardBody>
+              <Form>
+                <FormGroup>
+                  <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
+                  <Label>PIN</Label>
+                  <Input
+                    name="pin"
+                    type="number"
+                    maxLength="10"
+                    minLength="4"
+                    value={this.state.pin}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </FormGroup>
                 <Button
-                  className="invalidSearchButton"
-                  onClick={e => {
-                    this.toggle()
+                  color="success"
+                  size="lg"
+                  onClick={this.handlePINResend}
+                  style={{
+                    float: 'left',
+                    marginBottom: '3%',
+                    width: '100%'
                   }}
                 >
-                  Return
+                  Resend PIN
                 </Button>
-              </ModalFooter>
-            </Modal>
-          )}
+                <Button
+                  color="success"
+                  size="lg"
+                  onClick={this.handlePINVerify}
+                  style={{
+                    float: 'left',
+                    marginBotton: '3%',
+                    width: '100%'
+                  }}
+                >
+                  Verify Email
+                </Button>
+                <Button
+                  color="link"
+                  size="sm"
+                  onClick={() => this.props.history.push('/')}
+                  style={{
+                    float: 'right',
+                    width: '25%',
+                    marginRight: '6%'
+                  }}
+                >
+                  Skip Verification
+                </Button>
+              </Form>
+              {this.state.passwordChangeMessage}
+            </CardBody>
+          </Card>
         </div>
       )}
     </div>
