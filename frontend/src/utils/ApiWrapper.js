@@ -41,7 +41,7 @@ export const getUserRole = () => {
 }
 
 export const createFieldPartner = (org_name, email, pm_id) => {
-  let requestString = BACKEND_URL + '/createFP'
+  let requestString = BACKEND_URL + '/field_partner'
   let data = new FormData()
   data.append('org_name', org_name)
   data.append('email', email)
@@ -365,7 +365,7 @@ export const getFPByID = id => {
 }
 
 export const getFPByEmail = email => {
-  let requestString = BACKEND_URL + '/field_partner/email/' + email
+  let requestString = BACKEND_URL + '/field_partner?email=' + email
   return axios
     .get(requestString, {
       headers: {
@@ -422,7 +422,7 @@ export const getAllInformation = () => {
 }
 
 export const getPartnersByPM = pm_id => {
-  let requestString = BACKEND_URL + '/field_partner/pm/' + pm_id
+  let requestString = BACKEND_URL + '/field_partner?pm_id=' + pm_id
   return axios
     .get(requestString, {
       headers: {
@@ -442,7 +442,7 @@ export const getPartnersByPM = pm_id => {
 }
 
 export const getPartnersByStatus = app_status => {
-  let requestString = BACKEND_URL + '/field_partner/status/' + app_status
+  let requestString = BACKEND_URL + '/field_partner?app_status=' + app_status
   return axios
     .get(requestString, {
       headers: {
@@ -482,7 +482,7 @@ export const getAllPartners = () => {
 }
 
 export const updateFieldPartnerStatus = (id, status) => {
-  let requestString = BACKEND_URL + '/field_partner/update/' + id
+  let requestString = BACKEND_URL + '/field_partner/' + id
   let data = new FormData()
   data.append('app_status', status)
   return axios
