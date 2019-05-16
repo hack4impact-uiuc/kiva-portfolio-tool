@@ -584,7 +584,6 @@ export const getPMByEmail = email => {
     })
 }
 
-
 export const getAllInformation = () => {
   /**
    * Gets all information received by target user
