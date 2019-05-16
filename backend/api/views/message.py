@@ -44,11 +44,13 @@ def get_messages_by_fp(fp_id):
     return create_response(data={"messages": serialize_list(message_list)})
 
 
-@message.route("/messages/pm/<pm_id>", methods=["GET"])
-def get_messages_by_pm(pm_id):
+@message.route("/messages/pm/<fp_id>", methods=["GET"])
+def get_messages_by_pm(fp_id):
     """
     Gets a list of messages/notifications relevant to a specific PM
     """
+    pm_id = FieldPartner.query.get(fp_id).pm_id
+
     message_list = (
         Message.query.filter(Message.pm_id == pm_id)
         .filter(Message.to_fp == False)
