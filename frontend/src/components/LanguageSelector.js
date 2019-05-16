@@ -20,7 +20,7 @@ const { Option } = components
 const IconOption = props => (
   <Option {...props} className="flag-container">
     {props.data.label}
-    <img className="flag-space" src={props.data.flag} />
+    <img className="flag-space" src={props.data.flag} alt="Flag icon" />
   </Option>
 )
 
@@ -38,7 +38,6 @@ export class LanguageSelector extends Component {
   }
 
   render() {
-    const { isPM } = this.props
     const { selectedOption } = this.state
     return (
       <Select

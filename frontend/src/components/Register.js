@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import {
   Form,
   Button,
-  ButtonGroup,
   FormGroup,
   Label,
   Input,
@@ -15,19 +12,10 @@ import {
   Dropdown,
   DropdownItem,
   DropdownToggle,
-  DropdownMenu,
-  Modal,
-  ModalFooter,
-  ModalBody
+  DropdownMenu
 } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
-import {
-  register,
-  verifyPIN,
-  resendPIN,
-  getSecurityQuestions,
-  setSecurityQuestion
-} from '../utils/ApiWrapper'
+import { register, verifyPIN, resendPIN, getSecurityQuestions } from '../utils/ApiWrapper'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from './NavBar'
 
@@ -44,7 +32,7 @@ import b6 from '../media/b6-min.jpg'
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 
-class Register extends React.Component {
+class Register extends Component {
   state = {
     email: '',
     password: '',
@@ -77,7 +65,6 @@ class Register extends React.Component {
 
   handleChangeSecurityAnswer = event => {
     const value = event.target.value
-    const name = event.target.name
     this.setState({ securityQuestionAnswer: value })
   }
 
@@ -87,7 +74,7 @@ class Register extends React.Component {
     if (!resp) {
       this.setState({ error: 'unable to load data' })
       return
-    } else if (resp.type == 'LOGIN_FAIL') {
+    } else if (resp.type === 'LOGIN_FAIL') {
       this.setState({ failed: !this.state.failed, modal: !this.state.modal })
       return
     }
@@ -115,7 +102,7 @@ class Register extends React.Component {
       )
       if (
         result.error != null &&
-        (result.error.response.status == 400 || result.error.response.status == 500)
+        (result.error.response.status === 400 || result.error.response.status === 500)
       ) {
         this.setState({
           wrongInfo: !this.state.wrongInfo,
@@ -157,7 +144,7 @@ class Register extends React.Component {
 
     if (
       result.error != null &&
-      (result.error.response.status == 400 || result.error.response.status == 500)
+      (result.error.response.status === 400 || result.error.response.status === 500)
     ) {
       this.setState({
         wrongInfo: !this.state.wrongInfo,
@@ -177,7 +164,7 @@ class Register extends React.Component {
     e.preventDefault()
     const result = await resendPIN()
 
-    if (result.type == 'LOGIN_FAIL') {
+    if (result.type === 'LOGIN_FAIL') {
       this.setState({
         modal: !this.state.modal,
         failed: !this.state.failed
@@ -204,7 +191,7 @@ class Register extends React.Component {
           <Card className="interview-card center-background">
             <CardTitle>
               <div className="text-centered" id="login-kiva-logo">
-                <img src={kivaLogo} />
+                <img src={kivaLogo} alt="Kiva logo" />
               </div>
             </CardTitle>
             <CardBody>

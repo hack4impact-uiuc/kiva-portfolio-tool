@@ -26,10 +26,6 @@ const mapDispatchToProps = dispatch => {
   )
 }
 export class NotificationsBar extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   /**
    * Helper function that removes messages upon click by index in array
    */
@@ -44,7 +40,6 @@ export class NotificationsBar extends Component {
   }
 
   render() {
-    const { isPM } = this.props.isPM
     const allMessages = this.props.allMessages
     const information = this.props.instructions
     return (
@@ -63,7 +58,7 @@ export class NotificationsBar extends Component {
               this.closeSidebar(false)
             }}
           >
-            <img className="exit-button" src={close} />
+            <img className="exit-button" src={close} alt="Edit icon" />
           </Button>
         </TabList>
 

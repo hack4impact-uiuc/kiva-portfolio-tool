@@ -4,11 +4,7 @@ import add from '../media/add.png'
 import remove from '../media/remove.png'
 import info from '../media/blueinfo.png'
 
-export class Selector extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
+export class Selector extends Component {
   render() {
     return (
       <div className="surround-box">
@@ -24,14 +20,14 @@ export class Selector extends React.Component {
             return (
               <div className="panel">
                 <div className="docClassValue">{docClass.name}</div>
-                <img src={info} className="imageValue" width="26" />
+                <img src={info} className="imageValue" width="26" alt="Info icon" />
                 <button
                   onClick={() => {
                     this.props.update(docClass.name)
                   }}
                   className="buttonValue"
                 >
-                  <img src={buttonType} width="30" />
+                  <img src={buttonType} width="30" alt="Edit icon" />
                 </button>
               </div>
             )

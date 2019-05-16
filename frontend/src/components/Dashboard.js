@@ -1,6 +1,5 @@
 import React from 'react'
 import DocumentList from './DocumentList'
-import Notification from './Notification'
 import WithAuth from './WithAuth'
 import NavBar from './NavBar'
 import {
@@ -137,7 +136,7 @@ export class Dashboard extends React.Component {
                 this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
               }
             >
-              <img className="addImg" src={add} />
+              <img className="addImg" src={add} alt="Add icon" />
               <span className="add-doc-text">Update requirements/instructions</span>
             </Button>
             <br />

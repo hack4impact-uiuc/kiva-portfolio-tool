@@ -127,7 +127,7 @@ export class DocumentPreview extends Component {
             {(this.props.match && this.props.match.params.name) ||
               (this.props.document.fileName && (
                 <Button color="transparent" onClick={this.toggle}>
-                  <img className="buttonimg" src={preview} />
+                  <img className="buttonimg" src={preview} alt="Preview icon" />
                 </Button>
               ))}
             <Modal isOpen={this.state.modal} toggle={this.toggle}>

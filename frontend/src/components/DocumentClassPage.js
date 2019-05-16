@@ -156,7 +156,7 @@ export class DocumentClassPage extends React.Component {
             color="transparent"
             onClick={this.toggle}
           >
-            <img className="addImg" src={add} />
+            <img className="addImg" src={add} alt="Add icon" />
             <span className="add-doc-text">Add New Document Class</span>
           </Button>
         </div>

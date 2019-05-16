@@ -122,7 +122,7 @@ export class DocumentListItem extends Component {
                     state: { link: this.props.document.link }
                   }}
                 >
-                  <img className="buttonimg" src={visit} />
+                  <img className="buttonimg" src={visit} alt="Visit icon" />
                 </Link>
               </Button>
             ) : null}
@@ -130,12 +130,12 @@ export class DocumentListItem extends Component {
           <td data-testid="interaction" className="interaction padding-right-sm">
             {this.state.fileName && (
               <Button color="transparent" onClick={this.handleDownloadClick}>
-                <img className="buttonimg" src={downloadImg} />
+                <img className="buttonimg" src={downloadImg} alt="Download icon" />
               </Button>
             )}
             {isPM ? (
               <button className="buttonValue" onClick={this.toggle}>
-                <img src={remove} width="25" />
+                <img src={remove} width="25" alt="Remove icon" />
               </button>
             ) : (
               <Dropzone onDrop={this.onDrop}>
@@ -143,7 +143,7 @@ export class DocumentListItem extends Component {
                   <section>
                     <div {...getRootProps()}>
                       <input {...getInputProps()} />
-                      <img className="buttonimg" src={uploadImg} />
+                      <img className="buttonimg" src={uploadImg} alt="Upload icon" />
                     </div>
                   </section>
                 )}

@@ -12,7 +12,6 @@ import {
   DocumentPreview,
   Register,
   LogIn,
-  LoginPage,
   ForgotPassword,
   Load,
   WrongPage,

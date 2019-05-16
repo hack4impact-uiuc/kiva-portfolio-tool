@@ -14,7 +14,6 @@ const mapStateToProps = state => ({
 
 export class Notification extends Component {
   render() {
-    const { isPM } = this.props
     return (
       <ListGroupItem>
         {this.props.name ? (
@@ -42,7 +41,7 @@ export class Notification extends Component {
               this.props.removeMessage(this.props.index)
             }}
           >
-            <img className="exit-button" src={close} />
+            <img className="exit-button" src={close} alt="Edit icon" />
           </Button>
         </div>
       </ListGroupItem>

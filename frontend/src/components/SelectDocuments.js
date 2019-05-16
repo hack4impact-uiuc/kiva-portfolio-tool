@@ -201,7 +201,7 @@ export class SelectDocumentsPage extends React.Component {
           <h1>Select Documents</h1>
 
           <form onSubmit={this.handleSubmit}>
-            <img src={search} width="18" />
+            <img src={search} width="18" alt="Search icon" />
             <input
               className="input-master"
               type="text"

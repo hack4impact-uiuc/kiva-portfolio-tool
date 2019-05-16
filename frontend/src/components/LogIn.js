@@ -82,7 +82,7 @@ class LogIn extends Component {
       } else {
         role = role.response.data.result.role
 
-        if (role == 'fp') {
+        if (role === 'fp') {
           let fp = await getFPByEmail(this.state.email)
           this.props.history.push('/dashboard/fp/' + fp._id)
         } else {

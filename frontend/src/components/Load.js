@@ -10,10 +10,6 @@ const mapStateToProps = state => ({
 })
 
 class Load extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     if (this.props.loading) {
       return (

@@ -1,8 +1,6 @@
 import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
-import { getCookieFromBrowser, getCookie } from './cookie'
-
-//import { BACKEND_KEY } from '../keys'
+import { getCookieFromBrowser } from './cookie'
 
 export const getAllPMs = () => {
   let requestString = BACKEND_URL + '/portfolio_manager'
