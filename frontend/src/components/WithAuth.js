@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { verify } from '../utils/ApiWrapper'
 import { setCookie } from './../utils/cookie'
 
@@ -8,7 +8,7 @@ import { setCookie } from './../utils/cookie'
  * else shows not authenticated
  */
 const withAuth = WrappedComponent => {
-  class HOC extends React.Component {
+  class HOC extends Component {
     state = {
       verified: false
     }

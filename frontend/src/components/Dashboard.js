@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import DocumentList from './DocumentList'
 import WithAuth from './WithAuth'
 import NavBar from './NavBar'
@@ -50,7 +50,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-export class Dashboard extends React.Component {
+export class Dashboard extends Component {
   constructor(props) {
     super(props)
 

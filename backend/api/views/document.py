@@ -29,7 +29,7 @@ def get_document():
 
         # Adds a field called docClassName to each document
         for doc in docs:
-            doc.docClassName = DocumentClass.query.get(doc.docClassID).name
+            doc.docClass = DocumentClass.query.get(doc.docClassID).to_dict()
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]
@@ -53,7 +53,7 @@ def get_document():
         docs = Document.query.filter_by(**kwargs).all()
 
         for doc in docs:
-            doc.docClassName = DocumentClass.query.get(doc.docClassID).name
+            doc.docClass = DocumentClass.query.get(doc.docClassID).to_dict()
 
         # separate documents by different statuses and return based on this
         pending = [i for i in docs if i.status == "Pending"]

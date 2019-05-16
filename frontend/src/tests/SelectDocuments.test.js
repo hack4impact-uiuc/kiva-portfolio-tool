@@ -62,7 +62,7 @@ describe('<SelectDocumentsPage />', () => {
     const wrapper = shallow(
       <Selector name="Available" documents={['lol']} update={onButtonClick} />
     )
-    wrapper.find('button').simulate('click')
+    wrapper.find('.update').simulate('click')
     expect(onButtonClick).to.have.property('callCount', 1)
   })
 })

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Selector } from './Selector'
 import { Input } from 'reactstrap'
 import {
@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch => {
  * Allows the PM to set a duedate for all the documents
  * Allows the PM to search for a specific docClass as well
  */
-export class SelectDocumentsPage extends React.Component {
+export class SelectDocumentsPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -81,7 +81,7 @@ export class SelectDocumentsPage extends React.Component {
     for (const key in current_documents) {
       let docs_by_status = current_documents[key]
       for (const index in docs_by_status) {
-        delete available[docs_by_status[index].docClassName]
+        delete available[docs_by_status[index].docClass.name]
       }
     }
 
