@@ -55,7 +55,7 @@ def get_messages_by_pm(pm_id):
         .all()
     )
 
-    # Adds a field called name to each message, but there might not be a fp_id 
+    # Adds a field called name to each message, but there might not be a fp_id
     for message in message_list:
         if message.fp_id:
             message.name = FieldPartner.query.get(message.fp_id).org_name
@@ -111,10 +111,10 @@ def add_message():
         Document.query.get(data["doc_id"]).docClassID
     ).name
     status = data["status"]
+
+    organization = ""
     if "fp_id" in data:
         organization = FieldPartner.query.get(data["fp_id"]).org_name
-    else:
-        organization = ""
         # Well this is terrible code practice but we shouldn't run into an issue with this.. i rlly hope
 
     contents = [

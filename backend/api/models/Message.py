@@ -10,7 +10,7 @@ class Message(Mixin, db.Model):
     __tablename__ = "message"
 
     id = db.Column(db.String, unique=True, primary_key=True)
-    pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
+    pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"), nullable=True)
     fp_id = db.Column(db.String, db.ForeignKey("field_partner.id"))
     # true if send to fp; false if send to pm
     to_fp = db.Column(db.Boolean)
