@@ -8,16 +8,26 @@ import '../styles/index.css'
 import expand from '../media/expand.png'
 import collapse from '../media/collapse.png'
 
+/**
+ * Displays all documents for a given document status in its own box
+ */
 export class DocumentList extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       expanded: false,
+      /**
+       * showLess is the maximum number to be shown before an expand button appears
+       */
       showLess: 5
     }
   }
 
+  /**
+   * Expands the number of documents shown only if there are more than 5 documents in current
+   * document class
+   */
   toggleExpand = () => {
     this.setState({ expanded: !this.state.expanded })
   }

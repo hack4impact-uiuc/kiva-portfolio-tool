@@ -4,7 +4,8 @@ import Dropzone from 'react-dropzone'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import DocumentPreview from './DocumentPreview'
-import { Button, Modal, ModalHeader, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import Iframe from 'react-iframe'
 import {
   downloadDocument,
   uploadDocument,
@@ -33,19 +34,26 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
+
+/**
+ * Shows each individual document in the Document List Component.
+ * You can select this component to view, delete, or upload documents
+ */
 export class DocumentListItem extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       files: [],
-      modal: false
+      deleteModal: false,
+      docClassModal: false
     }
 
     this.handleDownloadClick = this.handleDownloadClick.bind(this)
     this.onDrop = this.onDrop.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    this.toggle = this.toggle.bind(this)
+    this.deleteToggle = this.deleteToggle.bind(this)
+    this.docClassToggle = this.docClassToggle.bind(this)
   }
 
   /**
@@ -76,7 +84,7 @@ export class DocumentListItem extends Component {
    * The user will be prompted to confirm before the document is actually deleted
    */
   async handleDelete() {
-    this.toggle()
+    this.deleteToggle()
     this.props.beginLoading()
     await deleteDocument(this.props.document._id)
     const documents = await getDocumentsByUser(this.props.document.userID)
@@ -88,24 +96,67 @@ export class DocumentListItem extends Component {
     this.props.endLoading()
   }
 
-  toggle() {
-    this.setState({ modal: !this.state.modal })
+  deleteToggle() {
+    this.setState({ deleteModal: !this.state.deleteModal })
+  }
+
+  docClassToggle() {
+    this.setState({ docClassModal: !this.state.docClassModal })
   }
 
   render() {
     const { isPM } = this.props
+    const customStyles = {
+      height: '500px',
+      width: '500px',
+      overflow: 'scroll'
+    }
+    const externalCloseBtn = (
+      <button
+        className="close"
+        style={{ position: 'absolute', top: '15px', right: '15px' }}
+        onClick={this.toggle}
+      >
+        &times;
+      </button>
+    )
 
     return (
       <>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
           <ModalHeader>Are you sure you want to delete this document?</ModalHeader>
           <ModalFooter>
-            <Button onClick={this.toggle}>No</Button>
+            <Button onClick={this.deleteToggle}>No</Button>
             <Button onClick={this.handleDelete}>Yes</Button>
           </ModalFooter>
         </Modal>
+        <Modal
+          isOpen={this.state.docClassModal}
+          toggle={this.docClassToggle}
+          external={externalCloseBtn}
+        >
+          <ModalHeader>{this.props.document.docClass.name}</ModalHeader>
+          <ModalBody style={customStyles}>
+            <p>{this.props.document.docClass.description}</p>
+            <Iframe
+              url={this.props.document.docClass.example}
+              width="450px"
+              height="500px"
+              allowFullScreen
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.docClassToggle}>
+              Close
+            </Button>
+          </ModalFooter>
+        </Modal>
         <tr className="hoverable">
-          <td data-testid="docClass">{this.props.document.docClassName}</td>
+          <td data-testid="docClass">
+            <Button className="add-doc-text" color="transparent" onClick={this.docClassToggle}>
+              <span className="add-doc-text">{this.props.document.docClass.name}</span>
+            </Button>
+          </td>
           <td data-testid="fileName">
             {this.props.document.fileName ? this.props.document.fileName : 'N/A'}
           </td>
@@ -134,7 +185,7 @@ export class DocumentListItem extends Component {
               </Button>
             )}
             {isPM ? (
-              <button className="buttonValue" onClick={this.toggle}>
+              <button className="buttonValue" onClick={this.deleteToggle}>
                 <img src={remove} width="25" />
               </button>
             ) : (

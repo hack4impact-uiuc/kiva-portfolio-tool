@@ -9,6 +9,10 @@ import '../styles/index.css'
 import '../styles/login.css'
 import '../styles/navbar.css'
 
+/**
+ * If the user navigates to page given incorrect information passed in
+ * shows them this error 404 not found page
+ */
 class Wrong extends Component {
   render() {
     return (
