@@ -1,20 +1,9 @@
 import { Link } from 'react-router-dom'
 import { login, getPartnersByStatus, verify, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
-import {
-  Form,
-  Button,
-  ButtonGroup,
-  FormGroup,
-  Label,
-  Input,
-  Card,
-  CardBody,
-  CardTitle
-} from 'reactstrap'
+import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
 import { connect } from 'react-redux'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from './NavBar'
