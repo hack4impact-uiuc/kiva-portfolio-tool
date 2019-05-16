@@ -488,7 +488,12 @@ export const updateFieldPartnerStatus = (id, status) => {
   let data = new FormData()
   data.append('app_status', status)
   return axios
-    .put(requestString, data)
+    .put(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return {
         type: 'UPDATE_FP_SUCCESS',
