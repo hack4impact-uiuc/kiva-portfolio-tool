@@ -49,6 +49,12 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
+/**
+ * This is a PM's home page
+ * It shows all the field partners a PM is working with under 3 categories (New, In Progress, Completed)
+ * Each field partner has their own banner upon which name, duedate, and completion rate is shown
+ * Also includes the Navigation Bar up top
+ */
 export class PMMainPage extends Component {
   constructor(props) {
     super(props)

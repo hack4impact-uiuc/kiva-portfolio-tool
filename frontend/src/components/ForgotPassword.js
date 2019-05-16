@@ -25,6 +25,12 @@ const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 // const PASSWORD_REGEX = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
 
+/**
+ * This Component handles the case where a user forgets their password
+ * It contains a form to take in any information required for the user to reset their password
+ * It is a multi-step recovery system
+ * It has a button to return back to the login page
+ */
 export class ForgotPassword extends Component {
   state = {
     email: '',

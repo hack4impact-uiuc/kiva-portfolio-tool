@@ -9,6 +9,10 @@ const mapStateToProps = state => ({
   loading: state.auth.loading
 })
 
+/**
+ * This component shows up whenever the website is waiting
+ * for anything to load from the database
+ */
 class Load extends Component {
   constructor(props) {
     super(props)
