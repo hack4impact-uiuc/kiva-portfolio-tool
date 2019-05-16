@@ -387,8 +387,7 @@ export const getAllMessages = (user_id, is_pm) => {
     })
 }
 
-export const createMessage = (user_id, is_pm_id, document_id, status) => {
-  // get pm_id from fp_id? depends on
+export const createMessage = (user_id, is_pm_id, to_fp, document_id, status) => {
   let requestString = BACKEND_URL + '/messages/new'
   let data = new FormData()
 
@@ -398,6 +397,7 @@ export const createMessage = (user_id, is_pm_id, document_id, status) => {
     data.append('fp_id', user_id)
   }
 
+  data.append('to_fp', to_fp)
   data.append('doc_id', document_id)
   data.append('status', status)
 
@@ -600,7 +600,7 @@ export const updateDocumentStatus = (userID, id, status) => {
   var data = new FormData()
   data.append('status', status)
 
-  createMessage(userID, false, id, 'Pending')
+  createMessage(userID, false, true, id, status)
 
   return axios
     .put(BACKEND_URL + '/document/status/' + id, data, {
@@ -628,8 +628,7 @@ export const uploadDocument = (userID, file, file_name, docID) => {
   data.append('file', file)
   data.append('fileName', file_name)
 
-  // TODO: create notification here - need id?
-  createMessage(userID, false, docID, 'Pending')
+  createMessage(userID, false, false, docID, 'Pending')
 
   return axios
     .put(BACKEND_URL + '/document/upload/' + docID, data, {
@@ -697,7 +696,7 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
       // create the message here with the given docId
       let docIDs = response.data.result.docIDs
       docIDs.array.forEach(docID => {
-        createMessage(userID, false, docID, 'Missing')
+        createMessage(userID, false, true, docID, 'Missing')
       })
 
       return {

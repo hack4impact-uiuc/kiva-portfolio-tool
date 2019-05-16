@@ -82,7 +82,12 @@ def add_message():
             return create_response(
                 status=400, message="No FP or PM ID provided for new message"
             )
+        print("reached-1")
+        print(FieldPartner.query.get(data["fp_id"]))
         data["pm_id"] = FieldPartner.query.get(data["fp_id"]).pm_id
+
+    print("reached0")
+    print(data["pm_id"])
 
     # Because we can't get the FP ID from PM, we need the FP ID explicity when it's to FP
     # Otherwise, the fp_id field can be empty
@@ -96,6 +101,8 @@ def add_message():
         return create_response(
             status=400, message="No document ID provided for new message"
         )
+
+    print("reached1")
 
     # Default to reviewed because it has 2 statuses
     message_type = MessageType.REVIEWED_DOC
@@ -130,6 +137,8 @@ def add_message():
         else PortfolioManager.query.get(data["pm_id"])
     )
 
+    print("reached2")
+
     mail = Mail(current_app)
 
     # TODO: change the sender hardcode
@@ -145,4 +154,7 @@ def add_message():
 
     db.session.add(new_message)
     db.session.commit()
+
+    print("reached3")
+
     return create_response(data={"message": ret})
