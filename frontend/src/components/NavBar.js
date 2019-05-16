@@ -133,7 +133,7 @@ export class NavBar extends Component {
                   </DropdownToggle>
                   <DropdownMenu right>
                     {isPM && (
-                      <DropdownItem onClick={() => this.props.history.push('/documentclasspage')}>
+                      <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
                         Manage Documents
                       </DropdownItem>
                     )}

@@ -115,7 +115,7 @@ export class Dashboard extends Component {
   async handleFinish() {
     this.props.beginLoading()
     await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
-    this.props.history.push('/main')
+    this.props.history.push('/overview/' + this.props.match.params.id)
     this.props.endLoading()
   }
 
@@ -132,9 +132,7 @@ export class Dashboard extends Component {
             <Button
               className="add-doc-text"
               color="transparent"
-              onClick={() =>
-                this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
-              }
+              onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
             >
               <img className="addImg" src={add} alt="Add icon" />
               <span className="add-doc-text">Update requirements/instructions</span>

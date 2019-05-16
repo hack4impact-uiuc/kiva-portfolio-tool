@@ -164,7 +164,7 @@ export class PMMainPage extends Component {
    * Called when clicking on a 'New Parter' Field Partner
    */
   handleClickNew = id => {
-    this.props.history.push('/selectdocumentspage/' + id)
+    this.props.history.push('/setup/' + id)
   }
 
   /**
@@ -183,7 +183,7 @@ export class PMMainPage extends Component {
     let id = this.state.complete_id
     await deleteDocumentsByFP(id)
     await updateFPInstructions(id, '')
-    this.props.history.push('/selectdocumentspage/' + id)
+    this.props.history.push('/setup/' + id)
   }
 
   render() {

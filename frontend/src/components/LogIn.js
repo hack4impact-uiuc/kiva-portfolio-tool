@@ -92,7 +92,7 @@ class LogIn extends Component {
           this.props.history.push('/dashboard/fp/' + fp._id)
         } else {
           let pm = await getPMByEmail(this.state.email)
-          this.props.history.push('/main/' + pm._id)
+          this.props.history.push('/overview/' + pm._id)
         }
       }
     }
