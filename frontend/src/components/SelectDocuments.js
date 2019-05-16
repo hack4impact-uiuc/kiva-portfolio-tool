@@ -77,7 +77,7 @@ export class SelectDocumentsPage extends React.Component {
     for (const key in current_documents) {
       let docs_by_status = current_documents[key]
       for (const index in docs_by_status) {
-        delete available[docs_by_status[index].docClassName]
+        delete available[docs_by_status[index].docClass.name]
       }
     }
 
