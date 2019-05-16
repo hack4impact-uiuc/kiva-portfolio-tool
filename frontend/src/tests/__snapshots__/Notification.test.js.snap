@@ -47,6 +47,7 @@ exports[`Notification renders correctly 1`] = `
       tag="button"
     >
       <img
+        alt="Edit icon"
         className="exit-button"
         src="greyX.png"
       />

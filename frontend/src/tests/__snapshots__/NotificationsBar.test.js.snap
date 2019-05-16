@@ -48,6 +48,7 @@ exports[` renders correctly 1`] = `
       tag="button"
     >
       <img
+        alt="Edit icon"
         className="exit-button"
         src="greyX.png"
       />
@@ -58,7 +59,7 @@ exports[` renders correctly 1`] = `
     forceRender={false}
     selectedClassName="react-tabs__tab-panel--selected"
   >
-    <Connect(Notification)
+    <Notification
       index={0}
       removeMessage={[Function]}
     />

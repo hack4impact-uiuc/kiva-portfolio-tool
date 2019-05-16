@@ -65,6 +65,7 @@ exports[`DocumentClass renders correctly 1`] = `
             type="button"
           >
             <img
+              alt="preview icon"
               className="buttonimg"
               src="preview.png"
             />
@@ -122,6 +123,7 @@ exports[`DocumentClass renders correctly 1`] = `
           type="button"
         >
           <img
+            alt="Edit icon"
             className="buttonimg"
             src="greyEdit.png"
           />
@@ -139,6 +141,7 @@ exports[`DocumentClass renders correctly 1`] = `
           type="button"
         >
           <img
+            alt="Remove icon"
             className="buttonimg"
             src="remove.png"
           />
