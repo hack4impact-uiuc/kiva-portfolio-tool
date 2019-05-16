@@ -33,6 +33,13 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
+/**
+ * This page allows a small modal to open up that is connected to BOX
+ * It allows the user to preview and look at any documents that are in BOX that are related to 
+ * what the user clicked on to open this modal
+ * In case of a PM, it allows them to accept or reject documents
+ * For both parties, they are able to upload documents to the backend through this component
+ */
 export class DocumentPreview extends Component {
   constructor(props) {
     super(props)

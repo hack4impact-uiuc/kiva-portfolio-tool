@@ -49,6 +49,9 @@ export class DocumentClassPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  /**
+   * Gets all document classes once component is ready
+   */
   async componentDidMount() {
     const document_classes = await getAllDocumentClasses()
     if (document_classes) {
@@ -58,18 +61,30 @@ export class DocumentClassPage extends React.Component {
     }
   }
 
+  /**
+   * Opens/Closes the addModal
+   */
   toggle() {
     this.setState({ addModal: !this.state.addModal })
   }
 
+  /**
+   * updates name in state
+   */
   updateName = event => {
     this.setState({ name: event.target.value })
   }
 
+  /**
+   * updates description in state
+   */
   updateDescription = event => {
     this.setState({ description: event.target.value })
   }
 
+  /**
+   * updates document class and closes add modal
+   */
   async handleSubmit() {
     this.props.beginLoading()
     await createDocumentClass(

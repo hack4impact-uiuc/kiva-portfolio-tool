@@ -25,6 +25,9 @@ export class DocumentClassPreview extends Component {
     this.toggle = this.toggle.bind(this)
   }
 
+  /**
+   * Opens modal to show document class
+   */
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal

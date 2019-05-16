@@ -25,6 +25,13 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
+
+/**
+ * The notifcations bar is a two panel tab
+ * Contains: 
+ * Messages or any other notifications such as document submissions, etc.
+ * Information sent from a pm/fp to one another
+ */
 export class NotificationsBar extends Component {
   constructor(props) {
     super(props)
