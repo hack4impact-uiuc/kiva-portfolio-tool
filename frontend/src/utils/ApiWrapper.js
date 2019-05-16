@@ -366,36 +366,6 @@ export const getFPByID = id => {
     })
 }
 
-export const createDocuments = (userID, docClassIDs, dueDate) => {
-  let requestString = BACKEND_URL + '/document/create'
-  let data = new FormData()
-  data.append('userID', userID)
-  data.append('status', 'Missing')
-  data.append('docClassIDs', docClassIDs)
-  data.append('dueDate', dueDate)
-
-  return axios
-    .post(requestString, data)
-    .then(response => {
-      // create the message here with the given docId
-      let docIDs = response.data.result.docIDs
-      docIDs.array.forEach(docID => {
-        createMessage(userID, false, docID, 'Missing')
-      })
-
-      return {
-        type: 'CREATE_DOCUMENTS_SUCCESS',
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        type: 'CREATE_DOCUMENTS_FAIL',
-        error
-      }
-    })
-}
-
 export const getAllMessages = (user_id, is_pm) => {
   // get notifications received by target user
   let requestString = BACKEND_URL + '/messages/'
@@ -724,6 +694,12 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
       }
     })
     .then(response => {
+      // create the message here with the given docId
+      let docIDs = response.data.result.docIDs
+      docIDs.array.forEach(docID => {
+        createMessage(userID, false, docID, 'Missing')
+      })
+
       return {
         type: 'CREATE_DOCUMENTS_SUCCESS',
         response
