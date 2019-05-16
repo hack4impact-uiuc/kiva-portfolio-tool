@@ -3,6 +3,7 @@ const UPDATE_DOCUMENTS = 'user/update_documents'
 const UPDATE_DOCUMENT_CLASSES = 'user/update_document_classes'
 const UPDATE_MESSAGES = 'user/update_messages'
 const UPDATE_INFORMATION = 'user/update_information'
+const UPDATE_INSTRUCTIONS = 'user/update_instructions'
 const UPDATE_DUE_DATE = 'user/update_due_date'
 
 const initialState = {
@@ -33,6 +34,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         messages: action.value
+      }
+    case UPDATE_INFORMATION:
+      return {
+        ...state,
+        information: action.value
       }
     case UPDATE_INSTRUCTIONS:
       return {
@@ -66,6 +72,11 @@ export const updateDocumentClasses = value => ({
 
 export const updateMessages = value => ({
   type: UPDATE_MESSAGES,
+  value
+})
+
+export const updateInformation = value => ({
+  type: UPDATE_INFORMATION,
   value
 })
 

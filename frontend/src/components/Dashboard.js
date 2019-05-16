@@ -8,7 +8,7 @@ import {
   getDocumentsByUser,
   getAllMessages,
   getAllInformation,
-  getDueDateByPartner
+  getDueDateByPartner,
   updateFieldPartnerStatus,
   getFPByID
 } from '../utils/ApiWrapper'
@@ -18,9 +18,9 @@ import { Container, Row, Col, Button } from 'reactstrap'
 import {
   updateDocuments,
   updateMessages,
-  updateInformation,
   updateDueDate,
   updateInstructions,
+  updateInformation,
   setUserType
 } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
