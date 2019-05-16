@@ -22,10 +22,20 @@ def get_portfolio_manager():
             status=400, message="You do not have permission to create new documents!"
         )
 
-    portfolio_manager = PortfolioManager.query.all()
-    return create_response(
-        data={"portfolio_manager": serialize_list(portfolio_manager)}
-    )
+    kwargs = {}
+    kwargs["email"] = request.args.get("email")
+    kwargs["name"] = request.args.get("name")
+
+    kwargs = {k: v for k, v in kwargs.items() if v is not None}
+
+    if len(kwargs) == 0:
+        portfolio_manager_list = serialize_list(PortfolioManager.query.all())
+    else:
+        portfolio_manager_list = serialize_list(
+            PortfolioManager.query.filter_by(**kwargs).all()
+        )
+
+    return create_response(data={"portfolio_manager": portfolio_manager})
 
 
 @pm.route("/portfolio_manager/<id>", methods=["GET"])
@@ -50,31 +60,7 @@ def get_pm_by_id(id):
     )
 
 
-@pm.route("/portfolio_manager/email/<email>", methods=["GET"])
-def get_pm_by_email(email):
-    """ function that is called when you visit /portfolio_manager/<email>, gets a PM by email """
-
-    token = request.headers.get("token")
-    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-
-    message, info = verify_token(token)
-    if message != None:
-        return create_response(status=400, message=message)
-
-    if info == "fp":
-        return create_response(
-            status=400, message="You do not have permission to create new documents!"
-        )
-
-    portfolio_manager_by_email = PortfolioManager.query.filter(
-        PortfolioManager.email == email
-    )
-    return create_response(
-        data={"portfolio_manager": serialize_list(portfolio_manager_by_email)}
-    )
-
-
-@pm.route("/portfolio_manager/new", methods=["POST"])
+@pm.route("/portfolio_manager", methods=["POST"])
 def new_pm():
     """ function that is called when you visit /portfolio_manager/new, creates a new PM """
 

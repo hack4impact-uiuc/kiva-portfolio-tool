@@ -383,7 +383,7 @@ export const getFPByEmail = email => {
 }
 
 export const getPMByEmail = email => {
-  let requestString = BACKEND_URL + '/portfolio_manager/email/' + email
+  let requestString = BACKEND_URL + '/portfolio_manager?email=' + email
   return axios
     .get(requestString, {
       headers: {
