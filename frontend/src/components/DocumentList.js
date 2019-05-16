@@ -77,7 +77,7 @@ export class DocumentList extends Component {
                       }
                       onClick={this.toggleExpand}
                     >
-                      <img className="expandButtonImage" src={collapse} />
+                      <img className="expandButtonImage" src={collapse} alt="Expand icon" />
                     </button>
                   ) : (
                     <button
@@ -88,7 +88,7 @@ export class DocumentList extends Component {
                       }
                       onClick={this.toggleExpand}
                     >
-                      <img className="expandButtonImage" src={expand} />
+                      <img className="expandButtonImage" src={expand} alt="Expand icon" />
                     </button>
                   )}
                 </td>

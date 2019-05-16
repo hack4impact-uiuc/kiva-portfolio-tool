@@ -84,13 +84,13 @@ export class ForgotPassword extends Component {
       this.state.answer
     )
     if (response) {
-      response = response.json()
-      if (response.status === 200 && response.token) {
-        setCookie('token', response.token)
+      let response_json = response.json()
+      if (response_json.status === 200 && response_json.token) {
+        setCookie('token', response_json.token)
         this.setState({ successfulSubmit: true })
         this.props.history.push('/')
       } else {
-        this.setState({ errorMessage: response.message })
+        this.setState({ errorMessage: response_json.message })
       }
     }
   }
@@ -107,7 +107,7 @@ export class ForgotPassword extends Component {
           <Card className="interview-card">
             <CardTitle>
               <div className="text-centered" id="login-kiva-logo">
-                <img src={kivaLogo} />
+                <img src={kivaLogo} alt="Kiva logo" />
               </div>
             </CardTitle>
 
@@ -157,7 +157,7 @@ export class ForgotPassword extends Component {
             </CardBody>
             <div style={{ textAlign: 'center' }}>
               <Link to="/login" prefetch href="/login">
-                <a>Back to login page</a>
+                <a href="/login">Back to login page</a>
               </Link>
             </div>
           </Card>
@@ -168,7 +168,7 @@ export class ForgotPassword extends Component {
             <Card className="interview-card">
               <CardTitle>
                 <div className="text-centered" id="login-kiva-logo">
-                  <img src={kivaLogo} />
+                  <img src={kivaLogo} alt="Kiva logo" />
                 </div>
               </CardTitle>
 
@@ -203,7 +203,7 @@ export class ForgotPassword extends Component {
               </CardBody>
               <div style={{ textAlign: 'center' }}>
                 <Link to="/login" prefetch href="/login">
-                  <a>Back to login page</a>
+                  <a href="/login">Back to login page</a>
                 </Link>
               </div>
             </Card>
@@ -211,7 +211,7 @@ export class ForgotPassword extends Component {
             <Card className="interview-card">
               <CardTitle>
                 <div className="text-centered" id="login-kiva-logo">
-                  <img src={kivaLogo} />
+                  <img src={kivaLogo} alt="Kiva logo" />
                 </div>
               </CardTitle>
 
@@ -243,7 +243,7 @@ export class ForgotPassword extends Component {
               </CardBody>
               <div style={{ textAlign: 'center' }}>
                 <Link to="/login" prefetch href="/login">
-                  <a>Back to login page</a>
+                  <a href="/login">Back to login page</a>
                 </Link>
               </div>
             </Card>

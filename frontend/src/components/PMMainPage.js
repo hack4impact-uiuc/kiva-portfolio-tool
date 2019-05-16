@@ -4,8 +4,7 @@ import {
   createFieldPartner,
   getAllPMs,
   deleteDocumentsByFP,
-  updateFPInstructions,
-  updateFieldPartnerStatus
+  updateFPInstructions
 } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { bindActionCreators } from 'redux'
@@ -115,7 +114,7 @@ export class PMMainPage extends Component {
     let query = event.target.value.toLowerCase()
     newState['query'] = query
     newState['filtered'] = []
-    if (query == '') {
+    if (query === '') {
       newState['filtered'] = this.state.partners
     } else {
       newState['filtered'] = this.state.partners.filter(partner =>
@@ -243,7 +242,7 @@ export class PMMainPage extends Component {
             <Row className="maxheight">
               <Col className="text-centered sidebar-background" sm="12" md="2">
                 <Button className="add-doc-text" id="new-fp-button" onClick={this.newToggle}>
-                  <img className="addImg" src={add} />
+                  <img className="addImg" src={add} alt="Add icon" />
                   <span>Add New</span>
                 </Button>
                 <TabList className="react-tabs__tab-list">
@@ -258,7 +257,7 @@ export class PMMainPage extends Component {
                   <Col md="12">
                     <h2 className="margin-top-sm">Field Partners</h2>
                     <form onSubmit={this.handleSubmit}>
-                      <img src={search} width="23" />
+                      <img src={search} width="23" alt="Search icon" />
                       <span>
                         <input
                           className="input-master margin-bottom-xs margin-top-xs"
@@ -276,7 +275,7 @@ export class PMMainPage extends Component {
                   <TabPanel>
                     <div className="partnerPanel">
                       {this.state.filtered
-                        .filter(partner => partner.app_status == 'In Process')
+                        .filter(partner => partner.app_status === 'In Process')
                         .map(partner => {
                           return (
                             <Col md="6">
@@ -296,7 +295,7 @@ export class PMMainPage extends Component {
                   <TabPanel>
                     <div className="partnerPanel">
                       {this.state.filtered
-                        .filter(partner => partner.app_status == 'New Partner')
+                        .filter(partner => partner.app_status === 'New Partner')
                         .map(partner => {
                           return (
                             <Col md="6">
@@ -316,7 +315,7 @@ export class PMMainPage extends Component {
                   <TabPanel>
                     <div className="partnerPanel">
                       {this.state.filtered
-                        .filter(partner => partner.app_status == 'Complete')
+                        .filter(partner => partner.app_status === 'Complete')
                         .map(partner => {
                           return (
                             <Col md="6">
@@ -346,10 +345,6 @@ export class PMMainPage extends Component {
  * Component containing information about a single partner
  */
 class PartnerBar extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   /**
    * Calculates percentages of each state of a document and puts it into a progress bar
    * In addition prints all info of a field partner
@@ -367,11 +362,11 @@ class PartnerBar extends Component {
     let len = documents.length
     for (const document in documents) {
       let item = documents[document].status
-      if (item == 'Approved') {
+      if (item === 'Approved') {
         approved += 1
-      } else if (item == 'Pending') {
+      } else if (item === 'Pending') {
         pending += 1
-      } else if (item == 'Rejected') {
+      } else if (item === 'Rejected') {
         rejected += 1
       }
     }
