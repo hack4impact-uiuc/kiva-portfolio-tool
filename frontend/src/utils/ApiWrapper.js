@@ -366,6 +366,42 @@ export const getFPByID = id => {
     })
 }
 
+export const getFPByEmail = email => {
+  let requestString = BACKEND_URL + '/field_partner/email/' + email
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.field_partner[0]
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
+export const getPMByEmail = email => {
+  let requestString = BACKEND_URL + '/portfolio_manager/email/' + email
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.portfolio_manager[0]
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
 export const getAllMessages = () => {
   // get notifications received by target user
   return [
