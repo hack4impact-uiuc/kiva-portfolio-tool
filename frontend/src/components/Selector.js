@@ -4,6 +4,10 @@ import add from '../media/add.png'
 import remove from '../media/remove.png'
 import info from '../media/blueinfo.png'
 
+/**
+ * Class for individual docClasses in SelectDocumentsPage.
+ * Shows docClass name, info button, and add/remove button
+ */
 export class Selector extends Component {
   render() {
     return (

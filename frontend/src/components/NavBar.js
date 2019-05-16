@@ -30,6 +30,12 @@ const mapStateToProps = state => ({
 
 const sidebarClassName = ['closed', 'opened']
 
+/**
+ * This is the Navigation Bar that exist at the top of all screens once logged in
+ * It contains
+ * A bell icon to access the Notifications Bar
+ * A sandwich icon to access a menu of other things
+ */
 export class NavBar extends Component {
   constructor(props) {
     super(props)

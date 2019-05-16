@@ -33,6 +33,11 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
+
+/**
+ * Shows each individual document in the Document List Component.
+ * You can select this component to view, delete, or upload documents
+ */
 export class DocumentListItem extends Component {
   constructor(props) {
     super(props)

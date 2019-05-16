@@ -2,6 +2,11 @@ import React from 'react'
 import { verify } from '../utils/ApiWrapper'
 import { setCookie } from './../utils/cookie'
 
+/**
+ * Page that shows up when user authenticates,
+ * If authenticated then redirects to home page
+ * else shows not authenticated
+ */
 const withAuth = WrappedComponent => {
   class HOC extends React.Component {
     state = {

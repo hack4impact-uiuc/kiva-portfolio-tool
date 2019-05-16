@@ -24,6 +24,9 @@ const IconOption = props => (
   </Option>
 )
 
+/**
+ * This component gives the ability to select several different languages for its users
+ */
 export class LanguageSelector extends Component {
   constructor(props) {
     super(props)

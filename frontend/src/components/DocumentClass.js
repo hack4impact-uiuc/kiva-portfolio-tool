@@ -54,22 +54,38 @@ export class DocumentClass extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  /**
+   * Opens/closes edit modal
+   */
   editToggle() {
     this.setState({ editModal: !this.state.editModal })
   }
 
+  /**
+   * Opens/closes delete modal
+   */
   deleteToggle() {
     this.setState({ deleteModal: !this.state.deleteModal })
   }
 
+  /**
+   * updates name in edit modal
+   */
   updateName = event => {
     this.setState({ name: event.target.value })
   }
 
+  /**
+   * updates description in edit modal
+   */
   updateDescription = event => {
     this.setState({ description: event.target.value })
   }
 
+  /**
+   * updates document class information from information in inputs
+   * called in edit modal
+   */
   async handleSubmit() {
     this.props.beginLoading()
     if (this.state.files.length === 0) {
@@ -105,6 +121,10 @@ export class DocumentClass extends Component {
     })
   }
 
+  /**
+   * deletes a document class
+   * called in delete modal
+   */
   async handleDelete() {
     this.props.beginLoading()
     await deleteDocumentClass(this.props.documentClass._id)

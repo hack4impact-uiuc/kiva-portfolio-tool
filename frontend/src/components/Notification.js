@@ -7,6 +7,11 @@ import '../styles/notifbar.css'
 
 import close from '../media/greyX.png'
 
+/**
+ * Each Notification contains a paragraph of information and a delete button to
+ * delete the current notification
+ * It is used in the Notification Bar
+ */
 export class Notification extends Component {
   render() {
     return (

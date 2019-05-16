@@ -27,6 +27,11 @@ const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 // const PASSWORD_REGEX = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
 
+/**
+ * This is the login page.
+ * It contains a form that takes in user email and password
+ * In case of forgotten password, it has a Forgot Password button that leads to a recovery page
+ */
 class LogIn extends Component {
   state = {
     email: '',
