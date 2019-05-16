@@ -1,17 +1,28 @@
 import React from 'react'
 import { Selector } from './Selector'
-import { getAllDocumentClasses, createDocuments, getDocumentsByUser } from '../utils/ApiWrapper'
+import { Input } from 'reactstrap'
+import {
+  getAllDocumentClasses,
+  createDocuments,
+  getDocumentsByUser,
+  updateFPInstructions,
+  getFPByID,
+  updateFieldPartnerStatus
+} from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'
+import Navbar from './NavBar'
+
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
 import '../styles/selectdocuments.css'
+
 import search from '../media/search.png'
-import Navbar from './NavBar'
+import WithAuth from './WithAuth'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM
@@ -41,7 +52,9 @@ export class SelectDocumentsPage extends React.Component {
       dueDate: new Date(),
       // state that updates depending on what the user types in query bar
       query: '',
-      fp_id: null
+      fp_id: null,
+      fp_org_name: '',
+      instructions: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -52,19 +65,33 @@ export class SelectDocumentsPage extends React.Component {
   async componentDidMount() {
     this.props.beginLoading()
     let document_classes = await getAllDocumentClasses()
+    let current_documents = await getDocumentsByUser(this.props.match.params.id)
 
     let available = {}
+
     for (const index in document_classes) {
       available[document_classes[index].name] = true
     }
 
-    let filtered = available
-
-    if (this.props.match) {
-      this.setState({ fp_id: this.props.match.params.id })
+    //The user should only be able to add document classes which aren't already assigned to the Field Partner
+    for (const key in current_documents) {
+      let docs_by_status = current_documents[key]
+      for (const index in docs_by_status) {
+        delete available[docs_by_status[index].docClassName]
+      }
     }
 
-    this.setState({ documentClasses: document_classes, available: available, filtered: filtered })
+    let filtered = available
+    let fp_info = await getFPByID(this.props.match.params.id)
+
+    this.setState({
+      documentClasses: document_classes,
+      available: available,
+      filtered: filtered,
+      fp_id: this.props.match.params.id,
+      fp_org_name: fp_info.org_name,
+      instructions: fp_info.instructions
+    })
     this.props.endLoading()
   }
 
@@ -117,6 +144,10 @@ export class SelectDocumentsPage extends React.Component {
     })
   }
 
+  updateInstructions = event => {
+    this.setState({ instructions: event.target.value })
+  }
+
   async handleSubmit() {
     this.props.beginLoading()
     let docClassIDs = this.state.documentClasses
@@ -126,30 +157,43 @@ export class SelectDocumentsPage extends React.Component {
         return array
       }, [])
 
-    const date =
-      this.state.dueDate.getMonth() +
-      ' ' +
-      this.state.dueDate.getDate() +
-      ' ' +
-      this.state.dueDate.getFullYear()
+    // Currently breaks when no docClassIDs provided, so I (Arpan) wrapped it in an if statement - need to fix
+    if (docClassIDs.length > 0) {
+      const date =
+        this.state.dueDate.getMonth() +
+        ' ' +
+        this.state.dueDate.getDate() +
+        ' ' +
+        this.state.dueDate.getFullYear()
 
-    await createDocuments(this.state.fp_id, docClassIDs, date)
-    const documents = await getDocumentsByUser(this.state.fp_id)
-    this.props.updateDocuments(documents)
+      await createDocuments(this.state.fp_id, docClassIDs, date)
+      const documents = await getDocumentsByUser(this.state.fp_id)
+      this.props.updateDocuments(documents)
+    }
+
+    await updateFPInstructions(this.state.fp_id, this.state.instructions)
+
+    await updateFieldPartnerStatus(this.state.fp_id, 'In Process')
+
     this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
 
   render() {
     return (
-      <div>
+      <div className="background-wave-blue maxheight">
         <Navbar />
         <div className="topBar">
           <div className="iconTop">
-            <p className="iconInfo">FP</p>
+            <p className="iconInfo">
+              {this.state.fp_org_name
+                .replace(/\W*(\w)\w*/g, '$1')
+                .toUpperCase()
+                .substring(0, 2)}
+            </p>
           </div>
           <div className="partnernamebox">
-            <h3 className="partnername">Fieldy McPartnerson</h3>
+            <h3 className="partnername">{this.state.fp_org_name}</h3>
           </div>
         </div>
 
@@ -190,11 +234,23 @@ export class SelectDocumentsPage extends React.Component {
           </div>
 
           <div className="blockCustom dateDisplay">
-            Set a Due Date:
+            Set a due date:
             <DatePicker
               selected={this.state.dueDate}
               onChange={this.newDueDate}
               className="datePicker"
+            />
+          </div>
+
+          <div className="blockCustom instructionsDisplay">
+            Add additional instructions:
+            <br />
+            <Input
+              type="textarea"
+              className="textarea-input"
+              style={{ height: '200px' }}
+              value={this.state.instructions}
+              onChange={this.updateInstructions}
             />
           </div>
 
@@ -210,4 +266,4 @@ export class SelectDocumentsPage extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SelectDocumentsPage)
+)(WithAuth(SelectDocumentsPage))

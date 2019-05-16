@@ -10,8 +10,24 @@ https://github.com/hack4impact-uiuc/kiva-portfolio-tool.git
 
 Then navigate into the newly cloned repository. Follow the READMEs in both the frontend and backend folders to fully setup the web application.
 
-### Box Setup
+### Box API Setup
 
+To start using Box, you must create a box account [here](https://account.box.com/login).
+
+After you create your new box account, you must visit the [Console](https://app.box.com/developers/console) to create your project.
+
+After creating your project, click into the project and go to **configuration**.
+
+In *configuration* tab, decide whether or not you want to authenticate using _OAuth_ or _JWT_. You can find more documentation about these two methods [here](https://developer.box.com/docs/quickstart-guides).
+
+Follow each step in the chosen authentication method, and you are all set!
+
+This project uses the _JWT_ method to authenticate one master user and allow anyone with access to the project upload, delete, and more with box. By using the _JWT_ method, you must download the **App Settings** from your **configuration**, which is located all the way down in the page. After you download it, follow the [documentation](https://developer.box.com/docs/construct-jwt-claim-manually), and you will be able to set up the box account similar to this project's.
+
+Our box backend first generates the access token for the authenticated user (information in the document provided above) and lets the user upload a file or delete a file. More on these endpoints can be found [here](https://developer.box.com/reference)
+
+#### box api document
+This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
 
 ## Directory Breakdown
 
@@ -27,7 +43,7 @@ Then navigate into the newly cloned repository. Follow the READMEs in both the f
 ## Backend Resources
 [Database Schema](https://docs.google.com/document/d/1KIfpPRFF79QpSVBjARBpSYpPUxpMPimn_KEcjvi9qI8/edit?usp=sharing)
 
-Authentication documentation coming soon
+[Authentication Documentation](https://h4i-auth-infra-docs.now.sh/)
 
 [Backend Boilerplate Documentation](https://github.com/tko22/flask-boilerplate/wiki)
 
@@ -45,15 +61,15 @@ Over the course of the 3 month timeline for building out this tool, we accumulat
 Special thanks to the team of developers and product designer that contributed to building the product:
 
 ### Product Designer
-Chloe Chan (chloegchan@gmail.com)
+Chloe Chan (chloegchan)
 
 ### Software Developers
-Kelley Chau (kelleyc2@illinois.edu)
+Kelley Chau (chyku)
 
-Danielle Yang (dy6@illinois.edu)
+Danielle Yang (dyang5200)
 
-Jeffy Lin (jlin79@illinois.edu)
+Jeffy Lin (jeffylin)
 
-Daniel Choi (dschoi3@illinois.edu)
+Daniel Choi (choiboy98)
 
-Navam Awasthi (uawasth2@illinois.edu)
+Navam Awasthi (uawasth2)

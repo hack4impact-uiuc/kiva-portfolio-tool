@@ -1,3 +1,8 @@
+.navbar .navbar-nav {
+    flex-direction: row;
+    margin-right: 2%;
+}
+
 .flag {
     margin-left: 1%;
 }
@@ -7,12 +12,29 @@
     margin-top: 1%;
 }
 
+.hide {
+    display: none;
+}
+
 .sidebar-styles {
+    /* override inline styling */
+    position: fixed !important;
     background: white;
+    width: 37%;
+}
+
+@media screen and (max-width: 870px) {
+    .sidebar-styles {
+        /* increase sidebar width */
+        width: 45%;
+    }
+}
+
+.sandwich .dropdown .dropdown-menu {
+    position: absolute;
 }
 
 .langSelect{
-    margin-right: 2%;
     min-width: 170px;
 }
 

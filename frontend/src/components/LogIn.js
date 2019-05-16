@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { login, getPartnersByStatus } from '../utils/ApiWrapper'
+import { login, getPartnersByStatus, verify } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
 import {
   Form,
@@ -18,7 +18,6 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from './NavBar'
-import kivaLogo from '../media/kivaPlainLogo.png'
 
 import '../styles/index.css'
 import '../styles/login.css'
@@ -29,6 +28,7 @@ import b3 from '../media/b3-min.jpg'
 import b4 from '../media/b4-min.jpg'
 import b5 from '../media/b5-min.jpg'
 import b6 from '../media/b6-min.jpg'
+import kivaLogo from '../media/kivaPlainLogo.png'
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({}, dispatch)
@@ -44,6 +44,7 @@ class LogIn extends Component {
     password: '',
     errorMessage: '',
     username: '',
+    wrongInfo: false,
     fp_id: null
   }
 
@@ -61,13 +62,42 @@ class LogIn extends Component {
     e.preventDefault()
 
     const result = await login(this.state.email, this.state.password)
+    if (
+      result.error != null &&
+      (result.error.response.status == 400 || result.error.response.status == 500)
+    ) {
+      console.log(result.error.response.message)
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.error.response.data.message
+      })
+      return
+    }
+
     let token = result.response.data.result.token
 
     if (!token) {
-      this.setState({ errorMessage: result.response.message })
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.response.message
+      })
     } else {
-      setCookie('token', token)
-      this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+      this.setState({
+        wrongInfo: !this.state.wrongInfo
+      })
+      await setCookie('token', token)
+      let role = await verify()
+      console.log(role)
+      if (role.error) {
+        this.props.history.push('/oops')
+      } else {
+        role = role.response.data.result.role
+        if (role == 'fp') {
+          this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+        } else {
+          this.props.history.push('/main')
+        }
+      }
     }
   }
 
@@ -138,6 +168,7 @@ class LogIn extends Component {
               >
                 Forgot Password?
               </Link>
+              <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
             </CardBody>
           </Card>
           <br />

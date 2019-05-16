@@ -41,7 +41,7 @@ jobs:
       - run:
           command: |
             cd frontend
-            npm install
+            npm install --no-optional
             npm run format:check
   frontend_test:
     docker:
@@ -51,7 +51,7 @@ jobs:
       - run:
           command: |
             cd frontend
-            npm install
+            npm install --no-optional
             npm run test
 workflows:
   version: 2

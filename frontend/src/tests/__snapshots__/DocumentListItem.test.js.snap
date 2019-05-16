@@ -2,6 +2,57 @@
 
 exports[`DocumentListItem renders correctly 1`] = `
 <Fragment>
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
+  >
+    <ModalHeader
+      charCode={215}
+      closeAriaLabel="Close"
+      tag="h5"
+      wrapTag="div"
+    >
+      Are you sure you want to delete this document?
+    </ModalHeader>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        No
+      </Button>
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Yes
+      </Button>
+    </ModalFooter>
+  </Modal>
   <tr
     className="hoverable"
   >
@@ -16,7 +67,7 @@ exports[`DocumentListItem renders correctly 1`] = `
     <td
       className="interaction"
     >
-      <Connect(DocumentPreview)
+      <Connect(HOC)
         document={
           Object {
             "docClass": "Board of Directors",

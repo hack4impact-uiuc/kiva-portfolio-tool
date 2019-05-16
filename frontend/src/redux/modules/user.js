@@ -10,7 +10,7 @@ const initialState = {
   documents: [],
   documentClasses: [],
   messages: [],
-  information: []
+  instructions: ''
 }
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -34,10 +34,10 @@ export default function reducer(state = initialState, action) {
         ...state,
         messages: action.value
       }
-    case UPDATE_INFORMATION:
+    case UPDATE_INSTRUCTIONS:
       return {
         ...state,
-        information: action.value
+        instructions: action.value
       }
     case UPDATE_DUE_DATE:
       return {
@@ -69,8 +69,8 @@ export const updateMessages = value => ({
   value
 })
 
-export const updateInformation = value => ({
-  type: UPDATE_INFORMATION,
+export const updateInstructions = value => ({
+  type: UPDATE_INSTRUCTIONS,
   value
 })
 

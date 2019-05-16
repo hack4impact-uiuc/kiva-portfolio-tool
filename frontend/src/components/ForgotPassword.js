@@ -11,15 +11,15 @@ import { setCookie } from '../utils/cookie'
 import Navbar from './NavBar'
 import BackgroundSlideshow from 'react-background-slideshow'
 
+import '../styles/index.css'
+import '../styles/login.css'
+
 import kivaLogo from '../media/kivaPlainLogo.png'
 import b1 from '../media/b1-min.jpg'
 import b3 from '../media/b3-min.jpg'
 import b4 from '../media/b4-min.jpg'
 import b5 from '../media/b5-min.jpg'
 import b6 from '../media/b6-min.jpg'
-
-import '../styles/index.css'
-import '../styles/login.css'
 
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
@@ -45,11 +45,13 @@ export class ForgotPassword extends Component {
   handleGetSecurityQuestion = async e => {
     e.preventDefault()
     const result = await getSecurityQuestionForUser(this.state.email)
-    const resp = await result.json()
-    if (!!resp.question) {
-      this.setState({ question: resp.question, errorMessage: '' })
-    } else {
-      this.setState({ errorMessage: resp.message })
+    if (result) {
+      const resp = await result.json()
+      if (!!resp.question) {
+        this.setState({ question: resp.question, errorMessage: '' })
+      } else {
+        this.setState({ errorMessage: resp.message })
+      }
     }
   }
 
@@ -58,11 +60,14 @@ export class ForgotPassword extends Component {
 
     this.setState({ loadingAPI: true })
     const result = await submitSecurityQuestionAnswer(this.state.email, this.state.answer)
-    const resp = await result.json()
-    if (resp.status === 200) {
-      this.setState({ submitNewPassword: true, errorMessage: '' })
-    } else {
-      this.setState({ errorMessage: resp.message })
+
+    if (result) {
+      const resp = await result.json()
+      if (resp.status === 200) {
+        this.setState({ submitNewPassword: true, errorMessage: '' })
+      } else {
+        this.setState({ errorMessage: resp.message })
+      }
     }
   }
 
@@ -72,18 +77,21 @@ export class ForgotPassword extends Component {
       this.setState({ errorMessage: "Passwords don't match!" })
       return
     }
-    const response = await (await resetPassword(
+    const response = await resetPassword(
       this.state.pin,
       this.state.email,
       this.state.password,
       this.state.answer
-    )).json()
-    if (response.status === 200 && response.token) {
-      setCookie('token', response.token)
-      this.setState({ successfulSubmit: true })
-      this.props.history.push('/')
-    } else {
-      this.setState({ errorMessage: response.message })
+    )
+    if (response) {
+      response = response.json()
+      if (response.status === 200 && response.token) {
+        setCookie('token', response.token)
+        this.setState({ successfulSubmit: true })
+        this.props.history.push('/')
+      } else {
+        this.setState({ errorMessage: response.message })
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DocumentClassPreview from './DocumentClassPreview'
-import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Input } from 'reactstrap'
 import {
   deleteDocumentClass,
   updateDocumentClass,
@@ -11,9 +11,11 @@ import { bindActionCreators } from 'redux'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
 import Dropzone from 'react-dropzone'
+
+import '../styles/documentclasspage.css'
+
 import edit from '../media/greyEdit.png'
 import remove from '../media/remove.png'
-import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({})
 
@@ -123,13 +125,13 @@ export class DocumentClass extends Component {
           <ModalBody>
             <form>
               <span> Name: </span>
-              <input onChange={this.updateName} value={this.state.name} />
+              <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
               <span> Description: </span>
-              <textarea
-                name="paragraph_text"
-                cols="50"
-                rows="10"
+              <Input
+                type="textarea"
+                className="textarea-input"
+                style={{ height: '200px' }}
                 onChange={this.updateDescription}
                 value={this.state.description}
               />
@@ -161,7 +163,9 @@ export class DocumentClass extends Component {
             <Button className="invalidSearchButton" onClick={this.editToggle}>
               Return
             </Button>
-            <Button onClick={this.handleSubmit}>Update Document Class</Button>
+            <Button onClick={this.handleSubmit} color="success">
+              Update Document Class
+            </Button>
           </ModalFooter>
         </Modal>
         <tr className="hoverable">
@@ -184,7 +188,7 @@ export class DocumentClass extends Component {
                 </p>
               </ModalBody>
               <ModalFooter>
-                <Button className="invalidSearchButton" onClick={this.handleDelete}>
+                <Button className="invalidSearchButton" color="primary" onClick={this.handleDelete}>
                   Delete and return
                 </Button>
                 <Button className="invalidSearchButton" onClick={this.deleteToggle}>

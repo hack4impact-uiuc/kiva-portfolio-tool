@@ -1,18 +1,19 @@
 import React from 'react'
 import DocumentClass from './DocumentClass'
 import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
-import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Table, Input } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import '../styles/dashboard.css'
 import { updateDocumentClasses } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+import Dropzone from 'react-dropzone'
+import WithAuth from './WithAuth'
+import NavBar from './NavBar'
+
+import '../styles/variables.css'
 import '../styles/index.css'
 import '../styles/documentclasspage.css'
-import Dropzone from 'react-dropzone'
-import Loader from 'react-loader-spinner'
-import NavBar from './NavBar'
-import '../styles/variable.scss'
+
 import add from '../media/add.png'
 
 const mapStateToProps = state => ({
@@ -95,19 +96,19 @@ export class DocumentClassPage extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="background-rectangles maxheight">
         <NavBar />
         <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
             <form>
               <span> Name: </span>
-              <input onChange={this.updateName} />
+              <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
               <span> Description: </span>
-              <textarea
-                name="paragraph_text"
-                cols="50"
-                rows="10"
+              <Input
+                type="textarea"
+                className="textarea-input"
+                style={{ height: '200px' }}
                 onChange={this.updateDescription}
               />
               <br />
@@ -136,9 +137,13 @@ export class DocumentClassPage extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button className="invalidSearchButton" onClick={this.toggle}>
-              Return
+              Close
             </Button>
-            <Button disabled={this.state.files.length === 0} onClick={this.handleSubmit}>
+            <Button
+              disabled={this.state.files.length === 0}
+              color="success"
+              onClick={this.handleSubmit}
+            >
               Create Document Class
             </Button>
           </ModalFooter>
@@ -172,12 +177,12 @@ export class DocumentClassPage extends React.Component {
           </Table>
         </div>
 
-        <div className="returnBtnContainer text-centered margin-bottom-xs">
+        <div className="returnBtnContainer text-centered padding-bottom-sm">
           <Button className="returnButton" onClick={this.props.history.goBack}>
             Return
           </Button>
         </div>
-      </>
+      </div>
     )
   }
 }
@@ -185,4 +190,4 @@ export class DocumentClassPage extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DocumentClassPage)
+)(WithAuth(DocumentClassPage))
