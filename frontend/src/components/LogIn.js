@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom'
 import { login, verify, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
 import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
-import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from './NavBar'
@@ -19,10 +17,6 @@ import b5 from '../media/b5-min.jpg'
 import b6 from '../media/b6-min.jpg'
 import kivaLogo from '../media/kivaPlainLogo.png'
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({}, dispatch)
-}
-
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 // const PASSWORD_REGEX = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
@@ -33,13 +27,14 @@ const EMAIL_REGEX =
  * In case of forgotten password, it has a Forgot Password button that leads to a recovery page
  */
 class LogIn extends Component {
-  state = {
-    email: '',
-    password: '',
-    errorMessage: '',
-    username: '',
-    wrongInfo: false,
-    fp_id: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+      errorMessage: '',
+      wrongInfo: false
+    }
   }
 
   handleChange = event => {
@@ -168,4 +163,4 @@ class LogIn extends Component {
     )
   }
 }
-export default connect(mapDispatchToProps)(LogIn)
+export default LogIn

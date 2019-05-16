@@ -32,16 +32,19 @@ const EMAIL_REGEX =
  * It has a button to return back to the login page
  */
 export class ForgotPassword extends Component {
-  state = {
-    email: '',
-    question: '',
-    errorMessage: '',
-    answer: '',
-    pin: '',
-    password: '',
-    password2: '',
-    loadingAPI: false,
-    submitNewPassword: false
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      question: '',
+      errorMessage: '',
+      answer: '',
+      pin: '',
+      password: '',
+      password2: '',
+      loadingAPI: false,
+      submitNewPassword: false
+    }
   }
 
   handleChange = event => {
