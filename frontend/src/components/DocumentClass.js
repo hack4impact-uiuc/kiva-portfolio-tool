@@ -72,7 +72,7 @@ export class DocumentClass extends Component {
 
   async handleSubmit() {
     this.props.beginLoading()
-    if (this.state.files.length == 0) {
+    if (this.state.files.length === 0) {
       await updateDocumentClass(
         this.props.documentClass._id,
         this.state.name,
@@ -175,10 +175,10 @@ export class DocumentClass extends Component {
           <td data-testid="interaction" className="interaction">
             <DocumentClassPreview documentClass={this.props.documentClass} />
             <Button color="transparent" onClick={this.editToggle}>
-              <img className="buttonimg" src={edit} />
+              <img className="buttonimg" src={edit} alt="Edit icon" />
             </Button>
             <Button color="transparent" onClick={this.deleteToggle}>
-              <img className="buttonimg" src={remove} />
+              <img className="buttonimg" src={remove} alt="Remove icon" />
             </Button>
             <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
               <ModalBody>
