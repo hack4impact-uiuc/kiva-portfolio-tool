@@ -39,6 +39,12 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
+/**
+ * Page that shows when a PM is creating a new FP.
+ * Allows the PM to choose which docClasses that the new FP is required to submit
+ * Allows the PM to set a duedate for all the documents
+ * Allows the PM to search for a specific docClass as well
+ */
 export class SelectDocumentsPage extends React.Component {
   constructor(props) {
     super(props)
@@ -77,7 +83,7 @@ export class SelectDocumentsPage extends React.Component {
     for (const key in current_documents) {
       let docs_by_status = current_documents[key]
       for (const index in docs_by_status) {
-        delete available[docs_by_status[index].docClassName]
+        delete available[docs_by_status[index].docClass.name]
       }
     }
 

@@ -53,12 +53,96 @@ exports[`DocumentListItem renders correctly 1`] = `
       </Button>
     </ModalFooter>
   </Modal>
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    external={
+      <button
+        className="close"
+        style={
+          Object {
+            "position": "absolute",
+            "right": "15px",
+            "top": "15px",
+          }
+        }
+      >
+        ×
+      </button>
+    }
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
+  >
+    <ModalHeader
+      charCode={215}
+      closeAriaLabel="Close"
+      tag="h5"
+      wrapTag="div"
+    />
+    <ModalBody
+      style={
+        Object {
+          "height": "500px",
+          "overflow": "scroll",
+          "width": "500px",
+        }
+      }
+      tag="div"
+    >
+      <p />
+      <Iframe
+        allowFullScreen={true}
+        height="500px"
+        width="450px"
+      />
+    </ModalBody>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Close
+      </Button>
+    </ModalFooter>
+  </Modal>
   <tr
     className="hoverable"
   >
     <td
       data-testid="docClass"
-    />
+    >
+      <Button
+        className="add-doc-text"
+        color="transparent"
+        onClick={[Function]}
+        tag="button"
+      >
+        <span
+          className="add-doc-text"
+        />
+      </Button>
+    </td>
     <td
       data-testid="fileName"
     >

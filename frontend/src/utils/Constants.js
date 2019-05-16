@@ -1,3 +1,6 @@
+/**
+ * Possible Statuses for a Document
+ */
 const Constants = {
   statuses: [
     { value: 'Missing' },

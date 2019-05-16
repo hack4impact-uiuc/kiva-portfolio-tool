@@ -24,6 +24,10 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
+/**
+ * This is the login page
+ * It contains a banner with inputs for user email and password
+ */
 export class LoginPage extends Component {
   constructor(props) {
     super(props)

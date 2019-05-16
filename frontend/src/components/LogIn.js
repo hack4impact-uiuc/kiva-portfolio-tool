@@ -1,20 +1,9 @@
 import { Link } from 'react-router-dom'
-import { login, getPartnersByStatus, verify } from '../utils/ApiWrapper'
+import { login, getPartnersByStatus, verify, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
-import {
-  Form,
-  Button,
-  ButtonGroup,
-  FormGroup,
-  Label,
-  Input,
-  Card,
-  CardBody,
-  CardTitle
-} from 'reactstrap'
+import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
 import { setCookie } from './../utils/cookie'
 import { connect } from 'react-redux'
-import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from './NavBar'
@@ -38,6 +27,11 @@ const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 // const PASSWORD_REGEX = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
 
+/**
+ * This is the login page.
+ * It contains a form that takes in user email and password
+ * In case of forgotten password, it has a Forgot Password button that leads to a recovery page
+ */
 class LogIn extends Component {
   state = {
     email: '',
@@ -92,10 +86,13 @@ class LogIn extends Component {
         this.props.history.push('/oops')
       } else {
         role = role.response.data.result.role
+
         if (role == 'fp') {
-          this.props.history.push('/dashboard/fp/' + this.state.fp_id)
+          let fp = await getFPByEmail(this.state.email)
+          this.props.history.push('/dashboard/fp/' + fp._id)
         } else {
-          this.props.history.push('/main')
+          let pm = await getPMByEmail(this.state.email)
+          this.props.history.push('/main/' + pm._id)
         }
       }
     }
