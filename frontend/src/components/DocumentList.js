@@ -9,7 +9,7 @@ import expand from '../media/expand.png'
 import collapse from '../media/collapse.png'
 
 /**
- * Displays all documents for a given document status in its own box 
+ * Displays all documents for a given document status in its own box
  */
 export class DocumentList extends Component {
   constructor(props) {

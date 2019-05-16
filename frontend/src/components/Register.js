@@ -44,7 +44,6 @@ import b6 from '../media/b6-min.jpg'
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
 
-
 /**
  * Page that handles a new user registering
  * it has inputs for email, password, re-enter password,

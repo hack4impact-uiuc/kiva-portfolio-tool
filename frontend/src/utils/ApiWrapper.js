@@ -28,7 +28,7 @@ export const getAllPMs = () => {
 
 export const getUserRole = () => {
   /**
-   * 
+   *
    */
   let requestString = BACKEND_URL + '/getUser'
   return axios
@@ -87,8 +87,8 @@ export const register = (email, password, questionIdx, answer, role) => {
   /**
    * Creates a new user to website
    * Requires email,
-   * password, 
-   * questionIdx(Chosen security question), 
+   * password,
+   * questionIdx(Chosen security question),
    * answer to that security question,
    * and new user role
    * Returns REGISTER_SUCCESS upon success
@@ -146,7 +146,7 @@ export const login = (email, password) => {
 
 export const verify = () => {
   /**
-   * 
+   *
    */
   return axios
     .post(BACKEND_URL + '/verify', null, {
@@ -201,7 +201,7 @@ export const getSecurityQuestions = () => {
 export const setSecurityQuestion = (questionIdx, answer, password) => {
   /**
    * For a user, sets/changes security question
-   * Requires: 
+   * Requires:
    * index of new security question
    * answer to new security question
    * password of user
@@ -267,9 +267,9 @@ export const submitSecurityQuestionAnswer = (email, answer, questionIdx) => {
    * User's email
    * User's answer to their security question
    * Question index of the User's security question
-   * 
+   *
    * It will authenticate the response and send the user a password reset if answer is correct
-   * 
+   *
    * Returns LOGIN_SUCCESSFUL upon success
    * Returns 'ERROR: error info' upon failure
    */
@@ -298,9 +298,9 @@ export const resetPassword = (email, answer, pin, password) => {
    * User's security question answer
    * Pin received from reset email
    * New password
-   * 
+   *
    * it will reset the users password
-   * 
+   *
    * Returns LOGIN_SUCCESSFUL upon success
    * Returns 'ERROR: error info' upon failure
    */
@@ -333,9 +333,9 @@ export const changePassword = (currentPassword, newPassword) => {
    * Given:
    * User's current password
    * User's new password
-   * 
+   *
    * will change the users password
-   * 
+   *
    * Returns LOGIN_SUCCESSFUL upon success
    * Returns LOGIN_FAIL upon failure
    */
@@ -367,11 +367,11 @@ export const verifyPIN = pin => {
   /**
    * Given:
    * Pin on password reset email
-   * 
-   * will verify given pin 
-   * 
+   *
+   * will verify given pin
+   *
    * Returns LOGIN_SUCCESSFUL upon success
-   * Returns LOGIN_FAIL upon failure  
+   * Returns LOGIN_FAIL upon failure
    */
   let data = new FormData()
   data.append('pin', pin)
@@ -399,7 +399,7 @@ export const verifyPIN = pin => {
 export const resendPIN = () => {
   /**
    * Will resend a verification email to user email
-   * 
+   *
    * Returns LOGIN_SUCCESSFUL upon success
    * Returns LOGIN_FAIL upon failure
    */
@@ -429,7 +429,7 @@ export const resendPIN = () => {
 export const getAllDocumentClasses = () => {
   /**
    * Gets all document classes for a PM role
-   * 
+   *
    * Returns document classes upon success
    * Returns 'ERROR: error info' upon failure
    */
@@ -453,7 +453,7 @@ export const getAllDocumentClasses = () => {
 export const getAllDocuments = () => {
   /**
    * gets all documents from database
-   * 
+   *
    * Returns all documents upon success
    * Returns 'ERROR: error info' upon failure
    */
@@ -469,7 +469,7 @@ export const getAllDocuments = () => {
 export const getFPByID = id => {
   /**
    * Returns all information of an FP given their id
-   * 
+   *
    * Returns all fp information upon success
    * Returns 'ERROR: error info' upon failure
    */
@@ -488,7 +488,7 @@ export const getFPByID = id => {
 export const getFPByEmail = email => {
   /**
    * gets all fp information given an email
-   * 
+   *
    * Returns all fp information upon success
    * Returns 'ERROR: error info' upon failure
    */
@@ -512,7 +512,7 @@ export const getFPByEmail = email => {
 export const getPMByEmail = email => {
   /**
    * Gets all PM information given the PM's email
-   * 
+   *
    * Returns all PM information upon success
    * Returns 'ERROR: error info' upon failure
    */
@@ -536,7 +536,7 @@ export const getPMByEmail = email => {
 export const getAllMessages = () => {
   /**
    * Gets all notification/messages received by target user
-   * 
+   *
    * CANNED
    */
   return [
@@ -554,7 +554,7 @@ export const getAllMessages = () => {
 export const getAllInformation = () => {
   /**
    * Gets all information received by target user
-   * 
+   *
    * CANNED
    */
   return [
@@ -564,9 +564,9 @@ export const getAllInformation = () => {
 
 export const getPartnersByPM = pm_id => {
   /**
-   * Given: 
+   * Given:
    * PM id in database
-   * 
+   *
    * Returns all field partners associated to that pm upon success
    * Returns GET_PARTNERS_FAIL upon failure
    */
@@ -592,7 +592,7 @@ export const getPartnersByPM = pm_id => {
 export const getPartnersByStatus = app_status => {
   /**
    * Get all Field Partners will a given application status (New, In Process, Complete) Not the real values*
-   * 
+   *
    * Returns all field partners associated to that status upon success
    * Returns GET_PARTNERS_FAIL upon failure
    */
@@ -618,7 +618,7 @@ export const getPartnersByStatus = app_status => {
 export const getAllPartners = () => {
   /**
    * Gets all field partners
-   * 
+   *
    * Returns all field partners  upon success
    * Returns GET_PARTNERS_FAIL upon failure
    */
@@ -646,9 +646,9 @@ export const updateFieldPartnerStatus = (id, status) => {
    * Given
    * FP id
    * new status
-   * 
+   *
    * Updates the field partners status
-   * 
+   *
    * Returns UPDATE_FP_SUCCESS upon success
    * Returns UPDATE_FP_FAIL upon failure
    */
@@ -681,9 +681,9 @@ export const updateFPInstructions = (id, instructions) => {
    * Given
    * FP id
    * information
-   * 
+   *
    * Updates the field partners information
-   * 
+   *
    * Returns UPDATE_FP_SUCCESS upon success
    * Returns UPDATE_FP_FAIL upon failure
    */
@@ -715,9 +715,9 @@ export const deleteDocument = id => {
   /**
    * Given
    * document id
-   * 
+   *
    * deletes document from database
-   * 
+   *
    * Returns DELETE_DOCUMENT_SUCCESS on success
    * Returns DELETE_DOCUMENT_FAIL on failure
    */
@@ -747,9 +747,9 @@ export const deleteDocumentsByFP = id => {
   /**
    * Given
    * FP id
-   * 
+   *
    * deletes all documents related to FP from database
-   * 
+   *
    * Returns DELETE_DOCUMENTS_SUCCESS on success
    * Returns DELETE_DOCUMENTS_FAIL on failure
    */
@@ -773,15 +773,6 @@ export const deleteDocumentsByFP = id => {
         error
       }
     })
-}
-
-export const getAllMessages = () => {
-  /**
-   * Returns all messages of current user
-   * 
-   * CANNED
-   */
-  return ['joe', 'schmoe', 'bro']
 }
 
 export const getAccessToken = () => {
@@ -808,7 +799,7 @@ export const getAccessToken = () => {
 
 export const downloadDocument = id => {
   /**
-   * 
+   *
    */
   let requestString = BACKEND_URL + '/box/download?file_id' + id
   return axios
@@ -832,9 +823,9 @@ export const updateDocumentStatus = (id, status) => {
    * Given
    * document id
    * document's new status
-   * 
+   *
    * updates documents status in database
-   * 
+   *
    * Returns UPDATE_DOC_STATUS_SUCCESS upon success
    * Returns UPDATE_DOC_STATUS_FAIL upon failure
    */
@@ -867,9 +858,9 @@ export const uploadDocument = (file, file_name, docID) => {
    * a file
    * the file name
    * the id referring to the document
-   * 
+   *
    * uploads document into the database
-   * 
+   *
    * Returns UPLOAD_FILE_SUCCESS upon success
    * Returns UPLOAD_FILE_FAIL upon failure
    */
@@ -904,9 +895,9 @@ export const createDocumentClass = (name, description, file, file_name) => {
    * a description for new document class
    * an example file
    * the name of the example file
-   * 
+   *
    * creates a new document class with given name, description, and example file
-   * 
+   *
    * Returns UPLOAD_FILE_SUCCESS upon success
    * Returns UPLOAD_FILE_FAIL upon failure
    */
@@ -942,9 +933,9 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
    * a userID
    * the id of a docClass
    * a duedate for the file
-   * 
+   *
    * creates a requested document and the duedate for that given document
-   * 
+   *
    * Returns CREATE_DOCUMENTS_SUCCESS upon success
    * Returns CREATE_DOCUMENTS_FAIL upon failure
    */
@@ -979,7 +970,7 @@ export const getDocumentsByUser = userID => {
   /**
    * Given
    * a user's id
-   * 
+   *
    * Returns all documents associated with user upon success
    * Returns "Error: error info" otherwise
    */
@@ -1008,9 +999,9 @@ export const updateDocumentClass = (id, name, description, file, file_name) => {
    * a new description
    * a new example file
    * name of new example file
-   * 
+   *
    * updates a document class
-   * 
+   *
    * Returns UPDATE_DOCUMENT_CLASS_SUCCESS upon success
    * Returns UPDATE_DOCUMENT_CLASS_FAIL upon failure
    */
@@ -1044,9 +1035,9 @@ export const deleteDocumentClass = id => {
   /**
    * Given
    * docClass id
-   * 
+   *
    * deletes docClasses and related files of that id in the database
-   * 
+   *
    * Returns DELETE_DOCUMENT_CLASS_SUCCESS upon success
    * Returns DELETE_DOCUMENT_CLASS_FAIL upon failure
    */

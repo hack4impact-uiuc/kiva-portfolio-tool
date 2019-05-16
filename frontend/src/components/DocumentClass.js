@@ -120,10 +120,9 @@ export class DocumentClass extends Component {
       files
     })
   }
-  
 
   /**
-   * deletes a document class 
+   * deletes a document class
    * called in delete modal
    */
   async handleDelete() {

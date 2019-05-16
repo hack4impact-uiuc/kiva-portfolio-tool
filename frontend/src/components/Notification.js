@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 })
 
 /**
- * Each Notification contains a paragraph of information and a delete button to 
+ * Each Notification contains a paragraph of information and a delete button to
  * delete the current notification
  * It is used in the Notification Bar
  */
