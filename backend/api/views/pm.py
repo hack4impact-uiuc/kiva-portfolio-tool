@@ -35,7 +35,7 @@ def get_portfolio_manager():
             PortfolioManager.query.filter_by(**kwargs).all()
         )
 
-    return create_response(data={"portfolio_manager": portfolio_manager})
+    return create_response(data={"portfolio_manager": portfolio_manager_list})
 
 
 @pm.route("/portfolio_manager/<id>", methods=["GET"])

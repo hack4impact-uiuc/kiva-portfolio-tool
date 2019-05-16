@@ -106,7 +106,7 @@ def test_get_pm_by_email(client):
     db.session.add(helper_portfolio_manager)
     db.session.commit()
 
-    url = "/portfolio_manager/email/" + helper_portfolio_manager.email
+    url = "/portfolio_manager?email=" + helper_portfolio_manager.email
     rs = client.get(url, headers=headers)
 
     assert rs.status_code == 200
@@ -122,13 +122,13 @@ def test_get_pm_by_email(client):
 
 
 def test_new_pm(client):
-    rs = client.post("/portfolio_manager/new")
+    rs = client.post("/portfolio_manager")
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
     rs = client.post(
-        "/portfolio_manager/new",
+        "/portfolio_manager",
         content_type="multipart/form-data",
         data={"email": "angad", "name": "royuwu"},
         headers=headers,
@@ -143,7 +143,7 @@ def test_new_pm(client):
 
     # Tests for if not all fields are provided
     rs = client.post(
-        "/portfolio_manager/new",
+        "/portfolio_manager",
         content_type="multipart/form-data",
         data={"email": "angad"},
         headers=headers,

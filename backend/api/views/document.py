@@ -19,11 +19,6 @@ def get_document():
     kwargs["status"] = request.args.get("status")
     kwargs["docClassID"] = request.args.get("docClassID")
     kwargs["fileName"] = request.args.get("fileName")
-    kwargs["latest"] = request.args.get("latest")
-
-    # stores date and time for parse searching
-    date = request.args.get("date")
-    description = request.args.get("description")
 
     # refines kwargs to remove all the None values and only search by values provided
     kwargs = {k: v for k, v in kwargs.items() if v is not None}
@@ -31,20 +26,6 @@ def get_document():
     # if no search parameters provided return all documents
     if len(kwargs) == 0:
         docs = Document.query.all()
-
-        # Since description and date were not part of search parameters
-        # this is so that partial querying can be use to search keywords in description
-        # and to allow searching by day of week rather than exact date
-        # refines searches by date and description
-        if description is not None:
-            docs = [
-                i
-                for i in docs
-                if i.description is not None
-                and description.lower() in i.description.lower()
-            ]
-        if date is not None:
-            docs = [i for i in docs if date.lower() in str(i.date).lower()]
 
         # Adds a field called docClassName to each document
         for doc in docs:
@@ -71,20 +52,6 @@ def get_document():
         # Unpacks the search values in our dictionary and provides them to Flask/SQLalchemy
         docs = Document.query.filter_by(**kwargs).all()
 
-        # Since description and date were not part of search parameters
-        # this is so that partial querying can be use to search keywords in description
-        # and to allow searching by day of week rather than exact date
-        # refines searches by date and description
-        if description is not None:
-            docs = [
-                i
-                for i in docs
-                if i.description is not None
-                and description.lower() in i.description.lower()
-            ]
-        if date is not None:
-            docs = [i for i in docs if date.lower() in str(i.date).lower()]
-
         for doc in docs:
             doc.docClassName = DocumentClass.query.get(doc.docClassID).name
 
@@ -107,10 +74,8 @@ def get_document():
         )
 
 
-# new put route only for uploading documents
-# was previously in post when we shouldn't really be creating a new document in the database
 @document.route("/document/<id>", methods=["PUT"])
-def upload_document(id):
+def update_document(id):
     data = request.form
 
     if data is None:
@@ -136,11 +101,9 @@ def upload_document(id):
     if "status" in data:
         doc.status = data.get("status")
 
-    ret_dict = doc.to_dict
-
     db.session.commit()
 
-    return create_response(status=200, data={document: ret_dict})
+    return create_response(status=200, message="success")
 
 
 @document.route("/document", methods=["POST"])
@@ -172,24 +135,17 @@ def create_new_documents():
     if "docClassIDs" not in data:
         return create_response(status=400, message="No document classes provided")
 
-    if "dueDate" not in data:
-        return create_response(status=400, message="No due date provided")
-
     userID = data.get("userID")
 
     status = "Missing"
 
-    date = data.get("dueDate")
-
     document_class_ids = data.get("docClassIDs").split(",")
 
+    if type(document_class_ids) != list:
+        document_class_ids = document_class_ids.split(",")
+
     for document_class_id in document_class_ids:
-        data = {
-            "userID": userID,
-            "status": status,
-            "docClassID": document_class_id,
-            "date": date,
-        }
+        data = {"userID": userID, "status": status, "docClassID": document_class_id}
         new_doc = Document(data)
         db.session.add(new_doc)
 
