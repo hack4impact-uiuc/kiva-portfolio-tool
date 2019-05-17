@@ -58,12 +58,7 @@ def create_document(file_id, user_id, status, docclass):
 
 
 def create_message(
-    helper_portfolio_manager,
-    helper_field_partner,
-    to_fp,
-    helper_doc,
-    status,
-    description,
+    helper_portfolio_manager, helper_field_partner, to_fp, helper_doc, description
 ):
     temp_message = Message(
         {
@@ -71,7 +66,6 @@ def create_message(
             "fp_id": helper_field_partner.id,
             "to_fp": to_fp,
             "doc_id": helper_doc.id,
-            "status": status,
             "description": description,
         }
     )
@@ -119,7 +113,6 @@ def test_get_messages(client):
         helper_field_partner,
         True,
         helper_doc,
-        helper_doc.status,
         "Your Portfolio Manager has added a new required document: ksdljf",
     )
     # TODO: just use the given document's status instead of passing it to the message?
@@ -133,7 +126,6 @@ def test_get_messages(client):
     assert ret_dict["result"]["messages"][0]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["messages"][0]["fp_id"] == helper_field_partner.id
     assert ret_dict["result"]["messages"][0]["doc_id"] == helper_doc.id
-    assert ret_dict["result"]["messages"][0]["status"] == "Pending"
     assert (
         ret_dict["result"]["messages"][0]["description"]
         == "Your Portfolio Manager has added a new required document: ksdljf"
@@ -160,7 +152,6 @@ def test_get_messages_by_fp(client):
         helper_field_partner,
         True,
         helper_doc,
-        helper_doc.status,
         "Your document has been reviewed and has been Approved.",
     )
     db.session.add(temp_message)
@@ -171,7 +162,6 @@ def test_get_messages_by_fp(client):
         helper_field_partner,
         False,
         helper_doc,
-        "Approved",
         "Your document has been reviewed and has been Approved.",
     )
     # TODO: just use the given document's status instead of passing it to the message?
@@ -183,7 +173,6 @@ def test_get_messages_by_fp(client):
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert len(ret_dict["result"]["messages"]) == 1
-    assert ret_dict["result"]["messages"][0]["status"] == helper_doc.status
 
     cleanup()
 
@@ -206,7 +195,6 @@ def test_get_messages_by_pm(client):
         helper_field_partner,
         True,
         helper_doc,
-        helper_doc.status,
         "Your document has been reviewed and has been Approved.",
     )
     # TODO: just use the given document's status instead of passing it to the message?
@@ -218,19 +206,17 @@ def test_get_messages_by_pm(client):
         helper_field_partner,
         False,
         helper_doc,
-        "Approved",
         "Your document has been reviewed and has been Approved.",
     )
     # TODO: just use the given document's status instead of passing it to the message?
     db.session.add(temp_message_not_fp)
     db.session.commit()
 
-    rs = client.get("/messages/pm/" + helper_portfolio_manager.id)
+    rs = client.get("/messages/pm/" + helper_field_partner.id)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert len(ret_dict["result"]["messages"]) == 1
-    assert ret_dict["result"]["messages"][0]["status"] == "Approved"
 
     cleanup()
 
@@ -244,7 +230,7 @@ def test_add_message(client):
         "kchau490@gmail.com", "hack4impact", helper_portfolio_manager, "Complete"
     )
     helper_doc = create_document(
-        "kjdslfjdskl", "jsdlkfjdskf", "Pending", helper_docclass
+        "kjdslfjdskl", "jsdlkfjdskf", "Approved", helper_docclass
     )
     db.session.commit()
 
@@ -256,20 +242,18 @@ def test_add_message(client):
             "fp_id": helper_field_partner.id,
             "to_fp": True,
             "doc_id": helper_doc.id,
-            "status": "Approved",
         },
     )
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
-    assert int(ret_dict["result"]["message"]["doc_id"]) == helper_doc.id
+    assert ret_dict["result"]["message"]["doc_id"] == helper_doc.id
     assert ret_dict["result"]["message"]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["message"]["fp_id"] == helper_field_partner.id
-    assert ret_dict["result"]["message"]["status"] == "Approved"
     assert ret_dict["result"]["message"]["to_fp"] == str(True)
     assert (
         ret_dict["result"]["message"]["description"]
-        == "Your document has been reviewed and was Approved."
+        == "Your document, ksdljf, has been reviewed and was approved."
     )
 
     cleanup()
