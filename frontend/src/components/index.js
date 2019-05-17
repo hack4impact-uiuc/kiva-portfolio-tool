@@ -1,11 +1,10 @@
 import Dashboard from './Dashboard'
-import { DocumentList, DocumentListItem } from './Dashboard'
 import DocumentPreview from './DocumentPreview'
 
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
 import PMMainPage from './PMMainPage'
-import DocumentClassPage from './DocumentClassPage.js'
+import DocumentClassPage from './DocumentClass'
 
 import Load from './Load'
 
@@ -16,18 +15,16 @@ import Register from './auth/Register'
 import WrongPage from './auth/WrongPage'
 
 export {
-  Dashboard,
-  DocumentList,
-  DocumentListItem,
+  ErrorMessage,
+  ForgotPassword,
   LogIn,
-  BoxPreview,
   Register,
+  WrongPage,
+  Dashboard,
+  BoxPreview,
   SelectDocumentsPage,
   PMMainPage,
-  ForgotPassword,
   DocumentClassPage,
   DocumentPreview,
-  Load,
-  WrongPage,
-  ErrorMessage
+  Load
 }
