@@ -168,7 +168,7 @@ def test_get_messages_by_fp(client):
     db.session.add(temp_message_not_fp)
     db.session.commit()
 
-    rs = client.get("/messages/fp/" + helper_field_partner.id)
+    rs = client.get("/messages?fp_id=" + helper_field_partner.id + "&to_fp=true")
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -212,7 +212,7 @@ def test_get_messages_by_pm(client):
     db.session.add(temp_message_not_fp)
     db.session.commit()
 
-    rs = client.get("/messages/pm/" + helper_field_partner.id)
+    rs = client.get("/messages?pm_id=" + helper_portfolio_manager.id + "&to_fp=false")
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary

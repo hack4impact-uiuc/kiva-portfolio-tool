@@ -6,7 +6,7 @@ import NavBar from './NavBar'
 import {
   getAllDocuments,
   getDocumentsByUser,
-  getAllMessages,
+  getMessagesByFP,
   updateFieldPartnerStatus,
   getFPByID
 } from '../utils/ApiWrapper'
@@ -82,9 +82,9 @@ export class Dashboard extends React.Component {
     /**
      * Contains all messages received from backend
      */
-    const messagesReceived = await getAllMessages(
+    const messagesReceived = await getMessagesByFP(
       this.props.match.params.id,
-      this.props.match.params.user === 'pm'
+      this.props.match.params.user === 'fp'
     )
 
     /**
@@ -130,7 +130,7 @@ export class Dashboard extends React.Component {
   render() {
     return (
       <div className="background-rectangles maxheight">
-        <NavBar />
+        <NavBar inDashboard />
         {this.props.isPM ? (
           <div>
             <Button

@@ -24,45 +24,27 @@ class MessageType(Enum):
 
 @message.route("/messages", methods=["GET"])
 def get_messages():
-    messages = Message.query.all()
-    return create_response(data={"messages": serialize_list(messages)})
+    kwargs = {}
+    kwargs["pm_id"] = request.args.get("pm_id")
+    kwargs["fp_id"] = request.args.get("fp_id")
+    kwargs["to_fp"] = request.args.get("to_fp")
+    kwargs["doc_id"] = request.args.get("doc_id")
 
+    kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
-@message.route("/messages/fp/<fp_id>", methods=["GET"])
-def get_messages_by_fp(fp_id):
-    """
-    Gets a list of messages/notifications relevant to a specific FP
-    """
-    message_list = (
-        Message.query.filter(Message.fp_id == fp_id).filter(Message.to_fp == True).all()
-    )
+    if len(kwargs) == 0:
+        messages = Message.query.all()
+    else:
+        messages = Message.query.filter_by(**kwargs).all()
 
-    # Adds a field called name to each message
-    for message in message_list:
-        message.name = PortfolioManager.query.get(message.pm_id).name
-
-    return create_response(data={"messages": serialize_list(message_list)})
-
-
-@message.route("/messages/pm/<fp_id>", methods=["GET"])
-def get_messages_by_pm(fp_id):
-    """
-    Gets a list of messages/notifications relevant to a specific PM
-    """
-    pm_id = FieldPartner.query.get(fp_id).pm_id
-
-    message_list = (
-        Message.query.filter(Message.pm_id == pm_id)
-        .filter(Message.to_fp == False)
-        .all()
-    )
-
-    # Adds a field called name to each message, but there might not be a fp_id
-    for message in message_list:
-        if message.fp_id:
+    # add the corresponding name to the message
+    for message in messages:
+        if message.to_fp == True:
+            message.name = PortfolioManager.query.get(message.pm_id).name
+        else:
             message.name = FieldPartner.query.get(message.fp_id).org_name
 
-    return create_response(data={"messages": serialize_list(message_list)})
+    return create_response(data={"messages": serialize_list(messages)})
 
 
 @message.route("/messages/new", methods=["POST"])

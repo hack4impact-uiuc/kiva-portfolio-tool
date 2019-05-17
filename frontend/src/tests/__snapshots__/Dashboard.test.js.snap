@@ -4,7 +4,9 @@ exports[`Basic whole app rendering with snapshot 1`] = `
 <div
   className="background-rectangles maxheight"
 >
-  <Connect(withRouter(NavBar)) />
+  <Connect(withRouter(NavBar))
+    inDashboard={true}
+  />
   <Container
     tag="div"
   >

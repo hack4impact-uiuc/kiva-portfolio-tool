@@ -26,21 +26,6 @@ exports[` renders correctly 1`] = `
         Activity
       </span>
     </Tab>
-    <Tab
-      className="tab"
-      disabledClassName="react-tabs__tab--disabled"
-      focus={false}
-      id={null}
-      panelId={null}
-      selected={false}
-      selectedClassName="react-tabs__tab--selected"
-    >
-      <span
-        className="tab-font"
-      >
-        Information
-      </span>
-    </Tab>
     <Button
       color="transparent"
       id="sidebar-close-button"
@@ -62,20 +47,6 @@ exports[` renders correctly 1`] = `
       index={0}
       removeMessage={[Function]}
     />
-  </TabPanel>
-  <TabPanel
-    className="react-tabs__tab-panel"
-    forceRender={false}
-    selectedClassName="react-tabs__tab-panel--selected"
-  >
-    <div
-      className="instruction"
-    >
-      <b>
-        Instructions
-      </b>
-      <p />
-    </div>
   </TabPanel>
 </Tabs>
 `;
