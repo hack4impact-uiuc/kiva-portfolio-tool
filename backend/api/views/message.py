@@ -28,7 +28,7 @@ def get_messages():
     kwargs["pm_id"] = request.args.get("pm_id")
     kwargs["fp_id"] = request.args.get("fp_id")
     kwargs["to_fp"] = request.args.get("to_fp")
-    kwargs["doc_ic"] = request.args.get("doc_id")
+    kwargs["doc_id"] = request.args.get("doc_id")
 
     kwargs = {k: v for k, v in kwargs.items() if v is not None}
 
