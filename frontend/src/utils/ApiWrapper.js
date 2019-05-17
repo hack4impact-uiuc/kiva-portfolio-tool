@@ -485,6 +485,36 @@ export const getFPByID = id => {
     })
 }
 
+export const getMessagesByFP = (fp_id, to_fp) => {
+  let requestString = BACKEND_URL + '/messages?fp_id=' + fp_id + '&to_fp=' + to_fp
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.messages
+    })
+    .catch(error => {
+      return {
+        type: 'GET_MESSAGES_BY_ID_FAIL',
+        error
+      }
+    })
+}
+
+export const getMessagesByPM = pm_id => {
+  let requestString = BACKEND_URL + '/messages?pm_id=' + pm_id + '&to_fp=true'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.messages
+    })
+    .catch(error => {
+      return {
+        type: 'GET_MESSAGES_BY_ID_FAIL',
+        error
+      }
+    })
+}
+
 export const getAllMessages = (user_id, is_pm) => {
   // get notifications received by target user
   let requestString = BACKEND_URL + '/messages/'
