@@ -1,6 +1,5 @@
 import Dashboard from './Dashboard'
-import DocumentList from './DocumentList'
-import DocumentListItem from './DocumentListItem'
+import { DocumentList, DocumentListItem } from './Dashboard'
 import DocumentPreview from './DocumentPreview'
 
 import SelectDocumentsPage from './SelectDocuments'
