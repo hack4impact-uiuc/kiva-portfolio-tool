@@ -89,4 +89,8 @@ def new_pm():
 
     sample_args = request.args
     new_pm = PortfolioManager(data)
-    return create_response(data={"portfolio_manager": new_pm.to_dict()})
+    pm_dict = new_pm.to_dict()
+
+    db.session.add(new_pm)
+    db.session.commit()
+    return create_response(data={"portfolio_manager": pm_dict})

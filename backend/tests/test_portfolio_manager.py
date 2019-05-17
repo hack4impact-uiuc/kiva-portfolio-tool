@@ -1,4 +1,4 @@
-from api.models import db, PortfolioManager, FieldPartner
+from api.models import db, PortfolioManager, FieldPartner, Message
 import enum, requests, json, random, string
 
 BACKEND_URL = "http://localhost:8000/"
@@ -52,6 +52,7 @@ def create_pm():
 
 
 def test_get_portfolio_manager(client):
+    Message.query.delete()
     FieldPartner.query.delete()
     PortfolioManager.query.delete()
     db.session.commit()
@@ -78,7 +79,9 @@ def test_get_portfolio_manager(client):
 
 
 def test_get_pm_by_id(client):
-    db.session.query(PortfolioManager).delete()
+    Message.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
 
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
@@ -100,7 +103,9 @@ def test_get_pm_by_id(client):
 
 
 def test_get_pm_by_email(client):
-    db.session.query(PortfolioManager).delete()
+    Message.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
 
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)

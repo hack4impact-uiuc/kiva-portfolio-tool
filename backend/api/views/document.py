@@ -140,6 +140,7 @@ def create_new_documents():
     status = "Missing"
 
     document_class_ids = data.get("docClassIDs").split(",")
+    document_ids = []
 
     if type(document_class_ids) != list:
         document_class_ids = document_class_ids.split(",")
@@ -147,13 +148,19 @@ def create_new_documents():
     for document_class_id in document_class_ids:
         data = {"userID": userID, "status": status, "docClassID": document_class_id}
         new_doc = Document(data)
+        doc_dict = new_doc.to_dict()
+        document_ids.append(doc_dict["_id"])
         db.session.add(new_doc)
 
     fp = FieldPartner.query.get(userID)
     fp.app_status = "In Process"
 
+    ret = {"docIDs": document_ids}
+
     db.session.commit()
-    return create_response(status=200, message="success")
+
+    # Make it return the document ids
+    return create_response(status=200, data=ret)
 
 
 @document.route("/document/<id>", methods=["DELETE"])

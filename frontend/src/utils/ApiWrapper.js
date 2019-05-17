@@ -483,6 +483,69 @@ export const getFPByID = id => {
     })
 }
 
+export const getMessagesByFP = (fp_id, to_fp) => {
+  let requestString = BACKEND_URL + '/messages?fp_id=' + fp_id + '&to_fp=' + to_fp
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.messages
+    })
+    .catch(error => {
+      return {
+        type: 'GET_MESSAGES_BY_ID_FAIL',
+        error
+      }
+    })
+}
+
+export const getMessagesByPM = pm_id => {
+  let requestString = BACKEND_URL + '/messages?pm_id=' + pm_id + '&to_fp=false'
+  return axios
+    .get(requestString)
+    .then(response => {
+      return response.data.result.messages
+    })
+    .catch(error => {
+      return {
+        type: 'GET_MESSAGES_BY_ID_FAIL',
+        error
+      }
+    })
+}
+
+export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
+  /*
+   * user_id: either fp or pm, will be determined by is_pm_id
+   * status: document status that it is being changed to
+   */
+  let requestString = BACKEND_URL + '/messages/new'
+  let data = new FormData()
+
+  if (is_pm_id) {
+    data.append('pm_id', user_id)
+  } else {
+    data.append('fp_id', user_id)
+  }
+
+  data.append('to_fp', to_fp)
+  data.append('doc_id', document_id)
+
+  return axios
+    .post(requestString, data)
+    .then(response => {
+      return {
+        type: 'CREATE_MESSAGE_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'CREATE_MESSAGE_FAIL',
+        error
+      }
+    })
+}
+
 export const getFPByEmail = email => {
   /**
    * gets all fp information given an email
@@ -529,24 +592,6 @@ export const getPMByEmail = email => {
       console.log('ERROR: ', error)
       return null
     })
-}
-
-export const getAllMessages = () => {
-  /**
-   * Gets all notification/messages received by target user
-   *
-   * CANNED
-   */
-  return [
-    {
-      name: 'PM',
-      time: '4/12/18',
-      description: 'Rejected Strategic Plan. This also tests for activity overflow.'
-    },
-    { name: 'PM', time: '4/12/19', description: 'Rejected Annual Plan' },
-    { name: 'PM', time: '4/12/17', description: 'Approved Financial Projections' },
-    { name: 'PM', time: '4/12/17', description: 'Approved Organizational Chart' }
-  ]
 }
 
 export const getAllInformation = () => {
@@ -816,7 +861,8 @@ export const downloadDocument = id => {
     })
 }
 
-export const updateDocumentStatus = (id, status) => {
+export const updateDocumentStatus = (userID, id, status) => {
+  // I (Kelley) made it take the userID for notification generation
   /**
    * Given
    * document id
@@ -829,6 +875,7 @@ export const updateDocumentStatus = (id, status) => {
    */
   var data = new FormData()
   data.append('status', status)
+
   return axios
     .put(BACKEND_URL + '/document/' + id, data, {
       headers: {
@@ -837,6 +884,7 @@ export const updateDocumentStatus = (id, status) => {
       }
     })
     .then(response => {
+      createMessage(userID, false, true, id)
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
         response
@@ -850,7 +898,8 @@ export const updateDocumentStatus = (id, status) => {
     })
 }
 
-export const uploadDocument = (file, file_name, docID) => {
+export const uploadDocument = (userID, file, file_name, docID) => {
+  // (Kelley) Made it take the userID for notification generation
   /**
    * Given
    * a file
@@ -874,6 +923,7 @@ export const uploadDocument = (file, file_name, docID) => {
       }
     })
     .then(response => {
+      createMessage(userID, false, false, docID)
       return {
         type: 'UPLOAD_FILE_SUCCESS',
         response
@@ -952,6 +1002,12 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
       }
     })
     .then(response => {
+      // create the message here with the given docId
+      let docIDs = response.data.result.docIDs
+      docIDs.forEach(docID => {
+        createMessage(userID, false, true, docID)
+      })
+
       return {
         type: 'CREATE_DOCUMENTS_SUCCESS',
         response

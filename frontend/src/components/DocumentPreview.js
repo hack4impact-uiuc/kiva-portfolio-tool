@@ -57,9 +57,9 @@ export class DocumentPreview extends Component {
     this.props.beginLoading()
     this.toggle()
     if (this.props.match) {
-      await updateDocumentStatus(this.props.match.params.id, 'Approved')
+      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Approved')
     } else {
-      await updateDocumentStatus(this.props.document._id, 'Approved')
+      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Approved')
     }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
@@ -74,9 +74,9 @@ export class DocumentPreview extends Component {
     this.props.beginLoading()
     this.toggle()
     if (this.props.match) {
-      await updateDocumentStatus(this.props.match.params.id, 'Rejected')
+      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Rejected')
     } else {
-      await updateDocumentStatus(this.props.document._id, 'Rejected')
+      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Rejected')
     }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
