@@ -405,7 +405,7 @@ export const getFPByEmail = email => {
    * Returns all fp information upon success
    * Returns 'ERROR: error info' upon failure
    */
-  let requestString = BACKEND_URL + '/field_partner?email=' + email
+  let requestString = BACKEND_URL + '/field_partners?email=' + email
   return axios
     .get(requestString, {
       headers: {
@@ -429,7 +429,7 @@ export const createFieldPartner = (org_name, email, pm_id) => {
    * Returns CREATE_FP_SUCCESS upon success
    * Returns CREATE_FP_FAIL upon failure
    */
-  let requestString = BACKEND_URL + '/field_partner'
+  let requestString = BACKEND_URL + '/field_partners'
   let data = new FormData()
   data.append('org_name', org_name)
   data.append('email', email)
@@ -464,7 +464,7 @@ export const getPartnersByPM = pm_id => {
    * Returns all field partners associated to that pm upon success
    * Returns GET_PARTNERS_FAIL upon failure
    */
-  let requestString = BACKEND_URL + '/field_partner?pm_id=' + pm_id
+  let requestString = BACKEND_URL + '/field_partners?pm_id=' + pm_id
   return axios
     .get(requestString, {
       headers: {
@@ -529,7 +529,7 @@ export const updateFPInstructions = (id, instructions) => {
    * Returns UPDATE_FP_SUCCESS upon success
    * Returns UPDATE_FP_FAIL upon failure
    */
-  let requestString = BACKEND_URL + '/field_partner/update/' + id
+  let requestString = BACKEND_URL + '/field_partner/' + id
   let data = new FormData()
   data.append('instructions', instructions)
   return axios

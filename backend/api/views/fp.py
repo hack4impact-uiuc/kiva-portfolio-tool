@@ -7,7 +7,7 @@ import requests, json
 fp = Blueprint("fp", __name__)
 
 
-@fp.route("/field_partner", methods=["GET"])
+@fp.route("/field_partners", methods=["GET"])
 def get_field_partner():
     """ function that is called when you visit /field_partner, gets all the FPs """
 
@@ -43,7 +43,7 @@ def get_fp_by_id(id):
     return create_response(data={"field_partner": field_partner_by_id.to_dict()})
 
 
-@fp.route("/field_partner", methods=["POST"])
+@fp.route("/field_partners", methods=["POST"])
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
     data = request.form
