@@ -26,52 +26,32 @@ def get_document():
     # if no search parameters provided return all documents
     if len(kwargs) == 0:
         docs = Document.query.all()
-
-        # Adds a field called docClassName to each document
-        for doc in docs:
-            doc.docClass = DocumentClass.query.get(doc.docClassID).to_dict()
-
-        # separate documents by different statuses and return based on this
-        pending = [i for i in docs if i.status == "Pending"]
-        verified = [i for i in docs if i.status == "Approved"]
-        missing = [i for i in docs if i.status == "Missing"]
-        rejected = [i for i in docs if i.status == "Rejected"]
-        return create_response(
-            status=200,
-            data={
-                "documents": {
-                    "Pending": serialize_list(pending),
-                    "Approved": serialize_list(verified),
-                    "Missing": serialize_list(missing),
-                    "Rejected": serialize_list(rejected),
-                }
-            },
-        )
     # if there are query arguments the following occurs
     else:
         # Unpacks the search values in our dictionary and provides them to Flask/SQLalchemy
         docs = Document.query.filter_by(**kwargs).all()
 
-        for doc in docs:
-            doc.docClass = DocumentClass.query.get(doc.docClassID).to_dict()
+    # adds the corresponding document class to each document
+    for doc in docs:
+        doc.docClass = DocumentClass.query.get(doc.docClassID).to_dict()
 
-        # separate documents by different statuses and return based on this
-        pending = [i for i in docs if i.status == "Pending"]
-        verified = [i for i in docs if i.status == "Approved"]
-        missing = [i for i in docs if i.status == "Missing"]
-        rejected = [i for i in docs if i.status == "Rejected"]
+    # separate documents by different statuses and return based on this
+    pending = [i for i in docs if i.status == "Pending"]
+    verified = [i for i in docs if i.status == "Approved"]
+    missing = [i for i in docs if i.status == "Missing"]
+    rejected = [i for i in docs if i.status == "Rejected"]
 
-        return create_response(
-            status=200,
-            data={
-                "documents": {
-                    "Pending": serialize_list(pending),
-                    "Approved": serialize_list(verified),
-                    "Missing": serialize_list(missing),
-                    "Rejected": serialize_list(rejected),
-                }
-            },
-        )
+    return create_response(
+        status=200,
+        data={
+            "documents": {
+                "Pending": serialize_list(pending),
+                "Approved": serialize_list(verified),
+                "Missing": serialize_list(missing),
+                "Rejected": serialize_list(rejected),
+            }
+        },
+    )
 
 
 @document.route("/document/<id>", methods=["PUT"])
