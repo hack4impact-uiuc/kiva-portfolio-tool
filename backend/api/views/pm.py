@@ -6,7 +6,7 @@ from api.views.auth import verify_token
 pm = Blueprint("pm", __name__)  # initialize blueprint
 
 
-@pm.route("/portfolio_manager", methods=["GET"])
+@pm.route("/portfolio_managers", methods=["GET"])
 def get_portfolio_manager():
     """ function that is called when you visit /portfolio_manager """
 
@@ -60,7 +60,7 @@ def get_pm_by_id(id):
     )
 
 
-@pm.route("/portfolio_manager", methods=["POST"])
+@pm.route("/portfolio_managers", methods=["POST"])
 def new_pm():
     """ function that is called when you visit /portfolio_manager/new, creates a new PM """
 

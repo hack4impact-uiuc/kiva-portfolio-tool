@@ -47,7 +47,7 @@ def get_messages():
     return create_response(data={"messages": serialize_list(messages)})
 
 
-@message.route("/messages/new", methods=["POST"])
+@message.route("/messages", methods=["POST"])
 def add_message():
     data = request.form.to_dict()
     subjects = [

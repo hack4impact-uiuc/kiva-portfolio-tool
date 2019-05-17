@@ -7,7 +7,7 @@ from api.views.auth import verify_token
 document = Blueprint("document", __name__)
 
 
-@document.route("/document", methods=["GET"])
+@document.route("/documents", methods=["GET"])
 def get_document():
     """
     Gets all documents that can be specified using a query string
@@ -106,7 +106,7 @@ def update_document(id):
     return create_response(status=200, message="success")
 
 
-@document.route("/document", methods=["POST"])
+@document.route("/documents", methods=["POST"])
 def create_new_documents():
     """
     used upon assignment of documents to field partner

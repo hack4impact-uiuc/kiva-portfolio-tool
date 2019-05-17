@@ -9,7 +9,7 @@ import requests, json
 docclass = Blueprint("docclass", __name__)
 
 
-@docclass.route("/document_class", methods=["GET"])
+@docclass.route("/document_classes", methods=["GET"])
 def get_document_class():
     """ function that is called when you visit /document_class, gets all the docclasses """
     document_class = DocumentClass.query.all()
@@ -25,7 +25,7 @@ def get_document_class_by_id(id):
     )
 
 
-@docclass.route("/document_class/new", methods=["POST"])
+@docclass.route("/document_classes", methods=["POST"])
 def add_document_class():
     """ function that is called when you visit /document_class/new, creates a new docclass """
     data = request.form

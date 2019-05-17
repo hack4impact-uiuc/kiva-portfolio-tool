@@ -57,7 +57,7 @@ def test_get_portfolio_manager(client):
     PortfolioManager.query.delete()
     db.session.commit()
 
-    rs = client.get("/portfolio_manager", headers=headers)
+    rs = client.get("/portfolio_managers", headers=headers)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -68,7 +68,7 @@ def test_get_portfolio_manager(client):
     db.session.add(helper_portfolio_manager)
     db.session.commit()
 
-    rs = client.get("/portfolio_manager", headers=headers)
+    rs = client.get("/portfolio_managers", headers=headers)
     ret_dict = rs.json
     assert len(ret_dict["result"]["portfolio_manager"]) == 1
     assert ret_dict["result"]["portfolio_manager"][0]["email"] == "hello"
@@ -111,7 +111,7 @@ def test_get_pm_by_email(client):
     db.session.add(helper_portfolio_manager)
     db.session.commit()
 
-    url = "/portfolio_manager?email=" + helper_portfolio_manager.email
+    url = "/portfolio_managers?email=" + helper_portfolio_manager.email
     rs = client.get(url, headers=headers)
 
     assert rs.status_code == 200
@@ -127,13 +127,13 @@ def test_get_pm_by_email(client):
 
 
 def test_new_pm(client):
-    rs = client.post("/portfolio_manager")
+    rs = client.post("/portfolio_managers")
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
     rs = client.post(
-        "/portfolio_manager",
+        "/portfolio_managers",
         content_type="multipart/form-data",
         data={"email": "angad", "name": "royuwu"},
         headers=headers,
@@ -148,7 +148,7 @@ def test_new_pm(client):
 
     # Tests for if not all fields are provided
     rs = client.post(
-        "/portfolio_manager",
+        "/portfolio_managers",
         content_type="multipart/form-data",
         data={"email": "angad"},
         headers=headers,

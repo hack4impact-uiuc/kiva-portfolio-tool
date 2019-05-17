@@ -52,7 +52,7 @@ def test_index(client):
 
 
 def test_get_document(client):
-    rs = client.get("/document")
+    rs = client.get("/documents")
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
@@ -73,7 +73,7 @@ def test_get_document(client):
     db.session.add(temp_document)
     db.session.commit()
 
-    rs = client.get("/document")
+    rs = client.get("/documents")
     assert rs.status_code == 200
     ret_dict = rs.json
     assert ret_dict["success"] == True
@@ -82,10 +82,10 @@ def test_get_document(client):
     assert ret_dict["result"]["documents"]["Pending"][0]["userID"] == "WompWomp"
     assert ret_dict["result"]["documents"]["Pending"][0]["status"] == "Pending"
 
-    rs = client.get("/document?fid=jalkdf")
+    rs = client.get("/documents?fid=jalkdf")
     assert rs.status_code == 200
 
-    rs = client.get("/document?uid=WompWomp")
+    rs = client.get("/documents?uid=WompWomp")
     ret_dict = rs.json
     assert len(ret_dict["result"]["documents"]) == 4
     assert ret_dict["result"]["documents"]["Pending"][0]["fileID"] == "DunDunDun"
@@ -130,7 +130,7 @@ def test_create_new_document(client):
 
     # docClassID missing
     rs = client.post(
-        "document",
+        "/documents",
         content_type="multipart/form-data",
         data={"userID": 1, "status": "Pending"},
         headers=headers,
@@ -141,7 +141,7 @@ def test_create_new_document(client):
 
     # userID missing
     rs = client.post(
-        "document",
+        "/documents",
         content_type="multipart/form-data",
         data={"docClassIDs": [docclass_id], "status": "Pending"},
         headers=headers,

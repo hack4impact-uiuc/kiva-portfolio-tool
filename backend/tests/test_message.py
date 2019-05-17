@@ -235,7 +235,7 @@ def test_add_message(client):
     db.session.commit()
 
     rs = client.post(
-        "/messages/new",
+        "/messages",
         content_type="multipart/form-data",
         data={
             "pm_id": helper_portfolio_manager.id,

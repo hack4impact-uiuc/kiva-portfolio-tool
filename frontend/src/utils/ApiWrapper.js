@@ -7,7 +7,7 @@ export const getAllPMs = () => {
    * Returns all information for all PMs on success
    * Returns 'ERROR: {error information here}' upon failure
    */
-  let requestString = BACKEND_URL + '/portfolio_manager'
+  let requestString = BACKEND_URL + '/portfolio_managers'
   return axios
     .get(requestString, {
       headers: {
@@ -431,7 +431,7 @@ export const getAllDocumentClasses = () => {
    * Returns document classes upon success
    * Returns 'ERROR: error info' upon failure
    */
-  let requestString = BACKEND_URL + '/document_class'
+  let requestString = BACKEND_URL + '/document_classes'
   return axios
     .get(requestString, null, {
       headers: {
@@ -455,7 +455,7 @@ export const getAllDocuments = () => {
    * Returns all documents upon success
    * Returns 'ERROR: error info' upon failure
    */
-  let requestString = BACKEND_URL + '/document'
+  let requestString = BACKEND_URL + '/documents'
   return axios.get(requestString, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -518,7 +518,7 @@ export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
    * user_id: either fp or pm, will be determined by is_pm_id
    * status: document status that it is being changed to
    */
-  let requestString = BACKEND_URL + '/messages/new'
+  let requestString = BACKEND_URL + '/messages'
   let data = new FormData()
 
   if (is_pm_id) {
@@ -577,7 +577,7 @@ export const getPMByEmail = email => {
    * Returns all PM information upon success
    * Returns 'ERROR: error info' upon failure
    */
-  let requestString = BACKEND_URL + '/portfolio_manager?email=' + email
+  let requestString = BACKEND_URL + '/portfolio_managers?email=' + email
   return axios
     .get(requestString, {
       headers: {
@@ -956,7 +956,7 @@ export const createDocumentClass = (name, description, file, file_name) => {
   data.append('name', name)
   data.append('description', description)
   return axios
-    .post(BACKEND_URL + '/document_class/new', data, {
+    .post(BACKEND_URL + '/document_classes', data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -988,7 +988,7 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
    * Returns CREATE_DOCUMENTS_SUCCESS upon success
    * Returns CREATE_DOCUMENTS_FAIL upon failure
    */
-  let requestString = BACKEND_URL + '/document'
+  let requestString = BACKEND_URL + '/documents'
   let data = new FormData()
   data.append('userID', userID)
   data.append('status', 'Missing')
@@ -1029,7 +1029,7 @@ export const getDocumentsByUser = userID => {
    * Returns all documents associated with user upon success
    * Returns "Error: error info" otherwise
    */
-  let requestString = BACKEND_URL + '/document?uid=' + userID
+  let requestString = BACKEND_URL + '/documents?uid=' + userID
   return axios
     .get(requestString, {
       headers: {
