@@ -501,7 +501,7 @@ export const getMessagesByFP = (fp_id, to_fp) => {
 }
 
 export const getMessagesByPM = pm_id => {
-  let requestString = BACKEND_URL + '/messages?pm_id=' + pm_id + '&to_fp=true'
+  let requestString = BACKEND_URL + '/messages?pm_id=' + pm_id + '&to_fp=false'
   return axios
     .get(requestString)
     .then(response => {

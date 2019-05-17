@@ -4,11 +4,13 @@ import {
   createFieldPartner,
   deleteDocumentsByFP,
   updateFPInstructions,
-  getPartnersByPM
+  getPartnersByPM,
+  getMessagesByPM
 } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { bindActionCreators } from 'redux'
 import { beginLoading, endLoading } from '../redux/modules/auth'
+import { updateMessages } from '../redux/modules/user'
 import { connect } from 'react-redux'
 import {
   Container,
@@ -43,7 +45,8 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       beginLoading,
-      endLoading
+      endLoading,
+      updateMessages
     },
     dispatch
   )
@@ -85,6 +88,10 @@ export class PMMainPage extends Component {
     this.props.beginLoading()
     let pm_id = this.props.match.params.id
     let partners = await getPartnersByPM(pm_id)
+    let messages = await getMessagesByPM(pm_id)
+    if (messages) {
+      this.props.updateMessages(messages)
+    }
     this.setState(this.loadPartners(partners))
     this.setState({ pm_id: pm_id })
     this.props.endLoading()
