@@ -16,7 +16,7 @@ This project uses the _JWT_ method to authenticate one master user and allow any
 
 Our box backend first generates the access token for the authenticated user (information in the document provided above) and lets the user upload a file or delete a file. More on these endpoints can be found [here](https://developer.box.com/reference)
 
-###box api document
+### box api document
 This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
 
 ## Email Notification Setup
