@@ -24,7 +24,19 @@ class MessageType(Enum):
 
 @message.route("/messages", methods=["GET"])
 def get_messages():
-    messages = Message.query.all()
+    kwargs = {}
+    kwargs["pm_id"] = request.args.get("pm_id")
+    kwargs["fp_id"] = request.args.get("fp_id")
+    kwargs["to_fp"] = request.args.get("to_fp")
+    kwargs["doc_ic"] = request.args.get("doc_id")
+
+    kwargs = {k: v for k, v in kwargs.items() if v is not None}
+
+    if len(kwargs) == 0:
+        messages = Message.query.all()
+    else:
+        messages = Message.query.filter_by(**kwargs).all()
+
     return create_response(data={"messages": serialize_list(messages)})
 
 
