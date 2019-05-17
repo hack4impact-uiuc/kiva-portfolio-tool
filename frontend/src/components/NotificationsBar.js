@@ -53,16 +53,18 @@ export class NotificationsBar extends Component {
   render() {
     const { isPM } = this.props.isPM
     const allMessages = this.props.allMessages
-    const information = this.props.instructions
+    const instructions = this.props.instructions
     return (
       <Tabs className="notifications-tabs">
         <TabList>
           <Tab className="tab">
             <span className="tab-font">Activity</span>
           </Tab>
-          <Tab className="tab">
-            <span className="tab-font">Information</span>
-          </Tab>
+          {this.props.inDashboard ? (
+            <Tab className="tab">
+              <span className="tab-font">Instructions</span>
+            </Tab>
+          ) : null}
           <Button
             id="sidebar-close-button"
             color="transparent"
@@ -88,12 +90,14 @@ export class NotificationsBar extends Component {
           })}
         </TabPanel>
 
-        <TabPanel>
-          <div className="instruction">
-            <b>Instructions</b>
-            <p>{information}</p>
-          </div>
-        </TabPanel>
+        {this.props.inDashboard ? (
+          <TabPanel>
+            <div className="instruction">
+              <b>Instructions</b>
+              <p>{instructions}</p>
+            </div>
+          </TabPanel>
+        ) : null}
       </Tabs>
     )
   }

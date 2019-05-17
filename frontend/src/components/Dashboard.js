@@ -130,7 +130,7 @@ export class Dashboard extends React.Component {
   render() {
     return (
       <div className="background-rectangles maxheight">
-        <NavBar />
+        <NavBar inDashboard />
         {this.props.isPM ? (
           <div>
             <Button
