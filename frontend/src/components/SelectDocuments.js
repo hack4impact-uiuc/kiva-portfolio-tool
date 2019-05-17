@@ -21,7 +21,7 @@ import '../styles/index.css'
 import '../styles/selectdocuments.css'
 
 import search from '../media/search.png'
-import WithAuth from './WithAuth'
+import WithAuth from './auth/WithAuth'
 
 const mapStateToProps = state => ({})
 

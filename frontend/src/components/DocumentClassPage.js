@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
 import Dropzone from 'react-dropzone'
-import WithAuth from './WithAuth'
+import WithAuth from './auth/WithAuth'
 import NavBar from './NavBar'
 
 import '../styles/variables.css'

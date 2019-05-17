@@ -23,7 +23,7 @@ import {
 } from 'reactstrap'
 import '../styles/partnerbar.css'
 import search from '../media/search.png'
-import WithAuth from './WithAuth'
+import WithAuth from './auth/WithAuth'
 import Navbar from './NavBar'
 
 import 'react-tabs/style/react-tabs.css'

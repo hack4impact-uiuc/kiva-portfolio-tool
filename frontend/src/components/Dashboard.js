@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import DocumentList from './DocumentList'
-import WithAuth from './WithAuth'
+import WithAuth from './auth/WithAuth'
 import NavBar from './NavBar'
 import {
   getDocumentsByUser,
