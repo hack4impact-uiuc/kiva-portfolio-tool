@@ -1,6 +1,4 @@
 import Dashboard from './Dashboard'
-import DocumentList from './DocumentList'
-import DocumentListItem from './DocumentListItem'
 import DocumentPreview from './DocumentPreview'
 
 import SelectDocumentsPage from './SelectDocuments'
@@ -18,8 +16,6 @@ import WrongPage from './auth/WrongPage'
 
 export {
   Dashboard,
-  DocumentList,
-  DocumentListItem,
   LogIn,
   BoxPreview,
   Register,
