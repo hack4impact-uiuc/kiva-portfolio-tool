@@ -1,7 +1,7 @@
 from api.models import db, PortfolioManager, FieldPartner, Message
 import enum, requests, json, random, string
 
-BACKEND_URL = "http://localhost:8000/"
+BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
 
 r = (
     requests.post(

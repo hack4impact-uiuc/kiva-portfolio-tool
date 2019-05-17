@@ -2,7 +2,7 @@ from api.models import db, DocumentClass, Document
 
 import requests
 
-BACKEND_URL = "http://localhost:8000/"
+BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
 
 r = (
     requests.post(
