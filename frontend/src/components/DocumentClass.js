@@ -8,8 +8,7 @@ import {
   getAllDocumentClasses
 } from '../utils/ApiWrapper'
 import { bindActionCreators } from 'redux'
-import { updateDocumentClasses } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
+import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
 import Dropzone from 'react-dropzone'
 
 import '../styles/documentclasspage.css'

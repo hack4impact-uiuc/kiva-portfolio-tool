@@ -9,8 +9,7 @@ import {
   getFPByID,
   updateFieldPartnerStatus
 } from '../utils/ApiWrapper'
-import { updateDocuments } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import DatePicker from 'react-datepicker'

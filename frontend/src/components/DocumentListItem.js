@@ -12,8 +12,7 @@ import {
   getDocumentsByUser,
   deleteDocument
 } from '../utils/ApiWrapper'
-import { updateDocuments } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
 
 import uploadImg from '../media/greyUpload.png'
 import downloadImg from '../media/downloadGrey.png'

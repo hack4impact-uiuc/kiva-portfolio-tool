@@ -8,8 +8,7 @@ import {
 } from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { bindActionCreators } from 'redux'
-import { beginLoading, endLoading } from '../redux/modules/auth'
-import { updateMessages } from '../redux/modules/user'
+import { updateMessages, beginLoading, endLoading } from '../redux/modules/user'
 import { connect } from 'react-redux'
 import {
   Container,

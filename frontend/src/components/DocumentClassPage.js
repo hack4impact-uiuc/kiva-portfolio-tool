@@ -4,8 +4,7 @@ import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 import { Button, Modal, ModalBody, ModalFooter, Table, Input } from 'reactstrap'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateDocumentClasses } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
+import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
 import Dropzone from 'react-dropzone'
 import WithAuth from './WithAuth'
 import NavBar from './NavBar'
@@ -17,8 +16,7 @@ import '../styles/documentclasspage.css'
 import add from '../media/add.png'
 
 const mapStateToProps = state => ({
-  documentClasses: state.user.documentClasses,
-  loading: state.auth.loading
+  documentClasses: state.user.documentClasses
 })
 
 const mapDispatchToProps = dispatch => {

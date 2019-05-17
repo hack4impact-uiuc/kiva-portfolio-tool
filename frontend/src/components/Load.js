@@ -6,7 +6,7 @@ import '../styles/load.css'
 import '../styles/variables.css'
 
 const mapStateToProps = state => ({
-  loading: state.auth.loading
+  loading: state.user.loading
 })
 
 /**

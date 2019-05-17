@@ -15,9 +15,10 @@ import {
   updateDocuments,
   updateMessages,
   updateInstructions,
-  setUserType
+  setUserType,
+  beginLoading,
+  endLoading
 } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
 
 import add from '../media/add.png'
 
