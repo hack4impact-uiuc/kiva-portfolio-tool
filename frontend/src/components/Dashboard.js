@@ -3,7 +3,6 @@ import DocumentList from './DocumentList'
 import WithAuth from './WithAuth'
 import NavBar from './NavBar'
 import {
-  getAllDocuments,
   getDocumentsByUser,
   getMessagesByFP,
   updateFieldPartnerStatus,
@@ -71,12 +70,8 @@ export class Dashboard extends Component {
     let documentsReceived = []
 
     // temporary - REMOVE after auth integration
-    if (this.props.match) {
-      documentsReceived = await getDocumentsByUser(this.props.match.params.id)
-      this.props.setUserType(this.props.match.params.user === 'pm')
-    } else {
-      documentsReceived = await getAllDocuments()
-    }
+    documentsReceived = await getDocumentsByUser(this.props.match.params.id)
+    this.props.setUserType(this.props.match.params.user === 'pm')
 
     /**
      * Contains all messages received from backend

@@ -2,51 +2,6 @@ import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
 import { getCookieFromBrowser } from './cookie'
 
-export const getAllPMs = () => {
-  /**
-   * Returns all information for all PMs on success
-   * Returns 'ERROR: {error information here}' upon failure
-   */
-  let requestString = BACKEND_URL + '/portfolio_managers'
-  return axios
-    .get(requestString, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
-    .then(response => {
-      return response.data.result.portfolio_manager
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
-export const getUserRole = () => {
-  /**
-   *
-   */
-  let requestString = BACKEND_URL + '/getUser'
-  return axios
-    .get(requestString, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
-    .then(response => {
-      return response.data.result.userRole
-    })
-    .catch(error => {
-      return {
-        type: 'GET_PARTNERS_FAIL',
-        error
-      }
-    })
-}
-
 export const createFieldPartner = (org_name, email, pm_id) => {
   /**
    * Given an organization name, and email address, and the id of the PM working with said organization
@@ -448,22 +403,6 @@ export const getAllDocumentClasses = () => {
     })
 }
 
-export const getAllDocuments = () => {
-  /**
-   * gets all documents from database
-   *
-   * Returns all documents upon success
-   * Returns 'ERROR: error info' upon failure
-   */
-  let requestString = BACKEND_URL + '/documents'
-  return axios.get(requestString, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      token: getCookieFromBrowser('token')
-    }
-  })
-}
-
 export const getFPByID = id => {
   /**
    * Returns all information of an FP given their id
@@ -594,17 +533,6 @@ export const getPMByEmail = email => {
     })
 }
 
-export const getAllInformation = () => {
-  /**
-   * Gets all information received by target user
-   *
-   * CANNED
-   */
-  return [
-    'Special instructions about the format of specific requiremeents or general information about the review process here.'
-  ]
-}
-
 export const getPartnersByPM = pm_id => {
   /**
    * Given:
@@ -614,58 +542,6 @@ export const getPartnersByPM = pm_id => {
    * Returns GET_PARTNERS_FAIL upon failure
    */
   let requestString = BACKEND_URL + '/field_partner?pm_id=' + pm_id
-  return axios
-    .get(requestString, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
-    .then(response => {
-      return response.data.result.field_partner
-    })
-    .catch(error => {
-      return {
-        type: 'GET_PARTNERS_FAIL',
-        error
-      }
-    })
-}
-
-export const getPartnersByStatus = app_status => {
-  /**
-   * Get all Field Partners will a given application status (New, In Process, Complete) Not the real values*
-   *
-   * Returns all field partners associated to that status upon success
-   * Returns GET_PARTNERS_FAIL upon failure
-   */
-  let requestString = BACKEND_URL + '/field_partner?app_status=' + app_status
-  return axios
-    .get(requestString, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
-    .then(response => {
-      return response.data.result.field_partner
-    })
-    .catch(error => {
-      return {
-        type: 'GET_PARTNERS_FAIL',
-        error
-      }
-    })
-}
-
-export const getAllPartners = () => {
-  /**
-   * Gets all field partners
-   *
-   * Returns all field partners  upon success
-   * Returns GET_PARTNERS_FAIL upon failure
-   */
-  let requestString = BACKEND_URL + '/field_partner'
   return axios
     .get(requestString, {
       headers: {
