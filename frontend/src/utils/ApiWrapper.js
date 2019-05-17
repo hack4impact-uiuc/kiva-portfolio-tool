@@ -995,11 +995,9 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
       }
     })
     .then(response => {
-      console.log("hello")
       // create the message here with the given docId
       let docIDs = response.data.result.docIDs
-      console.log(docIDs)
-      docIDs.array.forEach(docID => {
+      docIDs.forEach(docID => {
         createMessage(userID, false, true, docID)
       })
 

@@ -240,14 +240,13 @@ def create_new_documents():
         }
         new_doc = Document(data)
         doc_dict = new_doc.to_dict()
-        document_ids.append(doc_dict['_id'])
+        document_ids.append(doc_dict["_id"])
         db.session.add(new_doc)
 
     fp = FieldPartner.query.get(userID)
     fp.app_status = "In Process"
 
     ret = {"docIDs": document_ids}
-    print(ret)
 
     db.session.commit()
 
