@@ -1,5 +1,5 @@
 import React from 'react'
-import { DocumentListItem } from '../components/Dashboard'
+import { DocumentListItem } from '../components/DocumentListItem'
 import Adapter from 'enzyme-adapter-react-16'
 import { shallowToJson } from 'enzyme-to-json'
 import { configure, shallow } from 'enzyme'
