@@ -19,6 +19,12 @@ Our box backend first generates the access token for the authenticated user (inf
 ###box api document
 This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
 
+## Email Notification Setup
+
+The email notifications are sent using the Gmail SMTP server. If you do not have a G Suite account with a custom domain, you can only send 100 emails/day; otherwise, it is unlimited.
+
+If you want to use your own Gmail account to send emails, follow [these steps](https://u.expressionengine.com/article/using-gmail-smtp-to-send-emails-from-your-website) up to " to set up your account. Then, 
+
 ## Postgres Setup
 
 Follow the instructions for your operating system's setup in the [Flask Boilerplate Wiki](https://github.com/tko22/flask-boilerplate/wiki).
