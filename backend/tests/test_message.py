@@ -240,7 +240,7 @@ def test_add_message(client):
         data={
             "pm_id": helper_portfolio_manager.id,
             "fp_id": helper_field_partner.id,
-            "to_fp": "t",
+            "to_fp": 1,
             "doc_id": helper_doc.id,
         },
     )
@@ -250,7 +250,7 @@ def test_add_message(client):
     assert ret_dict["result"]["message"]["doc_id"] == helper_doc.id
     assert ret_dict["result"]["message"]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["message"]["fp_id"] == helper_field_partner.id
-    assert ret_dict["result"]["message"]["to_fp"] == "t"
+    assert ret_dict["result"]["message"]["to_fp"] == "1"
     assert (
         ret_dict["result"]["message"]["description"]
         == "Your document, ksdljf, has been reviewed and was approved."
