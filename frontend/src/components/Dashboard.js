@@ -1,16 +1,8 @@
 import React, { Component } from 'react'
-import DocumentList from './DocumentList'
-import WithAuth from './auth/WithAuth'
-import NavBar from './NavBar'
-import {
-  getDocumentsByUser,
-  getMessagesByFP,
-  updateFieldPartnerStatus,
-  getFPByID
-} from '../utils/ApiWrapper'
+import { Container, Row, Col, Button } from 'reactstrap'
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Container, Row, Col, Button } from 'reactstrap'
 import {
   updateDocuments,
   updateMessages,
@@ -20,15 +12,23 @@ import {
   endLoading
 } from '../redux/modules/user'
 
+import WithAuth from './auth/WithAuth'
+import DocumentList from './DocumentList'
+import NavBar from './NavBar'
+
+import {
+  getDocumentsByUser,
+  getMessagesByFP,
+  updateFieldPartnerStatus,
+  getFPByID
+} from '../utils/ApiWrapper'
+
 import add from '../media/add.png'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
 import 'box-ui-elements/dist/preview.css'
-
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,

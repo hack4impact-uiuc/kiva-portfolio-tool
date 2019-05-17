@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { Button } from 'reactstrap'
-import 'react-tabs/style/react-tabs.css'
+
 import { bindActionCreators } from 'redux'
-import Notification from './Notification'
 import { connect } from 'react-redux'
 import { updateMessages } from '../redux/modules/user'
 
-import '../styles/notifbar.css'
+import Notification from './Notification'
 
 import close from '../media/greyX.png'
+
+import 'react-tabs/style/react-tabs.css'
+import '../styles/notifbar.css'
 
 const mapStateToProps = state => ({
   allMessages: state.user.messages,

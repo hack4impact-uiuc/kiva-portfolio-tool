@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import DocumentClassPreview from './DocumentClassPreview'
 import { Button, Modal, ModalBody, ModalFooter, Input } from 'reactstrap'
+import Dropzone from 'react-dropzone'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
+
+import DocumentClassPreview from './DocumentClassPreview'
+
 import {
   deleteDocumentClass,
   updateDocumentClass,
   getAllDocumentClasses
 } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
-import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
-import Dropzone from 'react-dropzone'
-
-import '../styles/documentclasspage.css'
 
 import edit from '../media/greyEdit.png'
 import remove from '../media/remove.png'
+
+import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({})
 

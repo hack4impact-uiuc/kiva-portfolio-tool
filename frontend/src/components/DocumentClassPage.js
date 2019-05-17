@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
-import DocumentClass from './DocumentClass'
-import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 import { Button, Modal, ModalBody, ModalFooter, Table, Input } from 'reactstrap'
+import Dropzone from 'react-dropzone'
+
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
-import Dropzone from 'react-dropzone'
+
 import WithAuth from './auth/WithAuth'
+import DocumentClass from './DocumentClass'
 import NavBar from './NavBar'
+
+import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
+
+import add from '../media/add.png'
 
 import '../styles/variables.css'
 import '../styles/index.css'
 import '../styles/documentclasspage.css'
-
-import add from '../media/add.png'
 
 const mapStateToProps = state => ({
   documentClasses: state.user.documentClasses

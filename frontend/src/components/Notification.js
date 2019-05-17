@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Button, ListGroupItem } from 'reactstrap'
 
+import close from '../media/greyX.png'
+
 import '../styles/notification.css'
 import '../styles/partnerbar.css'
 import '../styles/notifbar.css'
-
-import close from '../media/greyX.png'
 
 /**
  * Each Notification contains a paragraph of information and a delete button to

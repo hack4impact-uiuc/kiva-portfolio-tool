@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
-import { Selector } from './Selector'
 import { Input } from 'reactstrap'
+import DatePicker from 'react-datepicker'
+
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import WithAuth from './auth/WithAuth'
+import { Selector } from './Selector'
+import Navbar from './NavBar'
+
 import {
   getAllDocumentClasses,
   createDocuments,
@@ -9,19 +18,13 @@ import {
   getFPByID,
   updateFieldPartnerStatus
 } from '../utils/ApiWrapper'
-import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import DatePicker from 'react-datepicker'
-import Navbar from './NavBar'
+
+import search from '../media/search.png'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
 import '../styles/selectdocuments.css'
-
-import search from '../media/search.png'
-import WithAuth from './auth/WithAuth'
 
 const mapStateToProps = state => ({})
 

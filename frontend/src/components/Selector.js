@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
-import '../styles/selector.css'
+
 import add from '../media/add.png'
 import remove from '../media/remove.png'
 import info from '../media/blueinfo.png'
+
+import '../styles/selector.css'
 
 /**
  * Class for individual docClasses in SelectDocumentsPage.

@@ -1,15 +1,5 @@
 import React, { Component } from 'react'
-import {
-  createFieldPartner,
-  deleteDocumentsByFP,
-  updateFPInstructions,
-  getPartnersByPM,
-  getMessagesByPM
-} from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { bindActionCreators } from 'redux'
-import { updateMessages, beginLoading, endLoading } from '../redux/modules/user'
-import { connect } from 'react-redux'
 import {
   Container,
   Row,
@@ -21,19 +11,32 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap'
-import '../styles/partnerbar.css'
-import search from '../media/search.png'
+
+import { bindActionCreators } from 'redux'
+import { updateMessages, beginLoading, endLoading } from '../redux/modules/user'
+import { connect } from 'react-redux'
+
 import WithAuth from './auth/WithAuth'
 import Navbar from './NavBar'
 
+import {
+  createFieldPartner,
+  deleteDocumentsByFP,
+  updateFPInstructions,
+  getPartnersByPM,
+  getMessagesByPM
+} from '../utils/ApiWrapper'
+
+import search from '../media/search.png'
+import add from '../media/add.png'
+
+import '../styles/partnerbar.css'
 import 'react-tabs/style/react-tabs.css'
 import '../styles/index.css'
 // same button styling as in document class page
 // 'Add New Doc Class' button styling the same
 import '../styles/documentclasspage.css'
 import '../styles/partnerbar.css'
-
-import add from '../media/add.png'
 
 const mapStateToProps = state => ({})
 

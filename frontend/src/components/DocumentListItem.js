@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Dropzone from 'react-dropzone'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import DocumentPreview from './DocumentPreview'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+
+import DocumentPreview from './DocumentPreview'
+
 import {
   downloadDocument,
   uploadDocument,
   getDocumentsByUser,
   deleteDocument
 } from '../utils/ApiWrapper'
-import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
 
 import uploadImg from '../media/greyUpload.png'
 import downloadImg from '../media/downloadGrey.png'

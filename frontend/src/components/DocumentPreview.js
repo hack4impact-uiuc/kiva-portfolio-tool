@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import Iframe from 'react-iframe'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
+
+import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
-import Iframe from 'react-iframe'
+
+import WithAuth from './auth/WithAuth'
+
+import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
+
+import preview from '../media/preview.png'
 
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import '../styles/documentpreview.css'
-
-import preview from '../media/preview.png'
-import WithAuth from './auth/WithAuth'
-
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
