@@ -239,18 +239,20 @@ def create_new_documents():
             "date": date,
         }
         new_doc = Document(data)
-        document_ids.append(new_doc.id)
+        doc_dict = new_doc.to_dict()
+        document_ids.append(doc_dict['_id'])
         db.session.add(new_doc)
 
     fp = FieldPartner.query.get(userID)
     fp.app_status = "In Process"
 
     ret = {"docIDs": document_ids}
+    print(ret)
 
     db.session.commit()
 
     # Make it return the document ids
-    return create_response(ret)
+    return create_response(status=200, data=ret)
 
 
 @document.route("/document/delete/<id>", methods=["DELETE"])

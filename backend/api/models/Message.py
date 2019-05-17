@@ -16,8 +16,7 @@ class Message(Mixin, db.Model):
     to_fp = db.Column(db.Boolean)
 
     # These are all nullable depending on the type of notification
-    doc_id = db.Column(db.Integer, db.ForeignKey("documents.id"), nullable=True)
-    status = db.Column(db.String, nullable=True)
+    doc_id = db.Column(db.String, db.ForeignKey("documents.id"), nullable=True)
     description = db.Column(db.String, nullable=True)
     time = db.Column(db.String)
 
@@ -29,7 +28,6 @@ class Message(Mixin, db.Model):
         self.fp_id = data["fp_id"]
         self.to_fp = data["to_fp"]
         self.doc_id = data["doc_id"]
-        self.status = data["status"]
         self.description = data["description"]
         self.time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -42,7 +40,7 @@ class Message(Mixin, db.Model):
             )
 
     def __repr__(self):
-        return f"<Message\nID: {self.id}\nPM ID: {self.pm_id}\n FP ID: {self.fp_id}\n To FP: {self.to_fp}\n Doc ID: {self.doc_id}\n Status: {self.status}>\n Time: {self.time}>\n Description: {self.description}>\n  "
+        return f"<Message\nID: {self.id}\nPM ID: {self.pm_id}\n FP ID: {self.fp_id}\n To FP: {self.to_fp}\n Doc ID: {self.doc_id}\n Time: {self.time}>\n Description: {self.description}>\n  "
 
     def get_pm_id(self):
         return self.pm_id
@@ -55,12 +53,6 @@ class Message(Mixin, db.Model):
 
     def get_doc_id(self):
         return self.doc_id
-
-    def get_status(self):
-        return self.status
-
-    def set_status(self, new_status):
-        self.status = new_status
 
     def get_comment(self):
         return self.comment

@@ -102,17 +102,18 @@ def add_message():
 
     # Default to reviewed because it has 2 statuses
     message_type = MessageType.REVIEWED_DOC
-    # Using statuses to determine the message type
-    if "status" in data:
-        if data["status"] == "Missing":
-            message_type = MessageType.NEW_DOC
-        if data["status"] == "Pending":
-            message_type = MessageType.UPLOADED_DOC
 
+    # Using statuses to determine the message type, lowercasing for message
+    status = Document.query.get(data["doc_id"]).status.lower()
+    if status == "missing":
+        message_type = MessageType.NEW_DOC
+    if status == "pending":
+        message_type = MessageType.UPLOADED_DOC
+
+    # Getting names for the message contents
     docclass_name = DocumentClass.query.get(
         Document.query.get(data["doc_id"]).docClassID
     ).name
-    status = data["status"]
 
     organization = ""
     if "fp_id" in data:

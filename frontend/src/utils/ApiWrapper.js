@@ -506,7 +506,7 @@ export const getAllMessages = (user_id, is_pm) => {
     })
 }
 
-export const createMessage = (user_id, is_pm_id, to_fp, document_id, status) => {
+export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
   /*
    * user_id: either fp or pm, will be determined by is_pm_id
    * status: document status that it is being changed to
@@ -522,7 +522,6 @@ export const createMessage = (user_id, is_pm_id, to_fp, document_id, status) => 
 
   data.append('to_fp', to_fp)
   data.append('doc_id', document_id)
-  data.append('status', status)
 
   return axios
     .post(requestString, data)
@@ -870,8 +869,6 @@ export const updateDocumentStatus = (userID, id, status) => {
   var data = new FormData()
   data.append('status', status)
 
-  createMessage(userID, false, true, id, status)
-
   return axios
     .put(BACKEND_URL + '/document/status/' + id, data, {
       headers: {
@@ -880,6 +877,7 @@ export const updateDocumentStatus = (userID, id, status) => {
       }
     })
     .then(response => {
+      createMessage(userID, false, true, id)
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
         response
@@ -910,8 +908,6 @@ export const uploadDocument = (userID, file, file_name, docID) => {
   data.append('file', file)
   data.append('fileName', file_name)
 
-  createMessage(userID, false, false, docID, 'Pending')
-
   return axios
     .put(BACKEND_URL + '/document/upload/' + docID, data, {
       headers: {
@@ -920,6 +916,7 @@ export const uploadDocument = (userID, file, file_name, docID) => {
       }
     })
     .then(response => {
+      createMessage(userID, false, false, docID)
       return {
         type: 'UPLOAD_FILE_SUCCESS',
         response
@@ -998,10 +995,12 @@ export const createDocuments = (userID, docClassIDs, dueDate) => {
       }
     })
     .then(response => {
+      console.log("hello")
       // create the message here with the given docId
       let docIDs = response.data.result.docIDs
+      console.log(docIDs)
       docIDs.array.forEach(docID => {
-        createMessage(userID, false, true, docID, 'Missing')
+        createMessage(userID, false, true, docID)
       })
 
       return {
