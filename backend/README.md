@@ -23,7 +23,7 @@ This [Box api document](https://developer.box.com/reference) has all the endpoin
 
 The email notifications are sent using the Gmail SMTP server. If you do not have a G Suite account with a custom domain, you can only send 100 emails/day; otherwise, it is unlimited.
 
-If you want to use your own Gmail account to send emails, follow [these steps](https://u.expressionengine.com/article/using-gmail-smtp-to-send-emails-from-your-website) up to " to set up your account. Then, 
+If you want to use your own Gmail account to send emails, follow [this](https://u.expressionengine.com/article/using-gmail-smtp-to-send-emails-from-your-website) (just through **Create an App Password for your Google Account**) to set up your account. Then, [this hasn't been done yet] in the .env file in this folder, set `GMAIL_NAME` to your email and `GMAIL_PASSWORD` to the app password you got from Google.  
 
 ## Postgres Setup
 
