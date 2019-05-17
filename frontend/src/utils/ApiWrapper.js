@@ -2,39 +2,9 @@ import axios from 'axios'
 import BACKEND_URL from './ApiConfig'
 import { getCookieFromBrowser } from './cookie'
 
-export const createFieldPartner = (org_name, email, pm_id) => {
-  /**
-   * Given an organization name, and email address, and the id of the PM working with said organization
-   * Creates a new Field Partner in the database with that given information
-   * Returns CREATE_FP_SUCCESS upon success
-   * Returns CREATE_FP_FAIL upon failure
-   */
-  let requestString = BACKEND_URL + '/field_partner'
-  let data = new FormData()
-  data.append('org_name', org_name)
-  data.append('email', email)
-  data.append('pm_id', pm_id)
-  data.append('app_status', 'New Partner')
-  return axios
-    .post(requestString, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
-    .then(response => {
-      return {
-        type: 'CREATE_FP_SUCCESS',
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        type: 'CREATE_FP_FAIL',
-        error
-      }
-    })
-}
+/*
+Auth
+*/
 
 export const register = (email, password, questionIdx, answer, role) => {
   /**
@@ -377,31 +347,37 @@ export const resendPIN = () => {
     })
 }
 
-//import { BACKEND_KEY } from '../keys'
+/*
+Portfolio Manager
+*/
 
-export const getAllDocumentClasses = () => {
+export const getPMByEmail = email => {
   /**
-   * Gets all document classes for a PM role
+   * Gets all PM information given the PM's email
    *
-   * Returns document classes upon success
+   * Returns all PM information upon success
    * Returns 'ERROR: error info' upon failure
    */
-  let requestString = BACKEND_URL + '/document_classes'
+  let requestString = BACKEND_URL + '/portfolio_managers?email=' + email
   return axios
-    .get(requestString, null, {
+    .get(requestString, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
-      return response.data.result.document_class
+      return response.data.result.portfolio_manager[0]
     })
     .catch(error => {
       console.log('ERROR: ', error)
       return null
     })
 }
+
+/*
+Field Partner
+*/
 
 export const getFPByID = id => {
   /**
@@ -419,69 +395,6 @@ export const getFPByID = id => {
     .catch(error => {
       console.log('ERROR: ', error)
       return null
-    })
-}
-
-export const getMessagesByFP = (fp_id, to_fp) => {
-  let requestString = BACKEND_URL + '/messages?fp_id=' + fp_id + '&to_fp=' + to_fp
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.messages
-    })
-    .catch(error => {
-      return {
-        type: 'GET_MESSAGES_BY_ID_FAIL',
-        error
-      }
-    })
-}
-
-export const getMessagesByPM = pm_id => {
-  let requestString = BACKEND_URL + '/messages?pm_id=' + pm_id + '&to_fp=false'
-  return axios
-    .get(requestString)
-    .then(response => {
-      return response.data.result.messages
-    })
-    .catch(error => {
-      return {
-        type: 'GET_MESSAGES_BY_ID_FAIL',
-        error
-      }
-    })
-}
-
-export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
-  /*
-   * user_id: either fp or pm, will be determined by is_pm_id
-   * status: document status that it is being changed to
-   */
-  let requestString = BACKEND_URL + '/messages'
-  let data = new FormData()
-
-  if (is_pm_id) {
-    data.append('pm_id', user_id)
-  } else {
-    data.append('fp_id', user_id)
-  }
-
-  data.append('to_fp', to_fp)
-  data.append('doc_id', document_id)
-
-  return axios
-    .post(requestString, data)
-    .then(response => {
-      return {
-        type: 'CREATE_MESSAGE_SUCCESS',
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        type: 'CREATE_MESSAGE_FAIL',
-        error
-      }
     })
 }
 
@@ -509,27 +422,37 @@ export const getFPByEmail = email => {
     })
 }
 
-export const getPMByEmail = email => {
+export const createFieldPartner = (org_name, email, pm_id) => {
   /**
-   * Gets all PM information given the PM's email
-   *
-   * Returns all PM information upon success
-   * Returns 'ERROR: error info' upon failure
+   * Given an organization name, and email address, and the id of the PM working with said organization
+   * Creates a new Field Partner in the database with that given information
+   * Returns CREATE_FP_SUCCESS upon success
+   * Returns CREATE_FP_FAIL upon failure
    */
-  let requestString = BACKEND_URL + '/portfolio_managers?email=' + email
+  let requestString = BACKEND_URL + '/field_partner'
+  let data = new FormData()
+  data.append('org_name', org_name)
+  data.append('email', email)
+  data.append('pm_id', pm_id)
+  data.append('app_status', 'New Partner')
   return axios
-    .get(requestString, {
+    .post(requestString, data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
       }
     })
     .then(response => {
-      return response.data.result.portfolio_manager[0]
+      return {
+        type: 'CREATE_FP_SUCCESS',
+        response
+      }
     })
     .catch(error => {
-      console.log('ERROR: ', error)
-      return null
+      return {
+        type: 'CREATE_FP_FAIL',
+        error
+      }
     })
 }
 
@@ -629,6 +552,148 @@ export const updateFPInstructions = (id, instructions) => {
       }
     })
 }
+
+/*
+Document Class
+*/
+
+export const getAllDocumentClasses = () => {
+  /**
+   * Gets all document classes for a PM role
+   *
+   * Returns document classes upon success
+   * Returns 'ERROR: error info' upon failure
+   */
+  let requestString = BACKEND_URL + '/document_classes'
+  return axios
+    .get(requestString, null, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.document_class
+    })
+    .catch(error => {
+      console.log('ERROR: ', error)
+      return null
+    })
+}
+
+export const createDocumentClass = (name, description, file, file_name) => {
+  /**
+   * Given
+   * a document class name
+   * a description for new document class
+   * an example file
+   * the name of the example file
+   *
+   * creates a new document class with given name, description, and example file
+   *
+   * Returns UPLOAD_FILE_SUCCESS upon success
+   * Returns UPLOAD_FILE_FAIL upon failure
+   */
+  var data = new FormData()
+  data.append('file', file)
+  data.append('fileName', file_name)
+  data.append('name', name)
+  data.append('description', description)
+  return axios
+    .post(BACKEND_URL + '/document_classes', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'UPLOAD_FILE_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPLOAD_FILE_FAIL',
+        error
+      }
+    })
+}
+
+export const updateDocumentClass = (id, name, description, file, file_name) => {
+  /**
+   * Given
+   * a docClass id
+   * a new name
+   * a new description
+   * a new example file
+   * name of new example file
+   *
+   * updates a document class
+   *
+   * Returns UPDATE_DOCUMENT_CLASS_SUCCESS upon success
+   * Returns UPDATE_DOCUMENT_CLASS_FAIL upon failure
+   */
+  var data = new FormData()
+  data.append('file', file)
+  data.append('fileName', file_name)
+  data.append('name', name)
+  data.append('description', description)
+  return axios
+    .put(BACKEND_URL + '/document_class/' + id, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'UPDATE_DOCUMENT_CLASS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_DOCUMENT_CLASS_FAIL',
+        error
+      }
+    })
+}
+
+export const deleteDocumentClass = id => {
+  /**
+   * Given
+   * docClass id
+   *
+   * deletes docClasses and related files of that id in the database
+   *
+   * Returns DELETE_DOCUMENT_CLASS_SUCCESS upon success
+   * Returns DELETE_DOCUMENT_CLASS_FAIL upon failure
+   */
+  return axios
+    .delete(BACKEND_URL + '/document_class/' + id, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'DELETE_DOCUMENT_CLASS_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'DELETE_DOCUMENT_CLASS_FAIL',
+        error
+      }
+    })
+}
+
+/*
+Document
+*/
 
 export const deleteDocument = id => {
   /**
@@ -813,45 +878,6 @@ export const uploadDocument = (userID, file, file_name, docID) => {
     })
 }
 
-export const createDocumentClass = (name, description, file, file_name) => {
-  /**
-   * Given
-   * a document class name
-   * a description for new document class
-   * an example file
-   * the name of the example file
-   *
-   * creates a new document class with given name, description, and example file
-   *
-   * Returns UPLOAD_FILE_SUCCESS upon success
-   * Returns UPLOAD_FILE_FAIL upon failure
-   */
-  var data = new FormData()
-  data.append('file', file)
-  data.append('fileName', file_name)
-  data.append('name', name)
-  data.append('description', description)
-  return axios
-    .post(BACKEND_URL + '/document_classes', data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
-    .then(response => {
-      return {
-        type: 'UPLOAD_FILE_SUCCESS',
-        response
-      }
-    })
-    .catch(error => {
-      return {
-        type: 'UPLOAD_FILE_FAIL',
-        error
-      }
-    })
-}
-
 export const createDocuments = (userID, docClassIDs, dueDate) => {
   /**
    * Given
@@ -922,72 +948,68 @@ export const getDocumentsByUser = userID => {
     })
 }
 
-export const updateDocumentClass = (id, name, description, file, file_name) => {
-  /**
-   * Given
-   * a docClass id
-   * a new name
-   * a new description
-   * a new example file
-   * name of new example file
-   *
-   * updates a document class
-   *
-   * Returns UPDATE_DOCUMENT_CLASS_SUCCESS upon success
-   * Returns UPDATE_DOCUMENT_CLASS_FAIL upon failure
-   */
-  var data = new FormData()
-  data.append('file', file)
-  data.append('fileName', file_name)
-  data.append('name', name)
-  data.append('description', description)
+/*
+Message
+*/
+
+export const getMessagesByFP = (fp_id, to_fp) => {
+  let requestString = BACKEND_URL + '/messages?fp_id=' + fp_id + '&to_fp=' + to_fp
   return axios
-    .put(BACKEND_URL + '/document_class/' + id, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
+    .get(requestString)
     .then(response => {
-      return {
-        type: 'UPDATE_DOCUMENT_CLASS_SUCCESS',
-        response
-      }
+      return response.data.result.messages
     })
     .catch(error => {
       return {
-        type: 'UPDATE_DOCUMENT_CLASS_FAIL',
+        type: 'GET_MESSAGES_BY_ID_FAIL',
         error
       }
     })
 }
 
-export const deleteDocumentClass = id => {
-  /**
-   * Given
-   * docClass id
-   *
-   * deletes docClasses and related files of that id in the database
-   *
-   * Returns DELETE_DOCUMENT_CLASS_SUCCESS upon success
-   * Returns DELETE_DOCUMENT_CLASS_FAIL upon failure
-   */
+export const getMessagesByPM = pm_id => {
+  let requestString = BACKEND_URL + '/messages?pm_id=' + pm_id + '&to_fp=false'
   return axios
-    .delete(BACKEND_URL + '/document_class/' + id, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
+    .get(requestString)
+    .then(response => {
+      return response.data.result.messages
+    })
+    .catch(error => {
+      return {
+        type: 'GET_MESSAGES_BY_ID_FAIL',
+        error
       }
     })
+}
+
+export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
+  /*
+   * user_id: either fp or pm, will be determined by is_pm_id
+   * status: document status that it is being changed to
+   */
+  let requestString = BACKEND_URL + '/messages'
+  let data = new FormData()
+
+  if (is_pm_id) {
+    data.append('pm_id', user_id)
+  } else {
+    data.append('fp_id', user_id)
+  }
+
+  data.append('to_fp', to_fp)
+  data.append('doc_id', document_id)
+
+  return axios
+    .post(requestString, data)
     .then(response => {
       return {
-        type: 'DELETE_DOCUMENT_CLASS_SUCCESS',
+        type: 'CREATE_MESSAGE_SUCCESS',
         response
       }
     })
     .catch(error => {
       return {
-        type: 'DELETE_DOCUMENT_CLASS_FAIL',
+        type: 'CREATE_MESSAGE_FAIL',
         error
       }
     })
