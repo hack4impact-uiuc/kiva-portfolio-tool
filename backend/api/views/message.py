@@ -37,6 +37,7 @@ def get_messages():
     else:
         messages = Message.query.filter_by(**kwargs).all()
 
+    # add the corresponding name to the message
     for message in messages:
         if message.to_fp == True:
             message.name = PortfolioManager.query.get(message.pm_id).name
