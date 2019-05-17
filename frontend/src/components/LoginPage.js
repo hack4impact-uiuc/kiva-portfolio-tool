@@ -72,7 +72,7 @@ export class LoginPage extends Component {
     }
     /* else{
 			alert('Email or password is invalid.\nPlease try again.')
-		} */
+    } */
   }
 
   render() {

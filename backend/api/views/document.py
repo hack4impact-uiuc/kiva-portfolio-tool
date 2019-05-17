@@ -229,6 +229,7 @@ def create_new_documents():
     date = data.get("dueDate")
 
     document_class_ids = data.get("docClassIDs").split(",")
+    document_ids = []
 
     for document_class_id in document_class_ids:
         data = {
@@ -238,13 +239,19 @@ def create_new_documents():
             "date": date,
         }
         new_doc = Document(data)
+        doc_dict = new_doc.to_dict()
+        document_ids.append(doc_dict["_id"])
         db.session.add(new_doc)
 
     fp = FieldPartner.query.get(userID)
     fp.app_status = "In Process"
 
+    ret = {"docIDs": document_ids}
+
     db.session.commit()
-    return create_response(status=200, message="success")
+
+    # Make it return the document ids
+    return create_response(status=200, data=ret)
 
 
 @document.route("/document/delete/<id>", methods=["DELETE"])
