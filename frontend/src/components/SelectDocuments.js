@@ -1,6 +1,15 @@
-import React from 'react'
-import { Selector } from './Selector'
+import React, { Component } from 'react'
 import { Input } from 'reactstrap'
+import DatePicker from 'react-datepicker'
+
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import WithAuth from './auth/WithAuth'
+import { Selector } from './Selector'
+import Navbar from './NavBar'
+
 import {
   getAllDocumentClasses,
   createDocuments,
@@ -9,24 +18,15 @@ import {
   getFPByID,
   updateFieldPartnerStatus
 } from '../utils/ApiWrapper'
-import { updateDocuments } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import DatePicker from 'react-datepicker'
-import Navbar from './NavBar'
+
+import search from '../media/search.png'
 
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
 import '../styles/selectdocuments.css'
 
-import search from '../media/search.png'
-import WithAuth from './WithAuth'
-
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -45,7 +45,7 @@ const mapDispatchToProps = dispatch => {
  * Allows the PM to set a duedate for all the documents
  * Allows the PM to search for a specific docClass as well
  */
-export class SelectDocumentsPage extends React.Component {
+export class SelectDocumentsPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -207,7 +207,7 @@ export class SelectDocumentsPage extends React.Component {
           <h1>Select Documents</h1>
 
           <form onSubmit={this.handleSubmit}>
-            <img src={search} width="18" />
+            <img src={search} width="18" alt="Search icon" />
             <input
               className="input-master"
               type="text"

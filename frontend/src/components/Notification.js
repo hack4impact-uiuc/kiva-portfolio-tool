@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import { Button, ListGroupItem } from 'reactstrap'
-import { connect } from 'react-redux'
+
+import close from '../media/greyX.png'
 
 import '../styles/notification.css'
 import '../styles/partnerbar.css'
 import '../styles/notifbar.css'
-
-import close from '../media/greyX.png'
-
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
 
 /**
  * Each Notification contains a paragraph of information and a delete button to
@@ -19,7 +14,6 @@ const mapStateToProps = state => ({
  */
 export class Notification extends Component {
   render() {
-    const { isPM } = this.props
     return (
       <ListGroupItem>
         {this.props.name ? (
@@ -47,7 +41,7 @@ export class Notification extends Component {
               this.props.removeMessage(this.props.index)
             }}
           >
-            <img className="exit-button" src={close} />
+            <img className="exit-button" src={close} alt="Edit icon" />
           </Button>
         </div>
       </ListGroupItem>
@@ -55,4 +49,4 @@ export class Notification extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Notification)
+export default Notification

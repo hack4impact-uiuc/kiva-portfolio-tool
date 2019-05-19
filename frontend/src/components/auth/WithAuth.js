@@ -1,6 +1,6 @@
-import React from 'react'
-import { verify } from '../utils/ApiWrapper'
-import { setCookie } from './../utils/cookie'
+import React, { Component } from 'react'
+import { verify } from '../../utils/ApiWrapper'
+import { setCookie } from '../../utils/cookie'
 
 /**
  * Page that shows up when user authenticates,
@@ -8,10 +8,14 @@ import { setCookie } from './../utils/cookie'
  * else shows not authenticated
  */
 const withAuth = WrappedComponent => {
-  class HOC extends React.Component {
-    state = {
-      verified: false
+  class HOC extends Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        verified: false
+      }
     }
+
     async componentDidMount() {
       const verifyResponse = await verify()
       console.log(verifyResponse)

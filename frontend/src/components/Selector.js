@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
-import '../styles/selector.css'
+
 import add from '../media/add.png'
 import remove from '../media/remove.png'
 import info from '../media/blueinfo.png'
+
+import '../styles/selector.css'
 
 /**
  * Class for individual docClasses in SelectDocumentsPage.
  * Shows docClass name, info button, and add/remove button
  */
-export class Selector extends React.Component {
+export class Selector extends Component {
   constructor(props) {
     super(props)
 
@@ -86,7 +88,7 @@ export class Selector extends React.Component {
                     className="info"
                     onClick={() => this.viewDocClass(docClass)}
                   >
-                    <img src={info} className="imageValue" width="26" />
+                    <img src={info} className="imageValue" width="26" alt="Info icon" />
                   </Button>
                   <Button
                     color="transparent"
@@ -95,7 +97,7 @@ export class Selector extends React.Component {
                     }}
                     className="update"
                   >
-                    <img src={buttonType} width="30" />
+                    <img src={buttonType} width="30" alt="Add/remove icon" />
                   </Button>
                 </div>
               )

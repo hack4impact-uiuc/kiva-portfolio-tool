@@ -6,7 +6,7 @@ import requests, json, random, string
 
 auth = Blueprint("auth", __name__)
 
-BACKEND_URL = "http://localhost:8000/"
+BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
 
 
 @auth.route("/register", methods=["POST"])

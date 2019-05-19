@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
-import { updateDocuments } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
 import Iframe from 'react-iframe'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+
+import WithAuth from './auth/WithAuth'
+
+import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
+
+import preview from '../media/preview.png'
 
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import '../styles/documentpreview.css'
-
-import preview from '../media/preview.png'
-import WithAuth from './WithAuth'
-
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -134,7 +133,7 @@ export class DocumentPreview extends Component {
             {(this.props.match && this.props.match.params.name) ||
               (this.props.document.fileName && (
                 <Button color="transparent" onClick={this.toggle}>
-                  <img className="buttonimg" src={preview} />
+                  <img className="buttonimg" src={preview} alt="Preview icon" />
                 </Button>
               ))}
             <Modal isOpen={this.state.modal} toggle={this.toggle}>
