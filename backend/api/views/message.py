@@ -47,7 +47,7 @@ def get_messages():
     return create_response(data={"messages": serialize_list(messages)})
 
 
-@message.route("/messages/new", methods=["POST"])
+@message.route("/messages", methods=["POST"])
 def add_message():
     data = request.form.to_dict()
     subjects = [
@@ -110,9 +110,11 @@ def add_message():
     # Add the contents as a description field
     data["description"] = contents[message_type.value]
 
+    data["to_fp"] = bool(data["to_fp"])
+
     recipient = (
         FieldPartner.query.get(data["fp_id"])
-        if data["to_fp"] == "true"
+        if data["to_fp"]
         else PortfolioManager.query.get(data["pm_id"])
     )
 
@@ -125,6 +127,7 @@ def add_message():
         recipients=[recipient.email],
         body=contents[message_type.value],
     )
+
     mail.send(email)
     new_message = Message(data)
     ret = new_message.to_dict()

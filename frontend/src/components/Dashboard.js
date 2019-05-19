@@ -1,25 +1,27 @@
-import React from 'react'
-import DocumentList from './DocumentList'
-import Notification from './Notification'
-import WithAuth from './WithAuth'
-import NavBar from './NavBar'
+import React, { Component } from 'react'
+import { Container, Row, Col, Button } from 'reactstrap'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import {
-  getAllDocuments,
+  updateDocuments,
+  updateMessages,
+  updateInstructions,
+  setUserType,
+  beginLoading,
+  endLoading
+} from '../redux/modules/user'
+
+import WithAuth from './auth/WithAuth'
+import DocumentList from './DocumentList'
+import NavBar from './NavBar'
+
+import {
   getDocumentsByUser,
   getMessagesByFP,
   updateFieldPartnerStatus,
   getFPByID
 } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Container, Row, Col, Button } from 'reactstrap'
-import {
-  updateDocuments,
-  updateMessages,
-  updateInstructions,
-  setUserType
-} from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
 
 import add from '../media/add.png'
 
@@ -27,9 +29,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
 import 'box-ui-elements/dist/preview.css'
-
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -51,7 +50,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-export class Dashboard extends React.Component {
+export class Dashboard extends Component {
   constructor(props) {
     super(props)
 
@@ -72,12 +71,8 @@ export class Dashboard extends React.Component {
     let documentsReceived = []
 
     // temporary - REMOVE after auth integration
-    if (this.props.match) {
-      documentsReceived = await getDocumentsByUser(this.props.match.params.id)
-      this.props.setUserType(this.props.match.params.user === 'pm')
-    } else {
-      documentsReceived = await getAllDocuments()
-    }
+    documentsReceived = await getDocumentsByUser(this.props.match.params.id)
+    this.props.setUserType(this.props.match.params.user === 'pm')
 
     /**
      * Contains all messages received from backend
@@ -119,7 +114,7 @@ export class Dashboard extends React.Component {
   async handleFinish() {
     this.props.beginLoading()
     await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
-    this.props.history.push('/main')
+    this.props.history.push('/overview/' + this.props.match.params.id)
     this.props.endLoading()
   }
 
@@ -136,11 +131,9 @@ export class Dashboard extends React.Component {
             <Button
               className="add-doc-text"
               color="transparent"
-              onClick={() =>
-                this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
-              }
+              onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
             >
-              <img className="addImg" src={add} />
+              <img className="addImg" src={add} alt="Add icon" />
               <span className="add-doc-text">Update requirements/instructions</span>
             </Button>
             <br />

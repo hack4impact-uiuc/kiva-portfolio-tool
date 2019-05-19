@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import { Button } from 'reactstrap'
-import 'react-tabs/style/react-tabs.css'
+
 import { bindActionCreators } from 'redux'
-import Notification from './Notification'
 import { connect } from 'react-redux'
 import { updateMessages } from '../redux/modules/user'
 
-import '../styles/notifbar.css'
+import Notification from './Notification'
 
 import close from '../media/greyX.png'
 
+import 'react-tabs/style/react-tabs.css'
+import '../styles/notifbar.css'
+
 const mapStateToProps = state => ({
-  isPM: state.user.isPM,
   allMessages: state.user.messages,
   instructions: state.user.instructions
 })
@@ -33,10 +34,6 @@ const mapDispatchToProps = dispatch => {
  * Information sent from a pm/fp to one another
  */
 export class NotificationsBar extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   /**
    * Helper function that removes messages upon click by index in array
    */
@@ -51,7 +48,6 @@ export class NotificationsBar extends Component {
   }
 
   render() {
-    const { isPM } = this.props.isPM
     const allMessages = this.props.allMessages
     const instructions = this.props.instructions
     return (
@@ -72,7 +68,7 @@ export class NotificationsBar extends Component {
               this.closeSidebar(false)
             }}
           >
-            <img className="exit-button" src={close} />
+            <img className="exit-button" src={close} alt="Edit icon" />
           </Button>
         </TabList>
 

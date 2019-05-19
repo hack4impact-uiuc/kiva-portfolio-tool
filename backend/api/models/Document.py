@@ -12,7 +12,6 @@ class Document(Mixin, db.Model):
     id = db.Column(db.String, unique=True, primary_key=True)
     fileID = db.Column(db.String, unique=True, nullable=True)
     userID = db.Column(db.String)  # , db.ForeignKey("user.id",ondelete="SET NULL")
-    date = db.Column(db.Date, unique=False, nullable=True)
     status = db.Column(
         db.Enum("Pending", "Approved", "Missing", "Rejected", name="status"),
         unique=False,
@@ -21,7 +20,6 @@ class Document(Mixin, db.Model):
         db.String, db.ForeignKey("document_class.id"), nullable=False
     )
     fileName = db.Column(db.String, unique=False, nullable=True)
-    latest = db.Column(db.Boolean, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
     link = db.Column(db.String, unique=False, nullable=True)
 
@@ -35,16 +33,10 @@ class Document(Mixin, db.Model):
         self.docClassID = data["docClassID"]
 
         # optional fields checked manually
-        if "date" in data:
-            self.date = data["date"]
         if "fileID" in data:
             self.fileID = data["fileID"]
         if "fileName" in data:
             self.fileName = data["fileName"]
-        if "latest" in data:
-            self.latest = data["latest"]
-        if "description" in data:
-            self.description = data["description"]
         if "link" in data:
             self.link = data["link"]
 

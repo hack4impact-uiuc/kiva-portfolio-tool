@@ -181,6 +181,7 @@ exports[`PMMainPage renders correctly 1`] = `
             tag="button"
           >
             <img
+              alt="Add icon"
               className="addImg"
               src="add.png"
             />
@@ -265,6 +266,7 @@ exports[`PMMainPage renders correctly 1`] = `
               </h2>
               <form>
                 <img
+                  alt="Search icon"
                   src="search.png"
                   width="23"
                 />
