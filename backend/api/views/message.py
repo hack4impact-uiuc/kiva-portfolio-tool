@@ -123,7 +123,6 @@ def add_message():
 
     email = Flask_Message(
         subject=subjects[message_type.value],
-        sender=os.environ["GMAIL_NAME"],
         recipients=[recipient.email],
         body=contents[message_type.value],
     )
