@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
+
+import preview from '../media/preview.png'
+
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
-
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
 
 /*
 Used to view information about a Document CLass when pressing 'View'
 Allows users to see the name & description of a Document Class
 ALso has a box Preview
 */
-class DocumentClassPreview extends Component {
+export class DocumentClassPreview extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,6 +22,9 @@ class DocumentClassPreview extends Component {
     this.toggle = this.toggle.bind(this)
   }
 
+  /**
+   * Opens modal to show document class
+   */
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -34,14 +37,23 @@ class DocumentClassPreview extends Component {
       width: '500px',
       overflow: 'scroll'
     }
+    const externalCloseBtn = (
+      <button
+        className="close"
+        style={{ position: 'absolute', top: '15px', right: '15px' }}
+        onClick={this.toggle}
+      >
+        &times;
+      </button>
+    )
 
     return (
       <>
-        <Button color="primary" onClick={this.toggle}>
-          View
+        <Button color="transparent" onClick={this.toggle}>
+          <img className="buttonimg" src={preview} alt="preview icon" />
         </Button>
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} external={externalCloseBtn}>
           <ModalHeader>{this.props.documentClass.name}</ModalHeader>
           <ModalBody style={customStyles}>
             <p>{this.props.documentClass.description}</p>

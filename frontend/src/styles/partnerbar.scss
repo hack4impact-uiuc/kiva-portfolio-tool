@@ -1,0 +1,215 @@
+@import "variables.scss";
+
+.progressAdditional {
+    padding-top: 2%;
+}
+
+.progressAdditional > .progress {
+    border-radius: 10px;
+}
+
+.progress > .bg-dashgrey {
+    background-color: $missing-color;
+}
+
+.progress > .bg-dashgreen {
+    background-color: $accepted-color;
+}
+
+.progress > .bg-dashred {
+    background-color: $rejected-color;
+}
+
+.progress > .bg-dashorange {
+    background-color: $pending-color;
+}
+
+.page h2 {
+    color: $accepted-color;
+    font-size: 3rem;
+}
+
+.page .container {
+    /* override reactstrap styling */
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+.input-master {
+    border: none;
+    border-bottom: $shadow-color solid 1px;
+    background-color: transparent;
+    max-width: 75%; 
+    margin: 0;
+}
+
+::placeholder{font-size: large;} 
+
+.fp-background {
+    background-color: $fp-background-shadow;
+}
+
+.sidebar-background {
+    background-color: $fp-sidebar-shadow;
+}
+
+.fp-background .react-tabs__tab-panel {
+    margin: 0% 2%;
+    width: 100%;
+}
+
+.partnerPanel {
+    margin-top: 5%;
+    justify-content: center;
+    position: relative;
+}
+
+.partnerPanel .partnerButton {
+    width: 100%;
+    padding: 0%;
+    margin: 2% 0;
+    border-radius: 26px;
+    border-width: 0px;
+    box-shadow: 0px 1px 5px 0px $light-shadow;
+}
+
+.partnerPanel .col-md-6 {
+    /* override bootstrap columns */
+    display: inline-block;
+}
+
+.partnerBox {
+    padding: 4%;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: white;
+    border-radius: 26px;
+    display: flex;
+    flex-flow: row;
+}
+
+.partnerBox .nameProgressDisplay {
+    font-size: large;
+    width: 60%;
+    text-align: left;
+    margin-left: 5%;
+}
+
+.partnerBox .nameProgressDisplay p {
+    margin: 0;
+    text-overflow: ellipsis;
+
+    /* need the following for the text overflow to work properly */
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+.partnerBox .iconBox {
+    height:inherit;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    background-color: $link-color;
+    border-radius: 50%;
+    display: inline-block;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 2%;
+    margin-right: 4%;
+}
+
+.partnerBox .duedate {
+    font-size: large;
+    width: 15%;
+    margin-left: 3%;
+}
+
+.partnerBox .due {
+    font-size: large;
+}
+
+.progressAdditional {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+}
+
+.progress {
+    width: 80%;
+    margin: 2%;
+}
+
+.react-tabs__tab-list {
+    border-bottom: none;
+    font-size: 16pt;
+}
+
+.react-tabs__tab {
+    display: block;
+    padding: 7% 0;
+    border: none;
+    color: $gray-text-color;
+    font-weight: 500;
+}
+
+.react-tabs__tab:hover {
+    background: none;
+    border-color: $accepted-color;
+    color: $accepted-color;
+}
+
+.react-tabs__tab--selected {
+    text-align: right;
+    margin-right: 5%;
+    background: none;
+    border-color: $accepted-color;
+    color: $accepted-color;
+}
+
+.partner-icon {
+    display: block;
+    height:60px;
+    width: 60px;
+    background-color: $link-color;
+    border-radius: 100%;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 500;
+    border: none;
+    margin: 0% 2%;
+}
+
+.partner-org-initials {
+    padding: 0;
+    text-align: center;
+}
+
+#new-fp-button {
+    background-color: white;
+    border-radius: 50px;
+    border: none;
+    padding: 10% 10%;
+    margin: 40% 0 25% 0;
+    box-shadow: 0px 1px 5px 0px $light-shadow;
+    width: 100%;
+}
+
+#new-fp-button span {
+    display: inline-block;
+}
+
+/* Add new button overflows the sidebar, which is solved with these media queries */
+@media screen and (max-width: 980px) {
+    #new-fp-button img {
+        margin-right: 7%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #new-fp-button span {
+        font-size: 9pt;
+    }
+}

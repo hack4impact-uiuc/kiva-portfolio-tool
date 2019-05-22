@@ -1,5 +1,33 @@
 from api.models import db, DocumentClass, Document
 
+import requests
+
+BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
+
+r = (
+    requests.post(
+        BACKEND_URL + "register",
+        data={
+            "email": "test@gmail.com",
+            "password": "test",
+            "securityQuestionAnswer": "answer",
+            "answer": "yo",
+            "questionIdx": 1,
+            "role": "pm",
+        },
+    )
+).json()
+
+if r.get("status") == 400:
+    r = (
+        requests.post(
+            BACKEND_URL + "login", data={"email": "test@gmail.com", "password": "test"}
+        )
+    ).json()
+
+token = r.get("token")
+
+headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
@@ -20,7 +48,7 @@ def test_get_document_class(client):
     DocumentClass.query.delete()
     db.session.commit()
 
-    rs = client.get("/document_class")
+    rs = client.get("/document_classes")
     assert rs.status_code == 200
     ret_dict = rs.json
     assert ret_dict["success"] == True
@@ -31,7 +59,7 @@ def test_get_document_class(client):
     db.session.add(helper_docclass)
     db.session.commit()
 
-    rs = client.get("/document_class")
+    rs = client.get("/document_classes")
     ret_dict = rs.json
     assert len(ret_dict["result"]["document_class"]) == 1
     assert ret_dict["result"]["document_class"][0]["name"] == "Annual Report"
@@ -69,9 +97,10 @@ def test_add_document_class(client):
 
     # Test for not having required field provided
     rs = client.post(
-        "/document_class/new",
+        "/document_classes",
         content_type="multipart/form-data",
         data={"description": "description here"},
+        headers=headers,
     )
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
@@ -80,9 +109,10 @@ def test_add_document_class(client):
 
     # Test for legal add
     rs = client.post(
-        "/document_class/new",
+        "/document_classes",
         content_type="multipart/form-data",
         data={"name": "docname", "description": "description here"},
+        headers=headers,
     )
 
     assert rs.status_code == 200
@@ -100,9 +130,10 @@ def test_update_document_class_by_id(client):
     db.session.commit()
 
     rs = client.put(
-        "/document_class/update/" + helper_docclass.id,
+        "/document_class/" + helper_docclass.id,
         content_type="multipart/form-data",
         data={"name": "newdocname"},
+        headers=headers,
     )
 
     assert rs.status_code == 200

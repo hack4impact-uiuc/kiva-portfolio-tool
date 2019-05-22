@@ -2,13 +2,14 @@ from flask import Blueprint, request, json
 from api.models import Document, DocumentClass, db
 from api.views.box import upload_file
 from api.core import create_response, serialize_list, logger
+from api.views.auth import verify_token
 
 import requests, json
 
 docclass = Blueprint("docclass", __name__)
 
 
-@docclass.route("/document_class", methods=["GET"])
+@docclass.route("/document_classes", methods=["GET"])
 def get_document_class():
     """ function that is called when you visit /document_class, gets all the docclasses """
     document_class = DocumentClass.query.all()
@@ -24,13 +25,25 @@ def get_document_class_by_id(id):
     )
 
 
-@docclass.route("/document_class/new", methods=["POST"])
+@docclass.route("/document_classes", methods=["POST"])
 def add_document_class():
     """ function that is called when you visit /document_class/new, creates a new docclass """
     data = request.form
 
     if data is None:
         return create_response(status=400, message="No data provided")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
+    if info == "fp":
+        return create_response(
+            status=400, message="You do not have permission to create new documents!"
+        )
 
     if "name" not in data:
         return create_response(
@@ -52,13 +65,25 @@ def add_document_class():
     return create_response(status=200, message="success")
 
 
-@docclass.route("/document_class/update/<id>", methods=["PUT"])
+@docclass.route("/document_class/<id>", methods=["PUT"])
 def update_document_class(id):
     """ function that is called when you visit /document_class/update/<id>, updates a docclass """
     data = request.form
 
     if data is None:
         return create_response(status=400, message="No body provided")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
+    if info == "fp":
+        return create_response(
+            status=400, message="You do not have permission to create new documents!"
+        )
 
     docclass = DocumentClass.query.get(id)
 
@@ -79,8 +104,21 @@ def update_document_class(id):
     return create_response(status=200, data={"document_class": updated_docclass})
 
 
-@docclass.route("/document_class/delete/<id>", methods=["DELETE"])
+@docclass.route("/document_class/<id>", methods=["DELETE"])
 def delete_document_class(id):
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    message, info = verify_token(token)
+    if message != None:
+        return create_response(status=400, message=message)
+
+    if info == "fp":
+        return create_response(
+            status=400, message="You do not have permission to create new documents!"
+        )
+
     # delete all associated Documents before deleting Document Class
     Document.query.filter(Document.docClassID == str(id)).delete()
 

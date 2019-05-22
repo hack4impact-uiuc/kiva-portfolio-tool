@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
+import { Button, Modal, ModalBody, ModalFooter, Input } from 'reactstrap'
+import Dropzone from 'react-dropzone'
+
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
+
 import DocumentClassPreview from './DocumentClassPreview'
-import { Button, Modal, ModalBody, ModalFooter } from 'reactstrap'
+
 import {
   deleteDocumentClass,
   updateDocumentClass,
   getAllDocumentClasses
 } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
-import { updateDocumentClasses } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
-import Dropzone from 'react-dropzone'
+
+import edit from '../media/greyEdit.png'
+import remove from '../media/remove.png'
+
+import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({})
 
@@ -31,7 +38,7 @@ Name is represented normally
 Buttons exist to view, edit, and delete
 View shows the description and a Box preview
 */
-class DocumentClass extends Component {
+export class DocumentClass extends Component {
   constructor(props) {
     super(props)
 
@@ -49,25 +56,41 @@ class DocumentClass extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  /**
+   * Opens/closes edit modal
+   */
   editToggle() {
     this.setState({ editModal: !this.state.editModal })
   }
 
+  /**
+   * Opens/closes delete modal
+   */
   deleteToggle() {
     this.setState({ deleteModal: !this.state.deleteModal })
   }
 
+  /**
+   * updates name in edit modal
+   */
   updateName = event => {
     this.setState({ name: event.target.value })
   }
 
+  /**
+   * updates description in edit modal
+   */
   updateDescription = event => {
     this.setState({ description: event.target.value })
   }
 
+  /**
+   * updates document class information from information in inputs
+   * called in edit modal
+   */
   async handleSubmit() {
     this.props.beginLoading()
-    if (this.state.files.length == 0) {
+    if (this.state.files.length === 0) {
       await updateDocumentClass(
         this.props.documentClass._id,
         this.state.name,
@@ -100,6 +123,10 @@ class DocumentClass extends Component {
     })
   }
 
+  /**
+   * deletes a document class
+   * called in delete modal
+   */
   async handleDelete() {
     this.props.beginLoading()
     await deleteDocumentClass(this.props.documentClass._id)
@@ -120,13 +147,13 @@ class DocumentClass extends Component {
           <ModalBody>
             <form>
               <span> Name: </span>
-              <input onChange={this.updateName} value={this.state.name} />
+              <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
               <span> Description: </span>
-              <textarea
-                name="paragraph_text"
-                cols="50"
-                rows="10"
+              <Input
+                type="textarea"
+                className="textarea-input"
+                style={{ height: '200px' }}
                 onChange={this.updateDescription}
                 value={this.state.description}
               />
@@ -158,20 +185,22 @@ class DocumentClass extends Component {
             <Button className="invalidSearchButton" onClick={this.editToggle}>
               Return
             </Button>
-            <Button onClick={this.handleSubmit}>Update Document Class</Button>
+            <Button onClick={this.handleSubmit} color="success">
+              Update Document Class
+            </Button>
           </ModalFooter>
         </Modal>
-        <tr>
+        <tr className="hoverable">
           {this.props.documentClass.name ? (
             <td data-testid="docClass">{this.props.documentClass.name}</td>
           ) : null}
           <td data-testid="interaction" className="interaction">
             <DocumentClassPreview documentClass={this.props.documentClass} />
-            <Button color="primary" onClick={this.editToggle}>
-              Edit
+            <Button color="transparent" onClick={this.editToggle}>
+              <img className="buttonimg" src={edit} alt="Edit icon" />
             </Button>
-            <Button color="primary" onClick={this.deleteToggle}>
-              Delete
+            <Button color="transparent" onClick={this.deleteToggle}>
+              <img className="buttonimg" src={remove} alt="Remove icon" />
             </Button>
             <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
               <ModalBody>
@@ -181,7 +210,7 @@ class DocumentClass extends Component {
                 </p>
               </ModalBody>
               <ModalFooter>
-                <Button className="invalidSearchButton" onClick={this.handleDelete}>
+                <Button className="invalidSearchButton" color="primary" onClick={this.handleDelete}>
                   Delete and return
                 </Button>
                 <Button className="invalidSearchButton" onClick={this.deleteToggle}>

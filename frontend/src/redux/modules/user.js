@@ -1,16 +1,16 @@
 const SET_USER_TYPE = 'user/set_user_type'
 const UPDATE_DOCUMENTS = 'user/update_documents'
 const UPDATE_DOCUMENT_CLASSES = 'user/update_document_classes'
-const LOAD = 'user/load'
 const UPDATE_MESSAGES = 'user/update_messages'
-const UPDATE_INFORMATION = 'user/update_information'
+const UPDATE_INSTRUCTIONS = 'user/update_instructions'
+const LOAD = 'auth/begin_loading'
 
 const initialState = {
-  isPM: false,
+  isPM: true,
   documents: [],
   documentClasses: [],
   messages: [],
-  information: [],
+  instructions: '',
   loading: false
 }
 export default function reducer(state = initialState, action) {
@@ -30,20 +30,20 @@ export default function reducer(state = initialState, action) {
         ...state,
         documentClasses: action.value
       }
-    case LOAD:
-      return {
-        ...state,
-        loading: action.value
-      }
     case UPDATE_MESSAGES:
       return {
         ...state,
         messages: action.value
       }
-    case UPDATE_INFORMATION:
+    case UPDATE_INSTRUCTIONS:
       return {
         ...state,
-        information: action.value
+        instructions: action.value
+      }
+    case LOAD:
+      return {
+        ...state,
+        loading: action.value
       }
     default:
       return state
@@ -70,8 +70,8 @@ export const updateMessages = value => ({
   value
 })
 
-export const updateInformation = value => ({
-  type: UPDATE_INFORMATION,
+export const updateInstructions = value => ({
+  type: UPDATE_INSTRUCTIONS,
   value
 })
 

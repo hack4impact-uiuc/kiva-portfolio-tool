@@ -1,5 +1,5 @@
 from flask import Blueprint, request, json
-from api.models import FieldPartner, db
+from api.models import FieldPartner, Document, db
 from api.core import create_response, serialize_list, logger
 
 import requests, json
@@ -7,11 +7,33 @@ import requests, json
 fp = Blueprint("fp", __name__)
 
 
-@fp.route("/field_partner", methods=["GET"])
+@fp.route("/field_partners", methods=["GET"])
 def get_field_partner():
     """ function that is called when you visit /field_partner, gets all the FPs """
-    field_partner = FieldPartner.query.all()
-    return create_response(data={"field_partner": serialize_list(field_partner)})
+
+    # gets database values from query string, if missing is None
+    kwargs = {}
+    kwargs["email"] = request.args.get("email")
+    kwargs["org_name"] = request.args.get("org_name")
+    kwargs["pm_id"] = request.args.get("pm_id")
+    kwargs["app_status"] = request.args.get("app_status")
+    kwargs["instructions"] = request.args.get("instructions")
+
+    kwargs = {k: v for k, v in kwargs.items() if v is not None}
+
+    if len(kwargs) == 0:
+        field_partner_list = serialize_list(FieldPartner.query.all())
+    else:
+        field_partner_list = serialize_list(
+            FieldPartner.query.filter_by(**kwargs).all()
+        )
+
+    for field_partner in field_partner_list:
+        field_partner["documents"] = serialize_list(
+            Document.query.filter(Document.userID == field_partner["_id"]).all()
+        )
+
+    return create_response(data={"field_partner": field_partner_list})
 
 
 @fp.route("/field_partner/<id>", methods=["GET"])
@@ -21,36 +43,14 @@ def get_fp_by_id(id):
     return create_response(data={"field_partner": field_partner_by_id.to_dict()})
 
 
-@fp.route("/field_partner/email/<email>", methods=["GET"])
-def get_fp_by_email(email):
-    """ function that is called when you visit /field_partner/get/email/<email>, gets an FP by email """
-    field_partner_by_email = FieldPartner.query.filter(FieldPartner.email == email)
-    return create_response(
-        data={"field_partner": serialize_list(field_partner_by_email)}
-    )
-
-
-@fp.route("/field_partner/org_name/<id>", methods=["GET"])
-def get_org_by_id(id):
-    """ function that is called when you visit _____, gets an FP's org name by ID """
-    fp_by_id = FieldPartner.query.get(id)
-    return create_response(data={"org_name": fp_by_id.org_name})
-
-
-@fp.route("/field_partner/pm/<pm_id>", methods=["GET"])
-def get_fp_by_pm(pm_id):
-    """ function that is called when you visit /field_partner/get/pm/<pm_id>, filters FPs by PM IDs """
-    field_partner_list = FieldPartner.query.filter(FieldPartner.pm_id == pm_id).all()
-    return create_response(data={"field_partner": serialize_list(field_partner_list)})
-
-
-@fp.route("/field_partner/new", methods=["POST"])
+@fp.route("/field_partners", methods=["POST"])
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
     data = request.form
 
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
+
     if "email" not in data:
         return create_response(status=400, message="No email provided for new FP")
     if "org_name" not in data:
@@ -63,16 +63,41 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
-    sample_args = request.args
+
     new_fp = FieldPartner(data)
-    return create_response(data={"field_partner": new_fp.to_dict()})
+    res = new_fp.to_dict()
+
+    db.session.add(new_fp)
+    db.session.commit()
+
+    return create_response(data={"field_partner": res})
 
 
-@fp.route("/field_partner/update/<id>", methods=["PUT"])
+@fp.route("/field_partner/<id>", methods=["PUT"])
 def update_app_status(id):
     """ function that is called when you visit /field_partner/update/<id>, updates an FP's app status info """
     fp = FieldPartner.query.get(id)
-    fp.app_status = request.form.get("app_status", "")
+
+    data = request.form
+
+    if data is None:
+        return create_response(status=400, message="No data provided to update FP")
+
+    if "app_status" in data:
+        fp.app_status = data.get("app_status")
+
+    if "instructions" in data:
+        fp.instructions = data.get("instructions")
+
+    if "email" in data:
+        fp.email = data.get("email")
+
+    if "org_name" in data:
+        fp.org_name = data.get("org_name")
+
+    if "pm_id" in data:
+        fp.pm_id = data.get("pm_id")
+
     ret = fp.to_dict()
 
     db.session.commit()

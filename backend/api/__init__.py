@@ -5,6 +5,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_migrate import Migrate
 from sqlalchemy_utils import create_database, database_exists
+from flask_mail import Mail
 
 from api.config import config
 from api.core import all_exception_handler
@@ -78,7 +79,7 @@ def create_app(test_config=None):
     Migrate(app, db)
 
     # import and register blueprints
-    from api.views import main, document, message, box, fp, pm, docclass
+    from api.views import main, message, box, fp, pm, docclass, auth, document
 
     # why blueprints http://flask.pocoo.org/docs/1.0/blueprints/
     app.register_blueprint(main.main)
@@ -88,6 +89,18 @@ def create_app(test_config=None):
     app.register_blueprint(fp.fp)
     app.register_blueprint(pm.pm)
     app.register_blueprint(docclass.docclass)
+    app.register_blueprint(auth.auth)
+
+    # configure emails
+    mail_settings = {
+        "MAIL_SERVER": "smtp.gmail.com",
+        "MAIL_PORT": 465,
+        "MAIL_USE_TLS": False,
+        "MAIL_USE_SSL": True,
+        "MAIL_USERNAME": os.environ["GMAIL_NAME"],
+        "MAIL_PASSWORD": os.environ["GMAIL_PASSWORD"],
+    }
+    app.config.update(mail_settings)
 
     # register error Handler
     app.register_error_handler(Exception, all_exception_handler)

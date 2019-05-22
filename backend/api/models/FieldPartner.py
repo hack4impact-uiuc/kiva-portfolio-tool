@@ -13,7 +13,10 @@ class FieldPartner(Mixin, db.Model):
     email = db.Column(db.String)
     org_name = db.Column(db.String)
     pm_id = db.Column(db.String, db.ForeignKey("portfolio_manager.id"))
-    app_status = db.Column(db.String)
+    app_status = db.Column(
+        db.Enum("New Partner", "In Process", "Complete", name="app_status")
+    )
+    instructions = db.Column(db.String)
 
     def __init__(self, data):
         self.id = "f" + str(uuid.uuid4())
@@ -24,5 +27,8 @@ class FieldPartner(Mixin, db.Model):
         self.pm_id = data["pm_id"]
         self.app_status = data["app_status"]
 
+        # upon construction, default to empty instructions
+        self.instructions = ""
+
     def __repr__(self):
-        return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n:PM ID: {self.pm_id}>"
+        return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n:PM ID: {self.pm_id}\n>"

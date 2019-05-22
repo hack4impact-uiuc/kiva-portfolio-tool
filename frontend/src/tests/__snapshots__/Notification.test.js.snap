@@ -1,7 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Notification renders correctly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<ListGroupItem
+  tag="li"
+>
+  <div
+    className="kiva-icon"
+  >
+    <p
+      className="partner-org-initials"
+    >
+      k
+    </p>
+  </div>
+  <div
+    className="notif-info"
+  >
+    <p
+      className="person-name"
+    >
+       
+      <b>
+         
+         
+      </b>
+       
+    </p>
+    <p
+      className="time"
+    >
+       
+       
+    </p>
+    <p
+      className="notif-description"
+    >
+       
+       
+    </p>
+  </div>
+  <div>
+    <Button
+      className="exit-button-wrapper"
+      color="transparent"
+      onClick={[Function]}
+      tag="button"
+    >
+      <img
+        alt="Edit icon"
+        className="exit-button"
+        src="greyX.png"
+      />
+    </Button>
+  </div>
+</ListGroupItem>
 `;
