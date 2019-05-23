@@ -14,6 +14,5 @@ Flask_SQLAlchemy==2.3.2
 python-dotenv==0.10.2
 flask_mail==0.9.1
 PyJWT==1.7.1
-secrets==1.0.2
 testing==0.0
 typing==3.6.6
