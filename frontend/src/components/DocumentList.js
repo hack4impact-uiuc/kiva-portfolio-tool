@@ -41,21 +41,45 @@ export class DocumentList extends Component {
 
   languages = {
     English: {
+      statuses: {
+        Missing: 'Missing',
+        Pending: 'Pending',
+        Rejected: 'Rejected',
+        Approved: 'Approved'
+      },
       documents: ' documents',
       documentName: 'Document name',
       file: 'File'
     },
     Spanish: {
+      statuses: {
+        Missing: 'Missing (Spanish)',
+        Pending: 'Pending (Spanish)',
+        Rejected: 'Rejected (Spanish)',
+        Approved: 'Approved (Spanish)'
+      },
       documents: ' documents (Spanish)',
       documentName: 'Document name (Spanish)',
       file: 'File (Spanish)'
     },
     French: {
+      statuses: {
+        Missing: 'Missing (French)',
+        Pending: 'Pending (French)',
+        Rejected: 'Rejected (French)',
+        Approved: 'Approved (French)'
+      },
       documents: ' documents (French)',
       documentName: 'Document name (French)',
       file: 'File (French)'
     },
     Portuguese: {
+      statuses: {
+        Missing: 'Missing (Portuguese)',
+        Pending: 'Pending (Portuguese)',
+        Rejected: 'Rejected (Portuguese)',
+        Approved: 'Approved (Portuguese)'
+      },
       documents: ' documents (Portuguese)',
       documentName: 'Document name (Portuguese)',
       file: 'File (Portuguese)'
@@ -80,7 +104,7 @@ export class DocumentList extends Component {
                 ' text-white'
               }
             >
-              {this.props.status + text.documents}
+              {text.statuses[this.props.status] + text.documents}
             </th>
           </tr>
           <tr>
