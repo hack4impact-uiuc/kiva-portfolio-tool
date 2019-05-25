@@ -97,4 +97,4 @@ export class DocumentClassPreview extends Component {
   }
 }
 
-export default DocumentClassPreview
+export default connect(mapStateToProps)(DocumentClassPreview)
