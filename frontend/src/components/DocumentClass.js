@@ -19,7 +19,9 @@ import remove from '../media/remove.png'
 
 import '../styles/documentclasspage.css'
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -140,16 +142,64 @@ export class DocumentClass extends Component {
     this.deleteToggle()
   }
 
+  languages = {
+    English: {
+      name: 'Name: ',
+      description: 'Description: ',
+      fileUploaded: 'File uploaded: ',
+      click: 'Click to upload',
+      return: 'Return',
+      update: 'Update document class',
+      confirm1: 'Are you sure you want to delete ',
+      confirm2: '? This will delete every document of this type for all users.',
+      deleteReturn: 'Delete and return'
+    },
+    Spanish: {
+      name: 'Name: (Spanish)',
+      description: 'Description:  (Spanish)',
+      fileUploaded: 'File uploaded:  (Spanish)',
+      click: 'Click to upload (Spanish)',
+      return: 'Return (Spanish)',
+      update: 'Update document class (Spanish)',
+      confirm1: 'Are you sure you want to delete  (Spanish)',
+      confirm2: '? This will delete every document of this type for all users. (Spanish)',
+      deleteReturn: 'Delete and return (Spanish)'
+    },
+    French: {
+      name: 'Name:  (French)',
+      description: 'Description:  (French)',
+      fileUploaded: 'File uploaded:  (French)',
+      click: 'Click to upload (French)',
+      return: 'Return (French)',
+      update: 'Update document class (French)',
+      confirm1: 'Are you sure you want to delete  (French)',
+      confirm2: '? This will delete every document of this type for all users. (French)',
+      deleteReturn: 'Delete and return (French)'
+    },
+    Portuguese: {
+      name: 'Name:  (Portuguese)',
+      description: 'Description:  (Portuguese)',
+      fileUploaded: 'File uploaded:  (Portuguese)',
+      click: 'Click to upload (Portuguese)',
+      return: 'Return (Portuguese)',
+      update: 'Update document class (Portuguese)',
+      confirm1: 'Are you sure you want to delete  (Portuguese)',
+      confirm2: '? This will delete every document of this type for all users. (Portuguese)',
+      deleteReturn: 'Delete and return (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
     return (
       <>
         <Modal isOpen={this.state.editModal} toggle={this.editToggle}>
           <ModalBody>
             <form>
-              <span> Name: </span>
+              <span>{text.name}</span>
               <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
-              <span> Description: </span>
+              <span>{text.description}</span>
               <Input
                 type="textarea"
                 className="textarea-input"
@@ -167,9 +217,9 @@ export class DocumentClass extends Component {
                           <div {...getRootProps()}>
                             <input {...getInputProps()} />
                             {this.state.files.length > 0 ? (
-                              <p>File uploaded: {this.state.files[0].name}</p>
+                              <p>{text.fileUploaded + this.state.files[0].name}</p>
                             ) : (
-                              <p>Click to Upload</p>
+                              <p>{text.click}</p>
                             )}
                           </div>
                         </section>
@@ -183,10 +233,10 @@ export class DocumentClass extends Component {
           </ModalBody>
           <ModalFooter>
             <Button className="invalidSearchButton" onClick={this.editToggle}>
-              Return
+              {text.return}
             </Button>
             <Button onClick={this.handleSubmit} color="success">
-              Update Document Class
+              {text.update}
             </Button>
           </ModalFooter>
         </Modal>
@@ -204,17 +254,14 @@ export class DocumentClass extends Component {
             </Button>
             <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
               <ModalBody>
-                <p>
-                  Are you sure you want to delete {this.props.documentClass.name}? This will delete
-                  every document of this type for all users.
-                </p>
+                <p>{text.confirm1 + this.props.documentClass.name + text.confirm1}</p>
               </ModalBody>
               <ModalFooter>
                 <Button className="invalidSearchButton" color="primary" onClick={this.handleDelete}>
-                  Delete and return
+                  {text.deleteReturn}
                 </Button>
                 <Button className="invalidSearchButton" onClick={this.deleteToggle}>
-                  Return
+                  {text.return}
                 </Button>
               </ModalFooter>
             </Modal>
