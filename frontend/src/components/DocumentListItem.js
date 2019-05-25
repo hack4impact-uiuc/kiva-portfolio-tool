@@ -155,8 +155,8 @@ export class DocumentListItem extends Component {
         &times;
       </button>
     )
-
     let text = this.languages[this.props.language]
+
     return (
       <>
         <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>

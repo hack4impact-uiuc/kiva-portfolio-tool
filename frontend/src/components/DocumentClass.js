@@ -191,6 +191,7 @@ export class DocumentClass extends Component {
 
   render() {
     let text = this.languages[this.props.language]
+
     return (
       <>
         <Modal isOpen={this.state.editModal} toggle={this.editToggle}>

@@ -67,8 +67,8 @@ export class DocumentClassPreview extends Component {
         &times;
       </button>
     )
-
     let text = this.languages[this.props.language]
+
     return (
       <>
         <Button color="transparent" onClick={this.toggle}>

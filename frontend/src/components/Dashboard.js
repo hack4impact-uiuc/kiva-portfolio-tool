@@ -144,6 +144,7 @@ export class Dashboard extends Component {
 
   render() {
     let text = this.languages[this.props.language]
+
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
