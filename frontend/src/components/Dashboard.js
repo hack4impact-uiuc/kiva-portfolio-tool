@@ -34,7 +34,8 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
   messages: state.user.messages,
-  information: state.user.information
+  information: state.user.information,
+  language: state.user.language
 })
 
 const mapDispatchToProps = dispatch => {
@@ -122,7 +123,27 @@ export class Dashboard extends Component {
     margin: 'auto'
   }
 
+  languages = {
+    English: {
+      update: 'Update requirements/instructions',
+      finish: 'Finish process'
+    },
+    Spanish: {
+      update: 'Update requirements/instructions (Spanish)',
+      finish: 'Finish process (Spanish)'
+    },
+    French: {
+      update: 'Update requirements/instructions (French)',
+      finish: 'Finish process (French)'
+    },
+    Portuguese: {
+      update: 'Update requirements/instructions (Portuguese)',
+      finish: 'Finish process (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
@@ -134,11 +155,11 @@ export class Dashboard extends Component {
               onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
             >
               <img className="addImg" src={add} alt="Add icon" />
-              <span className="add-doc-text">Update requirements/instructions</span>
+              <span className="add-doc-text">{text.update}</span>
             </Button>
             <br />
             <Button color="success" onClick={this.handleFinish}>
-              Finish Process
+              {text.finish}
             </Button>
           </div>
         ) : null}
