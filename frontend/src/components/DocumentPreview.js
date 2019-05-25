@@ -132,6 +132,9 @@ export class DocumentPreview extends Component {
   render() {
     const { isPM } = this.props
     let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
 
     return (
       <>

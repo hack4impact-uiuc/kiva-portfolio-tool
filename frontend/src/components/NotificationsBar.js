@@ -59,6 +59,9 @@ export class NotificationsBar extends Component {
     const allMessages = this.props.allMessages
     const instructions = this.props.instructions
     let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
 
     return (
       <Tabs className="notifications-tabs">

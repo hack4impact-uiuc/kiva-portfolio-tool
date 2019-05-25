@@ -33,6 +33,9 @@ class Load extends Component {
 
   render() {
     let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
 
     if (this.props.loading) {
       return (

@@ -159,6 +159,9 @@ export class ForgotPassword extends Component {
 
   render() {
     let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
 
     return (
       <div>

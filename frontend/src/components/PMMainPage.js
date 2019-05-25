@@ -278,6 +278,9 @@ export class PMMainPage extends Component {
 
   render() {
     let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
 
     return (
       <div className="page background-circles-green maxheight">

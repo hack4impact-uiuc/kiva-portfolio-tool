@@ -29,6 +29,10 @@ export class ErrorMessage extends Component {
   render() {
     let text = this.languages[this.props.language]
 
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <div>
         <h3 style={{ textAlign: 'center', padding: 150 }}>{text.error}</h3>
