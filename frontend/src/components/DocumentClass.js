@@ -144,8 +144,8 @@ export class DocumentClass extends Component {
 
   languages = {
     English: {
-      name: 'Name: ',
-      description: 'Description: ',
+      name: 'Name:',
+      description: 'Description:',
       fileUploaded: 'File uploaded: ',
       click: 'Click to upload',
       return: 'Return',
@@ -155,8 +155,8 @@ export class DocumentClass extends Component {
       deleteReturn: 'Delete and return'
     },
     Spanish: {
-      name: 'Name:  (Spanish)',
-      description: 'Description:  (Spanish)',
+      name: 'Name: (Spanish)',
+      description: 'Description: (Spanish)',
       fileUploaded: 'File uploaded:  (Spanish)',
       click: 'Click to upload (Spanish)',
       return: 'Return (Spanish)',
@@ -166,8 +166,8 @@ export class DocumentClass extends Component {
       deleteReturn: 'Delete and return (Spanish)'
     },
     French: {
-      name: 'Name:  (French)',
-      description: 'Description:  (French)',
+      name: 'Name: (French)',
+      description: 'Description: (French)',
       fileUploaded: 'File uploaded:  (French)',
       click: 'Click to upload (French)',
       return: 'Return (French)',
@@ -177,8 +177,8 @@ export class DocumentClass extends Component {
       deleteReturn: 'Delete and return (French)'
     },
     Portuguese: {
-      name: 'Name:  (Portuguese)',
-      description: 'Description:  (Portuguese)',
+      name: 'Name: (Portuguese)',
+      description: 'Description: (Portuguese)',
       fileUploaded: 'File uploaded:  (Portuguese)',
       click: 'Click to upload (Portuguese)',
       return: 'Return (Portuguese)',
