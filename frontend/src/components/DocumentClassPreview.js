@@ -2,10 +2,16 @@ import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
 
+import { connect } from 'react-redux'
+
 import preview from '../media/preview.png'
 
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
+
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 /*
 Used to view information about a Document CLass when pressing 'View'
@@ -31,6 +37,21 @@ export class DocumentClassPreview extends Component {
     }))
   }
 
+  languages = {
+    English: {
+      close: 'Close'
+    },
+    Spanish: {
+      close: 'Close (Spanish)'
+    },
+    French: {
+      close: 'Close (French)'
+    },
+    Portuguese: {
+      close: 'Close (Portuguese)'
+    }
+  }
+
   render() {
     const customStyles = {
       height: '500px',
@@ -47,6 +68,7 @@ export class DocumentClassPreview extends Component {
       </button>
     )
 
+    let text = this.languages[this.props.language]
     return (
       <>
         <Button color="transparent" onClick={this.toggle}>
@@ -66,7 +88,7 @@ export class DocumentClassPreview extends Component {
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>
-              Close
+              {text.close}
             </Button>
           </ModalFooter>
         </Modal>
