@@ -18,22 +18,22 @@ exports[` renders correctly 1`] = `
         Object {
           "flag": "english.png",
           "label": "English",
-          "value": "english",
+          "value": "English",
         },
         Object {
           "flag": "french.png",
-          "label": "French",
-          "value": "french",
+          "label": "Français",
+          "value": "French",
         },
         Object {
           "flag": "spanish.png",
-          "label": "Spanish",
-          "value": "spanish",
+          "label": "Español",
+          "value": "Spanish",
         },
         Object {
           "flag": "portuguese.png",
-          "label": "Portuguese",
-          "value": "portuguese",
+          "label": "Português",
+          "value": "Portuguese",
         },
       ]
     }
@@ -83,22 +83,22 @@ exports[` renders correctly 1`] = `
           Object {
             "flag": "english.png",
             "label": "English",
-            "value": "english",
+            "value": "English",
           },
           Object {
             "flag": "french.png",
-            "label": "French",
-            "value": "french",
+            "label": "Français",
+            "value": "French",
           },
           Object {
             "flag": "spanish.png",
-            "label": "Spanish",
-            "value": "spanish",
+            "label": "Español",
+            "value": "Spanish",
           },
           Object {
             "flag": "portuguese.png",
-            "label": "Portuguese",
-            "value": "portuguese",
+            "label": "Português",
+            "value": "Portuguese",
           },
         ]
       }
@@ -132,22 +132,22 @@ exports[` renders correctly 1`] = `
             Object {
               "flag": "english.png",
               "label": "English",
-              "value": "english",
+              "value": "English",
             },
             Object {
               "flag": "french.png",
-              "label": "French",
-              "value": "french",
+              "label": "Français",
+              "value": "French",
             },
             Object {
               "flag": "spanish.png",
-              "label": "Spanish",
-              "value": "spanish",
+              "label": "Español",
+              "value": "Spanish",
             },
             Object {
               "flag": "portuguese.png",
-              "label": "Portuguese",
-              "value": "portuguese",
+              "label": "Português",
+              "value": "Portuguese",
             },
           ]
         }
@@ -195,22 +195,22 @@ exports[` renders correctly 1`] = `
               Object {
                 "flag": "english.png",
                 "label": "English",
-                "value": "english",
+                "value": "English",
               },
               Object {
                 "flag": "french.png",
-                "label": "French",
-                "value": "french",
+                "label": "Français",
+                "value": "French",
               },
               Object {
                 "flag": "spanish.png",
-                "label": "Spanish",
-                "value": "spanish",
+                "label": "Español",
+                "value": "Spanish",
               },
               Object {
                 "flag": "portuguese.png",
-                "label": "Portuguese",
-                "value": "portuguese",
+                "label": "Português",
+                "value": "Portuguese",
               },
             ],
             "pageSize": 5,
@@ -280,22 +280,22 @@ exports[` renders correctly 1`] = `
                 Object {
                   "flag": "english.png",
                   "label": "English",
-                  "value": "english",
+                  "value": "English",
                 },
                 Object {
                   "flag": "french.png",
-                  "label": "French",
-                  "value": "french",
+                  "label": "Français",
+                  "value": "French",
                 },
                 Object {
                   "flag": "spanish.png",
-                  "label": "Spanish",
-                  "value": "spanish",
+                  "label": "Español",
+                  "value": "Spanish",
                 },
                 Object {
                   "flag": "portuguese.png",
-                  "label": "Portuguese",
-                  "value": "portuguese",
+                  "label": "Português",
+                  "value": "Portuguese",
                 },
               ]
             }
@@ -343,22 +343,22 @@ exports[` renders correctly 1`] = `
                   Object {
                     "flag": "english.png",
                     "label": "English",
-                    "value": "english",
+                    "value": "English",
                   },
                   Object {
                     "flag": "french.png",
-                    "label": "French",
-                    "value": "french",
+                    "label": "Français",
+                    "value": "French",
                   },
                   Object {
                     "flag": "spanish.png",
-                    "label": "Spanish",
-                    "value": "spanish",
+                    "label": "Español",
+                    "value": "Spanish",
                   },
                   Object {
                     "flag": "portuguese.png",
-                    "label": "Portuguese",
-                    "value": "portuguese",
+                    "label": "Português",
+                    "value": "Portuguese",
                   },
                 ],
                 "pageSize": 5,
@@ -420,22 +420,22 @@ exports[` renders correctly 1`] = `
                     Object {
                       "flag": "english.png",
                       "label": "English",
-                      "value": "english",
+                      "value": "English",
                     },
                     Object {
                       "flag": "french.png",
-                      "label": "French",
-                      "value": "french",
+                      "label": "Français",
+                      "value": "French",
                     },
                     Object {
                       "flag": "spanish.png",
-                      "label": "Spanish",
-                      "value": "spanish",
+                      "label": "Español",
+                      "value": "Spanish",
                     },
                     Object {
                       "flag": "portuguese.png",
-                      "label": "Portuguese",
-                      "value": "portuguese",
+                      "label": "Português",
+                      "value": "Portuguese",
                     },
                   ]
                 }
@@ -483,22 +483,22 @@ exports[` renders correctly 1`] = `
                       Object {
                         "flag": "english.png",
                         "label": "English",
-                        "value": "english",
+                        "value": "English",
                       },
                       Object {
                         "flag": "french.png",
-                        "label": "French",
-                        "value": "french",
+                        "label": "Français",
+                        "value": "French",
                       },
                       Object {
                         "flag": "spanish.png",
-                        "label": "Spanish",
-                        "value": "spanish",
+                        "label": "Español",
+                        "value": "Spanish",
                       },
                       Object {
                         "flag": "portuguese.png",
-                        "label": "Portuguese",
-                        "value": "portuguese",
+                        "label": "Português",
+                        "value": "Portuguese",
                       },
                     ],
                     "pageSize": 5,
@@ -560,22 +560,22 @@ exports[` renders correctly 1`] = `
                         Object {
                           "flag": "english.png",
                           "label": "English",
-                          "value": "english",
+                          "value": "English",
                         },
                         Object {
                           "flag": "french.png",
-                          "label": "French",
-                          "value": "french",
+                          "label": "Français",
+                          "value": "French",
                         },
                         Object {
                           "flag": "spanish.png",
-                          "label": "Spanish",
-                          "value": "spanish",
+                          "label": "Español",
+                          "value": "Spanish",
                         },
                         Object {
                           "flag": "portuguese.png",
-                          "label": "Portuguese",
-                          "value": "portuguese",
+                          "label": "Português",
+                          "value": "Portuguese",
                         },
                       ]
                     }
@@ -623,22 +623,22 @@ exports[` renders correctly 1`] = `
                           Object {
                             "flag": "english.png",
                             "label": "English",
-                            "value": "english",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
@@ -744,22 +744,22 @@ exports[` renders correctly 1`] = `
                           Object {
                             "flag": "english.png",
                             "label": "English",
-                            "value": "english",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
@@ -909,22 +909,22 @@ exports[` renders correctly 1`] = `
                     Object {
                       "flag": "english.png",
                       "label": "English",
-                      "value": "english",
+                      "value": "English",
                     },
                     Object {
                       "flag": "french.png",
-                      "label": "French",
-                      "value": "french",
+                      "label": "Français",
+                      "value": "French",
                     },
                     Object {
                       "flag": "spanish.png",
-                      "label": "Spanish",
-                      "value": "spanish",
+                      "label": "Español",
+                      "value": "Spanish",
                     },
                     Object {
                       "flag": "portuguese.png",
-                      "label": "Portuguese",
-                      "value": "portuguese",
+                      "label": "Português",
+                      "value": "Portuguese",
                     },
                   ]
                 }
@@ -972,22 +972,22 @@ exports[` renders correctly 1`] = `
                       Object {
                         "flag": "english.png",
                         "label": "English",
-                        "value": "english",
+                        "value": "English",
                       },
                       Object {
                         "flag": "french.png",
-                        "label": "French",
-                        "value": "french",
+                        "label": "Français",
+                        "value": "French",
                       },
                       Object {
                         "flag": "spanish.png",
-                        "label": "Spanish",
-                        "value": "spanish",
+                        "label": "Español",
+                        "value": "Spanish",
                       },
                       Object {
                         "flag": "portuguese.png",
-                        "label": "Portuguese",
-                        "value": "portuguese",
+                        "label": "Português",
+                        "value": "Portuguese",
                       },
                     ],
                     "pageSize": 5,
@@ -1048,22 +1048,22 @@ exports[` renders correctly 1`] = `
                         Object {
                           "flag": "english.png",
                           "label": "English",
-                          "value": "english",
+                          "value": "English",
                         },
                         Object {
                           "flag": "french.png",
-                          "label": "French",
-                          "value": "french",
+                          "label": "Français",
+                          "value": "French",
                         },
                         Object {
                           "flag": "spanish.png",
-                          "label": "Spanish",
-                          "value": "spanish",
+                          "label": "Español",
+                          "value": "Spanish",
                         },
                         Object {
                           "flag": "portuguese.png",
-                          "label": "Portuguese",
-                          "value": "portuguese",
+                          "label": "Português",
+                          "value": "Portuguese",
                         },
                       ]
                     }
@@ -1111,22 +1111,22 @@ exports[` renders correctly 1`] = `
                           Object {
                             "flag": "english.png",
                             "label": "English",
-                            "value": "english",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
@@ -1195,22 +1195,22 @@ exports[` renders correctly 1`] = `
                         Object {
                           "flag": "english.png",
                           "label": "English",
-                          "value": "english",
+                          "value": "English",
                         },
                         Object {
                           "flag": "french.png",
-                          "label": "French",
-                          "value": "french",
+                          "label": "Français",
+                          "value": "French",
                         },
                         Object {
                           "flag": "spanish.png",
-                          "label": "Spanish",
-                          "value": "spanish",
+                          "label": "Español",
+                          "value": "Spanish",
                         },
                         Object {
                           "flag": "portuguese.png",
-                          "label": "Portuguese",
-                          "value": "portuguese",
+                          "label": "Português",
+                          "value": "Portuguese",
                         },
                       ]
                     }
@@ -1258,22 +1258,22 @@ exports[` renders correctly 1`] = `
                           Object {
                             "flag": "english.png",
                             "label": "English",
-                            "value": "english",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
