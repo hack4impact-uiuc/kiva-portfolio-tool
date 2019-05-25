@@ -14,10 +14,10 @@ import portuguese_img from '../media/portuguese.png'
 import '../styles/navbar.css'
 
 const languages = [
-  { value: 'english', label: 'English', flag: english_img },
-  { value: 'french', label: 'French', flag: french_img },
-  { value: 'spanish', label: 'Spanish', flag: spanish_img },
-  { value: 'portuguese', label: 'Portuguese', flag: portuguese_img }
+  { value: 'English', label: 'English', flag: english_img },
+  { value: 'French', label: 'Français', flag: french_img },
+  { value: 'Spanish', label: 'Español', flag: spanish_img },
+  { value: 'Portuguese', label: 'Português', flag: portuguese_img }
 ]
 
 const { Option } = components
@@ -51,7 +51,7 @@ export class LanguageSelector extends Component {
   }
 
   handleChange = value => {
-    this.props.updateLanguage(value.label)
+    this.props.updateLanguage(value.value)
   }
 
   render() {
