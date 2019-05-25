@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom'
-import { login, verify, getFPByEmail, getPMByEmail } from '../../utils/ApiWrapper'
-import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
-import { setCookie } from '../../utils/cookie'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
+import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
+import { Link } from 'react-router-dom'
+
+import { connect } from 'react-redux'
+
 import Navbar from '../NavBar'
 
-import '../../styles/index.css'
-import '../../styles/login.css'
-import '../../styles/navbar.css'
+import { login, verify, getFPByEmail, getPMByEmail } from '../../utils/ApiWrapper'
+import { setCookie } from '../../utils/cookie'
 
 import b1 from '../../media/b1-min.jpg'
 import b3 from '../../media/b3-min.jpg'
@@ -17,9 +17,16 @@ import b5 from '../../media/b5-min.jpg'
 import b6 from '../../media/b6-min.jpg'
 import kivaLogo from '../../media/kivaPlainLogo.png'
 
+import '../../styles/index.css'
+import '../../styles/login.css'
+import '../../styles/navbar.css'
+
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
-// const PASSWORD_REGEX = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
+
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 /**
  * This is the login page.
@@ -87,7 +94,40 @@ class LogIn extends Component {
     }
   }
 
+  languages = {
+    English: {
+      email: 'Email',
+      password: 'Password',
+      logIn: 'Log in',
+      register: 'Register',
+      forgotPassword: 'Forgot password?'
+    },
+    Spanish: {
+      email: 'Email (Spanish)',
+      password: 'Password (Spanish)',
+      logIn: 'Log in (Spanish)',
+      register: 'Register (Spanish)',
+      forgotPassword: 'Forgot password? (Spanish)'
+    },
+    French: {
+      email: 'Email (French)',
+      password: 'Password (French)',
+      logIn: 'Log in (French)',
+      register: 'Register (French)',
+      forgotPassword: 'Forgot password? (French)'
+    },
+    Portuguese: {
+      email: 'Email (Portuguese)',
+      password: 'Password (Portuguese)',
+      logIn: 'Log in (Portuguese)',
+      register: 'Register (Portuguese)',
+      forgotPassword: 'Forgot password? (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+
     return (
       <div>
         <Navbar className="nav-absolute" />
@@ -105,7 +145,7 @@ class LogIn extends Component {
                   <Input
                     type="email"
                     name="email"
-                    placeholder="E-mail"
+                    placeholder={text.email}
                     id="exampleEmail"
                     maxLength="64"
                     pattern={EMAIL_REGEX}
@@ -118,7 +158,7 @@ class LogIn extends Component {
                   <Input
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    placeholder={text.password}
                     id="examplePassword"
                     minLength="8"
                     maxLength="64"
@@ -129,7 +169,7 @@ class LogIn extends Component {
                 </FormGroup>
                 <div className="text-centered">
                   <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
-                    Log In
+                    {text.logIn}
                   </Button>
                   {''}
                   <Button
@@ -138,7 +178,7 @@ class LogIn extends Component {
                     onClick={() => this.props.history.push('/register')}
                     className="left left-margin-lg"
                   >
-                    Register
+                    {text.register}
                   </Button>
                 </div>
               </Form>
@@ -152,7 +192,7 @@ class LogIn extends Component {
                 prefetch
                 href="/forgotPassword"
               >
-                Forgot Password?
+                {text.forgotPassword}
               </Link>
               <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
             </CardBody>
@@ -163,4 +203,4 @@ class LogIn extends Component {
     )
   }
 }
-export default LogIn
+export default connect(mapStateToProps)(LogIn)
