@@ -171,10 +171,10 @@ export class DocumentClassPage extends Component {
         <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
             <form>
-              <span>text.name</span>
+              <span>{text.name}</span>
               <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
-              <span>text.description</span>
+              <span>{text.description}</span>
               <Input
                 type="textarea"
                 className="textarea-input"
