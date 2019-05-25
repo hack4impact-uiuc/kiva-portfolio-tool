@@ -18,7 +18,8 @@ import '../styles/documentpreview.css'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
-  documents: state.user.documents
+  documents: state.user.documents,
+  language: state.user.language
 })
 
 const mapDispatchToProps = dispatch => {
@@ -105,9 +106,32 @@ export class DocumentPreview extends Component {
     }
   }
 
+  languages = {
+    English: {
+      approve: 'Approve',
+      reject: 'Reject',
+      close: 'Close'
+    },
+    Spanish: {
+      approve: 'Approve (Spanish)',
+      reject: 'Reject (Spanish)',
+      close: 'Close (Spanish)'
+    },
+    French: {
+      approve: 'Approve (French)',
+      reject: 'Reject (French)',
+      close: 'Close (French)'
+    },
+    Portuguese: {
+      approve: 'Approve (Portuguese)',
+      reject: 'Reject (Portuguese)',
+      close: 'Close (Portuguese)'
+    }
+  }
+
   render() {
     const { isPM } = this.props
-
+    let text = this.languages[this.props.language]
     return (
       <>
         {this.props.location ? (
@@ -120,10 +144,10 @@ export class DocumentPreview extends Component {
             <div id="review-fullscreen">
               <div id="button-space">
                 <Button color="success" onClick={this.handleApproveClick}>
-                  Approve
+                  {text.approve}
                 </Button>
                 <Button color="danger" onClick={this.handleRejectClick}>
-                  Reject
+                  {text.reject}
                 </Button>
               </div>
             </div>
@@ -151,15 +175,15 @@ export class DocumentPreview extends Component {
                 {isPM && (
                   <div>
                     <Button color="success" onClick={this.handleApproveClick}>
-                      Approve
+                      {text.approve}
                     </Button>
                     <Button color="danger" onClick={this.handleRejectClick}>
-                      Reject
+                      {text.reject}
                     </Button>
                   </div>
                 )}
                 <Button color="secondary" onClick={this.toggle}>
-                  Close
+                  {text.close}
                 </Button>
               </ModalFooter>
             </Modal>
