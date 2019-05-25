@@ -38,7 +38,9 @@ import '../styles/index.css'
 import '../styles/documentclasspage.css'
 import '../styles/partnerbar.css'
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -195,15 +197,84 @@ export class PMMainPage extends Component {
     this.props.history.push('/setup/' + id)
   }
 
+  languages = {
+    English: {
+      addFP: 'Add new field partner',
+      orgName: 'Organization name:',
+      email: 'Email:',
+      create: 'Create',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner.',
+      exit: 'Exit',
+      view: 'View dashboard',
+      restart: 'Restart process',
+      add: 'Add new',
+      inProcess: 'In process',
+      newPartner: 'New partner',
+      complete: 'Complete',
+      fieldPartners: 'Field Partners'
+    },
+    Spanish: {
+      addFP: 'Add new field partner (Spanish)',
+      orgName: 'Organization name: (Spanish)',
+      email: 'Email: (Spanish)',
+      create: 'Create (Spanish)',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (Spanish)',
+      exit: 'Exit (Spanish)',
+      view: 'View dashboard (Spanish)',
+      restart: 'Restart process (Spanish)',
+      add: 'Add new (Spanish)',
+      inProcess: 'In process (Spanish)',
+      newPartner: 'New partner (Spanish)',
+      complete: 'Complete (Spanish)',
+      fieldPartners: 'Field Partners (Spanish)'
+    },
+    French: {
+      addFP: 'Add new field partner (French)',
+      orgName: 'Organization name: (French)',
+      email: 'Email: (French)',
+      create: 'Create (French)',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (French)',
+      exit: 'Exit (French)',
+      view: 'View dashboard (French)',
+      restart: 'Restart process (French)',
+      add: 'Add new (French)',
+      inProcess: 'In process (French)',
+      newPartner: 'New partner (French)',
+      complete: 'Complete (French)',
+      fieldPartners: 'Field Partners (French)'
+    },
+    Portuguese: {
+      addFP: 'Add new field partner (Portuguese)',
+      orgName: 'Organization name: (Portuguese)',
+      email: 'Email: (Portuguese)',
+      create: 'Create (Portuguese)',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (Portuguese)',
+      exit: 'Exit (Portuguese)',
+      view: 'View dashboard (Portuguese)',
+      restart: 'Restart process (Portuguese)',
+      add: 'Add new (Portuguese)',
+      inProcess: 'In process (Portuguese)',
+      newPartner: 'New partner (Portuguese)',
+      complete: 'Complete (Portuguese)',
+      fieldPartners: 'Field Partners (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+
     return (
       <div className="page background-circles-green maxheight">
         <Navbar />
         <Modal isOpen={this.state.newModal} toggle={this.newToggle}>
-          <ModalHeader>Add New Field Partner</ModalHeader>
+          <ModalHeader>{text.addFP}</ModalHeader>
           <ModalBody>
             <form onSubmit={this.handleNewFP}>
-              <p>Organization Name:</p>
+              <p>{text.orgName}</p>
               <input
                 className="modal-input-master"
                 type="text"
@@ -212,7 +283,7 @@ export class PMMainPage extends Component {
                 placeholder="Enter the Field Partner's organization name here..."
                 onChange={this.handleNameChange}
               />
-              <p>Email:</p>
+              <p>{text.email}</p>
               <input
                 className="modal-input-master"
                 type="text"
@@ -226,23 +297,20 @@ export class PMMainPage extends Component {
           <ModalFooter>
             <Button onClick={this.newToggle}>Exit</Button>
             <Button onClick={this.handleNewFP} color="success ">
-              Create
+              {text.create}
             </Button>
           </ModalFooter>
         </Modal>
 
         <Modal isOpen={this.state.completeModal} toggle={this.completeToggle}>
-          <ModalHeader>
-            Are you sure you want to restart the process? This will delete all documents associated
-            with this field partner.
-          </ModalHeader>
+          <ModalHeader>{text.confirm}</ModalHeader>
           <ModalFooter>
-            <Button onClick={this.completeToggle}>Exit</Button>
+            <Button onClick={this.completeToggle}>{text.exit}</Button>
             <Button onClick={this.handleClickComplete} color="primary">
-              View dashboard
+              {text.view}
             </Button>
             <Button onClick={this.handleClickCompleteRestart} color="success">
-              Restart Process
+              {text.restart}
             </Button>
           </ModalFooter>
         </Modal>
@@ -253,19 +321,19 @@ export class PMMainPage extends Component {
               <Col className="text-centered sidebar-background" sm="12" md="2">
                 <Button className="add-doc-text" id="new-fp-button" onClick={this.newToggle}>
                   <img className="addImg" src={add} alt="Add icon" />
-                  <span>Add New</span>
+                  <span>{text.add}</span>
                 </Button>
                 <TabList className="react-tabs__tab-list">
-                  <Tab>In Process</Tab>
-                  <Tab>New Partner</Tab>
-                  <Tab>Complete</Tab>
+                  <Tab>{text.inProcess}</Tab>
+                  <Tab>{text.newPartner}</Tab>
+                  <Tab>{text.complete}</Tab>
                 </TabList>
               </Col>
 
               <Col className="fp-background" sm="12" md="10">
                 <Row className="text-centered">
                   <Col md="12">
-                    <h2 className="margin-top-sm">Field Partners</h2>
+                    <h2 className="margin-top-sm">{text.fieldPartners}</h2>
                     <form onSubmit={this.handleSubmit}>
                       <img src={search} width="23" alt="Search icon" />
                       <span>
