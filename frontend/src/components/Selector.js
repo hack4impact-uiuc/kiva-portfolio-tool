@@ -2,11 +2,17 @@ import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
 
+import { connect } from 'react-redux'
+
 import add from '../media/add.png'
 import remove from '../media/remove.png'
 import info from '../media/blueinfo.png'
 
 import '../styles/selector.css'
+
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 /**
  * Class for individual docClasses in SelectDocumentsPage.
@@ -33,6 +39,21 @@ export class Selector extends Component {
     this.setState({ modal: !this.state.modal })
   }
 
+  languages = {
+    English: {
+      close: 'Close'
+    },
+    Spanish: {
+      close: 'Close (Spanish)'
+    },
+    French: {
+      close: 'Close (French)'
+    },
+    Portuguese: {
+      close: 'Close (Portuguese)'
+    }
+  }
+
   render() {
     const customStyles = {
       height: '500px',
@@ -48,6 +69,7 @@ export class Selector extends Component {
         &times;
       </button>
     )
+    let text = this.languages[this.props.language]
 
     return (
       <>
@@ -65,7 +87,7 @@ export class Selector extends Component {
             </ModalBody>
             <ModalFooter>
               <Button color="secondary" onClick={this.toggle} className="exit">
-                Close
+                {text.close}
               </Button>
             </ModalFooter>
           </Modal>
