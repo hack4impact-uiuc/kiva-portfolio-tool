@@ -15,7 +15,7 @@ beforeAll(() => {
 
 test('DocumentClass renders correctly', () => {
   let props = { name: 'testing', description: 'testingaswell' }
-  const component = mount(<DocumentClass documentClass={props} />)
+  const component = shallow(<DocumentClass documentClass={props} />)
 
   let tree = mountToJson(component)
   jestExpect(tree).toMatchSnapshot()
