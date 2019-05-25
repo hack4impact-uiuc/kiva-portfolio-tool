@@ -19,7 +19,8 @@ import '../styles/index.css'
 import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({
-  documentClasses: state.user.documentClasses
+  documentClasses: state.user.documentClasses,
+  language: state.user.language
 })
 
 const mapDispatchToProps = dispatch => {
@@ -110,17 +111,69 @@ export class DocumentClassPage extends Component {
     })
   }
 
+  languages = {
+    English: {
+      name: 'Name: ',
+      description: 'Description: ',
+      fileUploaded: 'File uploaded: ',
+      click: 'Click to upload',
+      return: 'Return',
+      close: 'Close',
+      create: 'Create new document class',
+      edit: 'Edit document classes',
+      add: 'Add new documentClass',
+      docClassName: 'Document class name'
+    },
+    Spanish: {
+      name: 'Name:  (Spanish)',
+      description: 'Description:  (Spanish)',
+      fileUploaded: 'File uploaded:  (Spanish)',
+      click: 'Click to upload (Spanish)',
+      return: 'Return (Spanish)',
+      close: 'Close (Spanish)',
+      create: 'Create new document class (Spanish)',
+      edit: 'Edit document classes (Spanish)',
+      add: 'Add new documentClass (Spanish)',
+      docClassName: 'Document class name (Spanish)'
+    },
+    French: {
+      name: 'Name:  (French)',
+      description: 'Description:  (French)',
+      fileUploaded: 'File uploaded:  (French)',
+      click: 'Click to upload (French)',
+      return: 'Return (French)',
+      close: 'Close (French)',
+      create: 'Create new document class (French)',
+      edit: 'Edit document classes (French)',
+      add: 'Add new documentClass (French)',
+      docClassName: 'Document class name (French)'
+    },
+    Portuguese: {
+      name: 'Name:  (Portuguese)',
+      description: 'Description:  (Portuguese)',
+      fileUploaded: 'File uploaded:  (Portuguese)',
+      click: 'Click to upload (Portuguese)',
+      return: 'Return (Portuguese)',
+      close: 'Close (Portuguese)',
+      create: 'Create new document class (Portuguese)',
+      edit: 'Edit document classes (Portuguese)',
+      add: 'Add new documentClass (Portuguese)',
+      docClassName: 'Document class name (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
     return (
       <div className="background-rectangles maxheight">
         <NavBar />
         <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
             <form>
-              <span> Name: </span>
+              <span>text.name</span>
               <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
-              <span> Description: </span>
+              <span>text.description</span>
               <Input
                 type="textarea"
                 className="textarea-input"
@@ -137,9 +190,9 @@ export class DocumentClassPage extends Component {
                           <div {...getRootProps()}>
                             <input {...getInputProps()} />
                             {this.state.files.length > 0 ? (
-                              <p>File uploaded: {this.state.files[0].name}</p>
+                              <p>{text.fileUploaded + this.state.files[0].name}</p>
                             ) : (
-                              <p>Click to Upload</p>
+                              <p>{text.click}</p>
                             )}
                           </div>
                         </section>
@@ -153,19 +206,19 @@ export class DocumentClassPage extends Component {
           </ModalBody>
           <ModalFooter>
             <Button className="invalidSearchButton" onClick={this.toggle}>
-              Close
+              {text.close}
             </Button>
             <Button
               disabled={this.state.files.length === 0}
               color="success"
               onClick={this.handleSubmit}
             >
-              Create Document Class
+              {text.create}
             </Button>
           </ModalFooter>
         </Modal>
         <div className="edit-banner">
-          <h1 className="h1">Edit Document Classes</h1>
+          <h1 className="h1">{text.edit}</h1>
           <Button
             className="add-doc-text"
             id="add-new-class"
@@ -173,7 +226,7 @@ export class DocumentClassPage extends Component {
             onClick={this.toggle}
           >
             <img className="addImg" src={add} alt="Add icon" />
-            <span className="add-doc-text">Add New Document Class</span>
+            <span className="add-doc-text">{text.add}</span>
           </Button>
         </div>
 
@@ -181,7 +234,7 @@ export class DocumentClassPage extends Component {
           <Table>
             <tbody>
               <tr id="doc-table-top-row">
-                <th className="theader-centered">Document Class Name</th>
+                <th className="theader-centered">{text.docClassName}</th>
                 <th />
               </tr>
               {this.props.documentClasses
@@ -195,7 +248,7 @@ export class DocumentClassPage extends Component {
 
         <div className="returnBtnContainer text-centered padding-bottom-sm">
           <Button className="returnButton" onClick={this.props.history.goBack}>
-            Return
+            {text.return}
           </Button>
         </div>
       </div>

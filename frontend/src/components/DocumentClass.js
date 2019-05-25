@@ -155,7 +155,7 @@ export class DocumentClass extends Component {
       deleteReturn: 'Delete and return'
     },
     Spanish: {
-      name: 'Name: (Spanish)',
+      name: 'Name:  (Spanish)',
       description: 'Description:  (Spanish)',
       fileUploaded: 'File uploaded:  (Spanish)',
       click: 'Click to upload (Spanish)',
