@@ -27,7 +27,8 @@ import '../styles/index.css'
 import '../styles/navbar.css'
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  language: state.user.language
 })
 
 const sidebarClassName = ['closed', 'opened']
@@ -74,8 +75,29 @@ export class NavBar extends Component {
     }
   }
 
+  languages = {
+    English: {
+      manage: 'Manage documents',
+      logOut: 'Log out'
+    },
+    Spanish: {
+      manage: 'Manage documents (Spanish)',
+      logOut: 'Log out (Spanish)'
+    },
+    French: {
+      manage: 'Manage documents (French)',
+      logOut: 'Log out (French)'
+    },
+    Portuguese: {
+      manage: 'Manage documents (Portuguese)',
+      logOut: 'Log out (Portuguese)'
+    }
+  }
+
   render() {
     const { isPM } = this.props
+    let text = this.languages[this.props.language]
+
     return (
       <div>
         {this.state.sidebarOpen ? (
@@ -154,10 +176,10 @@ export class NavBar extends Component {
                   <DropdownMenu right>
                     {isPM && (
                       <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
-                        Manage Documents
+                        {text.manage}
                       </DropdownItem>
                     )}
-                    <DropdownItem>Log Out</DropdownItem>
+                    <DropdownItem>{text.logOut}</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </NavItem>
