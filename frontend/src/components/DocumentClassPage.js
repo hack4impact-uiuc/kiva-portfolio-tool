@@ -121,7 +121,7 @@ export class DocumentClassPage extends Component {
       close: 'Close',
       create: 'Create new document class',
       edit: 'Edit document classes',
-      add: 'Add new documentClass',
+      add: 'Add new document class',
       docClassName: 'Document class name'
     },
     Spanish: {
@@ -133,7 +133,7 @@ export class DocumentClassPage extends Component {
       close: 'Close (Spanish)',
       create: 'Create new document class (Spanish)',
       edit: 'Edit document classes (Spanish)',
-      add: 'Add new documentClass (Spanish)',
+      add: 'Add new document class (Spanish)',
       docClassName: 'Document class name (Spanish)'
     },
     French: {
@@ -145,7 +145,7 @@ export class DocumentClassPage extends Component {
       close: 'Close (French)',
       create: 'Create new document class (French)',
       edit: 'Edit document classes (French)',
-      add: 'Add new documentClass (French)',
+      add: 'Add new document class (French)',
       docClassName: 'Document class name (French)'
     },
     Portuguese: {
@@ -157,13 +157,14 @@ export class DocumentClassPage extends Component {
       close: 'Close (Portuguese)',
       create: 'Create new document class (Portuguese)',
       edit: 'Edit document classes (Portuguese)',
-      add: 'Add new documentClass (Portuguese)',
+      add: 'Add new document class (Portuguese)',
       docClassName: 'Document class name (Portuguese)'
     }
   }
 
   render() {
     let text = this.languages[this.props.language]
+
     return (
       <div className="background-rectangles maxheight">
         <NavBar />
