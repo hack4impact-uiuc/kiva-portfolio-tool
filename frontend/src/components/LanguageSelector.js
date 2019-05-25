@@ -62,7 +62,6 @@ export class LanguageSelector extends Component {
         options={languages}
         components={{ Option: IconOption }}
         className="langSelect"
-        getOptionValue={option => option.flag}
       />
     )
   }
