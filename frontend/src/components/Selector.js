@@ -130,3 +130,4 @@ export class Selector extends Component {
     )
   }
 }
+export default connect(mapStateToProps)(Selector)
