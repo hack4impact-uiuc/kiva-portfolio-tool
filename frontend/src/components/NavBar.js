@@ -131,6 +131,14 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
+            <Nav className="margin-left-sm">
+              <NavItem>
+                <LanguageSelector />
+              </NavItem>
+            </Nav>
+          )}
+
+          {!this.state.isLoginPage && (
             <Nav className="ml-auto" navbar pullRight>
               <NavItem>
                 <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
