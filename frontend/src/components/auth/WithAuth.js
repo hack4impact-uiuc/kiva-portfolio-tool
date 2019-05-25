@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+
+import { connect } from 'react-redux'
+
 import { verify } from '../../utils/ApiWrapper'
 import { setCookie } from '../../utils/cookie'
+
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 /**
  * Page that shows up when user authenticates,
@@ -32,14 +39,32 @@ const withAuth = WrappedComponent => {
         this.props.history.push('/register')
       }
     }
+
+    languages = {
+      English: {
+        message: 'You are not authenticated.'
+      },
+      Spanish: {
+        message: 'You are not authenticated. (Spanish)'
+      },
+      French: {
+        message: 'You are not authenticated. (French)'
+      },
+      French: {
+        message: 'You are not authenticated. (Portuguese)'
+      }
+    }
+
     render() {
+      let text = this.languages[this.props.language]
+
       return (
         <div>
           {this.state.verified ? (
             <WrappedComponent {...this.props} verified={this.state.verified} />
           ) : (
             <div>
-              <p> You are not authenticated </p>
+              <p>{text.message}</p>
             </div>
           )}
         </div>
@@ -50,4 +75,4 @@ const withAuth = WrappedComponent => {
   return HOC
 }
 
-export default withAuth
+export default connect(mapStateToProps)(withAuth)
