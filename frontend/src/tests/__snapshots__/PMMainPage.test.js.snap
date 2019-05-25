@@ -35,7 +35,7 @@ exports[`PMMainPage renders correctly 1`] = `
       tag="h5"
       wrapTag="div"
     >
-      Add New Field Partner
+      Add new field partner
     </ModalHeader>
     <ModalBody
       tag="div"
@@ -44,12 +44,12 @@ exports[`PMMainPage renders correctly 1`] = `
         onSubmit={[Function]}
       >
         <p>
-          Organization Name:
+          Organization name:
         </p>
         <input
           className="modal-input-master"
           onChange={[Function]}
-          placeholder="Enter the Field Partner's organization name here..."
+          placeholder="Enter the field partner's organization name here..."
           size="50"
           type="text"
         />
@@ -59,7 +59,7 @@ exports[`PMMainPage renders correctly 1`] = `
         <input
           className="modal-input-master"
           onChange={[Function]}
-          placeholder="Enter the Field Partner's email here..."
+          placeholder="Enter the field partner's email here..."
           size="50"
           type="text"
           value=""
@@ -139,7 +139,7 @@ exports[`PMMainPage renders correctly 1`] = `
         onClick={[Function]}
         tag="button"
       >
-        Restart Process
+        Restart process
       </Button>
     </ModalFooter>
   </Modal>
@@ -186,7 +186,7 @@ exports[`PMMainPage renders correctly 1`] = `
               src="add.png"
             />
             <span>
-              Add New
+              Add new
             </span>
           </Button>
           <TabList
@@ -201,7 +201,7 @@ exports[`PMMainPage renders correctly 1`] = `
               selected={false}
               selectedClassName="react-tabs__tab--selected"
             >
-              In Process
+              In process
             </Tab>
             <Tab
               className="react-tabs__tab"
@@ -212,7 +212,7 @@ exports[`PMMainPage renders correctly 1`] = `
               selected={false}
               selectedClassName="react-tabs__tab--selected"
             >
-              New Partner
+              New partner
             </Tab>
             <Tab
               className="react-tabs__tab"
@@ -274,7 +274,7 @@ exports[`PMMainPage renders correctly 1`] = `
                   <input
                     className="input-master margin-bottom-xs margin-top-xs"
                     onChange={[Function]}
-                    placeholder="Search for a Field Partner..."
+                    placeholder="Search for a field partner..."
                     type="text"
                     value=""
                   />
