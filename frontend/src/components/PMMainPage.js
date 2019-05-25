@@ -201,7 +201,9 @@ export class PMMainPage extends Component {
     English: {
       addFP: 'Add new field partner',
       orgName: 'Organization name:',
+      enterOrgName: "Enter the field partner's organization name here...",
       email: 'Email:',
+      enterEmail: "Enter the field partner's email here...",
       create: 'Create',
       confirm:
         'Are you sure you want to restart the process? This will delete all documents associated with this field partner.',
@@ -212,12 +214,15 @@ export class PMMainPage extends Component {
       inProcess: 'In process',
       newPartner: 'New partner',
       complete: 'Complete',
+      search: 'Search for a field partner...',
       fieldPartners: 'Field Partners'
     },
     Spanish: {
       addFP: 'Add new field partner (Spanish)',
       orgName: 'Organization name: (Spanish)',
+      enterOrgName: "Enter the field partner's organization name here... (Spanish)",
       email: 'Email: (Spanish)',
+      enterEmail: "Enter the field partner's email here... (Spanish)",
       create: 'Create (Spanish)',
       confirm:
         'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (Spanish)',
@@ -228,12 +233,15 @@ export class PMMainPage extends Component {
       inProcess: 'In process (Spanish)',
       newPartner: 'New partner (Spanish)',
       complete: 'Complete (Spanish)',
+      search: 'Search for a field partner... (Spanish)',
       fieldPartners: 'Field Partners (Spanish)'
     },
     French: {
       addFP: 'Add new field partner (French)',
       orgName: 'Organization name: (French)',
+      enterOrgName: "Enter the field partner's organization name here... (French)",
       email: 'Email: (French)',
+      enterEmail: "Enter the field partner's email here... (French)",
       create: 'Create (French)',
       confirm:
         'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (French)',
@@ -244,12 +252,15 @@ export class PMMainPage extends Component {
       inProcess: 'In process (French)',
       newPartner: 'New partner (French)',
       complete: 'Complete (French)',
+      search: 'Search for a field partner... (French)',
       fieldPartners: 'Field Partners (French)'
     },
     Portuguese: {
       addFP: 'Add new field partner (Portuguese)',
       orgName: 'Organization name: (Portuguese)',
+      enterOrgName: "Enter the field partner's organization name here... (Portuguese)",
       email: 'Email: (Portuguese)',
+      enterEmail: "Enter the field partner's email here... (Portuguese)",
       create: 'Create (Portuguese)',
       confirm:
         'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (Portuguese)',
@@ -260,6 +271,7 @@ export class PMMainPage extends Component {
       inProcess: 'In process (Portuguese)',
       newPartner: 'New partner (Portuguese)',
       complete: 'Complete (Portuguese)',
+      search: 'Search for a field partner... (Portuguese)',
       fieldPartners: 'Field Partners (Portuguese)'
     }
   }
@@ -280,7 +292,7 @@ export class PMMainPage extends Component {
                 type="text"
                 value={this.state.name}
                 size="50"
-                placeholder="Enter the Field Partner's organization name here..."
+                placeholder={text.enterOrgName}
                 onChange={this.handleNameChange}
               />
               <p>{text.email}</p>
@@ -289,7 +301,7 @@ export class PMMainPage extends Component {
                 type="text"
                 value={this.state.email}
                 size="50"
-                placeholder="Enter the Field Partner's email here..."
+                placeholder={text.enterEmail}
                 onChange={this.handleEmailChange}
               />
             </form>
@@ -341,7 +353,7 @@ export class PMMainPage extends Component {
                           className="input-master margin-bottom-xs margin-top-xs"
                           type="text"
                           value={this.state.query}
-                          placeholder="Search for a Field Partner..."
+                          placeholder={text.search}
                           onChange={this.handleQueryChange}
                         />
                       </span>
