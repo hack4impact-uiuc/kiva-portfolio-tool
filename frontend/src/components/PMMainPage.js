@@ -1,15 +1,5 @@
 import React, { Component } from 'react'
-import {
-  getAllPartners,
-  createFieldPartner,
-  deleteDocumentsByFP,
-  updateFPInstructions,
-  getPartnersByPM
-} from '../utils/ApiWrapper'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import { bindActionCreators } from 'redux'
-import { beginLoading, endLoading } from '../redux/modules/auth'
-import { connect } from 'react-redux'
 import {
   Container,
   Row,
@@ -21,11 +11,26 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap'
-import '../styles/partnerbar.css'
-import search from '../media/search.png'
-import WithAuth from './WithAuth'
+
+import { bindActionCreators } from 'redux'
+import { updateMessages, beginLoading, endLoading } from '../redux/modules/user'
+import { connect } from 'react-redux'
+
+import WithAuth from './auth/WithAuth'
 import Navbar from './NavBar'
 
+import {
+  createFieldPartner,
+  deleteDocumentsByFP,
+  updateFPInstructions,
+  getPartnersByPM,
+  getMessagesByPM
+} from '../utils/ApiWrapper'
+
+import search from '../media/search.png'
+import add from '../media/add.png'
+
+import '../styles/partnerbar.css'
 import 'react-tabs/style/react-tabs.css'
 import '../styles/index.css'
 // same button styling as in document class page
@@ -33,17 +38,14 @@ import '../styles/index.css'
 import '../styles/documentclasspage.css'
 import '../styles/partnerbar.css'
 
-import add from '../media/add.png'
-
-const mapStateToProps = state => ({
-  isPM: state.user.isPM
-})
+const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       beginLoading,
-      endLoading
+      endLoading,
+      updateMessages
     },
     dispatch
   )
@@ -85,6 +87,10 @@ export class PMMainPage extends Component {
     this.props.beginLoading()
     let pm_id = this.props.match.params.id
     let partners = await getPartnersByPM(pm_id)
+    let messages = await getMessagesByPM(pm_id)
+    if (messages) {
+      this.props.updateMessages(messages)
+    }
     this.setState(this.loadPartners(partners))
     this.setState({ pm_id: pm_id })
     this.props.endLoading()
@@ -118,7 +124,7 @@ export class PMMainPage extends Component {
     let query = event.target.value.toLowerCase()
     newState['query'] = query
     newState['filtered'] = []
-    if (query == '') {
+    if (query === '') {
       newState['filtered'] = this.state.partners
     } else {
       newState['filtered'] = this.state.partners.filter(partner =>
@@ -167,7 +173,7 @@ export class PMMainPage extends Component {
    * Called when clicking on a 'New Parter' Field Partner
    */
   handleClickNew = id => {
-    this.props.history.push('/selectdocumentspage/' + id)
+    this.props.history.push('/setup/' + id)
   }
 
   /**
@@ -186,7 +192,7 @@ export class PMMainPage extends Component {
     let id = this.state.complete_id
     await deleteDocumentsByFP(id)
     await updateFPInstructions(id, '')
-    this.props.history.push('/selectdocumentspage/' + id)
+    this.props.history.push('/setup/' + id)
   }
 
   render() {
@@ -246,7 +252,7 @@ export class PMMainPage extends Component {
             <Row className="maxheight">
               <Col className="text-centered sidebar-background" sm="12" md="2">
                 <Button className="add-doc-text" id="new-fp-button" onClick={this.newToggle}>
-                  <img className="addImg" src={add} />
+                  <img className="addImg" src={add} alt="Add icon" />
                   <span>Add New</span>
                 </Button>
                 <TabList className="react-tabs__tab-list">
@@ -261,7 +267,7 @@ export class PMMainPage extends Component {
                   <Col md="12">
                     <h2 className="margin-top-sm">Field Partners</h2>
                     <form onSubmit={this.handleSubmit}>
-                      <img src={search} width="23" />
+                      <img src={search} width="23" alt="Search icon" />
                       <span>
                         <input
                           className="input-master margin-bottom-xs margin-top-xs"
@@ -279,7 +285,7 @@ export class PMMainPage extends Component {
                   <TabPanel>
                     <div className="partnerPanel">
                       {this.state.filtered
-                        .filter(partner => partner.app_status == 'In Process')
+                        .filter(partner => partner.app_status === 'In Process')
                         .map(partner => {
                           return (
                             <Col md="6">
@@ -299,7 +305,7 @@ export class PMMainPage extends Component {
                   <TabPanel>
                     <div className="partnerPanel">
                       {this.state.filtered
-                        .filter(partner => partner.app_status == 'New Partner')
+                        .filter(partner => partner.app_status === 'New Partner')
                         .map(partner => {
                           return (
                             <Col md="6">
@@ -319,7 +325,7 @@ export class PMMainPage extends Component {
                   <TabPanel>
                     <div className="partnerPanel">
                       {this.state.filtered
-                        .filter(partner => partner.app_status == 'Complete')
+                        .filter(partner => partner.app_status === 'Complete')
                         .map(partner => {
                           return (
                             <Col md="6">
@@ -349,10 +355,6 @@ export class PMMainPage extends Component {
  * Component containing information about a single partner
  */
 class PartnerBar extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   /**
    * Calculates percentages of each state of a document and puts it into a progress bar
    * In addition prints all info of a field partner
@@ -370,11 +372,11 @@ class PartnerBar extends Component {
     let len = documents.length
     for (const document in documents) {
       let item = documents[document].status
-      if (item == 'Approved') {
+      if (item === 'Approved') {
         approved += 1
-      } else if (item == 'Pending') {
+      } else if (item === 'Pending') {
         pending += 1
-      } else if (item == 'Rejected') {
+      } else if (item === 'Rejected') {
         rejected += 1
       }
     }

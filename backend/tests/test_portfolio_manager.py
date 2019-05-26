@@ -1,7 +1,7 @@
-from api.models import db, PortfolioManager, FieldPartner
+from api.models import db, PortfolioManager, FieldPartner, Message
 import enum, requests, json, random, string
 
-BACKEND_URL = "http://localhost:8000/"
+BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
 
 r = (
     requests.post(
@@ -52,11 +52,12 @@ def create_pm():
 
 
 def test_get_portfolio_manager(client):
+    Message.query.delete()
     FieldPartner.query.delete()
     PortfolioManager.query.delete()
     db.session.commit()
 
-    rs = client.get("/portfolio_manager", headers=headers)
+    rs = client.get("/portfolio_managers", headers=headers)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -67,7 +68,7 @@ def test_get_portfolio_manager(client):
     db.session.add(helper_portfolio_manager)
     db.session.commit()
 
-    rs = client.get("/portfolio_manager", headers=headers)
+    rs = client.get("/portfolio_managers", headers=headers)
     ret_dict = rs.json
     assert len(ret_dict["result"]["portfolio_manager"]) == 1
     assert ret_dict["result"]["portfolio_manager"][0]["email"] == "hello"
@@ -78,7 +79,9 @@ def test_get_portfolio_manager(client):
 
 
 def test_get_pm_by_id(client):
-    db.session.query(PortfolioManager).delete()
+    Message.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
 
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
@@ -100,13 +103,15 @@ def test_get_pm_by_id(client):
 
 
 def test_get_pm_by_email(client):
-    db.session.query(PortfolioManager).delete()
+    Message.query.delete()
+    FieldPartner.query.delete()
+    PortfolioManager.query.delete()
 
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
     db.session.commit()
 
-    url = "/portfolio_manager/email/" + helper_portfolio_manager.email
+    url = "/portfolio_managers?email=" + helper_portfolio_manager.email
     rs = client.get(url, headers=headers)
 
     assert rs.status_code == 200
@@ -122,13 +127,13 @@ def test_get_pm_by_email(client):
 
 
 def test_new_pm(client):
-    rs = client.post("/portfolio_manager/new")
+    rs = client.post("/portfolio_managers")
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
     rs = client.post(
-        "/portfolio_manager/new",
+        "/portfolio_managers",
         content_type="multipart/form-data",
         data={"email": "angad", "name": "royuwu"},
         headers=headers,
@@ -143,7 +148,7 @@ def test_new_pm(client):
 
     # Tests for if not all fields are provided
     rs = client.post(
-        "/portfolio_manager/new",
+        "/portfolio_managers",
         content_type="multipart/form-data",
         data={"email": "angad"},
         headers=headers,

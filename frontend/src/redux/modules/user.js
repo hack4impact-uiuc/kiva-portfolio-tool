@@ -5,13 +5,15 @@ const UPDATE_MESSAGES = 'user/update_messages'
 const UPDATE_INFORMATION = 'user/update_information'
 const UPDATE_INSTRUCTIONS = 'user/update_instructions'
 const UPDATE_DUE_DATE = 'user/update_due_date'
+const LOAD = 'user/begin_loading'
 
 const initialState = {
   isPM: true,
   documents: [],
   documentClasses: [],
   messages: [],
-  instructions: ''
+  instructions: '',
+  loading: false
 }
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -45,10 +47,17 @@ export default function reducer(state = initialState, action) {
         ...state,
         instructions: action.value
       }
+<<<<<<< HEAD
     case UPDATE_DUE_DATE:
       return {
         ...state,
         due_date: action.value
+=======
+    case LOAD:
+      return {
+        ...state,
+        loading: action.value
+>>>>>>> master
       }
     default:
       return state
@@ -85,7 +94,18 @@ export const updateInstructions = value => ({
   value
 })
 
+<<<<<<< HEAD
 export const updateDueDate = value => ({
   type: UPDATE_DUE_DATE,
   value
+=======
+export const beginLoading = () => ({
+  type: LOAD,
+  value: true
+})
+
+export const endLoading = () => ({
+  type: LOAD,
+  value: false
+>>>>>>> master
 })

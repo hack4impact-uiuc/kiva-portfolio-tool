@@ -2,13 +2,10 @@ import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
 
-import 'box-ui-elements/dist/preview.css'
-import '../styles/index.css'
-
 import preview from '../media/preview.png'
 
-// Not needed unless working with non "en" locales
-// addLocaleData(enLocaleData);
+import 'box-ui-elements/dist/preview.css'
+import '../styles/index.css'
 
 /*
 Used to view information about a Document CLass when pressing 'View'
@@ -53,7 +50,7 @@ export class DocumentClassPreview extends Component {
     return (
       <>
         <Button color="transparent" onClick={this.toggle}>
-          <img className="buttonimg" src={preview} />
+          <img className="buttonimg" src={preview} alt="preview icon" />
         </Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} external={externalCloseBtn}>

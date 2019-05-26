@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import DocumentClassPreview from './DocumentClassPreview'
 import { Button, Modal, ModalBody, ModalFooter, Input } from 'reactstrap'
+import Dropzone from 'react-dropzone'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { updateDocumentClasses, beginLoading, endLoading } from '../redux/modules/user'
+
+import DocumentClassPreview from './DocumentClassPreview'
+
 import {
   deleteDocumentClass,
   updateDocumentClass,
   getAllDocumentClasses
 } from '../utils/ApiWrapper'
-import { bindActionCreators } from 'redux'
-import { updateDocumentClasses } from '../redux/modules/user'
-import { beginLoading, endLoading } from '../redux/modules/auth'
-import Dropzone from 'react-dropzone'
-
-import '../styles/documentclasspage.css'
 
 import edit from '../media/greyEdit.png'
 import remove from '../media/remove.png'
+
+import '../styles/documentclasspage.css'
 
 const mapStateToProps = state => ({})
 
@@ -88,7 +90,7 @@ export class DocumentClass extends Component {
    */
   async handleSubmit() {
     this.props.beginLoading()
-    if (this.state.files.length == 0) {
+    if (this.state.files.length === 0) {
       await updateDocumentClass(
         this.props.documentClass._id,
         this.state.name,
@@ -195,10 +197,10 @@ export class DocumentClass extends Component {
           <td data-testid="interaction" className="interaction">
             <DocumentClassPreview documentClass={this.props.documentClass} />
             <Button color="transparent" onClick={this.editToggle}>
-              <img className="buttonimg" src={edit} />
+              <img className="buttonimg" src={edit} alt="Edit icon" />
             </Button>
             <Button color="transparent" onClick={this.deleteToggle}>
-              <img className="buttonimg" src={remove} />
+              <img className="buttonimg" src={remove} alt="Remove icon" />
             </Button>
             <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
               <ModalBody>
