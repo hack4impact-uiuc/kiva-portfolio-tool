@@ -50,8 +50,8 @@ export class LanguageSelector extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange = value => {
-    this.props.updateLanguage(value.value)
+  handleChange = option => {
+    this.props.updateLanguage(option.value)
   }
 
   render() {
