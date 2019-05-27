@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {
   Form,
   Button,
+  ButtonGroup,
   FormGroup,
   Label,
   Input,
@@ -12,21 +15,30 @@ import {
   Dropdown,
   DropdownItem,
   DropdownToggle,
-  DropdownMenu
+  DropdownMenu,
+  Modal,
+  ModalFooter,
+  ModalBody
 } from 'reactstrap'
-import { setCookie } from '../../utils/cookie'
-import { register, verifyPIN, resendPIN, getSecurityQuestions } from '../../utils/ApiWrapper'
+import { setCookie } from './../utils/cookie'
+import {
+  register,
+  verifyPIN,
+  resendPIN,
+  getSecurityQuestions,
+  setSecurityQuestion
+} from '../utils/ApiWrapper'
 import BackgroundSlideshow from 'react-background-slideshow'
-import Navbar from '../NavBar'
+import Navbar from './NavBar'
 
-import '../../styles/login.css'
+import '../styles/login.css'
 
-import kivaLogo from '../../media/kivaPlainLogo.png'
-import b1 from '../../media/b1-min.jpg'
-import b3 from '../../media/b3-min.jpg'
-import b4 from '../../media/b4-min.jpg'
-import b5 from '../../media/b5-min.jpg'
-import b6 from '../../media/b6-min.jpg'
+import kivaLogo from '../media/kivaPlainLogo.png'
+import b1 from '../media/b1-min.jpg'
+import b3 from '../media/b3-min.jpg'
+import b4 from '../media/b4-min.jpg'
+import b5 from '../media/b5-min.jpg'
+import b6 from '../media/b6-min.jpg'
 
 // michael's baby
 const EMAIL_REGEX =
@@ -37,25 +49,22 @@ const EMAIL_REGEX =
  * it has inputs for email, password, re-enter password,
  * it also has inputs for a verification pin to verify if a legit user is creating an account
  */
-class Register extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-      password2: '',
-      errorMessage: '',
-      pinMessage: '',
-      pin: '',
-      successfulSubmit: false,
-      loading: false,
-      questions: [],
-      questionIdx: -1,
-      dropdownOpen: false,
-      securityQuestionAnswer: '',
-      failed: false,
-      modal: false
-    }
+class Register extends React.Component {
+  state = {
+    email: '',
+    password: '',
+    password2: '',
+    errorMessage: '',
+    pinMessage: '',
+    pin: '',
+    successfulSubmit: false,
+    loading: false,
+    questions: [],
+    questionIdx: -1,
+    dropdownOpen: false,
+    securityQuestionAnswer: '',
+    failed: false,
+    modal: false
   }
 
   pickDropDown = (idx, e) => {
@@ -73,6 +82,7 @@ class Register extends Component {
 
   handleChangeSecurityAnswer = event => {
     const value = event.target.value
+    const name = event.target.name
     this.setState({ securityQuestionAnswer: value })
   }
 
@@ -82,7 +92,7 @@ class Register extends Component {
     if (!resp) {
       this.setState({ error: 'unable to load data' })
       return
-    } else if (resp.type === 'LOGIN_FAIL') {
+    } else if (resp.type == 'LOGIN_FAIL') {
       this.setState({ failed: !this.state.failed, modal: !this.state.modal })
       return
     }
@@ -110,7 +120,7 @@ class Register extends Component {
       )
       if (
         result.error != null &&
-        (result.error.response.status === 400 || result.error.response.status === 500)
+        (result.error.response.status == 400 || result.error.response.status == 500)
       ) {
         this.setState({
           wrongInfo: !this.state.wrongInfo,
@@ -152,7 +162,7 @@ class Register extends Component {
 
     if (
       result.error != null &&
-      (result.error.response.status === 400 || result.error.response.status === 500)
+      (result.error.response.status == 400 || result.error.response.status == 500)
     ) {
       this.setState({
         wrongInfo: !this.state.wrongInfo,
@@ -172,7 +182,7 @@ class Register extends Component {
     e.preventDefault()
     const result = await resendPIN()
 
-    if (result.type === 'LOGIN_FAIL') {
+    if (result.type == 'LOGIN_FAIL') {
       this.setState({
         modal: !this.state.modal,
         failed: !this.state.failed
@@ -199,7 +209,7 @@ class Register extends Component {
           <Card className="interview-card center-background">
             <CardTitle>
               <div className="text-centered" id="login-kiva-logo">
-                <img src={kivaLogo} alt="Kiva logo" />
+                <img src={kivaLogo} />
               </div>
             </CardTitle>
             <CardBody>

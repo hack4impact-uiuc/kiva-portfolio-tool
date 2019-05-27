@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap'
-
 import DocumentListItem from './DocumentListItem'
-
-import expand from '../media/expand.png'
-import collapse from '../media/collapse.png'
 
 import '../styles/documentlist.css'
 import '../styles/index.css'
+
+import expand from '../media/expand.png'
+import collapse from '../media/collapse.png'
 
 /**
  * Displays all documents for a given document status in its own box
@@ -88,7 +87,7 @@ export class DocumentList extends Component {
                       }
                       onClick={this.toggleExpand}
                     >
-                      <img className="expandButtonImage" src={collapse} alt="Expand icon" />
+                      <img className="expandButtonImage" src={collapse} />
                     </button>
                   ) : (
                     <button
@@ -99,7 +98,7 @@ export class DocumentList extends Component {
                       }
                       onClick={this.toggleExpand}
                     >
-                      <img className="expandButtonImage" src={expand} alt="Expand icon" />
+                      <img className="expandButtonImage" src={expand} />
                     </button>
                   )}
                 </td>

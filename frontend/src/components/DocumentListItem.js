@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Dropzone from 'react-dropzone'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import Iframe from 'react-iframe'
-
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
-
 import DocumentPreview from './DocumentPreview'
-
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import Iframe from 'react-iframe'
 import {
   downloadDocument,
   uploadDocument,
   getDocumentsByUser,
   deleteDocument
 } from '../utils/ApiWrapper'
+import { updateDocuments } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 
 import uploadImg from '../media/greyUpload.png'
 import downloadImg from '../media/downloadGrey.png'
@@ -66,12 +64,7 @@ export class DocumentListItem extends Component {
       files
     })
     this.props.beginLoading()
-    await uploadDocument(
-      this.props.document.userID,
-      this.state.files[0],
-      this.state.files[0].name,
-      this.props.document._id
-    )
+    await uploadDocument(this.state.files[0], this.state.files[0].name, this.props.document._id)
     const documents = await getDocumentsByUser(this.props.document.userID)
     if (documents) {
       this.props.updateDocuments(documents)
@@ -180,7 +173,7 @@ export class DocumentListItem extends Component {
                     state: { link: this.props.document.link }
                   }}
                 >
-                  <img className="buttonimg" src={visit} alt="Visit icon" />
+                  <img className="buttonimg" src={visit} />
                 </Link>
               </Button>
             ) : null}
@@ -188,12 +181,12 @@ export class DocumentListItem extends Component {
           <td data-testid="interaction" className="interaction padding-right-sm">
             {this.state.fileName && (
               <Button color="transparent" onClick={this.handleDownloadClick}>
-                <img className="buttonimg" src={downloadImg} alt="Download icon" />
+                <img className="buttonimg" src={downloadImg} />
               </Button>
             )}
             {isPM ? (
               <button className="buttonValue" onClick={this.deleteToggle}>
-                <img src={remove} width="25" alt="Remove icon" />
+                <img src={remove} width="25" />
               </button>
             ) : (
               <Dropzone onDrop={this.onDrop}>
@@ -201,7 +194,7 @@ export class DocumentListItem extends Component {
                   <section>
                     <div {...getRootProps()}>
                       <input {...getInputProps()} />
-                      <img className="buttonimg" src={uploadImg} alt="Upload icon" />
+                      <img className="buttonimg" src={uploadImg} />
                     </div>
                   </section>
                 )}

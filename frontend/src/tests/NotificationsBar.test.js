@@ -33,7 +33,7 @@ describe('< />', () => {
     allInformation: ['info here']
   }
   it('renders All major components', () => {
-    const wrapper = shallow(<NotificationsBar {...props} inDashboard />)
+    const wrapper = shallow(<NotificationsBar {...props} />)
     expect(wrapper.find(Tab)).to.have.lengthOf(2)
     expect(wrapper.find(TabList)).to.have.lengthOf(1)
     expect(wrapper.find(TabPanel)).to.have.lengthOf(2)
@@ -41,7 +41,7 @@ describe('< />', () => {
   })
 
   it('renders css', () => {
-    const wrapper = shallow(<NotificationsBar {...props} inDashboard />)
+    const wrapper = shallow(<NotificationsBar {...props} />)
     expect(wrapper.find('.tab')).to.have.lengthOf(2)
     expect(wrapper.find('.tab-font')).to.have.lengthOf(2)
   })

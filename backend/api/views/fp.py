@@ -7,26 +7,10 @@ import requests, json
 fp = Blueprint("fp", __name__)
 
 
-@fp.route("/field_partners", methods=["GET"])
+@fp.route("/field_partner", methods=["GET"])
 def get_field_partner():
     """ function that is called when you visit /field_partner, gets all the FPs """
-
-    # gets database values from query string, if missing is None
-    kwargs = {}
-    kwargs["email"] = request.args.get("email")
-    kwargs["org_name"] = request.args.get("org_name")
-    kwargs["pm_id"] = request.args.get("pm_id")
-    kwargs["app_status"] = request.args.get("app_status")
-    kwargs["instructions"] = request.args.get("instructions")
-
-    kwargs = {k: v for k, v in kwargs.items() if v is not None}
-
-    if len(kwargs) == 0:
-        field_partner_list = serialize_list(FieldPartner.query.all())
-    else:
-        field_partner_list = serialize_list(
-            FieldPartner.query.filter_by(**kwargs).all()
-        )
+    field_partner_list = serialize_list(FieldPartner.query.all())
 
     for field_partner in field_partner_list:
         field_partner["documents"] = serialize_list(
@@ -36,6 +20,15 @@ def get_field_partner():
     return create_response(data={"field_partner": field_partner_list})
 
 
+@fp.route("/field_partner/status/<app_status>", methods=["GET"])
+def get_fp_by_status(app_status):
+    field_partners = FieldPartner.query.filter(
+        FieldPartner.app_status == app_status
+    ).all()
+
+    return create_response(data={"field_partner": serialize_list(field_partners)})
+
+
 @fp.route("/field_partner/<id>", methods=["GET"])
 def get_fp_by_id(id):
     """ function that is called when you visit /field_partner/get/id/<id> that gets a field partner by id """
@@ -43,7 +36,6 @@ def get_fp_by_id(id):
     return create_response(data={"field_partner": field_partner_by_id.to_dict()})
 
 
-<<<<<<< HEAD
 @fp.route("/field_partner/email/<email>", methods=["GET"])
 def get_fp_by_email(email):
     """ function that is called when you visit /field_partner/get/email/<email>, gets an FP by email """
@@ -82,9 +74,6 @@ def get_fp_by_pm(pm_id):
 
 
 @fp.route("/field_partner/new", methods=["POST"])
-=======
-@fp.route("/field_partners", methods=["POST"])
->>>>>>> master
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
     data = request.form
@@ -114,7 +103,7 @@ def new_fp():
     return create_response(data={"field_partner": res})
 
 
-@fp.route("/field_partner/<id>", methods=["PUT"])
+@fp.route("/field_partner/update/<id>", methods=["PUT"])
 def update_app_status(id):
     """ function that is called when you visit /field_partner/update/<id>, updates an FP's app status info """
     fp = FieldPartner.query.get(id)

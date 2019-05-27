@@ -12,11 +12,9 @@ import {
   updateFieldPartnerStatus,
   getFPByID
 } from '../utils/ApiWrapper'
-import React, { Component } from 'react'
-import { Container, Row, Col, Button } from 'reactstrap'
-
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Container, Row, Col, Button } from 'reactstrap'
 import {
   updateDocuments,
   updateMessages,
@@ -24,21 +22,8 @@ import {
   updateInstructions,
   updateInformation,
   setUserType
-  setUserType,
-  beginLoading,
-  endLoading
 } from '../redux/modules/user'
-
-import WithAuth from './auth/WithAuth'
-import DocumentList from './DocumentList'
-import NavBar from './NavBar'
-
-import {
-  getDocumentsByUser,
-  getMessagesByFP,
-  updateFieldPartnerStatus,
-  getFPByID
-} from '../utils/ApiWrapper'
+import { beginLoading, endLoading } from '../redux/modules/auth'
 
 import add from '../media/add.png'
 
@@ -46,6 +31,9 @@ import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import '../styles/index.css'
 import 'box-ui-elements/dist/preview.css'
+
+// Not needed unless working with non "en" locales
+// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -69,7 +57,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-export class Dashboard extends Component {
+export class Dashboard extends React.Component {
   constructor(props) {
     super(props)
 
@@ -91,16 +79,17 @@ export class Dashboard extends Component {
     let documentsReceived = []
 
     // temporary - REMOVE after auth integration
-    documentsReceived = await getDocumentsByUser(this.props.match.params.id)
-    this.props.setUserType(this.props.match.params.user === 'pm')
+    if (this.props.match) {
+      documentsReceived = await getDocumentsByUser(this.props.match.params.id)
+      this.props.setUserType(this.props.match.params.user === 'pm')
+    } else {
+      documentsReceived = await getAllDocuments()
+    }
 
     /**
      * Contains all messages received from backend
      */
-    const messagesReceived = await getMessagesByFP(
-      this.props.match.params.id,
-      this.props.match.params.user === 'fp'
-    )
+    const messagesReceived = await getAllMessages()
 
     /**
      * Contains all information received from backend
@@ -143,7 +132,7 @@ export class Dashboard extends Component {
   async handleFinish() {
     this.props.beginLoading()
     await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
-    this.props.history.push('/overview/' + this.props.match.params.id)
+    this.props.history.push('/main')
     this.props.endLoading()
   }
 
@@ -156,15 +145,16 @@ export class Dashboard extends Component {
       <div className="background-rectangles maxheight">
         <NavBar />
         <h1 className="due-date"> Due Date: {this.state.duedate} </h1>
-        <NavBar inDashboard />
         {this.props.isPM ? (
           <div>
             <Button
               className="add-doc-text"
               color="transparent"
-              onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
+              onClick={() =>
+                this.props.history.push('/selectdocumentspage/' + this.props.match.params.id)
+              }
             >
-              <img className="addImg" src={add} alt="Add icon" />
+              <img className="addImg" src={add} />
               <span className="add-doc-text">Update requirements/instructions</span>
             </Button>
             <br />

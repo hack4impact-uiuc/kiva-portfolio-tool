@@ -1,21 +1,27 @@
 import { Link } from 'react-router-dom'
-import { login, verify, getFPByEmail, getPMByEmail } from '../../utils/ApiWrapper'
+import { login, getPartnersByStatus, verify, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
+import { bindActionCreators } from 'redux'
 import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
-import { setCookie } from '../../utils/cookie'
+import { setCookie } from './../utils/cookie'
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
-import Navbar from '../NavBar'
+import Navbar from './NavBar'
 
-import '../../styles/index.css'
-import '../../styles/login.css'
-import '../../styles/navbar.css'
+import '../styles/index.css'
+import '../styles/login.css'
+import '../styles/navbar.css'
 
-import b1 from '../../media/b1-min.jpg'
-import b3 from '../../media/b3-min.jpg'
-import b4 from '../../media/b4-min.jpg'
-import b5 from '../../media/b5-min.jpg'
-import b6 from '../../media/b6-min.jpg'
-import kivaLogo from '../../media/kivaPlainLogo.png'
+import b1 from '../media/b1-min.jpg'
+import b3 from '../media/b3-min.jpg'
+import b4 from '../media/b4-min.jpg'
+import b5 from '../media/b5-min.jpg'
+import b6 from '../media/b6-min.jpg'
+import kivaLogo from '../media/kivaPlainLogo.png'
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({}, dispatch)
+}
 
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
@@ -27,14 +33,19 @@ const EMAIL_REGEX =
  * In case of forgotten password, it has a Forgot Password button that leads to a recovery page
  */
 class LogIn extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      password: '',
-      errorMessage: '',
-      wrongInfo: false
-    }
+  state = {
+    email: '',
+    password: '',
+    errorMessage: '',
+    username: '',
+    wrongInfo: false,
+    fp_id: null
+  }
+
+  async componentDidMount() {
+    const fps = await getPartnersByStatus('In Process')
+    //use first FP temporarily until auth integration
+    this.setState({ fp_id: fps[0]._id })
   }
 
   handleChange = event => {
@@ -47,7 +58,7 @@ class LogIn extends Component {
     const result = await login(this.state.email, this.state.password)
     if (
       result.error != null &&
-      (result.error.response.status === 400 || result.error.response.status === 500)
+      (result.error.response.status == 400 || result.error.response.status == 500)
     ) {
       console.log(result.error.response.message)
       this.setState({
@@ -76,12 +87,12 @@ class LogIn extends Component {
       } else {
         role = role.response.data.result.role
 
-        if (role === 'fp') {
+        if (role == 'fp') {
           let fp = await getFPByEmail(this.state.email)
           this.props.history.push('/dashboard/fp/' + fp._id)
         } else {
           let pm = await getPMByEmail(this.state.email)
-          this.props.history.push('/overview/' + pm._id)
+          this.props.history.push('/main/' + pm._id)
         }
       }
     }
@@ -98,7 +109,7 @@ class LogIn extends Component {
           <Card className="interview-card center-background">
             <CardBody>
               <div className="text-centered" id="login-kiva-logo">
-                <img src={kivaLogo} alt="Kiva logo" />
+                <img src={kivaLogo} />
               </div>
               <Form>
                 <FormGroup>
@@ -163,4 +174,4 @@ class LogIn extends Component {
     )
   }
 }
-export default LogIn
+export default connect(mapDispatchToProps)(LogIn)

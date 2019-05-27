@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import Select from 'react-select'
 import { components } from 'react-select'
 
+import '../styles/navbar.css'
+
 import english_img from '../media/english.png'
 import french_img from '../media/french.png'
 import spanish_img from '../media/spanish.png'
 import portuguese_img from '../media/portuguese.png'
-
-import '../styles/navbar.css'
 
 const languages = [
   { value: 'english', label: 'English (US)', flag: english_img },
@@ -20,7 +20,7 @@ const { Option } = components
 const IconOption = props => (
   <Option {...props} className="flag-container">
     {props.data.label}
-    <img className="flag-space" src={props.data.flag} alt="Flag icon" />
+    <img className="flag-space" src={props.data.flag} />
   </Option>
 )
 
@@ -41,6 +41,7 @@ export class LanguageSelector extends Component {
   }
 
   render() {
+    const { isPM } = this.props
     const { selectedOption } = this.state
     return (
       <Select

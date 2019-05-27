@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForgotPassword } from '../components/auth/ForgotPassword'
+import { ForgotPassword } from '../components/ForgotPassword'
 import { Form, Button, FormGroup, Label, Input, Card, Alert, CardBody, CardTitle } from 'reactstrap'
 import Adapter from 'enzyme-adapter-react-16'
 import { shallowToJson, mountToJson } from 'enzyme-to-json'

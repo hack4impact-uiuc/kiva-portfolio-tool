@@ -29,7 +29,7 @@ def create_fp(helper_portfolio_manager):
 
 
 def test_get_field_partner(client):
-    rs = client.get("/field_partners")
+    rs = client.get("/field_partner")
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
@@ -44,7 +44,7 @@ def test_get_field_partner(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    rs = client.get("/field_partners")
+    rs = client.get("/field_partner")
     ret_dict = rs.json
 
     assert len(ret_dict["result"]["field_partner"]) == 1
@@ -82,7 +82,7 @@ def test_get_fp_by_id(client):
     assert ret_dict["result"]["field_partner"]["app_status"] == "Complete"
 
 
-def test_get_fp_by_org_name(client):
+def test_get_org_by_id(client):
     db.session.query(FieldPartner).delete()
     db.session.query(PortfolioManager).delete()
 
@@ -94,7 +94,7 @@ def test_get_fp_by_org_name(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    url = "/field_partners?org_name=" + temp_field_partner.org_name
+    url = "/field_partner/org_name/" + temp_field_partner.id
     rs = client.get(url)
 
     assert rs.status_code == 200
@@ -102,7 +102,7 @@ def test_get_fp_by_org_name(client):
     assert ret_dict["success"] == True
 
     assert len(ret_dict["result"]) == 1
-    assert ret_dict["result"]["field_partner"][0]["org_name"] == "hack4impact"
+    assert ret_dict["result"]["org_name"] == "hack4impact"
 
 
 def test_get_fp_by_email(client):
@@ -117,7 +117,7 @@ def test_get_fp_by_email(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    url = "/field_partners?email=" + temp_field_partner.email
+    url = "/field_partner/email/" + temp_field_partner.email
     rs = client.get(url)
 
     assert rs.status_code == 200
@@ -146,7 +146,7 @@ def test_get_fp_by_pm(client):
     db.session.add(temp_field_partner1)
     db.session.commit()
 
-    url = "/field_partners?pm_id=" + helper_portfolio_manager.id
+    url = "/field_partner/pm/" + helper_portfolio_manager.id
     rs = client.get(url)
 
     assert rs.status_code == 200
@@ -173,7 +173,7 @@ def test_new_fp(client):
     db.session.query(FieldPartner).delete()
     db.session.query(PortfolioManager).delete()
 
-    rs = client.post("/field_partners")
+    rs = client.post("/field_partner/new")
     assert rs.status_code == 400
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
@@ -184,7 +184,7 @@ def test_new_fp(client):
     db.session.commit()
 
     rs = client.post(
-        "/field_partners",
+        "/field_partner/new",
         content_type="multipart/form-data",
         data={
             "email": "santa",
@@ -205,7 +205,7 @@ def test_new_fp(client):
 
     # Tests for if not all fields are provided
     rs = client.post(
-        "/field_partners",
+        "/field_partner/new",
         content_type="multipart/form-data",
         data={"email": "santa", "org_name": "Kiva"},
     )
@@ -224,7 +224,7 @@ def test_update_app_status(client):
     db.session.add(temp_field_partner)
     db.session.commit()
 
-    url = "/field_partner/" + temp_field_partner.id
+    url = "/field_partner/update/" + temp_field_partner.id
 
     rs = client.put(
         url, content_type="multipart/form-data", data={"app_status": "In Process"}

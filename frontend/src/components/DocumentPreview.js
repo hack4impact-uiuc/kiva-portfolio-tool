@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
-import Iframe from 'react-iframe'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
-
-import WithAuth from './auth/WithAuth'
-
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
-
-import preview from '../media/preview.png'
+import { bindActionCreators } from 'redux'
+import { updateDocuments } from '../redux/modules/user'
+import { beginLoading, endLoading } from '../redux/modules/auth'
+import Iframe from 'react-iframe'
 
 import 'box-ui-elements/dist/preview.css'
 import '../styles/index.css'
 import '../styles/documentpreview.css'
+
+import preview from '../media/preview.png'
+import WithAuth from './WithAuth'
+
+// Not needed unless working with non "en" locales
+// addLocaleData(enLocaleData);
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -56,9 +57,9 @@ export class DocumentPreview extends Component {
     this.props.beginLoading()
     this.toggle()
     if (this.props.match) {
-      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Approved')
+      await updateDocumentStatus(this.props.match.params.id, 'Approved')
     } else {
-      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Approved')
+      await updateDocumentStatus(this.props.document._id, 'Approved')
     }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
@@ -73,9 +74,9 @@ export class DocumentPreview extends Component {
     this.props.beginLoading()
     this.toggle()
     if (this.props.match) {
-      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Rejected')
+      await updateDocumentStatus(this.props.match.params.id, 'Rejected')
     } else {
-      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Rejected')
+      await updateDocumentStatus(this.props.document._id, 'Rejected')
     }
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
@@ -133,7 +134,7 @@ export class DocumentPreview extends Component {
             {(this.props.match && this.props.match.params.name) ||
               (this.props.document.fileName && (
                 <Button color="transparent" onClick={this.toggle}>
-                  <img className="buttonimg" src={preview} alt="Preview icon" />
+                  <img className="buttonimg" src={preview} />
                 </Button>
               ))}
             <Modal isOpen={this.state.modal} toggle={this.toggle}>

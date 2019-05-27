@@ -4,22 +4,22 @@ import {
   getSecurityQuestionForUser,
   submitSecurityQuestionAnswer,
   resetPassword
-} from '../../utils/ApiWrapper'
+} from '../utils/ApiWrapper'
 import { Form, Button, FormGroup, Label, Input, Card, Alert, CardBody, CardTitle } from 'reactstrap'
 import { connect } from 'react-redux'
-import { setCookie } from '../../utils/cookie'
-import Navbar from '../NavBar'
+import { setCookie } from '../utils/cookie'
+import Navbar from './NavBar'
 import BackgroundSlideshow from 'react-background-slideshow'
 
-import '../../styles/index.css'
-import '../../styles/login.css'
+import '../styles/index.css'
+import '../styles/login.css'
 
-import kivaLogo from '../../media/kivaPlainLogo.png'
-import b1 from '../../media/b1-min.jpg'
-import b3 from '../../media/b3-min.jpg'
-import b4 from '../../media/b4-min.jpg'
-import b5 from '../../media/b5-min.jpg'
-import b6 from '../../media/b6-min.jpg'
+import kivaLogo from '../media/kivaPlainLogo.png'
+import b1 from '../media/b1-min.jpg'
+import b3 from '../media/b3-min.jpg'
+import b4 from '../media/b4-min.jpg'
+import b5 from '../media/b5-min.jpg'
+import b6 from '../media/b6-min.jpg'
 
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
@@ -32,19 +32,16 @@ const EMAIL_REGEX =
  * It has a button to return back to the login page
  */
 export class ForgotPassword extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email: '',
-      question: '',
-      errorMessage: '',
-      answer: '',
-      pin: '',
-      password: '',
-      password2: '',
-      loadingAPI: false,
-      submitNewPassword: false
-    }
+  state = {
+    email: '',
+    question: '',
+    errorMessage: '',
+    answer: '',
+    pin: '',
+    password: '',
+    password2: '',
+    loadingAPI: false,
+    submitNewPassword: false
   }
 
   handleChange = event => {
@@ -93,13 +90,13 @@ export class ForgotPassword extends Component {
       this.state.answer
     )
     if (response) {
-      let response_json = response.json()
-      if (response_json.status === 200 && response_json.token) {
-        setCookie('token', response_json.token)
+      response = response.json()
+      if (response.status === 200 && response.token) {
+        setCookie('token', response.token)
         this.setState({ successfulSubmit: true })
         this.props.history.push('/')
       } else {
-        this.setState({ errorMessage: response_json.message })
+        this.setState({ errorMessage: response.message })
       }
     }
   }
@@ -116,7 +113,7 @@ export class ForgotPassword extends Component {
           <Card className="interview-card">
             <CardTitle>
               <div className="text-centered" id="login-kiva-logo">
-                <img src={kivaLogo} alt="Kiva logo" />
+                <img src={kivaLogo} />
               </div>
             </CardTitle>
 
@@ -166,7 +163,7 @@ export class ForgotPassword extends Component {
             </CardBody>
             <div style={{ textAlign: 'center' }}>
               <Link to="/login" prefetch href="/login">
-                <a href="/login">Back to login page</a>
+                <a>Back to login page</a>
               </Link>
             </div>
           </Card>
@@ -177,7 +174,7 @@ export class ForgotPassword extends Component {
             <Card className="interview-card">
               <CardTitle>
                 <div className="text-centered" id="login-kiva-logo">
-                  <img src={kivaLogo} alt="Kiva logo" />
+                  <img src={kivaLogo} />
                 </div>
               </CardTitle>
 
@@ -212,7 +209,7 @@ export class ForgotPassword extends Component {
               </CardBody>
               <div style={{ textAlign: 'center' }}>
                 <Link to="/login" prefetch href="/login">
-                  <a href="/login">Back to login page</a>
+                  <a>Back to login page</a>
                 </Link>
               </div>
             </Card>
@@ -220,7 +217,7 @@ export class ForgotPassword extends Component {
             <Card className="interview-card">
               <CardTitle>
                 <div className="text-centered" id="login-kiva-logo">
-                  <img src={kivaLogo} alt="Kiva logo" />
+                  <img src={kivaLogo} />
                 </div>
               </CardTitle>
 
@@ -252,7 +249,7 @@ export class ForgotPassword extends Component {
               </CardBody>
               <div style={{ textAlign: 'center' }}>
                 <Link to="/login" prefetch href="/login">
-                  <a href="/login">Back to login page</a>
+                  <a>Back to login page</a>
                 </Link>
               </div>
             </Card>

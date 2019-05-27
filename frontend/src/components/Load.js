@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import Loader from 'react-loader-spinner'
-
 import { connect } from 'react-redux'
+import Loader from 'react-loader-spinner'
 
 import '../styles/load.css'
 import '../styles/variables.css'
 
 const mapStateToProps = state => ({
-  loading: state.user.loading
+  loading: state.auth.loading
 })
 
 /**
@@ -15,6 +14,10 @@ const mapStateToProps = state => ({
  * for anything to load from the database
  */
 class Load extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
     if (this.props.loading) {
       return (
