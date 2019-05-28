@@ -144,7 +144,7 @@ export class Dashboard extends React.Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar />
-        <h1 className="due-date"> Due Date: {this.state.duedate} </h1>
+        <h1 className="due-date"> Due Date: {this.state.dueDate} </h1>
         {this.props.isPM ? (
           <div>
             <Button
