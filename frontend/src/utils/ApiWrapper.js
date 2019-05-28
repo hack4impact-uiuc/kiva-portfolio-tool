@@ -592,7 +592,12 @@ export const getPartnersByPM = pm_id => {
 export const getDueDateByPartner = id => {
   let requestString = BACKEND_URL + '/due_date/' + id
   return axios
-    .get(requestString)
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
     .then(response => {
       return response.data.result.field_partner
     })
