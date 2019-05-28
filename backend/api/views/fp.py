@@ -47,9 +47,24 @@ def get_fp_by_email(email):
 @fp.route("/due_date/<id>", methods=["GET"])
 def get_duedate_by_fp(id):
     """ function that is called when you visit /due_date/<id>, gets an FP's due date by its ID """
-    fp_by_id = FieldPartner.query.get(id)
+    fp_by_id = FieldPartner.query.get(id).to_dict()
     due_date = fp_by_id.date
     return create_response(data={"due_date": due_date})
+
+
+@fp.route("/due_date/<id>/<due_date>", methods=["PUT"])
+def update_duedate(id, due_date):
+    """function that is called to update an FP's due date"""
+    # fp_by_id = FieldPartner.query.get(id)
+    # fp_by_id["date"] = due_date
+    # return create_response(data={"due_date": fp_by_id["date"]})
+
+    fp = FieldPartner.query.get(id)
+    fp.due_date = request.form.get("due_date", "")
+    ret = fp.to_dict()
+
+    db.session.commit()
+    return create_response(data={"due_date": fp["date"]})
 
 
 @fp.route("/field_partner/org_name/<id>", methods=["GET"])

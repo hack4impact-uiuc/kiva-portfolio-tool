@@ -7,7 +7,8 @@ import {
   getDocumentsByUser,
   updateFPInstructions,
   getFPByID,
-  updateFieldPartnerStatus
+  updateFieldPartnerStatus,
+  updateFieldPartnerDueDate
 } from '../utils/ApiWrapper'
 import { updateDocuments } from '../redux/modules/user'
 import { beginLoading, endLoading } from '../redux/modules/auth'
@@ -173,6 +174,7 @@ export class SelectDocumentsPage extends React.Component {
         this.state.dueDate.getFullYear()
 
       await createDocuments(this.state.fp_id, docClassIDs, date)
+      await updateFieldPartnerDueDate(this.state.fp_id, date)
       const documents = await getDocumentsByUser(this.state.fp_id)
       this.props.updateDocuments(documents)
     }

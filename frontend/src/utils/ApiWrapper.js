@@ -599,6 +599,7 @@ export const getDueDateByPartner = id => {
       }
     })
     .then(response => {
+      console.log("hello:" + response)
       return response.data.result.field_partner
     })
     .catch(error => {
@@ -617,6 +618,26 @@ export const getPartnersByStatus = app_status => {
    * Returns GET_PARTNERS_FAIL upon failure
    */
   let requestString = BACKEND_URL + '/field_partner/status/' + app_status
+  return axios
+    .get(requestString, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return response.data.result.field_partner
+    })
+    .catch(error => {
+      return {
+        type: 'GET_PARTNERS_FAIL',
+        error
+      }
+    })
+}
+
+export const updateFieldPartnerDueDate = (id, date) => {
+  let requestString = BACKEND_URL + '/due_date/' + id + '/' + date
   return axios
     .get(requestString, {
       headers: {
