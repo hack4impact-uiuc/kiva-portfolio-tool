@@ -128,14 +128,8 @@ def add_message():
     )
 
     mail.send(email)
-
-    print("1")
     new_message = Message(data)
-    
-    print("2")
     ret = new_message.to_dict()
-
-    print("3")
 
     db.session.add(new_message)
     db.session.commit()
