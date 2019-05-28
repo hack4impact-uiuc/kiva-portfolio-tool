@@ -127,18 +127,17 @@ def add_message():
         body=contents[message_type.value],
     )
 
-    print("130")
-
     mail.send(email)
+
+    print("1")
     new_message = Message(data)
+    
+    print("2")
     ret = new_message.to_dict()
 
-
-    print("137")
+    print("3")
 
     db.session.add(new_message)
     db.session.commit()
-
-    print("142")
 
     return create_response(data={"message": ret})
