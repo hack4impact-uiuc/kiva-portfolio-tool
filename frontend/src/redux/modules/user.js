@@ -3,7 +3,7 @@ const UPDATE_DOCUMENTS = 'user/update_documents'
 const UPDATE_DOCUMENT_CLASSES = 'user/update_document_classes'
 const UPDATE_MESSAGES = 'user/update_messages'
 const UPDATE_INSTRUCTIONS = 'user/update_instructions'
-const LOAD = 'auth/begin_loading'
+const LOAD = 'user/begin_loading'
 
 const initialState = {
   isPM: true,
