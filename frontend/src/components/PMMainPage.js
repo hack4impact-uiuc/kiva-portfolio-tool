@@ -27,6 +27,8 @@ import {
   getMessagesByPM
 } from '../utils/ApiWrapper'
 
+import { sendChangePasswordEmail } from '../utils/sendMail'
+
 import search from '../media/search.png'
 import add from '../media/add.png'
 
@@ -156,10 +158,14 @@ export class PMMainPage extends Component {
   async handleNewFP() {
     this.props.beginLoading()
     this.newToggle()
-    await createFieldPartner(this.state.org_name, this.state.email, this.props.match.params.id)
+    const fp = await createFieldPartner(this.state.org_name, this.state.email, this.props.match.params.id)
+    console.log(fp)
     let partners = await getPartnersByPM(this.props.match.params.id)
+    console.log(partners)
     this.setState(this.loadPartners(partners))
     this.props.endLoading()
+
+    await sendChangePasswordEmail(this.state.email, fp.response.data.result.password, this.props.match.params.id)
   }
 
   /**

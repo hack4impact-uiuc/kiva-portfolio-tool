@@ -233,6 +233,7 @@ def create_fp():
 
     email = data.get("email")
     password = randomStringDigits()
+    print("password:", password)
     role = "fp"
     pm_id = data.get("pm_id")
     app_status = data.get("app_status")
@@ -241,7 +242,14 @@ def create_fp():
     r = (
         requests.post(
             BACKEND_URL + "register",
-            data={"email": email, "password": password, "role": role},
+            data={
+                "email": email, 
+                "password": password, 
+                "role": role, 
+                "securityQuestionAnswer": "securityQuestionAnswer",
+                "answer": "answer",
+                "questionIdx": 1,
+            },
         )
     ).json()
 
@@ -250,7 +258,7 @@ def create_fp():
 
     local_r = (
         requests.post(
-            "http://localhost:5000/field_partner/new",
+            "http://localhost:5000/field_partners",
             data={
                 "email": email,
                 "pm_id": pm_id,
@@ -300,16 +308,17 @@ def change_password():
     current_password = data.get("currentPassword")
     new_password = data.get("newPassword")
     token = request.headers.get("token")
-    headers = {"Content-type": "application/json", "token": token}
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+    print("ow")
 
     r = (
-        requests.get(
+        requests.post(
             BACKEND_URL + "changePassword",
             data={"currentPassword": current_password, "newPassword": new_password},
             headers=headers,
         )
     ).json()
-
+    print("pw")
     if r.get("status") == 400 or r.get("status") == 500:
         return create_response(status=r.get("status"), message=r["message"])
 
