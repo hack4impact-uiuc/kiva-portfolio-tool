@@ -263,5 +263,15 @@ def find_files_by_content(content_query):
     return output
 
 
-def create_folder(folder_id):
-    return 0
+def create_pm_folder(pm_id):
+    """
+    creates a folder for a portfolio manager with the root as the parent
+    """
+    return client.folder("0").create_subfolder(str(pm_id))
+
+
+def create_fp_folder(fp_id, pm_id):
+    """
+    creates a folder for a field partner with its portfolio manager's folder as the parent
+    """
+    return client.folder(str(pm_id)).create_subfolder(str(fp_id))
