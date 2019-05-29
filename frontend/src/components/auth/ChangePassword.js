@@ -32,16 +32,19 @@ class ChangePassword extends Component {
   handlePassChange = async e => {
     e.preventDefault()
     if (this.state.newPassword1 === this.state.newPassword2) {
-        const result = await changePassword(this.state.oldPassword, this.state.newPassword1)
-        if (result.error != null && (result.error.response.status === 400 || result.error.response.status === 500)) {
-            this.setState({
-              responseMessage: result.error.response.data.message
-            })
-            return
-        }
+      const result = await changePassword(this.state.oldPassword, this.state.newPassword1)
+      if (
+        result.error != null &&
+        (result.error.response.status === 400 || result.error.response.status === 500)
+      ) {
+        this.setState({
+          responseMessage: result.error.response.data.message
+        })
+        return
+      }
 
-        let token = result.response.data.result.token
-        setCookie('token', token)
+      let token = result.response.data.result.token
+      setCookie('token', token)
     } else {
       this.setState({ responseMessage: 'Passwords do not match' })
     }
@@ -50,65 +53,63 @@ class ChangePassword extends Component {
   render() {
     return (
       <div>
-        <Navbar className="nav-absolute"/>
+        <Navbar className="nav-absolute" />
         <div className="background">
-            <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
+          <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
         </div>
         <Row>
-        <div className="foreground">
+          <div className="foreground">
+            <Card className="interview-card">
+              <CardTitle>
+                <div className="text-centered" id="login-kiva-logo">
+                  <img src={kivaLogo} alt="Kiva logo" />
+                </div>
+              </CardTitle>
 
-          <Card className="interview-card">
-            <CardTitle>
-              <div className="text-centered" id="login-kiva-logo">
-                <img src={kivaLogo} alt="Kiva logo" />
-              </div>
-            </CardTitle>
-
-
-            <CardBody>
-              <Form>
-                <FormGroup>
-                  <Input
-                    name="oldPassword"
-                    placeholder="Old Password"
-                    type="password"
-                    maxLength="128"
-                    value={this.state.oldPassword}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Input
-                    name="newPassword1"
-                    placeholder="New Password"
-                    type="password"
-                    maxLength="128"
-                    value={this.state.newPassword1}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Input
-                    name="newPassword2"
-                    placeholder="Confirm Password"
-                    type="password"
-                    maxLength="128"
-                    value={this.state.newPassword2}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </FormGroup>
-                <Button
-                  color="success"
-                  size="lg"
-                  onClick={this.handlePassChange}
-                  className="left left-margin-lg"
-                >
-                  Change Password
-                </Button>
-                <Button
+              <CardBody>
+                <Form>
+                  <FormGroup>
+                    <Input
+                      name="oldPassword"
+                      placeholder="Old Password"
+                      type="password"
+                      maxLength="128"
+                      value={this.state.oldPassword}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Input
+                      name="newPassword1"
+                      placeholder="New Password"
+                      type="password"
+                      maxLength="128"
+                      value={this.state.newPassword1}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Input
+                      name="newPassword2"
+                      placeholder="Confirm Password"
+                      type="password"
+                      maxLength="128"
+                      value={this.state.newPassword2}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </FormGroup>
+                  <Button
+                    color="success"
+                    size="lg"
+                    onClick={this.handlePassChange}
+                    className="left left-margin-lg"
+                  >
+                    Change Password
+                  </Button>
+                  <Button
                     color="success"
                     size="lg"
                     onClick={() => this.props.history.push('/')}
@@ -116,12 +117,12 @@ class ChangePassword extends Component {
                   >
                     Back To LogIn
                   </Button>
-              </Form>
-              <p style={{ color: 'red' }}>
-                {this.state.responseMessage ? this.state.responseMessage : ''}
-              </p>
-            </CardBody>
-          </Card>
+                </Form>
+                <p style={{ color: 'red' }}>
+                  {this.state.responseMessage ? this.state.responseMessage : ''}
+                </p>
+              </CardBody>
+            </Card>
           </div>
         </Row>
       </div>

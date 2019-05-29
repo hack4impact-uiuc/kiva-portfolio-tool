@@ -158,14 +158,22 @@ export class PMMainPage extends Component {
   async handleNewFP() {
     this.props.beginLoading()
     this.newToggle()
-    const fp = await createFieldPartner(this.state.org_name, this.state.email, this.props.match.params.id)
+    const fp = await createFieldPartner(
+      this.state.org_name,
+      this.state.email,
+      this.props.match.params.id
+    )
     console.log(fp)
     let partners = await getPartnersByPM(this.props.match.params.id)
     console.log(partners)
     this.setState(this.loadPartners(partners))
     this.props.endLoading()
 
-    await sendChangePasswordEmail(this.state.email, fp.response.data.result.password, this.props.match.params.id)
+    await sendChangePasswordEmail(
+      this.state.email,
+      fp.response.data.result.password,
+      this.props.match.params.id
+    )
   }
 
   /**

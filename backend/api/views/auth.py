@@ -243,9 +243,9 @@ def create_fp():
         requests.post(
             BACKEND_URL + "register",
             data={
-                "email": email, 
-                "password": password, 
-                "role": role, 
+                "email": email,
+                "password": password,
+                "role": role,
                 "securityQuestionAnswer": "securityQuestionAnswer",
                 "answer": "answer",
                 "questionIdx": 1,
