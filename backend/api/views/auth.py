@@ -314,7 +314,6 @@ def change_password():
     new_password = data.get("newPassword")
     token = request.headers.get("token")
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-    print("ow")
 
     r = (
         requests.post(
@@ -323,7 +322,7 @@ def change_password():
             headers=headers,
         )
     ).json()
-    print("pw")
+
     if r.get("status") == 400 or r.get("status") == 500:
         return create_response(status=r.get("status"), message=r["message"])
 

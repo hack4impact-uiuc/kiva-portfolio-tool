@@ -163,9 +163,7 @@ export class PMMainPage extends Component {
       this.state.email,
       this.props.match.params.id
     )
-    console.log(fp)
     let partners = await getPartnersByPM(this.props.match.params.id)
-    console.log(partners)
     this.setState(this.loadPartners(partners))
     this.props.endLoading()
 

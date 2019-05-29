@@ -14,7 +14,6 @@ async function sendMail(mail_body) {
 }
 
 export async function sendChangePasswordEmail(email, password, pm) {
-  console.log(email, password)
   const mail_body = {
     from: 'hack4impact.infra@gmail.com',
     to: email,

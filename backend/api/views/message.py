@@ -149,7 +149,7 @@ def messageToFP():
 
     mail = Mail(current_app)
     email = Flask_Message(
-        subject="You have been added as a Field Partner by your Product Manager",
+        subject="You have been added as a Field Partner by your Portfolio Manager",
         sender=os.environ["GMAIL_NAME"],
         recipients=[email],
         body=password,

@@ -17,16 +17,12 @@ import b5 from '../../media/b5-min.jpg'
 import b6 from '../../media/b6-min.jpg'
 import kivaLogo from '../../media/kivaPlainLogo.png'
 
-const EMAIL_REGEX =
-  "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
-// const PASSWORD_REGEX = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})";
-
 /**
  * This is the login page.
  * It contains a form that takes in user email and password
  * In case of forgotten password, it has a Forgot Password button that leads to a recovery page
  */
-class LogIn extends Component {
+class TemporaryPasswordReroute extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -49,7 +45,6 @@ class LogIn extends Component {
       result.error != null &&
       (result.error.response.status === 400 || result.error.response.status === 500)
     ) {
-      console.log(result.error.response.message)
       this.setState({
         wrongInfo: !this.state.wrongInfo,
         errorMessage: result.error.response.data.message
@@ -70,7 +65,6 @@ class LogIn extends Component {
       })
       await setCookie('token', token)
       let role = await verify()
-      console.log(role)
       if (role.error) {
         this.props.history.push('/oops')
       } else {
@@ -138,4 +132,4 @@ class LogIn extends Component {
     )
   }
 }
-export default LogIn
+export default TemporaryPasswordReroute
