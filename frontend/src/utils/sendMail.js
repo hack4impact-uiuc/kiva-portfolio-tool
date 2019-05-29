@@ -4,10 +4,10 @@ async function sendMail(mail_body) {
     service: 'gmail',
     auth: {
       type: 'OAuth2',
-      user: 'kivaportfolio@gmail.com',
-      clientId: '308107387535-c76gh8di3bee4b3dqvha50p78fb9buar.apps.googleusercontent.com',
-      clientSecret: 'Xq6dJjiSkOwWurrrKAFIGEd4',
-      refreshToken: '1/Ss7zJZNrD2mpVfe7J-1zfzG-Cjuu5Clt7dRRkKSSNO8'
+      user: process.env.INFRA_EMAIL,
+      clientId: process.env.INFRA_CLIENT_ID,
+      clientSecret: process.env.INFRA_CLIENT_SECRET,
+      refreshToken: process.env.INFRA_REFRESH_TOKEN
     }
   })
   await transporter.sendMail(mail_body)
