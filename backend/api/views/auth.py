@@ -233,7 +233,6 @@ def create_fp():
 
     email = data.get("email")
     password = randomStringDigits()
-    print("password:", password)
     role = "fp"
     pm_id = data.get("pm_id")
     app_status = data.get("app_status")
@@ -272,6 +271,12 @@ def create_fp():
         return create_response(
             status=local_r.get("status"), message=local_r.get("message")
         )
+    another_r = (
+        requests.post(
+            "http://localhost:5000/messagesToFP",
+            data={"email": email, "pm_id": pm_id, "password": password},
+        )
+    ).json()
 
     return create_response(
         status=200,
