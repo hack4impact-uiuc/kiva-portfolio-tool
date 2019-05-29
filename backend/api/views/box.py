@@ -261,3 +261,7 @@ def find_files_by_content(content_query):
         output.append(i)
 
     return output
+
+
+def create_folder(folder_id):
+    return 0
