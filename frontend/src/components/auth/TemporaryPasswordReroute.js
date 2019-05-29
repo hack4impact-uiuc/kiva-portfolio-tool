@@ -17,6 +17,9 @@ import b5 from '../../media/b5-min.jpg'
 import b6 from '../../media/b6-min.jpg'
 import kivaLogo from '../../media/kivaPlainLogo.png'
 
+const EMAIL_REGEX =
+  "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
+
 /**
  * This is the login page.
  * It contains a form that takes in user email and password
