@@ -12,11 +12,16 @@
 .table tr td {
   vertical-align: middle;
   text-align: center;
-  padding: 1% 0% 1% 0%;
+  padding: 2% 1%;
 }
 
-.hoverable:hover {
-  background-color: $hover-link-color;
+.hoverable td .btn:hover {
+  background: transparent;
+}
+
+.hoverable td .btn {
+  padding: 0;
+  margin: 0;
 }
 
 .table tr .padding-right-sm {

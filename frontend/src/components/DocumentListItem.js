@@ -192,9 +192,9 @@ export class DocumentListItem extends Component {
               </Button>
             )}
             {isPM ? (
-              <button className="buttonValue" onClick={this.deleteToggle}>
+              <Button color="transparent" onClick={this.deleteToggle}>
                 <img src={remove} width="25" alt="Remove icon" />
-              </button>
+              </Button>
             ) : (
               <Dropzone onDrop={this.onDrop}>
                 {({ getRootProps, getInputProps }) => (
