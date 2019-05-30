@@ -34,7 +34,7 @@ export class DocumentList extends Component {
 
   render() {
     return (
-      <Table>
+      <Table className="document-table">
         <tbody>
           <tr className="dlist-header">
             <th

@@ -25,6 +25,8 @@ import {
 
 import add from '../media/add.png'
 
+import '../styles/dashboard.scss'
+
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
@@ -121,7 +123,7 @@ export class Dashboard extends Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
-        <Container>
+        <Container id="dashboard-container">
           {this.props.isPM ? (
             <Row>
               <Col className="text-centered" md="12">
@@ -146,14 +148,14 @@ export class Dashboard extends Component {
               ? this.props.isPM
                 ? this.state.pm_statuses.map(key => {
                     return (
-                      <Col sm="12" md="6">
+                      <Col sm="12" md="6" className="dashboard-width-override">
                         <DocumentList documents={this.props.documents[key]} status={key} />
                       </Col>
                     )
                   })
                 : this.state.fp_statuses.map(key => {
                     return (
-                      <Col sm="12" md="6">
+                      <Col sm="12" md="6" className="dashboard-width-override">
                         <DocumentList documents={this.props.documents[key]} status={key} />
                       </Col>
                     )

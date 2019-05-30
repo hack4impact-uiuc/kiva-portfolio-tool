@@ -9,10 +9,16 @@
   border-radius: 8px;
 }
 
+#dashboard-container .document-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
 .table tr td {
   vertical-align: middle;
   text-align: center;
-  padding: 2% 1%;
+  padding: 2% 0;
+  word-break: break-word;
 }
 
 .hoverable td .btn:hover {
@@ -22,6 +28,8 @@
 .hoverable td .btn {
   padding: 0;
   margin: 0;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .table tr .padding-right-sm {
