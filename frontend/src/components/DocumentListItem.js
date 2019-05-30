@@ -176,19 +176,19 @@ export class DocumentListItem extends Component {
                 <DocumentPreview document={this.props.document} />
               </Col>
               <Col md="4">
-              {this.props.fileName ? (
-                <Button color="transparent">
-                  <Link
-                    to={{
-                      pathname:
-                        '/view/' + this.props.document.fileName + '/' + this.props.document._id,
-                      state: { link: this.props.document.link }
-                    }}
-                  >
-                    <img className="buttonimg" src={visit} alt="Visit icon" />
-                  </Link>
-                </Button>
-              ) : null}
+                {this.props.fileName ? (
+                  <Button color="transparent">
+                    <Link
+                      to={{
+                        pathname:
+                          '/view/' + this.props.document.fileName + '/' + this.props.document._id,
+                        state: { link: this.props.document.link }
+                      }}
+                    >
+                      <img className="buttonimg" src={visit} alt="Visit icon" />
+                    </Link>
+                  </Button>
+                ) : null}
               </Col>
               <Col md="4">
                 {isPM ? (
