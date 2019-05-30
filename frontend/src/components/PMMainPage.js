@@ -27,6 +27,8 @@ import {
   getMessagesByPM
 } from '../utils/ApiWrapper'
 
+import { sendChangePasswordEmail } from '../utils/sendMail'
+
 import search from '../media/search.png'
 import add from '../media/add.png'
 
@@ -66,7 +68,9 @@ export class PMMainPage extends Component {
       org_name: '',
       newModal: false, // for creating a new FP
       completeModal: false,
-      complete_id: null // for confirmation of process restart for a 'Complete' FP
+      complete_id: null, // for confirmation of process restart for a 'Complete' FP
+      responseMessage: null,
+      errorModal: true
     }
     this.newToggle = this.newToggle.bind(this)
     this.completeToggle = this.completeToggle.bind(this)
@@ -143,6 +147,10 @@ export class PMMainPage extends Component {
     this.setState({ newModal: !this.state.newModal })
   }
 
+  errorToggle = () => {
+    this.setState({ errorModal: !this.state.errorModal })
+  }
+
   completeToggle = id => {
     this.setState({ completeModal: !this.state.completeModal, complete_id: id })
   }
@@ -153,10 +161,32 @@ export class PMMainPage extends Component {
   async handleNewFP() {
     this.props.beginLoading()
     this.newToggle()
-    await createFieldPartner(this.state.org_name, this.state.email, this.props.match.params.id)
+    const result = await createFieldPartner(
+      this.state.org_name,
+      this.state.email,
+      this.props.match.params.id
+    )
+
+    if (
+      result.error != null &&
+      (result.error.response.status === 400 || result.error.response.status === 500)
+    ) {
+      this.setState({
+        responseMessage: result.error.response.data.message
+      })
+      this.props.endLoading()
+      return
+    }
+
     let partners = await getPartnersByPM(this.props.match.params.id)
     this.setState(this.loadPartners(partners))
     this.props.endLoading()
+
+    await sendChangePasswordEmail(
+      this.state.email,
+      result.response.data.result.password,
+      this.props.match.params.id
+    )
   }
 
   /**
@@ -225,7 +255,15 @@ export class PMMainPage extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-
+        {this.state.responseMessage ? (
+          <Modal isOpen={this.state.errorModal} toggle={this.errorToggle}>
+            <ModalHeader>Error</ModalHeader>
+            <ModalBody>{this.state.responseMessage}</ModalBody>
+            <ModalFooter>
+              <Button onClick={this.errorToggle}>Exit</Button>
+            </ModalFooter>
+          </Modal>
+        ) : null}
         <Modal isOpen={this.state.completeModal} toggle={this.completeToggle}>
           <ModalHeader>
             Are you sure you want to restart the process? This will delete all documents associated
