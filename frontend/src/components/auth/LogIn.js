@@ -141,7 +141,7 @@ class LogIn extends Component {
                   </Button>
                 </div>
               </Form>
-              <p style={{ color: 'red' }}>
+              <p style={{ color: 'red', textAlign: 'center' }}>
                 {this.state.errorMessage ? this.state.errorMessage : ''}
               </p>
               <Link
@@ -153,7 +153,6 @@ class LogIn extends Component {
               >
                 Forgot Password?
               </Link>
-              <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
             </CardBody>
           </Card>
           <br />

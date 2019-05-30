@@ -52,6 +52,10 @@ html, body {
   text-align: center;
 }
 
+.left-margin-lg {
+  margin-left: 10%;
+}
+
 .margin-center {
   display: block;
   margin: auto;
@@ -109,4 +113,5 @@ html, body {
 
 .modal-input-master {
   width: 100%;
+  margin: 3% 0;
 }

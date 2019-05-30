@@ -10,7 +10,6 @@ import Notification from './Notification'
 
 import close from '../media/greyX.png'
 
-import 'react-tabs/style/react-tabs.css'
 import '../styles/notifbar.scss'
 
 const mapStateToProps = state => ({

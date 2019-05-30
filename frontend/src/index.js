@@ -20,6 +20,7 @@ import {
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import 'react-tabs/style/react-tabs.css'
 import 'box-ui-elements/dist/preview.css'
 import './styles/index.scss'
 require('typeface-rubik')
