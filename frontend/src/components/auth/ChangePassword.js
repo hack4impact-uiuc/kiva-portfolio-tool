@@ -22,7 +22,8 @@ class ChangePassword extends Component {
     oldPassword: '',
     newPassword1: '',
     newPassword2: '',
-    responseMessage: ''
+    responseMessage: '',
+    correctMessage: '',
   }
 
   handleChange = event => {
@@ -45,6 +46,7 @@ class ChangePassword extends Component {
 
       let token = result.response.data.result.token
       setCookie('token', token)
+      this.setState({ correctMessage: 'Your password has been changed!' })
     } else {
       this.setState({ responseMessage: 'Passwords do not match' })
     }
@@ -120,6 +122,9 @@ class ChangePassword extends Component {
                 </Form>
                 <p style={{ color: 'red' }}>
                   {this.state.responseMessage ? this.state.responseMessage : ''}
+                </p>
+                <p style={{ color: 'green' }}>
+                  {this.state.correctMessage ? this.state.correctMessage : ''}
                 </p>
               </CardBody>
             </Card>
