@@ -13,6 +13,8 @@ import ForgotPassword from './auth/ForgotPassword'
 import LogIn from './auth/LogIn'
 import Register from './auth/Register'
 import WrongPage from './auth/WrongPage'
+import ChangePassword from './auth/ChangePassword'
+import TemporaryPasswordReroute from './auth/TemporaryPasswordReroute'
 
 export {
   Dashboard,
@@ -26,5 +28,7 @@ export {
   DocumentPreview,
   Load,
   WrongPage,
-  ErrorMessage
+  ErrorMessage,
+  ChangePassword,
+  TemporaryPasswordReroute
 }
