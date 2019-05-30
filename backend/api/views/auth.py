@@ -375,11 +375,6 @@ def reset_password():
     if data is None:
         return create_response(status=400, message="Missing Data!")
 
-    email = data.get("email")
-    password = data.get("password")
-    pin = data.get("pin")
-    answer = data.get("answer")
-
     if "email" not in data:
         return create_response(status=400, message="Missing email!")
 
@@ -392,9 +387,14 @@ def reset_password():
     if "pin" not in data:
         return create_response(status=400, message="Missing pin!")
 
+    email = data.get("email")
+    password = data.get("password")
+    pin = data.get("pin")
+    answer = data.get("answer")
+
     r = (
         requests.post(
-            BACKEND_URL + "resetPassword",
+            BACKEND_URL + "passwordReset",
             data={"email": email, "password": password, "pin": pin, "answer": answer},
         )
     ).json()
@@ -482,7 +482,7 @@ def get_security_question():
     email = data.get("email")
 
     r = (
-        requests.post(BACKEND_URL + "getSecurityQuestionForUser", data={"email": email})
+        requests.post(BACKEND_URL + "securityQuestionForUser", data={"email": email})
     ).json()
 
     if r.get("status") == 400 or r.get("status") == 500:
