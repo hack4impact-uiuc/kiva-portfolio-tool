@@ -25,11 +25,6 @@ import {
 
 import add from '../media/add.png'
 
-import 'react-datepicker/dist/react-datepicker.css'
-import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-import '../styles/index.css'
-import 'box-ui-elements/dist/preview.css'
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,

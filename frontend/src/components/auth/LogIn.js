@@ -6,9 +6,8 @@ import React, { Component } from 'react'
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from '../NavBar'
 
-import '../../styles/index.css'
-import '../../styles/login.css'
-import '../../styles/navbar.css'
+import '../../styles/login.scss'
+import '../../styles/navbar.scss'
 
 import b1 from '../../media/b1-min.jpg'
 import b3 from '../../media/b3-min.jpg'

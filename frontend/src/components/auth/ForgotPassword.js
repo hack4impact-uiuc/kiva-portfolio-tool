@@ -11,8 +11,7 @@ import { setCookie } from '../../utils/cookie'
 import Navbar from '../NavBar'
 import BackgroundSlideshow from 'react-background-slideshow'
 
-import '../../styles/index.css'
-import '../../styles/login.css'
+import '../../styles/login.scss'
 
 import kivaLogo from '../../media/kivaPlainLogo.png'
 import b1 from '../../media/b1-min.jpg'

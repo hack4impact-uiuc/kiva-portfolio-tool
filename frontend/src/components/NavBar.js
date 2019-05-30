@@ -23,8 +23,7 @@ import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
 
-import '../styles/index.css'
-import '../styles/navbar.css'
+import '../styles/navbar.scss'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM

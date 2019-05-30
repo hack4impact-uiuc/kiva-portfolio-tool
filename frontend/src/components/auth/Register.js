@@ -19,7 +19,7 @@ import { register, verifyPIN, resendPIN, getSecurityQuestions } from '../../util
 import BackgroundSlideshow from 'react-background-slideshow'
 import Navbar from '../NavBar'
 
-import '../../styles/login.css'
+import '../../styles/login.scss'
 
 import kivaLogo from '../../media/kivaPlainLogo.png'
 import b1 from '../../media/b1-min.jpg'

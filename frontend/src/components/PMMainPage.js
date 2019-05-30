@@ -32,11 +32,10 @@ import add from '../media/add.png'
 
 import '../styles/partnerbar.css'
 import 'react-tabs/style/react-tabs.css'
-import '../styles/index.css'
 // same button styling as in document class page
 // 'Add New Doc Class' button styling the same
-import '../styles/documentclasspage.css'
-import '../styles/partnerbar.css'
+import '../styles/documentclasspage.scss'
+import '../styles/partnerbar.scss'
 
 const mapStateToProps = state => ({})
 

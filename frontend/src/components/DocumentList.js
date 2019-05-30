@@ -6,8 +6,7 @@ import DocumentListItem from './DocumentListItem'
 import expand from '../media/expand.png'
 import collapse from '../media/collapse.png'
 
-import '../styles/documentlist.css'
-import '../styles/index.css'
+import '../styles/documentlist.scss'
 
 /**
  * Displays all documents for a given document status in its own box
