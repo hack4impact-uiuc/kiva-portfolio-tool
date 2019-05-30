@@ -23,7 +23,7 @@ class ChangePassword extends Component {
     newPassword1: '',
     newPassword2: '',
     responseMessage: '',
-    correctMessage: '',
+    correctMessage: ''
   }
 
   handleChange = event => {
