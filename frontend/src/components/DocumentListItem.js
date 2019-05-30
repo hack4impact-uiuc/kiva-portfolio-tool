@@ -22,8 +22,6 @@ import downloadImg from '../media/downloadGrey.png'
 import visit from '../media/visit.png'
 import remove from '../media/remove.png'
 
-import '../styles/documentlistitem.scss'
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM
 })
@@ -161,7 +159,7 @@ export class DocumentListItem extends Component {
           </ModalFooter>
         </Modal>
         <tr className="hoverable">
-          <td data-testid="docClass dashboard-docclass">
+          <td data-testid="docClass">
             <Button className="add-doc-text" color="transparent" onClick={this.docClassToggle}>
               <span className="add-doc-text">{this.props.document.docClass.name}</span>
             </Button>
@@ -190,7 +188,7 @@ export class DocumentListItem extends Component {
           <td className="interaction">
             {isPM ? (
               <Button color="transparent" onClick={this.deleteToggle}>
-                <img src={remove} width="25" alt="Remove icon" />
+                <img src={remove} width="23" alt="Remove icon" />
               </Button>
             ) : (
               <Dropzone onDrop={this.onDrop}>

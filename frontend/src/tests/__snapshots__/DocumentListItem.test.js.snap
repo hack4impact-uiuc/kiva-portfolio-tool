@@ -165,8 +165,7 @@ exports[`DocumentListItem renders correctly 1`] = `
       data-testid="interaction"
     />
     <td
-      className="interaction padding-right-sm"
-      data-testid="interaction"
+      className="interaction"
     >
       <Dropzone
         onDrop={[Function]}
