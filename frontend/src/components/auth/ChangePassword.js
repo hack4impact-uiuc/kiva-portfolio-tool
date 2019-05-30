@@ -120,10 +120,10 @@ class ChangePassword extends Component {
                     Back To LogIn
                   </Button>
                 </Form>
-                <p style={{ color: 'red' }}>
+                <p style={{ color: 'red', textAlign: 'center' }}>
                   {this.state.responseMessage ? this.state.responseMessage : ''}
                 </p>
-                <p style={{ color: 'green' }}>
+                <p style={{ color: 'green', textAlign: 'center' }}>
                   {this.state.correctMessage ? this.state.correctMessage : ''}
                 </p>
               </CardBody>
