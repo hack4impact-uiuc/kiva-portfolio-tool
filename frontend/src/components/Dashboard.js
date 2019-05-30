@@ -121,23 +121,26 @@ export class Dashboard extends Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
-        {this.props.isPM ? (
-          <div>
-            <Button
-              className="add-doc-text"
-              color="transparent"
-              onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
-            >
-              <img className="addImg" src={add} alt="Add icon" />
-              <span className="add-doc-text">Update requirements/instructions</span>
-            </Button>
-            <br />
-            <Button color="success" onClick={this.handleFinish}>
-              Finish Process
-            </Button>
-          </div>
-        ) : null}
         <Container>
+          {this.props.isPM ? (
+            <Row>
+              <Col className="text-centered" md="12">
+                <Button
+                  className="add-doc-text"
+                  color="transparent"
+                  onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
+                >
+                  <img className="addImg" src={add} alt="Add icon" />
+                  <span className="add-doc-text">Update requirements/instructions</span>
+                </Button>
+              </Col>
+              <Col className="text-centered" md="12">
+                <Button color="success" onClick={this.handleFinish}>
+                  Finish Process
+                </Button>
+              </Col>
+            </Row>
+          ) : null}
           <Row>
             {this.props.documents
               ? this.props.isPM
