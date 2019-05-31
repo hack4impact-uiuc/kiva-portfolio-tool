@@ -230,6 +230,7 @@ export class PMMainPage extends Component {
           <ModalHeader>Add New Field Partner</ModalHeader>
           <ModalBody>
             <form onSubmit={this.handleNewFP}>
+              <label className="margin-top-sm">Organization Name:</label>
               <input
                 className="modal-input-master"
                 type="text"
@@ -238,6 +239,7 @@ export class PMMainPage extends Component {
                 placeholder="Enter the Field Partner's organization name here..."
                 onChange={this.handleNameChange}
               />
+              <label className="margin-top-sm">Email:</label>
               <input
                 className="modal-input-master"
                 type="text"
