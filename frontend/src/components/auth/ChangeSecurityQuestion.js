@@ -169,15 +169,16 @@ class ChangePassword extends Component {
                       required
                     />
                   </FormGroup>
-
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={this.handlePassChange}
-                    className="left left-margin-lg"
-                  >
-                    Change Question
-                  </Button>
+                  <div className="text-centered">
+                    <Button
+                      color="success"
+                      size="lg"
+                      onClick={this.handlePassChange}
+                      className="right"
+                    >
+                      Change Question
+                    </Button>
+                  </div>
                 </Form>
                 <p style={{ color: 'red', textAlign: 'center' }}>
                   {this.state.responseMessage ? this.state.responseMessage : ''}
