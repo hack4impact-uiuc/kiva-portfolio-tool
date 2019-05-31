@@ -151,27 +151,65 @@ exports[`DocumentListItem renders correctly 1`] = `
     <td
       className="interaction"
     >
-      <Connect(HOC)
-        document={
-          Object {
-            "docClass": "Board of Directors",
-            "status": "Missing",
-          }
-        }
-      />
-    </td>
-    <td
-      className="interaction"
-      data-testid="interaction"
-    />
-    <td
-      className="interaction"
-    >
-      <Dropzone
-        onDrop={[Function]}
+      <Row
+        className="button-tablerow"
+        tag="div"
       >
-        <Component />
-      </Dropzone>
+        <Col
+          md="4"
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
+        >
+          <Connect(HOC)
+            document={
+              Object {
+                "docClass": "Board of Directors",
+                "status": "Missing",
+              }
+            }
+          />
+        </Col>
+        <Col
+          md="4"
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
+        />
+        <Col
+          md="4"
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
+        >
+          <Dropzone
+            onDrop={[Function]}
+          >
+            <Component />
+          </Dropzone>
+        </Col>
+      </Row>
     </td>
   </tr>
 </Fragment>

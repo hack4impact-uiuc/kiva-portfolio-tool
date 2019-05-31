@@ -38,7 +38,7 @@ export class DocumentList extends Component {
         <tbody>
           <tr className="dlist-header">
             <th
-              colSpan="5"
+              colSpan="3"
               className={
                 'background-' +
                 (this.props.status ? this.props.status.toLowerCase() : 'null') +
@@ -77,7 +77,7 @@ export class DocumentList extends Component {
           {this.props.documents ? (
             this.props.documents.length > this.state.showLess ? (
               <tr className="text-centered">
-                <td colSpan="5" id="buttonRowData">
+                <td colSpan="3" id="buttonRowData">
                   {this.state.expanded ? (
                     <button
                       className={
