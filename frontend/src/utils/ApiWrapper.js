@@ -429,7 +429,7 @@ export const createFieldPartner = (org_name, email, pm_id) => {
    * Returns CREATE_FP_SUCCESS upon success
    * Returns CREATE_FP_FAIL upon failure
    */
-  let requestString = BACKEND_URL + '/field_partners'
+  let requestString = BACKEND_URL + '/createFP'
   let data = new FormData()
   data.append('org_name', org_name)
   data.append('email', email)
