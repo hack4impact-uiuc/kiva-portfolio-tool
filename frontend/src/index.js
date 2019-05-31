@@ -17,7 +17,8 @@ import {
   WrongPage,
   ErrorMessage,
   ChangePassword,
-  TemporaryPasswordReroute
+  TemporaryPasswordReroute,
+  ChangeSecurityQuestion
 } from './components'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './styles/index.scss'
@@ -37,6 +38,7 @@ ReactDOM.render(
           <Route path="/register" component={Register} />
           <Route path="/changePassword" component={ChangePassword} />
           <Route path="/temporary" component={TemporaryPasswordReroute} />
+          <Route path="/changeSecurityQuestion" component={ChangeSecurityQuestion} />
           <Route path="/dashboard/:user/:id" component={Dashboard} />
           <Route path="/overview/:id" component={PMMainPage} />
           <Route path="/setup/:id" component={SelectDocumentsPage} />
