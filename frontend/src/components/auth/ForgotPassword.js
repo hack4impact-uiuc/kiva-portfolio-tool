@@ -53,13 +53,27 @@ export class ForgotPassword extends Component {
   handleGetSecurityQuestion = async e => {
     e.preventDefault()
     const result = await getSecurityQuestionForUser(this.state.email)
-    if (result) {
-      const resp = await result.json()
-      if (!!resp.question) {
-        this.setState({ question: resp.question, errorMessage: '' })
-      } else {
-        this.setState({ errorMessage: resp.message })
-      }
+
+    if (result == null) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: 'Wrong email!'
+      })
+      return
+    }
+
+    let question = result.response.data.result.question
+
+    if (!question) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.response.message
+      })
+    } else {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo
+      })
+      this.setState({ question: question, errorMessage: '' })
     }
   }
 
@@ -69,14 +83,15 @@ export class ForgotPassword extends Component {
     this.setState({ loadingAPI: true })
     const result = await submitSecurityQuestionAnswer(this.state.email, this.state.answer)
 
-    if (result) {
-      const resp = await result.json()
-      if (resp.status === 200) {
-        this.setState({ submitNewPassword: true, errorMessage: '' })
-      } else {
-        this.setState({ errorMessage: resp.message })
-      }
+    if (result == null) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: 'Wrong answer!',
+        loadingAPI: false
+      })
+      return
     }
+    this.setState({ submitNewPassword: true, errorMessage: '' })
   }
 
   handleSubmitNewPassword = async e => {
@@ -85,21 +100,35 @@ export class ForgotPassword extends Component {
       this.setState({ errorMessage: "Passwords don't match!" })
       return
     }
-    const response = await resetPassword(
-      this.state.pin,
+    const result = await resetPassword(
       this.state.email,
-      this.state.password,
-      this.state.answer
+      this.state.answer,
+      this.state.pin,
+      this.state.password
     )
-    if (response) {
-      let response_json = response.json()
-      if (response_json.status === 200 && response_json.token) {
-        setCookie('token', response_json.token)
-        this.setState({ successfulSubmit: true })
-        this.props.history.push('/')
-      } else {
-        this.setState({ errorMessage: response_json.message })
-      }
+
+    if (result == null) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: 'Wrong input!'
+      })
+      return
+    }
+
+    let token = result.response.data.result.token
+
+    if (!token) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.response.message
+      })
+    } else {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo
+      })
+      await setCookie('token', token)
+      this.setState({ successfulSubmit: true })
+      this.props.history.push('/')
     }
   }
 
@@ -122,8 +151,14 @@ export class ForgotPassword extends Component {
             <CardBody>
               <Form>
                 <FormGroup>
-                  <Label>Pin</Label>
-                  <Input name="pin" value={this.state.pin} onChange={this.handleChange} required />
+                  <Input
+                    id="examplePassword"
+                    name="pin"
+                    placeholder="pin"
+                    value={this.state.pin}
+                    onChange={this.handleChange}
+                    required
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Input
@@ -204,8 +239,6 @@ export class ForgotPassword extends Component {
                     >
                       Get Security Question
                     </Button>
-
-                    {this.state.errorMessage}
                   </div>
                 </Form>
               </CardBody>

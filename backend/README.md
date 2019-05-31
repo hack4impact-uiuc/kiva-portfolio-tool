@@ -16,8 +16,19 @@ This project uses the _JWT_ method to authenticate one master user and allow any
 
 Our box backend first generates the access token for the authenticated user (information in the document provided above) and lets the user upload a file or delete a file. More on these endpoints can be found [here](https://developer.box.com/reference)
 
-###box api document
+### box api document
 This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
+
+## Email Notification Setup
+
+The email notifications are sent using the Gmail SMTP server. If you do not have a G Suite account with a custom domain, you can only send 100 emails/day; otherwise, it is unlimited.
+
+If you want to use your own Gmail account to send emails, follow [this](https://u.expressionengine.com/article/using-gmail-smtp-to-send-emails-from-your-website) (just through **Create an App Password for your Google Account**) to set up your account. Then, create a .env file in `/backend/api/`, containing:
+```
+GMAIL_NAME={your email}
+GMAIL_PASSWORD={app password}
+```
+with your information instead of {these}.
 
 ## Postgres Setup
 

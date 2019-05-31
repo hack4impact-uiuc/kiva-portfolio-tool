@@ -114,10 +114,10 @@ class ChangePassword extends Component {
                   <Button
                     color="success"
                     size="lg"
-                    onClick={() => this.props.history.push('/')}
+                    onClick={() => this.props.history.push('/changeSecurityQuestion')}
                     className="right"
                   >
-                    Back To LogIn
+                    Change Security Question
                   </Button>
                 </Form>
                 <p style={{ color: 'red', textAlign: 'center' }}>
