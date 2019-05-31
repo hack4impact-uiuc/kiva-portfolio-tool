@@ -149,7 +149,7 @@ export class NavBar extends Component {
         <Navbar className={this.props.className} color="white" light expand="md">
           {this.state.isLoginPage && (
             <NavbarBrand href="/">
-              <img src={k_logo} width="60" height="60" alt="Kiva logo" />
+              <img className="kivalogo" src={k_logo} width="60" height="60" alt="Kiva logo" />
             </NavbarBrand>
           )}
 
@@ -163,7 +163,7 @@ export class NavBar extends Component {
 
           {!this.state.isLoginPage && (
             <NavbarBrand onClick={this.redirect}>
-              <img src={kiva_logo} width="90" height="50" alt="Kiva logo" />
+              <img className="kivalogo" src={kiva_logo} width="90" height="50" alt="Kiva logo" />
             </NavbarBrand>
           )}
 
