@@ -135,20 +135,15 @@ def verify():
 
 @auth.route("/getUser", methods=["GET"])
 def get_user_role():
-    data = request.get_json()
-    if data is None:
-        data = request.form
-
-    if data is None:
-        return create_response(status=400, message="Missing Data!")
-
     token = request.headers.get("token")
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-    r = (requests.post(BACKEND_URL + "getUser", headers=headers)).json()
+    r = (requests.get(BACKEND_URL + "getUser", headers=headers)).json()
     if r.get("status") == 400 or r.get("status") == 500:
         return create_response(status=r.get("status"), message=r.get("message"))
 
-    return create_response(status=200, data={"userRole": r.get("user_role")})
+    return create_response(
+        status=200, data={"userRole": r.get("user_role"), "email": r.get("user_email")}
+    )
 
 
 @auth.route("/verifyEmail", methods=["POST"])

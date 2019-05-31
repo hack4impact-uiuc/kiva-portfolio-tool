@@ -56,7 +56,8 @@ export class Dashboard extends Component {
 
     this.state = {
       fp_statuses: ['Missing', 'Rejected', 'Pending', 'Approved'],
-      pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved']
+      pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved'],
+      pm_id: null
     }
 
     this.handleFinish = this.handleFinish.bind(this)
@@ -87,6 +88,7 @@ export class Dashboard extends Component {
      */
     const fp = await getFPByID(this.props.match.params.id)
     const instructionsReceived = fp.instructions
+    this.setState({ pm_id: fp.pm_id })
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
@@ -114,7 +116,7 @@ export class Dashboard extends Component {
   async handleFinish() {
     this.props.beginLoading()
     await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
-    this.props.history.push('/overview/' + this.props.match.params.id)
+    this.props.history.push('/overview/' + this.state.pm_id)
     this.props.endLoading()
   }
 

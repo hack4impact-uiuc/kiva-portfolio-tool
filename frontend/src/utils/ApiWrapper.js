@@ -67,6 +67,35 @@ export const login = (email, password) => {
     })
 }
 
+export const getUser = () => {
+  /**
+   * Endpoint to reference when a user is trying to login
+   * Takes in an email and a password of given user
+   * Authenticates user in backend and
+   * Returns LOGIN_SUCCESSFUL if user successfully logged in
+   * Returns LOGIN_FAIL if user fails to log in
+   */
+  return axios
+    .get(BACKEND_URL + '/getUser', {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
+
 export const verify = () => {
   /**
    *
