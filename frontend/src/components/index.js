@@ -15,6 +15,7 @@ import Register from './auth/Register'
 import WrongPage from './auth/WrongPage'
 import ChangePassword from './auth/ChangePassword'
 import TemporaryPasswordReroute from './auth/TemporaryPasswordReroute'
+import ChangeSecurityQuestion from './auth/ChangeSecurityQuestion'
 
 export {
   Dashboard,
@@ -30,5 +31,6 @@ export {
   WrongPage,
   ErrorMessage,
   ChangePassword,
-  TemporaryPasswordReroute
+  TemporaryPasswordReroute,
+  ChangeSecurityQuestion
 }

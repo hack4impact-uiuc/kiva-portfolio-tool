@@ -156,6 +156,32 @@ export const setSecurityQuestion = (questionIdx, answer, password) => {
     })
 }
 
+export const updateSecurityQuestion = (questionIdx, answer, password) => {
+  let data = new FormData()
+  data.append('questionIdx', questionIdx)
+  data.append('answer', answer)
+  data.append('password', password)
+  return axios
+    .post(BACKEND_URL + '/updateSecurityQuestion', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
+
 export const getSecurityQuestionForUser = email => {
   /**
    * given a user's email account
