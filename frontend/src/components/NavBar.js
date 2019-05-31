@@ -150,6 +150,12 @@ export class NavBar extends Component {
                       </DropdownItem>
                     )}
                     <DropdownItem>Log Out</DropdownItem>
+                    <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
+                        Manage Documents
+                    </DropdownItem>
+                    <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
+                        Manage Documents
+                      </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </NavItem>
