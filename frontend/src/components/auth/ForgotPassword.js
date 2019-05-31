@@ -152,9 +152,9 @@ export class ForgotPassword extends Component {
               <Form>
                 <FormGroup>
                   <Input
-                    id="examplePassword"
                     name="pin"
-                    placeholder="pin"
+                    placeholder="Pin"
+                    id="examplePin"
                     value={this.state.pin}
                     onChange={this.handleChange}
                     required

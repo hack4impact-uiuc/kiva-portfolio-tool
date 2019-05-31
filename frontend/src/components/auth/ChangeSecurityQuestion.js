@@ -25,7 +25,7 @@ import { connect } from 'react-redux'
 import { setCookie } from '../../utils/cookie'
 import BackgroundSlideshow from 'react-background-slideshow'
 
-import '../../styles/login.css'
+import '../../styles/login.scss'
 
 import kivaLogo from '../../media/kivaPlainLogo.png'
 import b1 from '../../media/b1-min.jpg'
@@ -160,31 +160,34 @@ class ChangePassword extends Component {
                   <FormGroup>
                     <Input
                       name="oldPassword"
-                      placeholder="password"
+                      placeholder="Password"
                       type="password"
                       maxLength="128"
-                      id="exampleAnswer"
+                      id="examplePassword"
                       value={this.state.oldPassword}
                       onChange={this.handleChange}
                       required
                     />
                   </FormGroup>
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={() => this.props.history.push('/')}
-                    className="left left-margin-lg"
-                  >
-                    Back to Login
-                  </Button>
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={this.handlePassChange}
-                    className="right"
-                  >
-                    Change Question
-                  </Button>
+                  <div className="text-centered">
+                    <Button
+                      color="success"
+                      size="lg"
+                      onClick={() => this.props.history.push('/')}
+                      className="right securitybtn"
+                    >
+                      Back to Login
+                    </Button>
+                    {''}
+                    <Button
+                      color="success"
+                      size="lg"
+                      onClick={this.handlePassChange}
+                      className="left left-margin-lg securitybtn"
+                    >
+                      Change Question
+                    </Button>
+                  </div>
                 </Form>
                 <p style={{ color: 'red', textAlign: 'center' }}>
                   {this.state.responseMessage ? this.state.responseMessage : ''}
