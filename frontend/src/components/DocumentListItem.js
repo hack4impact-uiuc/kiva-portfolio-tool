@@ -172,10 +172,10 @@ export class DocumentListItem extends Component {
               // little bit of a hack to coerce all images into one row inside one td element instead of having blank td elements taking up space
             }
             <Row className="button-tablerow">
-              <Col md="4">
+              <Col sm="4" md="4">
                 <DocumentPreview document={this.props.document} />
               </Col>
-              <Col md="4">
+              <Col sm="4" md="4">
                 {this.props.fileName ? (
                   <Button color="transparent">
                     <Link
@@ -190,10 +190,10 @@ export class DocumentListItem extends Component {
                   </Button>
                 ) : null}
               </Col>
-              <Col md="4">
+              <Col sm="4" md="4">
                 {isPM ? (
                   <Button color="transparent" onClick={this.deleteToggle}>
-                    <img src={remove} width="23" alt="Remove icon" />
+                    <img className="buttonimg" src={remove} width="23" alt="Remove icon" />
                   </Button>
                 ) : (
                   <Dropzone onDrop={this.onDrop}>

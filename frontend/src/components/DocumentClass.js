@@ -197,10 +197,10 @@ export class DocumentClass extends Component {
           <td data-testid="interaction" className="interaction">
             <DocumentClassPreview documentClass={this.props.documentClass} />
             <Button color="transparent" onClick={this.editToggle}>
-              <img className="buttonimg" src={edit} alt="Edit icon" />
+              <img className="buttonimg docclass-buttonimg" src={edit} alt="Edit icon" />
             </Button>
             <Button color="transparent" onClick={this.deleteToggle}>
-              <img className="buttonimg" src={remove} alt="Remove icon" />
+              <img className="buttonimg docclass-buttonimg" src={remove} alt="Remove icon" />
             </Button>
             <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
               <ModalBody>

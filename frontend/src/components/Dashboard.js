@@ -25,8 +25,6 @@ import {
 
 import add from '../media/add.png'
 
-import '../styles/dashboard.scss'
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
