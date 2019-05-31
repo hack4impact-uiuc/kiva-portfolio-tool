@@ -177,14 +177,14 @@ class ChangePassword extends Component {
                   >
                     Back to Login
                   </Button>
-                    <Button
-                      color="success"
-                      size="lg"
-                      onClick={this.handlePassChange}
-                      className="right"
-                    >
-                      Change Question
-                    </Button>
+                  <Button
+                    color="success"
+                    size="lg"
+                    onClick={this.handlePassChange}
+                    className="right"
+                  >
+                    Change Question
+                  </Button>
                 </Form>
                 <p style={{ color: 'red', textAlign: 'center' }}>
                   {this.state.responseMessage ? this.state.responseMessage : ''}
