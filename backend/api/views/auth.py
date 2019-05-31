@@ -445,6 +445,48 @@ def add_security_question():
     return create_response(status=200, message=r["message"])
 
 
+@auth.route("/updateSecurityQuestion", methods=["POST"])
+def update_security_question():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+
+    if data is None:
+        return create_response(status=400, message="Missing Data!")
+
+    if "answer" not in data:
+        return create_response(status=400, message="Missing answer!")
+
+    if "questionIdx" not in data:
+        return create_response(status=400, message="Missing question index!")
+
+    if "password" not in data:
+        return create_response(status=400, message="Missing password!")
+
+    if "token" not in request.headers:
+        return create_response(status=400, message="Missing token!")
+
+    questionIdx = data.get("questionIdx")
+    answer = data.get("answer")
+    password = data.get("password")
+
+    token = request.headers.get("token")
+    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
+
+    r = (
+        requests.post(
+            BACKEND_URL + "updateSecurityQuestion",
+            data={"questionIdx": questionIdx, "answer": answer, "password": password},
+            headers=headers,
+        )
+    ).json()
+
+    if r.get("status") == 400 or r.get("status") == 500:
+        return create_response(status=r.get("status"), message=r.get("message"))
+
+    return create_response(status=200, message=r["message"])
+
+
 @auth.route("/getSecurityQuestions", methods=["GET"])
 def get_security_questions():
     data = request.get_json()
