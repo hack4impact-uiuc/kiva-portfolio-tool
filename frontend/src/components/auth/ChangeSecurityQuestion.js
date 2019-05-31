@@ -169,7 +169,14 @@ class ChangePassword extends Component {
                       required
                     />
                   </FormGroup>
-                  <div className="text-centered">
+                  <Button
+                    color="success"
+                    size="lg"
+                    onClick={() => this.props.history.push('/')}
+                    className="left left-margin-lg"
+                  >
+                    Back to Login
+                  </Button>
                     <Button
                       color="success"
                       size="lg"
@@ -178,7 +185,6 @@ class ChangePassword extends Component {
                     >
                       Change Question
                     </Button>
-                  </div>
                 </Form>
                 <p style={{ color: 'red', textAlign: 'center' }}>
                   {this.state.responseMessage ? this.state.responseMessage : ''}
