@@ -7,6 +7,8 @@ from flask_migrate import Migrate
 from sqlalchemy_utils import create_database, database_exists
 from flask_mail import Mail
 
+from dotenv import load_dotenv
+
 from api.config import config
 from api.core import all_exception_handler
 
@@ -92,13 +94,15 @@ def create_app(test_config=None):
     app.register_blueprint(auth.auth)
 
     # configure emails
+    load_dotenv()
+
     mail_settings = {
         "MAIL_SERVER": "smtp.gmail.com",
         "MAIL_PORT": 465,
         "MAIL_USE_TLS": False,
         "MAIL_USE_SSL": True,
-        "MAIL_USERNAME": os.environ["GMAIL_NAME"],
-        "MAIL_PASSWORD": os.environ["GMAIL_PASSWORD"],
+        "MAIL_USERNAME": os.getenv("GMAIL_NAME"),
+        "MAIL_PASSWORD": os.getenv("GMAIL_PASSWORD"),
     }
     app.config.update(mail_settings)
 

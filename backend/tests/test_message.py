@@ -115,7 +115,7 @@ def test_get_messages(client):
         helper_doc,
         "Your Portfolio Manager has added a new required document: ksdljf",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message)
     db.session.commit()
 
@@ -164,7 +164,7 @@ def test_get_messages_by_fp(client):
         helper_doc,
         "Your document has been reviewed and has been Approved.",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message_not_fp)
     db.session.commit()
 
@@ -197,7 +197,7 @@ def test_get_messages_by_pm(client):
         helper_doc,
         "Your document has been reviewed and has been Approved.",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message)
     db.session.commit()
 
@@ -208,7 +208,7 @@ def test_get_messages_by_pm(client):
         helper_doc,
         "Your document has been reviewed and has been Approved.",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message_not_fp)
     db.session.commit()
 

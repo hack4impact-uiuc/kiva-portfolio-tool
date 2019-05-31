@@ -11,6 +11,7 @@ from flask_mail import Message as Flask_Message
 from flask_mail import Mail
 from api.core import create_response, serialize_list, logger
 from enum import Enum
+from dotenv import load_dotenv
 import os
 
 message = Blueprint("message", __name__)
@@ -122,8 +123,8 @@ def add_message():
     mail = Mail(current_app)
 
     email = Flask_Message(
+        sender=os.getenv("GMAIL_NAME"),
         subject=subjects[message_type.value],
-        sender=os.environ["GMAIL_NAME"],
         recipients=[recipient.email],
         body=contents[message_type.value],
     )
