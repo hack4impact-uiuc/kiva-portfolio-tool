@@ -89,7 +89,10 @@ export class DocumentListItem extends Component {
       const documents = await getDocumentsByUser(this.props.document.userID)
       if (documents) {
         this.props.updateDocuments(documents)
+      } else {
+        this.props.updateDocuments([])
       }
+      this.props.endLoading()
     }
   }
 
