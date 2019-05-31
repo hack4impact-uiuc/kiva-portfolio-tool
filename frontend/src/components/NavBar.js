@@ -22,6 +22,7 @@ import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
+import { removeCookie } from '../utils/cookie'
 
 import '../styles/index.css'
 import '../styles/navbar.css'
@@ -59,6 +60,11 @@ export class NavBar extends Component {
     } else {
       this.setState({ sidebarClass: sidebarClassName[0] })
     }
+  }
+
+  logout = () => {
+    removeCookie('token')
+    this.props.history.push('/')
   }
 
   componentDidMount() {
@@ -149,13 +155,15 @@ export class NavBar extends Component {
                         Manage Documents
                       </DropdownItem>
                     )}
-                    <DropdownItem>Log Out</DropdownItem>
+                    <DropdownItem onClick={this.logout}>Log Out</DropdownItem>
                     <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
-                        Manage Documents
+                      Change Password
                     </DropdownItem>
-                    <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
-                        Manage Documents
-                      </DropdownItem>
+                    <DropdownItem
+                      onClick={() => this.props.history.push('/changeSecurityQuestion')}
+                    >
+                      Change Security Question
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </NavItem>
