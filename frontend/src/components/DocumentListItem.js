@@ -62,23 +62,38 @@ export class DocumentListItem extends Component {
    * Called upon uploading a file to a requirement
    */
   async onDrop(files) {
-    this.setState({
-      files
-    })
-    this.props.beginLoading()
-    await uploadDocument(
-      this.props.document.userID,
-      this.state.files[0],
-      this.state.files[0].name,
-      this.props.document._id
-    )
-    const documents = await getDocumentsByUser(this.props.document.userID)
-    if (documents) {
-      this.props.updateDocuments(documents)
+    // The MIME types of common filetypes
+    const docTypes = [
+      'application/msword',
+      'application/vnd.ms-excel',
+      'application/vnd.ms-powerpoint',
+      'application/pdf',
+      'image/jpeg',
+      'image/png',
+      'text/plain'
+    ]
+
+    if (!docTypes.includes(files[0].type)) {
+      window.alert('Document type not acceptable')
     } else {
-      this.props.updateDocuments([])
+      this.setState({
+        files
+      })
+      this.props.beginLoading()
+      await uploadDocument(
+        this.props.document.userID,
+        this.state.files[0],
+        this.state.files[0].name,
+        this.props.document._id
+      )
+      const documents = await getDocumentsByUser(this.props.document.userID)
+      if (documents) {
+        this.props.updateDocuments(documents)
+      } else {
+        this.props.updateDocuments([])
+      }
+      this.props.endLoading()
     }
-    this.props.endLoading()
   }
 
   handleDownloadClick() {
