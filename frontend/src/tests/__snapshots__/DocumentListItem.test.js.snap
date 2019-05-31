@@ -157,6 +157,7 @@ exports[`DocumentListItem renders correctly 1`] = `
       >
         <Col
           md="4"
+          sm="4"
           tag="div"
           widths={
             Array [
@@ -179,6 +180,7 @@ exports[`DocumentListItem renders correctly 1`] = `
         </Col>
         <Col
           md="4"
+          sm="4"
           tag="div"
           widths={
             Array [
@@ -192,6 +194,7 @@ exports[`DocumentListItem renders correctly 1`] = `
         />
         <Col
           md="4"
+          sm="4"
           tag="div"
           widths={
             Array [
