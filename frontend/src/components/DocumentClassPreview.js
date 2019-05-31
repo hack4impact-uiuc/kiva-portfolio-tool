@@ -5,7 +5,6 @@ import Iframe from 'react-iframe'
 import preview from '../media/preview.png'
 
 import 'box-ui-elements/dist/preview.css'
-import '../styles/index.css'
 
 /*
 Used to view information about a Document CLass when pressing 'View'

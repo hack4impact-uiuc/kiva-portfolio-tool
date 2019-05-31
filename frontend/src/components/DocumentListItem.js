@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Dropzone from 'react-dropzone'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import Iframe from 'react-iframe'
 
 import { bindActionCreators } from 'redux'
@@ -62,23 +62,38 @@ export class DocumentListItem extends Component {
    * Called upon uploading a file to a requirement
    */
   async onDrop(files) {
-    this.setState({
-      files
-    })
-    this.props.beginLoading()
-    await uploadDocument(
-      this.props.document.userID,
-      this.state.files[0],
-      this.state.files[0].name,
-      this.props.document._id
-    )
-    const documents = await getDocumentsByUser(this.props.document.userID)
-    if (documents) {
-      this.props.updateDocuments(documents)
+    // The MIME types of common filetypes
+    const docTypes = [
+      'application/msword',
+      'application/vnd.ms-excel',
+      'application/vnd.ms-powerpoint',
+      'application/pdf',
+      'image/jpeg',
+      'image/png',
+      'text/plain'
+    ]
+
+    if (!docTypes.includes(files[0].type)) {
+      window.alert('Document type not acceptable')
     } else {
-      this.props.updateDocuments([])
+      this.setState({
+        files
+      })
+      this.props.beginLoading()
+      await uploadDocument(
+        this.props.document.userID,
+        this.state.files[0],
+        this.state.files[0].name,
+        this.props.document._id
+      )
+      const documents = await getDocumentsByUser(this.props.document.userID)
+      if (documents) {
+        this.props.updateDocuments(documents)
+      } else {
+        this.props.updateDocuments([])
+      }
+      this.props.endLoading()
     }
-    this.props.endLoading()
   }
 
   handleDownloadClick() {
@@ -168,45 +183,47 @@ export class DocumentListItem extends Component {
             {this.props.document.fileName ? this.props.document.fileName : 'N/A'}
           </td>
           <td className="interaction">
-            <DocumentPreview document={this.props.document} />
-          </td>
-          <td data-testid="interaction" className="interaction">
-            {this.props.fileName ? (
-              <Button color="transparent">
-                <Link
-                  to={{
-                    pathname:
-                      '/view/' + this.props.document.fileName + '/' + this.props.document._id,
-                    state: { link: this.props.document.link }
-                  }}
-                >
-                  <img className="buttonimg" src={visit} alt="Visit icon" />
-                </Link>
-              </Button>
-            ) : null}
-          </td>
-          <td data-testid="interaction" className="interaction padding-right-sm">
-            {this.state.fileName && (
-              <Button color="transparent" onClick={this.handleDownloadClick}>
-                <img className="buttonimg" src={downloadImg} alt="Download icon" />
-              </Button>
-            )}
-            {isPM ? (
-              <button className="buttonValue" onClick={this.deleteToggle}>
-                <img src={remove} width="25" alt="Remove icon" />
-              </button>
-            ) : (
-              <Dropzone onDrop={this.onDrop}>
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <img className="buttonimg" src={uploadImg} alt="Upload icon" />
-                    </div>
-                  </section>
+            {
+              // little bit of a hack to coerce all images into one row inside one td element instead of having blank td elements taking up space
+            }
+            <Row className="button-tablerow">
+              <Col sm="4" md="4">
+                <DocumentPreview document={this.props.document} />
+              </Col>
+              <Col sm="4" md="4">
+                {this.props.fileName ? (
+                  <Button color="transparent">
+                    <Link
+                      to={{
+                        pathname:
+                          '/view/' + this.props.document.fileName + '/' + this.props.document._id,
+                        state: { link: this.props.document.link }
+                      }}
+                    >
+                      <img className="buttonimg" src={visit} alt="Visit icon" />
+                    </Link>
+                  </Button>
+                ) : null}
+              </Col>
+              <Col sm="4" md="4">
+                {isPM ? (
+                  <Button color="transparent" onClick={this.deleteToggle}>
+                    <img className="buttonimg" src={remove} width="23" alt="Remove icon" />
+                  </Button>
+                ) : (
+                  <Dropzone onDrop={this.onDrop}>
+                    {({ getRootProps, getInputProps }) => (
+                      <section>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <img className="buttonimg" src={uploadImg} alt="Upload icon" />
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
                 )}
-              </Dropzone>
-            )}
+              </Col>
+            </Row>
           </td>
         </tr>
       </>

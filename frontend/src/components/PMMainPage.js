@@ -32,13 +32,10 @@ import { sendChangePasswordEmail } from '../utils/sendMail'
 import search from '../media/search.png'
 import add from '../media/add.png'
 
-import '../styles/partnerbar.css'
-import 'react-tabs/style/react-tabs.css'
-import '../styles/index.css'
 // same button styling as in document class page
 // 'Add New Doc Class' button styling the same
-import '../styles/documentclasspage.css'
-import '../styles/partnerbar.css'
+import '../styles/partnerbar.scss'
+import '../styles/documentclasspage.scss'
 
 const mapStateToProps = state => ({})
 
@@ -233,7 +230,7 @@ export class PMMainPage extends Component {
           <ModalHeader>Add New Field Partner</ModalHeader>
           <ModalBody>
             <form onSubmit={this.handleNewFP}>
-              <p>Organization Name:</p>
+              <label className="margin-top-sm">Organization Name:</label>
               <input
                 className="modal-input-master"
                 type="text"
@@ -242,7 +239,7 @@ export class PMMainPage extends Component {
                 placeholder="Enter the Field Partner's organization name here..."
                 onChange={this.handleNameChange}
               />
-              <p>Email:</p>
+              <label className="margin-top-sm">Email:</label>
               <input
                 className="modal-input-master"
                 type="text"
