@@ -1,5 +1,35 @@
 # Backend Documentation
 
+## Box API Setup
+
+To start using Box, you must create a box account [here](https://account.box.com/login).
+
+After you create your new box account, you must visit the [Console](https://app.box.com/developers/console) to create your project.
+
+After creating your project, click into the project and go to **configuration**.
+
+In *configuration* tab, decide whether or not you want to authenticate using _OAuth_ or _JWT_. You can find more documentation about these two methods [here](https://developer.box.com/docs/quickstart-guides).
+
+Follow each step in the chosen authentication method, and you are all set!
+
+This project uses the _JWT_ method to authenticate one master user and allow anyone with access to the project upload, delete, and more with box. By using the _JWT_ method, you must download the **App Settings** from your **configuration**, which is located all the way down in the page. After you download it, follow the [documentation](https://developer.box.com/docs/construct-jwt-claim-manually), and you will be able to set up the box account similar to this project's.
+
+Our box backend first generates the access token for the authenticated user (information in the document provided above) and lets the user upload a file or delete a file. More on these endpoints can be found [here](https://developer.box.com/reference)
+
+### box api document
+This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
+
+## Email Notification Setup
+
+The email notifications are sent using the Gmail SMTP server. If you do not have a G Suite account with a custom domain, you can only send 100 emails/day; otherwise, it is unlimited.
+
+If you want to use your own Gmail account to send emails, follow [this](https://u.expressionengine.com/article/using-gmail-smtp-to-send-emails-from-your-website) (just through **Create an App Password for your Google Account**) to set up your account. Then, create a .env file in `/backend/api/`, containing:
+```
+GMAIL_NAME={your email}
+GMAIL_PASSWORD={app password}
+```
+with your information instead of {these}.
+
 ## Postgres Setup
 
 Follow the instructions for your operating system's setup in the [Flask Boilerplate Wiki](https://github.com/tko22/flask-boilerplate/wiki).

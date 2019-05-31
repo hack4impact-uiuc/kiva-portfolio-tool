@@ -1,0 +1,57 @@
+@import "variables.scss";
+
+.table {
+  margin: auto;
+  margin-top: 2%;
+  background-color: #ffffff;
+  display: inline-table;
+  box-shadow: 2px 3px 7px $shadow-color;
+  border-radius: 8px;
+}
+
+.table tr td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 1% 0% 1% 0%;
+}
+
+.hoverable:hover {
+  background-color: $hover-link-color;
+}
+
+.table tr .padding-right-sm {
+  padding-right: 2%;
+}
+
+.interaction > .btn-transparent:hover {
+  /* make the background color the same as the hover instead of layering the same color */
+  background-color: inherit;
+}
+
+.interaction > .btn-transparent {
+  padding: 0;
+  margin: 0;
+}
+
+.expandButton {
+  margin: 0;
+  padding: 0;
+  border-color: #ffffff;
+  margin-bottom: 1.5px;
+  width: 100%;
+}
+
+
+.modal-footer Button {
+  margin-right: 1px;
+}
+
+.expandButtonImage{
+  max-width: 25px;
+  max-height: 25px;
+  border: none;
+}
+
+#buttonRowData {
+  padding: 1%;
+}

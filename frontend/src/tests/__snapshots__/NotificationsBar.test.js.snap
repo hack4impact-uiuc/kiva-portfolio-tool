@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` renders correctly 1`] = `
+<Tabs
+  className="notifications-tabs"
+  defaultFocus={false}
+  defaultIndex={null}
+  forceRenderTabPanel={false}
+  selectedIndex={null}
+>
+  <TabList
+    className="react-tabs__tab-list"
+  >
+    <Tab
+      className="tab"
+      disabledClassName="react-tabs__tab--disabled"
+      focus={false}
+      id={null}
+      panelId={null}
+      selected={false}
+      selectedClassName="react-tabs__tab--selected"
+    >
+      <span
+        className="tab-font"
+      >
+        Activity
+      </span>
+    </Tab>
+    <Button
+      color="transparent"
+      id="sidebar-close-button"
+      onClick={[Function]}
+      tag="button"
+    >
+      <img
+        alt="Edit icon"
+        className="exit-button"
+        src="greyX.png"
+      />
+    </Button>
+  </TabList>
+  <TabPanel
+    className="react-tabs__tab-panel"
+    forceRender={false}
+    selectedClassName="react-tabs__tab-panel--selected"
+  >
+    <Notification
+      index={0}
+      removeMessage={[Function]}
+    />
+  </TabPanel>
+</Tabs>
+`;

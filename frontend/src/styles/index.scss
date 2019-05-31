@@ -1,32 +1,112 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+@import "variables.scss";
 
-  .table {
-    width: 50%;
-    margin: auto;
-    margin-top: 2%;
-    border: 1px solid #d8d8d8;
-
-    td {
-      width: 40%;
-    }
-    
-    td .interaction {
-      width: auto;
-    }
-
-    Button {
-      margin: 1%;
-    }
-  }
-
-  .modal-footer Button {
-    margin-right: 1px;
-  }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: rubik, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-  
+
+#root {
+  min-height: 100%;
+}
+
+.background-rectangles {
+  background: url(../media/dashboard_bg.svg) no-repeat center center;
+  background-size: cover; 
+  background-attachment: fixed;
+}
+
+.background-circles-green {
+  background: url(../media/PMFPPageBG.svg) no-repeat center center;
+  background-size: cover; 
+  background-attachment: fixed;
+}
+
+.background-wave-blue {
+  background: url(../media/PMFPSetupBG.svg) no-repeat top right;
+  background-size: cover; 
+  background-attachment: fixed;
+}
+
+.background-pending {
+  background-color: $pending-color;
+}
+
+.background-approved {
+  background-color: $accepted-color;
+}
+
+.background-missing, .background-null {
+  background-color: $missing-color;
+}
+
+.background-rejected {
+  background-color: $rejected-color;
+}
+
+.text-centered {
+  text-align: center;
+}
+
+.margin-center {
+  display: block;
+  margin: auto;
+}
+
+.margin-right-sm {
+  margin-right: 3%;
+}
+
+.margin-bottom-xs {
+  margin-bottom: 2%;
+}
+
+.margin-top-xs {
+  margin-top: 2%;
+}
+
+.margin-bottom-sm {
+  margin-bottom: 5%;
+}
+
+.margin-top-sm {
+  margin-top: 5%;
+}
+
+.text-white {
+  color: white;
+}
+
+.padding-right-sm {
+  padding-right: 2%;
+}
+
+.padding-bottom-sm {
+  padding-bottom: 2%;
+}
+
+.buttonimg {
+  width: 20px;
+  height: 20px;
+}
+
+.center-background {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.check {
+  margin-left: auto;
+  margin-right: auto;
+}
+.maxheight {
+  min-height: 100vh;
+}
+
+.modal-input-master {
+  width: 100%;
+}

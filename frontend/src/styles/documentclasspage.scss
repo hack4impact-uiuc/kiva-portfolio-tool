@@ -1,0 +1,73 @@
+@import "variables.scss";
+
+.edit-banner {
+    text-align: center;
+}
+
+.h1 {
+    margin-top: 4%;
+    font-family: Rubik;
+    color: $accepted-color;
+}
+
+#add-new-class{
+    font-family: Rubik;
+    margin-top: 2.5%;
+    margin-bottom: 2%;
+}
+
+.doc-table {
+    border-radius: 15px;
+    border-left: 18px solid #4FAF4E;
+    margin: auto;
+    margin-bottom: 4%;
+    width: 50%;
+    font-family: Rubik;
+}
+
+.doc-table .table {
+    margin: 0;
+    border-radius: 0px 15px 15px 0px;
+}
+
+.buttonimg{
+    margin: 9px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.returnBtnContainer .returnButton{
+    background-color: $link-color;
+    border: 1px solid $link-color;
+    border-radius: 50px;
+}
+
+.returnBtnContainer .returnButton:hover {
+    background-color: white;
+    color: $link-color;
+    border: 1px solid $link-color;
+}
+
+.addImg{
+    max-width: 25px;
+    max-height: 25px;
+    margin-right: 15px;
+    margin-bottom: 1.5px;
+}
+
+.add-doc-text span{
+    color: $link-color;
+}
+
+.add-doc-text:hover{
+    text-decoration-color: $link-color;
+    text-decoration: underline;
+}
+
+.hoverable:hover{
+    background-color: $hover-link-color;
+}
+
+#doc-table-top-row th{
+    border-top: none;
+}

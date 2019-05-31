@@ -1,21 +1,49 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import Iframe from 'react-iframe'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { ContentPreview } from 'box-ui-elements'
-import { IntlProvider } from 'react-intl'
-import { getAccessToken, updateDocumentStatus } from '../utils/ApiWrapper'
+
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
+
+import WithAuth from './auth/WithAuth'
+
+import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
+
+import preview from '../media/preview.png'
+
+import 'box-ui-elements/dist/preview.css'
+import '../styles/index.css'
+import '../styles/documentpreview.css'
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  documents: state.user.documents
 })
 
-class DocumentPreview extends Component {
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      updateDocuments,
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
+
+/**
+ * This page allows a small modal to open up that is connected to BOX
+ * It allows the user to preview and look at any documents that are in BOX that are related to
+ * what the user clicked on to open this modal
+ * In case of a PM, it allows them to accept or reject documents
+ * For both parties, they are able to upload documents to the backend through this component
+ */
+export class DocumentPreview extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      id: this.props.document._id,
-      fileName: this.props.document.fileName,
-      fileId: 418675740558,
       accessToken: null
     }
 
@@ -24,14 +52,38 @@ class DocumentPreview extends Component {
     this.handleRejectClick = this.handleRejectClick.bind(this)
   }
 
-  handleApproveClick() {
-    updateDocumentStatus(this.state.id, 'Approved')
+  async handleApproveClick() {
+    this.props.beginLoading()
     this.toggle()
+    if (this.props.match) {
+      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Approved')
+    } else {
+      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Approved')
+    }
+    const res = await getDocumentsByUser(this.props.document.userID)
+    if (res) {
+      this.props.updateDocuments(res)
+    } else {
+      this.props.updateDocuments([])
+    }
+    this.props.endLoading()
   }
 
-  handleRejectClick() {
-    updateDocumentStatus(this.state.id, 'Rejected')
+  async handleRejectClick() {
+    this.props.beginLoading()
     this.toggle()
+    if (this.props.match) {
+      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Rejected')
+    } else {
+      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Rejected')
+    }
+    const res = await getDocumentsByUser(this.props.document.userID)
+    if (res) {
+      this.props.updateDocuments(res)
+    } else {
+      this.props.updateDocuments([])
+    }
+    this.props.endLoading()
   }
 
   toggle() {
@@ -55,39 +107,18 @@ class DocumentPreview extends Component {
 
   render() {
     const { isPM } = this.props
+
     return (
       <>
-        {this.state.fileName && (
-          <Button color="primary" onClick={this.toggle}>
-            {isPM ? 'REVIEW' : 'VIEW'}
-          </Button>
-        )}
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader>{this.state.fileName}</ModalHeader>
-          <ModalBody>
-            <IntlProvider locale="en" textComponent={React.Fragment}>
-              <ContentPreview
-                contentSidebarProps={{
-                  detailsSidebarProps: {
-                    hasAccessStats: false,
-                    hasClassification: false,
-                    hasNotices: false,
-                    hasProperties: false,
-                    hasRetentionPolicy: false,
-                    hasVersions: true
-                  },
-                  hasActivityFeed: false,
-                  hasMetadata: false,
-                  hasSkills: false
-                }}
-                fileId={this.state.fileId}
-                token={this.state.accessToken}
-              />
-            </IntlProvider>
-          </ModalBody>
-          <ModalFooter>
-            {isPM && (
-              <div>
+        {this.props.location ? (
+          <div className="maxheight">
+            <Iframe
+              className="iframe-relative maxheight"
+              url={this.state.fileURL}
+              allowFullScreen
+            />
+            <div id="review-fullscreen">
+              <div id="button-space">
                 <Button color="success" onClick={this.handleApproveClick}>
                   Approve
                 </Button>
@@ -95,15 +126,51 @@ class DocumentPreview extends Component {
                   Reject
                 </Button>
               </div>
-            )}
-            <Button color="secondary" onClick={this.toggle}>
-              Close
-            </Button>
-          </ModalFooter>
-        </Modal>
+            </div>
+          </div>
+        ) : (
+          <>
+            {(this.props.match && this.props.match.params.name) ||
+              (this.props.document.fileName && (
+                <Button color="transparent" onClick={this.toggle}>
+                  <img className="buttonimg" src={preview} alt="Preview icon" />
+                </Button>
+              ))}
+            <Modal isOpen={this.state.modal} toggle={this.toggle}>
+              <ModalHeader>
+                {this.props.match ? this.props.match.params.name : this.props.document.fileName}
+              </ModalHeader>
+              <ModalBody id="modal-box">
+                <Iframe
+                  className="iframe-relative iframe-modal"
+                  url={this.props.match ? this.props.location.state.link : this.props.document.link}
+                  allowFullScreen
+                />
+              </ModalBody>
+              <ModalFooter>
+                {isPM && (
+                  <div>
+                    <Button color="success" onClick={this.handleApproveClick}>
+                      Approve
+                    </Button>
+                    <Button color="danger" onClick={this.handleRejectClick}>
+                      Reject
+                    </Button>
+                  </div>
+                )}
+                <Button color="secondary" onClick={this.toggle}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </>
+        )}
       </>
     )
   }
 }
 
-export default connect(mapStateToProps)(DocumentPreview)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WithAuth(DocumentPreview))
