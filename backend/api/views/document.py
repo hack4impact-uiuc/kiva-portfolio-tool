@@ -70,7 +70,7 @@ def update_document(id):
 
     doc = Document.query.get(id)
 
-    if "fileName" in data and request.files is not None and file in request.files:
+    if "fileName" in data and request.files is not None and "file" in request.files:
         fileName = data.get("fileName")
         file = request.files.get("file")
         file_info = upload_file(file, fileName)
