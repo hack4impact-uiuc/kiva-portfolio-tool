@@ -16,6 +16,7 @@ def get_field_partner():
     kwargs["email"] = request.args.get("email")
     kwargs["org_name"] = request.args.get("org_name")
     kwargs["pm_id"] = request.args.get("pm_id")
+    kwargs["due_date"] = request.args.get("due_date")
     kwargs["app_status"] = request.args.get("app_status")
     kwargs["instructions"] = request.args.get("instructions")
 
@@ -63,6 +64,9 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
+    if "due_date" not in data:
+        data["due_date"] = ""
+        # set it to blank at first because you create the FP and then set the due date
 
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
@@ -97,6 +101,9 @@ def update_app_status(id):
 
     if "pm_id" in data:
         fp.pm_id = data.get("pm_id")
+    
+    if "due_date" in data:
+        fp.due_date = data.get("due_date")
 
     ret = fp.to_dict()
 

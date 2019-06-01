@@ -39,11 +39,13 @@ def recreate_db():
 
     db.session.commit()
 
-    fp1_id = create_mock_fp("fp1@kiva.org", "FP 1", "In Process", pm_id)
+    date = datetime.now().strftime("%s")
 
-    fp2_id = create_mock_fp("fp2@kiva.org", "FP 2", "New Partner", pm_id)
+    fp1_id = create_mock_fp("fp1@kiva.org", "FP 1", "In Process", pm_id, date)
 
-    fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id)
+    fp2_id = create_mock_fp("fp2@kiva.org", "FP 2", "New Partner", pm_id, date)
+
+    fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id, date)
 
     db.session.commit()
 
@@ -185,9 +187,9 @@ def create_mock_pm(email, name):
     return pm.id
 
 
-def create_mock_fp(email, org_name, app_status, pm_id):
+def create_mock_fp(email, org_name, app_status, pm_id, due_date):
     fp = FieldPartner(
-        {"email": email, "org_name": org_name, "app_status": app_status, "pm_id": pm_id}
+        {"email": email, "org_name": org_name, "app_status": app_status, "pm_id": pm_id, "due_date": due_date}
     )
     db.session.add(fp)
     return fp.id

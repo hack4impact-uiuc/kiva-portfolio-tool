@@ -17,6 +17,7 @@ class FieldPartner(Mixin, db.Model):
         db.Enum("New Partner", "In Process", "Complete", name="app_status")
     )
     instructions = db.Column(db.String)
+    due_date = db.Column(db.String, unique=False)
 
     def __init__(self, data):
         self.id = "f" + str(uuid.uuid4())
@@ -26,9 +27,10 @@ class FieldPartner(Mixin, db.Model):
         self.org_name = data["org_name"]
         self.pm_id = data["pm_id"]
         self.app_status = data["app_status"]
+        self.due_date = data["due_date"]
 
         # upon construction, default to empty instructions
         self.instructions = ""
 
     def __repr__(self):
-        return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n:PM ID: {self.pm_id}\n>"
+        return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n PM ID: {self.pm_id}\n Due Date: {self.due_date}>"
