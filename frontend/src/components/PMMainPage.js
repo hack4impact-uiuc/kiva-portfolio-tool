@@ -399,7 +399,7 @@ class PartnerBar extends Component {
     const documents = partner.documents
 
     const dueDate = new Date(partner.due_date)
-    let displayDate = dueDate.getMonth() + 1 + '/' + dueDate.getDate() + '/' + dueDate.getFullYear()
+    let displayDate = dueDate.getMonth() + 1 + '/' + dueDate.getDate() + '/' + dueDate.getFullYear().toString().substring(2)
 
     let approved = 0
     let pending = 0
