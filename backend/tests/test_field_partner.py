@@ -23,7 +23,7 @@ def create_fp(helper_portfolio_manager):
             "org_name": "hack4impact",
             "pm_id": helper_portfolio_manager.id,
             "app_status": "Complete",
-            "due_date": 1559354885971
+            "due_date": 1559354885971,
         }
     )
 
@@ -78,7 +78,7 @@ def test_get_fp_by_id(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["field_partner"]) == 6
+    assert len(ret_dict["result"]["field_partner"]) == 7
     assert ret_dict["result"]["field_partner"]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
     assert ret_dict["result"]["field_partner"]["pm_id"] == helper_portfolio_manager.id
@@ -198,7 +198,7 @@ def test_new_fp(client):
             "org_name": "Kiva",
             "pm_id": pm.id,
             "app_status": "New Partner",
-            "due_date": 1559354885979
+            "due_date": 1559354885979,
         },
     )
     assert rs.status_code == 200
