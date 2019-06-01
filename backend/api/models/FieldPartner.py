@@ -17,7 +17,7 @@ class FieldPartner(Mixin, db.Model):
         db.Enum("New Partner", "In Process", "Complete", name="app_status")
     )
     instructions = db.Column(db.String)
-    due_date = db.Column(db.String, unique=False)
+    due_date = db.Column(db.BigInteger, unique=False)
 
     def __init__(self, data):
         self.id = "f" + str(uuid.uuid4())

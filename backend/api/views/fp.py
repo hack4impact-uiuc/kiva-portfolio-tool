@@ -101,7 +101,7 @@ def update_app_status(id):
 
     if "pm_id" in data:
         fp.pm_id = data.get("pm_id")
-    
+
     if "due_date" in data:
         fp.due_date = data.get("due_date")
 

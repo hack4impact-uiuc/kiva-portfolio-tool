@@ -4,6 +4,7 @@ from flask_migrate import Migrate, MigrateCommand
 from api import create_app
 from api.models import db, Document, FieldPartner, PortfolioManager, DocumentClass
 from datetime import datetime
+import time
 
 # sets up the app
 app = create_app()
@@ -39,13 +40,17 @@ def recreate_db():
 
     db.session.commit()
 
-    date = datetime.now().strftime("%s")
+    date = int(time.time()) * 1000
 
-    fp1_id = create_mock_fp("fp1@kiva.org", "FP 1", "In Process", pm_id, date)
+    fp1_id = create_mock_fp(
+        "fp1@kiva.org", "FP 1", "In Process", pm_id, date + 30000000
+    )
 
-    fp2_id = create_mock_fp("fp2@kiva.org", "FP 2", "New Partner", pm_id, date)
+    fp2_id = create_mock_fp(
+        "fp2@kiva.org", "FP 2", "New Partner", pm_id, date + 3000000
+    )
 
-    fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id, date)
+    fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id, date + 10000000)
 
     db.session.commit()
 
@@ -189,7 +194,13 @@ def create_mock_pm(email, name):
 
 def create_mock_fp(email, org_name, app_status, pm_id, due_date):
     fp = FieldPartner(
-        {"email": email, "org_name": org_name, "app_status": app_status, "pm_id": pm_id, "due_date": due_date}
+        {
+            "email": email,
+            "org_name": org_name,
+            "app_status": app_status,
+            "pm_id": pm_id,
+            "due_date": due_date,
+        }
     )
     db.session.add(fp)
     return fp.id

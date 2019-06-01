@@ -91,15 +91,12 @@ export class SelectDocumentsPage extends Component {
     let filtered = available
     let fp_info = await getFPByID(this.props.match.params.id)
 
-    let due_date = fp_info.due_date ? new Date(fp_info.due_date) : new Date()
-    console.log(due_date)
-
     this.setState({
       documentClasses: document_classes,
       available: available,
       filtered: filtered,
       fp_id: this.props.match.params.id,
-      dueDate: due_date,
+      dueDate: fp_info.due_date ? new Date(fp_info.due_date) : new Date(),
       fp_org_name: fp_info.org_name,
       instructions: fp_info.instructions
     })
