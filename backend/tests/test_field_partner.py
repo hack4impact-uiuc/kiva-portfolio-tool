@@ -210,7 +210,7 @@ def test_new_fp(client):
     assert ret_dict["result"]["field_partner"]["org_name"] == "Kiva"
     assert ret_dict["result"]["field_partner"]["pm_id"] == pm.id
     assert ret_dict["result"]["field_partner"]["app_status"] == "New Partner"
-    assert ret_dict["result"]["field_partner"]["due_date"] == 1559354885979
+    assert ret_dict["result"]["field_partner"]["due_date"] == "1559354885979"
 
     # Tests for if not all fields are provided
     rs = client.post(
