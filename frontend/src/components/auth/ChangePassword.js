@@ -73,6 +73,7 @@ class ChangePassword extends Component {
                   <FormGroup>
                     <Input
                       name="oldPassword"
+                      id="exampleOld"
                       placeholder="Old Password"
                       type="password"
                       maxLength="128"
@@ -85,6 +86,7 @@ class ChangePassword extends Component {
                     <Input
                       name="newPassword1"
                       placeholder="New Password"
+                      id="exampleNew"
                       type="password"
                       maxLength="128"
                       value={this.state.newPassword1}
@@ -96,6 +98,7 @@ class ChangePassword extends Component {
                     <Input
                       name="newPassword2"
                       placeholder="Confirm Password"
+                      id="exampleConfirm"
                       type="password"
                       maxLength="128"
                       value={this.state.newPassword2}
@@ -107,7 +110,7 @@ class ChangePassword extends Component {
                     color="success"
                     size="lg"
                     onClick={this.handlePassChange}
-                    className="left left-margin-lg"
+                    className="right securitybtn"
                   >
                     Change Password
                   </Button>
@@ -115,9 +118,9 @@ class ChangePassword extends Component {
                     color="success"
                     size="lg"
                     onClick={() => this.props.history.push('/changeSecurityQuestion')}
-                    className="right"
+                    className="left left-margin-md securitybtn"
                   >
-                    Change Security Question
+                    Change Question
                   </Button>
                 </Form>
                 <p style={{ color: 'red', textAlign: 'center' }}>

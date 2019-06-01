@@ -11,6 +11,7 @@ exports[`Basic whole app rendering with snapshot 1`] = `
     Due Date: 
   </h1>
   <Container
+    id="dashboard-container"
     tag="div"
   >
     <Row

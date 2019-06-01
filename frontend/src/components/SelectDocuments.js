@@ -22,10 +22,7 @@ import {
 
 import search from '../media/search.png'
 
-import 'react-datepicker/dist/react-datepicker.css'
-import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-import '../styles/index.css'
-import '../styles/selectdocuments.css'
+import '../styles/selectdocuments.scss'
 
 const mapStateToProps = state => ({})
 

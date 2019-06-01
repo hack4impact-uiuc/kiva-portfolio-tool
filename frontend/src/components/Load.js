@@ -3,8 +3,7 @@ import Loader from 'react-loader-spinner'
 
 import { connect } from 'react-redux'
 
-import '../styles/load.css'
-import '../styles/variables.css'
+import '../styles/load.scss'
 
 const mapStateToProps = state => ({
   loading: state.user.loading
