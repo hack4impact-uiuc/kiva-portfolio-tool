@@ -7,6 +7,9 @@ exports[`Basic whole app rendering with snapshot 1`] = `
   <Connect(withRouter(NavBar))
     inDashboard={true}
   />
+  <h1>
+    Due Date: 
+  </h1>
   <Container
     tag="div"
   >
