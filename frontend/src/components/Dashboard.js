@@ -88,7 +88,15 @@ export class Dashboard extends Component {
      */
     const fp = await getFPByID(this.props.match.params.id)
     const instructionsReceived = fp.instructions
-    this.setState({ pm_id: fp.pm_id })
+
+    // Processing the date to a readable string
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    let due_date = new Date(fp.due_date).toLocaleDateString('en-US', options)
+
+    this.setState({
+      pm_id: fp.pm_id,
+      dueDate: due_date
+    })
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
@@ -128,6 +136,7 @@ export class Dashboard extends Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
+        <h1>Due Date: {this.state.dueDate}</h1>
         {this.props.isPM ? (
           <div>
             <Button
