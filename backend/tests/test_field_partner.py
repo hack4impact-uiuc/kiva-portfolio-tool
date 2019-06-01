@@ -205,7 +205,7 @@ def test_new_fp(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["field_partner"]) == 6
+    assert len(ret_dict["result"]["field_partner"]) == 7
     assert ret_dict["result"]["field_partner"]["email"] == "santa"
     assert ret_dict["result"]["field_partner"]["org_name"] == "Kiva"
     assert ret_dict["result"]["field_partner"]["pm_id"] == pm.id
@@ -224,7 +224,7 @@ def test_new_fp(client):
     assert ret_dict["message"] == "No PM ID provided for new FP"
 
 
-def test_update_app_status(client):
+def test_fp_update_app_status(client):
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -242,7 +242,7 @@ def test_update_app_status(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["field_partner"]) == 6
+    assert len(ret_dict["result"]["field_partner"]) == 7
     assert ret_dict["result"]["field_partner"]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
     assert ret_dict["result"]["field_partner"]["app_status"] == "In Process"
