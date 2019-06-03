@@ -79,6 +79,13 @@
     display: inline-block;
 }
 
+@media screen and (max-width: 860px) {
+    .partnerPanel .panel-tabletbreak {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
 .partnerBox {
     padding: 4%;
     padding-left: 0;
@@ -94,6 +101,7 @@
     width: 60%;
     text-align: left;
     margin-left: 5%;
+    padding-right: 20px;
 }
 
 .partnerBox .nameProgressDisplay p {
@@ -125,10 +133,11 @@
     font-size: large;
     width: 15%;
     margin-left: 3%;
+    padding-top: 1.5%;
 }
 
 .partnerBox .due {
-    font-size: large;
+    font-size: small;
 }
 
 .progressAdditional {
