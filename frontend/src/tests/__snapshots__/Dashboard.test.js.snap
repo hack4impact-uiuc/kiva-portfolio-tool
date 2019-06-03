@@ -8,6 +8,7 @@ exports[`Basic whole app rendering with snapshot 1`] = `
     inDashboard={true}
   />
   <Container
+    className="text-centered"
     id="dashboard-container"
     tag="div"
   >

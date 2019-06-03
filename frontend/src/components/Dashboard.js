@@ -131,11 +131,11 @@ export class Dashboard extends Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
-        <Container id="dashboard-container">
+        <Container className="text-centered" id="dashboard-container">
           <h1>Due Date: {this.state.dueDate}</h1>
           {this.props.isPM ? (
             <Row>
-              <Col className="text-centered" md="12">
+              <Col md="12">
                 <Button
                   className="add-doc-text"
                   color="transparent"
@@ -145,7 +145,7 @@ export class Dashboard extends Component {
                   <span className="add-doc-text">Update requirements/instructions</span>
                 </Button>
               </Col>
-              <Col className="text-centered" md="12">
+              <Col md="12">
                 <Button color="success" onClick={this.handleFinish}>
                   Finish Process
                 </Button>
