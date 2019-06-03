@@ -5,7 +5,7 @@ import {
   submitSecurityQuestionAnswer,
   resetPassword
 } from '../../utils/ApiWrapper'
-import { Form, Button, FormGroup, Label, Input, Card, Alert, CardBody, CardTitle } from 'reactstrap'
+import { Form, Button, FormGroup, Input, Card, Alert, CardBody, CardTitle } from 'reactstrap'
 import { connect } from 'react-redux'
 import { setCookie } from '../../utils/cookie'
 import Navbar from '../NavBar'
