@@ -16,7 +16,7 @@ This project uses the _JWT_ method to authenticate one master user and allow any
 
 Our box backend first generates the access token for the authenticated user (information in the document provided above) and lets the user upload a file or delete a file. More on these endpoints can be found [here](https://developer.box.com/reference)
 
-### box api document
+### Box Api Document
 This [Box api document](https://developer.box.com/reference) has all the endpoints described for your own box integration.
 
 ## Email Notification Setup
@@ -139,7 +139,7 @@ For ease of setup, I have hard-coded postgres URLs for development and docker co
 pg_url = postgresql://testusr:password@127.0.0.1:5432/testdb
 ```
 
-For production, you should do something similar with the flask `SECRET_KEY`.
+For production, you should do something similar with the flask `SECRET_KEY`. Environment variables can also be used, but may require editing the .env file in the directory at the same level as `manage.py` as well as the `config.py` and `core.py` files.
 
 #### Deployment
 
