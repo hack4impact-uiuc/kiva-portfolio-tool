@@ -79,6 +79,13 @@
     display: inline-block;
 }
 
+@media screen and (max-width: 860px) {
+    .partnerPanel .panel-tabletbreak {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
 .partnerBox {
     padding: 4%;
     padding-left: 0;
@@ -127,6 +134,15 @@
     width: 15%;
     margin-left: 3%;
     padding-top: 1.5%;
+<<<<<<< HEAD
+=======
+}
+
+@media screen and (min-width: 861px) and (max-width: 970px) {
+    .partnerBox .duedate {
+        margin-right: 20px;
+    }
+>>>>>>> master
 }
 
 .partnerBox .due {

@@ -28,7 +28,7 @@ exports[` renders correctly 1`] = `
     </Tab>
     <Button
       color="transparent"
-      id="sidebar-close-button"
+      id="pm-sidebar-close"
       onClick={[Function]}
       tag="button"
     >

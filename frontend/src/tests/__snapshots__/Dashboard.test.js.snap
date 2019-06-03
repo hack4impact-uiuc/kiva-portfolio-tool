@@ -8,9 +8,13 @@ exports[`Basic whole app rendering with snapshot 1`] = `
     inDashboard={true}
   />
   <Container
+    className="text-centered"
     id="dashboard-container"
     tag="div"
   >
+    <h1>
+      Due Date: 
+    </h1>
     <Row
       tag="div"
     />

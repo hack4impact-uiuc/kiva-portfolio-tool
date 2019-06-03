@@ -323,7 +323,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'In Process')
                         .map(partner => {
                           return (
-                            <Col md="6">
+                            <Col md="6" className="panel-tabletbreak">
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -343,7 +343,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'New Partner')
                         .map(partner => {
                           return (
-                            <Col md="6">
+                            <Col md="6" className="panel-tabletbreak">
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -363,7 +363,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'Complete')
                         .map(partner => {
                           return (
-                            <Col md="6">
+                            <Col md="6" className="panel-tabletbreak">
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -398,6 +398,18 @@ class PartnerBar extends Component {
     const partner = this.props.partner
     const documents = partner.documents
 
+    const dueDate = new Date(partner.due_date)
+    let displayDate =
+      dueDate.getMonth() +
+      1 +
+      '/' +
+      dueDate.getDate() +
+      '/' +
+      dueDate
+        .getFullYear()
+        .toString()
+        .substring(2)
+
     let approved = 0
     let pending = 0
     let rejected = 0
@@ -430,7 +442,7 @@ class PartnerBar extends Component {
       <div className="partnerBox">
         <div className="duedate">
           <div className="due">Due</div>
-          {partner.duedate}
+          {displayDate}
         </div>
         <div className="partner-icon">
           <p className="partner-org-initials">{partner.org_name[0]}</p>
