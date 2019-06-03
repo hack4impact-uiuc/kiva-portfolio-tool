@@ -61,7 +61,7 @@ export class NotificationsBar extends Component {
             </Tab>
           ) : null}
           <Button
-            id="sidebar-close-button"
+            id={this.props.inDashboard ? 'sidebar-close-button' : 'pm-sidebar-close'}
             color="transparent"
             onClick={() => {
               this.closeSidebar(false)
