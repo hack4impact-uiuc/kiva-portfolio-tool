@@ -17,6 +17,7 @@ class FieldPartner(Mixin, db.Model):
         db.Enum("New Partner", "In Process", "Complete", name="app_status")
     )
     instructions = db.Column(db.String)
+    folder_id = db.Column(db.String)
 
     def __init__(self, data):
         self.id = "f" + str(uuid.uuid4())
@@ -26,6 +27,7 @@ class FieldPartner(Mixin, db.Model):
         self.org_name = data["org_name"]
         self.pm_id = data["pm_id"]
         self.app_status = data["app_status"]
+        self.folder_id = data["folder_id"]
 
         # upon construction, default to empty instructions
         self.instructions = ""

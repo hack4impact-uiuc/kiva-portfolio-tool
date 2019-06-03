@@ -275,15 +275,31 @@ def find_files_by_content(content_query):
     return output
 
 
-def create_pm_folder(pm_id):
+def clear_folder(id):
+    items = client.folder(folder_id=id).get_items()
+    print(items)
+    for item in items:
+        if item["type"] == "folder":
+            clear_folder(item["id"])
+        else:
+            client.file(file_id=item["id"]).delete()
+    if id != 0:
+        client.folder(folder_id=id).delete()
+
+
+def clear_box():
+    clear_folder("0")
+
+
+def create_pm_folder(name):
     """
     creates a folder for a portfolio manager with the root as the parent
     """
-    return client.folder("0").create_subfolder(str(pm_id))
+    return client.folder("0").create_subfolder(str(name))["id"]
 
 
-def create_fp_folder(fp_id, pm_id):
+def create_fp_folder(name, folder_id):
     """
     creates a folder for a field partner with its portfolio manager's folder as the parent
     """
-    return client.folder(str(pm_id)).create_subfolder(str(fp_id))
+    return client.folder(str(folder_id)).create_subfolder(str(name))["id"]

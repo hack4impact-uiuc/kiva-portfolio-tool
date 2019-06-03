@@ -1,6 +1,7 @@
 from flask import Blueprint, request, json
-from api.models import FieldPartner, Document, db
+from api.models import FieldPartner, Document, db, PortfolioManager
 from api.core import create_response, serialize_list, logger
+from api.views.box import create_fp_folder
 
 import requests, json
 
@@ -63,6 +64,10 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
+
+    pm_folder_id = PortfolioManager.query.get(data["pm_id"])
+    fp_folder_id = create_fp_folder(data["org_name"], pm_folder_id)["id"]
+    data["folder_id"] = fp_folder_id
 
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
