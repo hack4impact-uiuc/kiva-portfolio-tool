@@ -136,6 +136,12 @@
     padding-top: 1.5%;
 }
 
+@media screen and (min-width: 861px) and (max-width: 970px) {
+    .partnerBox .duedate {
+        margin-right: 20px;
+    }
+}
+
 .partnerBox .due {
     font-size: small;
 }
