@@ -12,9 +12,7 @@ import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../uti
 
 import preview from '../media/preview.png'
 
-import 'box-ui-elements/dist/preview.css'
-import '../styles/index.css'
-import '../styles/documentpreview.css'
+import '../styles/documentpreview.scss'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,

@@ -40,7 +40,7 @@
     border: none;
     border-bottom: $shadow-color solid 1px;
     background-color: transparent;
-    max-width: 75%; 
+    width: 30%;
     margin: 0;
 }
 
@@ -142,12 +142,12 @@
     margin: 2%;
 }
 
-.react-tabs__tab-list {
+.sidebar-background .react-tabs__tab-list {
     border-bottom: none;
     font-size: 16pt;
 }
 
-.react-tabs__tab {
+.react-tabs__tab-list .react-tabs__tab {
     display: block;
     padding: 7% 0;
     border: none;
@@ -155,13 +155,13 @@
     font-weight: 500;
 }
 
-.react-tabs__tab:hover {
+.react-tabs__tab-list .react-tabs__tab:hover {
     background: none;
     border-color: $accepted-color;
     color: $accepted-color;
 }
 
-.react-tabs__tab--selected {
+.react-tabs__tab-list .react-tabs__tab--selected {
     text-align: right;
     margin-right: 5%;
     background: none;

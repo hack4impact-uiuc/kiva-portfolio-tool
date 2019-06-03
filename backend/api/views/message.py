@@ -11,6 +11,7 @@ from flask_mail import Message as Flask_Message
 from flask_mail import Mail
 from api.core import create_response, serialize_list, logger
 from enum import Enum
+from dotenv import load_dotenv
 import os
 
 message = Blueprint("message", __name__)
@@ -122,8 +123,8 @@ def add_message():
     mail = Mail(current_app)
 
     email = Flask_Message(
+        sender=os.getenv("GMAIL_NAME"),
         subject=subjects[message_type.value],
-        sender=os.environ["GMAIL_NAME"],
         recipients=[recipient.email],
         body=contents[message_type.value],
     )
@@ -136,3 +137,28 @@ def add_message():
     db.session.commit()
 
     return create_response(data={"message": ret})
+
+
+@message.route("/messagesToFP", methods=["POST"])
+def messageToFP():
+    data = request.get_json()
+    if data is None:
+        data = request.form
+    email = data.get("email")
+    password = data.get("password")
+    pm_id = data.get("pm_id")
+
+    mail = Mail(current_app)
+    email = Flask_Message(
+        subject="You have been added as a Field Partner by your Portfolio Manager",
+        sender=os.environ["GMAIL_NAME"],
+        recipients=[email],
+        body=password,
+        html="""<p>Hi, You have been added as a Field Partner! Your temporary password is """
+        + str(password)
+        + """. Click <a href="http://localhost:3000/temporary">here</a> to login with your temporary password and reset your password</p>""",
+    )
+
+    mail.send(email)
+
+    return create_response(status=200, message="Message sent!")

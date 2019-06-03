@@ -63,6 +63,10 @@
     min-width: 400px;
 }
 
+.foreground .securitybtn {
+    padding: 0.5rem;
+}
+
 #exampleEmail, #exampleAnswer, #registerPassword {
     margin-bottom: 10%;
 }
@@ -116,21 +120,69 @@
 }
 
 #exampleConfirm::-webkit-input-placeholder {
-    padding-left: 23%;
+    padding-left: 27%;
 }
 
 #exampleConfirm::-moz-placeholder {
-    padding-left: 23%;
+    padding-left: 27%;
 }
 
 #exampleConfirm::-ms-input-placeholder {
-    padding-left: 23%;
+    padding-left: 27%;
 }
 
 #exampleConfirm:-moz-placeholder {
-    padding-left: 23%;
+    padding-left: 27%;
 }
 
 #forgot {
     font-size: 11pt;
+}
+
+#examplePin::-webkit-input-placeholder {
+    padding-left: 39%;
+}
+
+#examplePin::-moz-placeholder {
+    padding-left: 39%;
+}
+
+#examplePin::-ms-input-placeholder {
+    padding-left: 39%;
+}
+
+#examplePin:-moz-placeholder {
+    padding-left: 39%;
+}
+
+#exampleOld::-webkit-input-placeholder {
+    padding-left: 30%;
+}
+
+#exampleOld::-moz-placeholder {
+    padding-left: 30%;
+}
+
+#exampleOld::-ms-input-placeholder {
+    padding-left: 30%;
+}
+
+#exampleOld:-moz-placeholder {
+    padding-left: 30%;
+}
+
+#exampleNew::-webkit-input-placeholder {
+    padding-left: 29.5%;
+}
+
+#exampleNew::-moz-placeholder {
+    padding-left: 29.5%;
+}
+
+#exampleNew::-ms-input-placeholder {
+    padding-left: 29.5%;
+}
+
+#exampleNew:-moz-placeholder {
+    padding-left: 29.5%;
 }

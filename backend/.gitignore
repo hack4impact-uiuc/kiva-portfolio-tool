@@ -3,7 +3,7 @@
 venv/
 flask-venv/
 __pycache__
-.DS_Store/
+.DS_Store
 migrations/
 postgres-data/
 .mypy_cache
@@ -15,3 +15,4 @@ secret.py
 171399529_73anvn29_config.json
 171399529_b8tan54x_config.json
 .babelrc
+/api/.env

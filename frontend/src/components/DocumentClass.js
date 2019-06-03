@@ -17,7 +17,7 @@ import {
 import edit from '../media/greyEdit.png'
 import remove from '../media/remove.png'
 
-import '../styles/documentclasspage.css'
+import '../styles/documentclasspage.scss'
 
 const mapStateToProps = state => ({})
 

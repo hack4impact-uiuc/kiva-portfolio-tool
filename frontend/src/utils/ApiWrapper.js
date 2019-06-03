@@ -67,6 +67,35 @@ export const login = (email, password) => {
     })
 }
 
+export const getUser = () => {
+  /**
+   * Endpoint to reference when a user is trying to login
+   * Takes in an email and a password of given user
+   * Authenticates user in backend and
+   * Returns LOGIN_SUCCESSFUL if user successfully logged in
+   * Returns LOGIN_FAIL if user fails to log in
+   */
+  return axios
+    .get(BACKEND_URL + '/getUser', {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
+
 export const verify = () => {
   /**
    *
@@ -137,6 +166,32 @@ export const setSecurityQuestion = (questionIdx, answer, password) => {
   data.append('password', password)
   return axios
     .post(BACKEND_URL + '/addSecurityQuestionAnswer', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'LOGIN_SUCCESSFUL',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'LOGIN_FAIL',
+        error
+      }
+    })
+}
+
+export const updateSecurityQuestion = (questionIdx, answer, password) => {
+  let data = new FormData()
+  data.append('questionIdx', questionIdx)
+  data.append('answer', answer)
+  data.append('password', password)
+  return axios
+    .post(BACKEND_URL + '/updateSecurityQuestion', data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         token: getCookieFromBrowser('token')
@@ -429,7 +484,7 @@ export const createFieldPartner = (org_name, email, pm_id) => {
    * Returns CREATE_FP_SUCCESS upon success
    * Returns CREATE_FP_FAIL upon failure
    */
-  let requestString = BACKEND_URL + '/field_partners'
+  let requestString = BACKEND_URL + '/createFP'
   let data = new FormData()
   data.append('org_name', org_name)
   data.append('email', email)

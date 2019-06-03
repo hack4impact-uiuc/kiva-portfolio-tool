@@ -70,7 +70,7 @@ def update_document(id):
 
     doc = Document.query.get(id)
 
-    if "fileName" in data and request.files is not None and file in request.files:
+    if "fileName" in data and request.files is not None and "file" in request.files:
         if doc.status != "Missing":
             delete_file(doc.id)
         fileName = data.get("fileName")

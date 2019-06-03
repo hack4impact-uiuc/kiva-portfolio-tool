@@ -25,11 +25,6 @@ import {
 
 import add from '../media/add.png'
 
-import 'react-datepicker/dist/react-datepicker.css'
-import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-import '../styles/index.css'
-import 'box-ui-elements/dist/preview.css'
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
@@ -56,7 +51,8 @@ export class Dashboard extends Component {
 
     this.state = {
       fp_statuses: ['Missing', 'Rejected', 'Pending', 'Approved'],
-      pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved']
+      pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved'],
+      pm_id: null
     }
 
     this.handleFinish = this.handleFinish.bind(this)
@@ -87,6 +83,7 @@ export class Dashboard extends Component {
      */
     const fp = await getFPByID(this.props.match.params.id)
     const instructionsReceived = fp.instructions
+    this.setState({ pm_id: fp.pm_id })
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
@@ -114,7 +111,7 @@ export class Dashboard extends Component {
   async handleFinish() {
     this.props.beginLoading()
     await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
-    this.props.history.push('/overview/' + this.props.match.params.id)
+    this.props.history.push('/overview/' + this.state.pm_id)
     this.props.endLoading()
   }
 
@@ -126,36 +123,39 @@ export class Dashboard extends Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
-        {this.props.isPM ? (
-          <div>
-            <Button
-              className="add-doc-text"
-              color="transparent"
-              onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
-            >
-              <img className="addImg" src={add} alt="Add icon" />
-              <span className="add-doc-text">Update requirements/instructions</span>
-            </Button>
-            <br />
-            <Button color="success" onClick={this.handleFinish}>
-              Finish Process
-            </Button>
-          </div>
-        ) : null}
-        <Container>
+        <Container id="dashboard-container">
+          {this.props.isPM ? (
+            <Row>
+              <Col className="text-centered" md="12">
+                <Button
+                  className="add-doc-text"
+                  color="transparent"
+                  onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
+                >
+                  <img className="addImg" src={add} alt="Add icon" />
+                  <span className="add-doc-text">Update requirements/instructions</span>
+                </Button>
+              </Col>
+              <Col className="text-centered" md="12">
+                <Button color="success" onClick={this.handleFinish}>
+                  Finish Process
+                </Button>
+              </Col>
+            </Row>
+          ) : null}
           <Row>
             {this.props.documents
               ? this.props.isPM
                 ? this.state.pm_statuses.map(key => {
                     return (
-                      <Col sm="12" md="6">
+                      <Col sm="12" md="6" className="dashboard-width-override">
                         <DocumentList documents={this.props.documents[key]} status={key} />
                       </Col>
                     )
                   })
                 : this.state.fp_statuses.map(key => {
                     return (
-                      <Col sm="12" md="6">
+                      <Col sm="12" md="6" className="dashboard-width-override">
                         <DocumentList documents={this.props.documents[key]} status={key} />
                       </Col>
                     )
