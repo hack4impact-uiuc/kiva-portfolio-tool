@@ -1,6 +1,6 @@
 from flask import Blueprint, request, json
 from api.models import Document, Message, db, DocumentClass, FieldPartner
-from api.views.box import upload_file
+from api.views.box import upload_file, delete_file
 from api.core import create_response, serialize_list, logger
 from api.views.auth import verify_token
 
@@ -71,9 +71,11 @@ def update_document(id):
     doc = Document.query.get(id)
 
     if "fileName" in data and request.files is not None and file in request.files:
+        if doc.status != "Missing":
+            delete_file(doc.id)
         fileName = data.get("fileName")
         file = request.files.get("file")
-        file_info = upload_file(file, fileName)
+        file_info = upload_file(file, fileName, doc.userID)
         doc.fileID = file_info["file"].id
         doc.link = file_info["link"]
         doc.fileName = fileName
