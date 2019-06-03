@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import WithAuth from './WithAuth'
 import Navbar from '../NavBar'
-import {
-  updateSecurityQuestion,
-  getSecurityQuestions
-} from '../../utils/ApiWrapper'
+import { updateSecurityQuestion, getSecurityQuestions } from '../../utils/ApiWrapper'
 import {
   Form,
   Button,
