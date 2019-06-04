@@ -275,20 +275,13 @@ def find_files_by_content(content_query):
     return output
 
 
-def clear_folder(id):
-    items = client.folder(folder_id=id).get_items()
-    print(items)
+def clear_box():
+    items = client.folder(folder_id="0").get_items()
     for item in items:
         if item["type"] == "folder":
-            clear_folder(item["id"])
+            client.folder(folder_id=(item["id"])).delete()
         else:
             client.file(file_id=item["id"]).delete()
-    if id != 0:
-        client.folder(folder_id=id).delete()
-
-
-def clear_box():
-    clear_folder("0")
 
 
 def create_pm_folder(name):
