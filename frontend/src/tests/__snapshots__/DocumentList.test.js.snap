@@ -2,6 +2,7 @@
 
 exports[`DocumentList renders correctly when there are no documents 1`] = `
 <Table
+  className="document-table"
   responsiveTag="div"
   tag="table"
 >
@@ -11,7 +12,7 @@ exports[`DocumentList renders correctly when there are no documents 1`] = `
     >
       <th
         className="background-null text-white"
-        colSpan="5"
+        colSpan="3"
       >
         undefined documents
       </th>
@@ -35,6 +36,7 @@ exports[`DocumentList renders correctly when there are no documents 1`] = `
 
 exports[`DocumentList renders correctly with documents 1`] = `
 <Table
+  className="document-table"
   responsiveTag="div"
   tag="table"
 >
@@ -44,7 +46,7 @@ exports[`DocumentList renders correctly with documents 1`] = `
     >
       <th
         className="background-null text-white"
-        colSpan="5"
+        colSpan="3"
       >
         undefined documents
       </th>

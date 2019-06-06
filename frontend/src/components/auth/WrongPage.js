@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
 
-import '../../styles/index.css'
-import '../../styles/login.css'
-import '../../styles/navbar.css'
+import '../../styles/login.scss'
+import '../../styles/navbar.scss'
 
 const mapStateToProps = state => ({
   language: state.user.language

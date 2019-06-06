@@ -8,7 +8,7 @@ import add from '../media/add.png'
 import remove from '../media/remove.png'
 import info from '../media/blueinfo.png'
 
-import '../styles/selector.css'
+import '../styles/selector.scss'
 
 const mapStateToProps = state => ({
   language: state.user.language

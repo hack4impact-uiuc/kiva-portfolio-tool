@@ -1,4 +1,5 @@
 from api.models import db, FieldPartner, PortfolioManager
+import time
 
 # client passed from client - look into pytest for more info about fixtures
 # test client api: http://flask.pocoo.org/docs/1.0/api/#test-client
@@ -22,6 +23,7 @@ def create_fp(helper_portfolio_manager):
             "org_name": "hack4impact",
             "pm_id": helper_portfolio_manager.id,
             "app_status": "Complete",
+            "due_date": 1559354885971,
         }
     )
 
@@ -54,6 +56,7 @@ def test_get_field_partner(client):
         ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Complete"
+    assert ret_dict["result"]["field_partner"][0]["due_date"] == 1559354885971
 
 
 def test_get_fp_by_id(client):
@@ -75,11 +78,12 @@ def test_get_fp_by_id(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["field_partner"]) == 6
+    assert len(ret_dict["result"]["field_partner"]) == 7
     assert ret_dict["result"]["field_partner"]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
     assert ret_dict["result"]["field_partner"]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["field_partner"]["app_status"] == "Complete"
+    assert ret_dict["result"]["field_partner"]["due_date"] == 1559354885971
 
 
 def test_get_fp_by_org_name(client):
@@ -131,6 +135,7 @@ def test_get_fp_by_email(client):
         ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Complete"
+    assert ret_dict["result"]["field_partner"][0]["due_date"] == 1559354885971
 
 
 def test_get_fp_by_pm(client):
@@ -160,6 +165,7 @@ def test_get_fp_by_pm(client):
         ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Complete"
+    assert ret_dict["result"]["field_partner"][0]["due_date"] == 1559354885971
 
     assert ret_dict["result"]["field_partner"][1]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][1]["org_name"] == "hack4impact"
@@ -167,6 +173,7 @@ def test_get_fp_by_pm(client):
         ret_dict["result"]["field_partner"][1]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][1]["app_status"] == "Complete"
+    assert ret_dict["result"]["field_partner"][1]["due_date"] == 1559354885971
 
 
 def test_new_fp(client):
@@ -191,17 +198,19 @@ def test_new_fp(client):
             "org_name": "Kiva",
             "pm_id": pm.id,
             "app_status": "New Partner",
+            "due_date": 1559354885979,
         },
     )
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["field_partner"]) == 6
+    assert len(ret_dict["result"]["field_partner"]) == 7
     assert ret_dict["result"]["field_partner"]["email"] == "santa"
     assert ret_dict["result"]["field_partner"]["org_name"] == "Kiva"
     assert ret_dict["result"]["field_partner"]["pm_id"] == pm.id
     assert ret_dict["result"]["field_partner"]["app_status"] == "New Partner"
+    assert ret_dict["result"]["field_partner"]["due_date"] == "1559354885979"
 
     # Tests for if not all fields are provided
     rs = client.post(
@@ -215,7 +224,7 @@ def test_new_fp(client):
     assert ret_dict["message"] == "No PM ID provided for new FP"
 
 
-def test_update_app_status(client):
+def test_fp_update_app_status(client):
     helper_portfolio_manager = create_pm()
     db.session.add(helper_portfolio_manager)
     db.session.commit()
@@ -233,7 +242,7 @@ def test_update_app_status(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["field_partner"]) == 6
+    assert len(ret_dict["result"]["field_partner"]) == 7
     assert ret_dict["result"]["field_partner"]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
     assert ret_dict["result"]["field_partner"]["app_status"] == "In Process"

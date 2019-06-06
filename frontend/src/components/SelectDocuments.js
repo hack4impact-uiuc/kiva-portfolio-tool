@@ -16,15 +16,13 @@ import {
   getDocumentsByUser,
   updateFPInstructions,
   getFPByID,
-  updateFieldPartnerStatus
+  updateFieldPartnerStatus,
+  updateFieldPartnerDueDate
 } from '../utils/ApiWrapper'
 
 import search from '../media/search.png'
 
-import 'react-datepicker/dist/react-datepicker.css'
-import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-import '../styles/index.css'
-import '../styles/selectdocuments.css'
+import '../styles/selectdocuments.scss'
 
 const mapStateToProps = state => ({
   language: state.user.language
@@ -97,6 +95,7 @@ export class SelectDocumentsPage extends Component {
       available: available,
       filtered: filtered,
       fp_id: this.props.match.params.id,
+      dueDate: fp_info.due_date ? new Date(fp_info.due_date) : new Date(),
       fp_org_name: fp_info.org_name,
       instructions: fp_info.instructions
     })
@@ -182,6 +181,8 @@ export class SelectDocumentsPage extends Component {
     await updateFPInstructions(this.state.fp_id, this.state.instructions)
 
     await updateFieldPartnerStatus(this.state.fp_id, 'In Process')
+
+    await updateFieldPartnerDueDate(this.state.fp_id, this.state.dueDate.getTime())
 
     this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)

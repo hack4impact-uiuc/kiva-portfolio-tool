@@ -25,11 +25,6 @@ import {
 
 import add from '../media/add.png'
 
-import 'react-datepicker/dist/react-datepicker.css'
-import 'react-datepicker/dist/react-datepicker-cssmodules.css'
-import '../styles/index.css'
-import 'box-ui-elements/dist/preview.css'
-
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
@@ -57,7 +52,8 @@ export class Dashboard extends Component {
 
     this.state = {
       fp_statuses: ['Missing', 'Rejected', 'Pending', 'Approved'],
-      pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved']
+      pm_statuses: ['Pending', 'Missing', 'Rejected', 'Approved'],
+      pm_id: null
     }
 
     this.handleFinish = this.handleFinish.bind(this)
@@ -89,6 +85,15 @@ export class Dashboard extends Component {
     const fp = await getFPByID(this.props.match.params.id)
     const instructionsReceived = fp.instructions
 
+    // Processing the date to a readable string
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    let due_date = new Date(fp.due_date).toLocaleDateString('en-US', options)
+
+    this.setState({
+      pm_id: fp.pm_id,
+      dueDate: due_date
+    })
+
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
     } else {
@@ -115,7 +120,7 @@ export class Dashboard extends Component {
   async handleFinish() {
     this.props.beginLoading()
     await updateFieldPartnerStatus(this.props.match.params.id, 'Complete')
-    this.props.history.push('/overview/' + this.props.match.params.id)
+    this.props.history.push('/overview/' + this.state.pm_id)
     this.props.endLoading()
   }
 
@@ -125,18 +130,22 @@ export class Dashboard extends Component {
 
   languages = {
     English: {
+      dueDate: 'Due date: ',
       update: 'Update requirements/instructions',
       finish: 'Finish process'
     },
     Spanish: {
+      dueDate: 'Due date: (Spanish)',
       update: 'Update requirements/instructions (Spanish)',
       finish: 'Finish process (Spanish)'
     },
     French: {
+      dueDate: 'Due date: (French)',
       update: 'Update requirements/instructions (French)',
       finish: 'Finish process (French)'
     },
     Portuguese: {
+      dueDate: 'Due date: (Portuguese)',
       update: 'Update requirements/instructions (Portuguese)',
       finish: 'Finish process (Portuguese)'
     }
@@ -151,36 +160,40 @@ export class Dashboard extends Component {
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
-        {this.props.isPM ? (
-          <div>
-            <Button
-              className="add-doc-text"
-              color="transparent"
-              onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
-            >
-              <img className="addImg" src={add} alt="Add icon" />
-              <span className="add-doc-text">{text.update}</span>
-            </Button>
-            <br />
-            <Button color="success" onClick={this.handleFinish}>
-              {text.finish}
-            </Button>
-          </div>
-        ) : null}
-        <Container>
+        <Container className="text-centered" id="dashboard-container">
+          <h1>{text.dueDate + this.state.dueDate}</h1>
+          {this.props.isPM ? (
+            <Row>
+              <Col md="12">
+                <Button
+                  className="add-doc-text"
+                  color="transparent"
+                  onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
+                >
+                  <img className="addImg" src={add} alt="Add icon" />
+                  <span className="add-doc-text">{text.update}</span>
+                </Button>
+              </Col>
+              <Col md="12">
+                <Button color="success" onClick={this.handleFinish}>
+                  {text.finish}
+                </Button>
+              </Col>
+            </Row>
+          ) : null}
           <Row>
             {this.props.documents
               ? this.props.isPM
                 ? this.state.pm_statuses.map(key => {
                     return (
-                      <Col sm="12" md="6">
+                      <Col sm="12" md="6" className="dashboard-width-override">
                         <DocumentList documents={this.props.documents[key]} status={key} />
                       </Col>
                     )
                   })
                 : this.state.fp_statuses.map(key => {
                     return (
-                      <Col sm="12" md="6">
+                      <Col sm="12" md="6" className="dashboard-width-override">
                         <DocumentList documents={this.props.documents[key]} status={key} />
                       </Col>
                     )

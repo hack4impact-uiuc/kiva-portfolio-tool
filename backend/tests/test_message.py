@@ -25,6 +25,7 @@ def create_fp(email, org_name, helper_portfolio_manager, app_status):
             "org_name": org_name,
             "pm_id": helper_portfolio_manager.id,
             "app_status": app_status,
+            "due_date": 1559354885979,
         }
     )
     db.session.add(temp_field_partner)
@@ -115,7 +116,7 @@ def test_get_messages(client):
         helper_doc,
         "Your Portfolio Manager has added a new required document: ksdljf",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message)
     db.session.commit()
 
@@ -164,7 +165,7 @@ def test_get_messages_by_fp(client):
         helper_doc,
         "Your document has been reviewed and has been Approved.",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message_not_fp)
     db.session.commit()
 
@@ -197,7 +198,7 @@ def test_get_messages_by_pm(client):
         helper_doc,
         "Your document has been reviewed and has been Approved.",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message)
     db.session.commit()
 
@@ -208,7 +209,7 @@ def test_get_messages_by_pm(client):
         helper_doc,
         "Your document has been reviewed and has been Approved.",
     )
-    # TODO: just use the given document's status instead of passing it to the message?
+
     db.session.add(temp_message_not_fp)
     db.session.commit()
 

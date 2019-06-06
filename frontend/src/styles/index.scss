@@ -52,6 +52,14 @@ html, body {
   text-align: center;
 }
 
+.left-margin-lg {
+  margin-left: 10%;
+}
+
+.left-margin-md {
+  margin-left: 5%;
+}
+
 .margin-center {
   display: block;
   margin: auto;
@@ -90,6 +98,7 @@ html, body {
 }
 
 .buttonimg {
+  margin: 9px;
   width: 20px;
   height: 20px;
 }

@@ -11,7 +11,7 @@ import french_img from '../media/french.png'
 import spanish_img from '../media/spanish.png'
 import portuguese_img from '../media/portuguese.png'
 
-import '../styles/navbar.css'
+import '../styles/navbar.scss'
 
 const languages = [
   { value: 'English', label: 'English', flag: english_img },

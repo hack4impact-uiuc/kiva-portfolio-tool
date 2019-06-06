@@ -41,12 +41,20 @@
     margin-right: 10px;
 }
 
-.instruction {
-    width: 85%;
+#pm-sidebar-close {
+    position: absolute;
+    right: 10px;
 }
 
-.instruction p, .instruction b {
-    padding-left: 5px;
+.instruction {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.instruction p {
+    text-align: left;
+    padding-left: 5%;
 }
 
 .kiva-icon {

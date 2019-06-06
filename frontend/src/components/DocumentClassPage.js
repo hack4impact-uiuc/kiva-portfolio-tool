@@ -14,9 +14,8 @@ import { getAllDocumentClasses, createDocumentClass } from '../utils/ApiWrapper'
 
 import add from '../media/add.png'
 
-import '../styles/variables.css'
-import '../styles/index.css'
-import '../styles/documentclasspage.css'
+import '../styles/variables.scss'
+import '../styles/documentclasspage.scss'
 
 const mapStateToProps = state => ({
   documentClasses: state.user.documentClasses,

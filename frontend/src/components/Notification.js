@@ -3,9 +3,9 @@ import { Button, ListGroupItem } from 'reactstrap'
 
 import close from '../media/greyX.png'
 
-import '../styles/notification.css'
-import '../styles/partnerbar.css'
-import '../styles/notifbar.css'
+import '../styles/notification.scss'
+import '../styles/partnerbar.scss'
+import '../styles/notifbar.scss'
 
 /**
  * Each Notification contains a paragraph of information and a delete button to

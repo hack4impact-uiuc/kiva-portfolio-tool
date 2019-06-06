@@ -22,9 +22,10 @@ import k_logo from '../media/greenK.png'
 import kiva_logo from '../media/kivaPlainLogo.png'
 import info_image from '../media/gray_info.png'
 import sandwich_image from '../media/sandwich.png'
+import { removeCookie } from '../utils/cookie'
+import { getUser, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
 
-import '../styles/index.css'
-import '../styles/navbar.css'
+import '../styles/navbar.scss'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
@@ -46,7 +47,11 @@ export class NavBar extends Component {
     this.state = {
       isLoginPage: null,
       sidebarOpen: false,
-      sidebarClass: sidebarClassName[0]
+      sidebarClass: sidebarClassName[0],
+      role: '',
+      email: '',
+      wrongInfo: '',
+      errorMessage: ''
     }
 
     this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this)
@@ -62,7 +67,22 @@ export class NavBar extends Component {
     }
   }
 
-  componentDidMount() {
+  logout = () => {
+    removeCookie('token')
+    this.props.history.push('/')
+  }
+
+  redirect = async e => {
+    if (this.state.role === 'fp') {
+      let fp = await getFPByEmail(this.state.email)
+      this.props.history.push('/dashboard/fp/' + fp._id)
+    } else {
+      let pm = await getPMByEmail(this.state.email)
+      this.props.history.push('/overview/' + pm._id)
+    }
+  }
+
+  async componentDidMount() {
     if (
       this.props.location.pathname !== '/' &&
       this.props.location.pathname !== '/register' &&
@@ -73,23 +93,48 @@ export class NavBar extends Component {
     } else {
       this.setState({ isLoginPage: true })
     }
+
+    const result = await getUser()
+    if (
+      result.error != null &&
+      (result.error.response.status === 400 || result.error.response.status === 500)
+    ) {
+      this.setState({
+        wrongInfo: !this.state.wrongInfo,
+        errorMessage: result.error.response.data.message
+      })
+      return
+    }
+
+    this.setState({
+      role: result.response.data.result.userRole,
+      email: result.response.data.result.email
+    })
   }
 
   languages = {
     English: {
       manage: 'Manage documents',
+      changePassword: 'Change password',
+      changeSecurityQuestion: 'Change security question',
       logOut: 'Log out'
     },
     Spanish: {
       manage: 'Manage documents (Spanish)',
+      changePassword: 'Change password (Spanish)',
+      changeSecurityQuestion: 'Change security question (Spanish)',
       logOut: 'Log out (Spanish)'
     },
     French: {
       manage: 'Manage documents (French)',
+      changePassword: 'Change password (French)',
+      changeSecurityQuestion: 'Change security question (French)',
       logOut: 'Log out (French)'
     },
     Portuguese: {
       manage: 'Manage documents (Portuguese)',
+      changePassword: 'Change password (Portuguese)',
+      changeSecurityQuestion: 'Change security question (Portuguese)',
       logOut: 'Log out (Portuguese)'
     }
   }
@@ -137,7 +182,7 @@ export class NavBar extends Component {
         <Navbar className={this.props.className} color="white" light expand="md">
           {this.state.isLoginPage && (
             <NavbarBrand href="/">
-              <img src={k_logo} width="60" height="60" alt="Kiva logo" />
+              <img className="kivalogo" src={k_logo} width="60" height="60" alt="Kiva logo" />
             </NavbarBrand>
           )}
 
@@ -150,8 +195,8 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <NavbarBrand href="/">
-              <img src={kiva_logo} width="90" height="50" alt="Kiva logo" />
+            <NavbarBrand onClick={this.redirect}>
+              <img className="kivalogo" src={kiva_logo} width="90" height="50" alt="Kiva logo" />
             </NavbarBrand>
           )}
 
@@ -178,11 +223,22 @@ export class NavBar extends Component {
                   </DropdownToggle>
                   <DropdownMenu right>
                     {isPM && (
-                      <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
-                        {text.manage}
-                      </DropdownItem>
+                      <div>
+                        <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
+                          {text.manage}
+                        </DropdownItem>
+                        <DropdownItem onClick={this.redirect}>Dashboard</DropdownItem>
+                      </div>
                     )}
-                    <DropdownItem>{text.logOut}</DropdownItem>
+                    <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
+                      {text.changePassword}
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => this.props.history.push('/changeSecurityQuestion')}
+                    >
+                      {text.changeSecurityQuestion}
+                    </DropdownItem>
+                    <DropdownItem onClick={this.logout}>{text.logOut}</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </NavItem>

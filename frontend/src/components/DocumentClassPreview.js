@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import preview from '../media/preview.png'
 
 import 'box-ui-elements/dist/preview.css'
-import '../styles/index.css'
 
 const mapStateToProps = state => ({
   language: state.user.language

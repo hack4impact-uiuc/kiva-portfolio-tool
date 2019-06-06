@@ -381,12 +381,8 @@ class Register extends Component {
                   <Button
                     color="success"
                     size="lg"
-                    onClick={this.handlePINResend}
-                    style={{
-                      float: 'left',
-                      marginBottom: '3%',
-                      width: '100%'
-                    }}
+                    onClick={() => this.props.history.push('/login')}
+                    className="left left-margin-lg"
                   >
                     {text.resendPin}
                   </Button>

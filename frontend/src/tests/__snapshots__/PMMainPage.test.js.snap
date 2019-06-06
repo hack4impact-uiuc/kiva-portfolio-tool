@@ -43,9 +43,11 @@ exports[`PMMainPage renders correctly 1`] = `
       <form
         onSubmit={[Function]}
       >
-        <p>
+        <label
+          className="margin-top-sm"
+        >
           Organization name:
-        </p>
+        </label>
         <input
           className="modal-input-master"
           onChange={[Function]}
@@ -53,9 +55,11 @@ exports[`PMMainPage renders correctly 1`] = `
           size="50"
           type="text"
         />
-        <p>
+        <label
+          className="margin-top-sm"
+        >
           Email:
-        </p>
+        </label>
         <input
           className="modal-input-master"
           onChange={[Function]}

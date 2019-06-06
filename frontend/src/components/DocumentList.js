@@ -8,8 +8,7 @@ import DocumentListItem from './DocumentListItem'
 import expand from '../media/expand.png'
 import collapse from '../media/collapse.png'
 
-import '../styles/documentlist.css'
-import '../styles/index.css'
+import '../styles/documentlist.scss'
 
 const mapStateToProps = state => ({
   language: state.user.language
@@ -93,11 +92,11 @@ export class DocumentList extends Component {
     }
 
     return (
-      <Table>
+      <Table className="document-table">
         <tbody>
           <tr className="dlist-header">
             <th
-              colSpan="5"
+              colSpan="3"
               className={
                 'background-' +
                 (this.props.status ? this.props.status.toLowerCase() : 'null') +
@@ -136,7 +135,7 @@ export class DocumentList extends Component {
           {this.props.documents ? (
             this.props.documents.length > this.state.showLess ? (
               <tr className="text-centered">
-                <td colSpan="5" id="buttonRowData">
+                <td colSpan="3" id="buttonRowData">
                   {this.state.expanded ? (
                     <button
                       className={
