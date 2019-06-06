@@ -284,15 +284,8 @@ def clear_box():
             client.file(file_id=item["id"]).delete()
 
 
-def create_pm_folder(name):
+def create_folder(name, folder_id="0"):
     """
     creates a folder for a portfolio manager with the root as the parent
-    """
-    return client.folder("0").create_subfolder(str(name))["id"]
-
-
-def create_fp_folder(name, folder_id):
-    """
-    creates a folder for a field partner with its portfolio manager's folder as the parent
     """
     return client.folder(str(folder_id)).create_subfolder(str(name))["id"]

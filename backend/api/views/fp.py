@@ -1,7 +1,7 @@
 from flask import Blueprint, request, json
 from api.models import FieldPartner, Document, db, PortfolioManager
 from api.core import create_response, serialize_list, logger
-from api.views.box import create_fp_folder
+from api.views.box import create_folder
 
 import requests, json
 
@@ -66,7 +66,7 @@ def new_fp():
         )
 
     pm_folder_id = PortfolioManager.query.get(data["pm_id"])
-    fp_folder_id = create_fp_folder(data["org_name"], pm_folder_id)["id"]
+    fp_folder_id = create_folder(data["org_name"], pm_folder_id)["id"]
     data["folder_id"] = fp_folder_id
 
     new_fp = FieldPartner(data)

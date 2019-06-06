@@ -82,7 +82,7 @@ export class Dashboard extends Component {
      * Contains all information received from backend
      */
     const fp = await getFPByID(this.props.match.params.id)
-    const instructionsReceived = fp.instructions
+    const instructionsReceived = fp ? fp.instructions : null
     this.setState({ pm_id: fp.pm_id })
 
     if (documentsReceived) {

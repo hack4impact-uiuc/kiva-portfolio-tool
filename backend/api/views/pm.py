@@ -2,7 +2,7 @@ from flask import Blueprint, request, json
 from api.models import PortfolioManager, db
 from api.core import create_response, serialize_list, logger
 from api.views.auth import verify_token
-from api.views.box import create_pm_folder
+from api.views.box import create_folder
 
 pm = Blueprint("pm", __name__)  # initialize blueprint
 
@@ -88,7 +88,7 @@ def new_pm():
     if "name" not in data:
         return create_response(status=400, message="No name provided for new PM")
 
-    folder_id = create_pm_folder(data["name"])["id"]
+    folder_id = create_folder(data["name"])["id"]
     data["folder_id"] = folder_id
 
     new_pm = PortfolioManager(data)

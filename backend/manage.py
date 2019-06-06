@@ -3,7 +3,7 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from api import create_app
 from api.models import db, Document, FieldPartner, PortfolioManager, DocumentClass
-from api.views.box import create_pm_folder, create_fp_folder, clear_box
+from api.views.box import create_folder, clear_box
 from datetime import datetime
 
 # sets up the app
@@ -182,14 +182,14 @@ def recreate_db():
 
 
 def create_mock_pm(email, name):
-    folder_id = create_pm_folder(name)
+    folder_id = create_folder(name)
     pm = PortfolioManager({"email": email, "name": name, "folder_id": folder_id})
     db.session.add(pm)
     return pm.id
 
 
 def create_mock_fp(email, org_name, app_status, pm_id):
-    folder_id = create_fp_folder(org_name, PortfolioManager.query.get(pm_id).folder_id)
+    folder_id = create_folder(org_name, PortfolioManager.query.get(pm_id).folder_id)
     fp = FieldPartner(
         {
             "email": email,
@@ -212,6 +212,7 @@ def create_mock_docclass(docclass_name, docclass_description=None):
 
 
 def create_mock_document(data):
+    data["folderID"] = create_folder(DocumentClass.query.get(data["docClassID"]).name, FieldPartner.query.get(data["userID"]).folder_id)
     d = Document(data)
 
     db.session.add(d)

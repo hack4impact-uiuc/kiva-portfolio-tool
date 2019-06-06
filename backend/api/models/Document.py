@@ -22,6 +22,7 @@ class Document(Mixin, db.Model):
     fileName = db.Column(db.String, unique=False, nullable=True)
     description = db.Column(db.String, unique=False, nullable=True)
     link = db.Column(db.String, unique=False, nullable=True)
+    folderID = db.Column(db.String)
 
     # use dictionary to load params to avoid weird issue with values being placed in lists
     def __init__(self, data):
@@ -31,6 +32,7 @@ class Document(Mixin, db.Model):
         self.userID = data["userID"]
         self.status = data["status"]
         self.docClassID = data["docClassID"]
+        self.folderID = data["folderID"]
 
         # optional fields checked manually
         if "fileID" in data:
