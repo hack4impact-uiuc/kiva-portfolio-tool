@@ -23,7 +23,8 @@ import visit from '../media/visit.png'
 import remove from '../media/remove.png'
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  language: state.user.language
 })
 
 const mapDispatchToProps = dispatch => {
@@ -126,6 +127,33 @@ export class DocumentListItem extends Component {
     this.setState({ docClassModal: !this.state.docClassModal })
   }
 
+  languages = {
+    English: {
+      confirm: 'Are you sure you want to delete this document?',
+      no: 'No',
+      yes: 'Yes',
+      close: 'Close'
+    },
+    Spanish: {
+      confirm: 'Are you sure you want to delete this document? (Spanish)',
+      no: 'No (Spanish)',
+      yes: 'Yes (Spanish)',
+      close: 'Close (Spanish)'
+    },
+    French: {
+      confirm: 'Are you sure you want to delete this document? (French)',
+      no: 'No (French)',
+      yes: 'Yes (French)',
+      close: 'Close (French)'
+    },
+    Portuguese: {
+      confirm: 'Are you sure you want to delete this document? (Portuguese)',
+      no: 'No (Portuguese)',
+      yes: 'Yes (Portuguese)',
+      close: 'Close (Portuguese)'
+    }
+  }
+
   render() {
     const { isPM } = this.props
     const customStyles = {
@@ -142,14 +170,18 @@ export class DocumentListItem extends Component {
         &times;
       </button>
     )
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
 
     return (
       <>
         <Modal isOpen={this.state.deleteModal} toggle={this.deleteToggle}>
-          <ModalHeader>Are you sure you want to delete this document?</ModalHeader>
+          <ModalHeader>{text.confirm}</ModalHeader>
           <ModalFooter>
-            <Button onClick={this.deleteToggle}>No</Button>
-            <Button onClick={this.handleDelete}>Yes</Button>
+            <Button onClick={this.deleteToggle}>{text.no}</Button>
+            <Button onClick={this.handleDelete}>{text.yes}</Button>
           </ModalFooter>
         </Modal>
         <Modal
@@ -169,7 +201,7 @@ export class DocumentListItem extends Component {
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.docClassToggle}>
-              Close
+              {text.close}
             </Button>
           </ModalFooter>
         </Modal>

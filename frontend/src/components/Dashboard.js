@@ -29,7 +29,8 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
   messages: state.user.messages,
-  information: state.user.information
+  information: state.user.information,
+  language: state.user.language
 })
 
 const mapDispatchToProps = dispatch => {
@@ -127,12 +128,40 @@ export class Dashboard extends Component {
     margin: 'auto'
   }
 
+  languages = {
+    English: {
+      dueDate: 'Due date: ',
+      update: 'Update requirements/instructions',
+      finish: 'Finish process'
+    },
+    Spanish: {
+      dueDate: 'Due date: (Spanish)',
+      update: 'Update requirements/instructions (Spanish)',
+      finish: 'Finish process (Spanish)'
+    },
+    French: {
+      dueDate: 'Due date: (French)',
+      update: 'Update requirements/instructions (French)',
+      finish: 'Finish process (French)'
+    },
+    Portuguese: {
+      dueDate: 'Due date: (Portuguese)',
+      update: 'Update requirements/instructions (Portuguese)',
+      finish: 'Finish process (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
         <Container className="text-centered" id="dashboard-container">
-          <h1>Due Date: {this.state.dueDate}</h1>
+          <h1>{text.dueDate + this.state.dueDate}</h1>
           {this.props.isPM ? (
             <Row>
               <Col md="12">
@@ -142,12 +171,12 @@ export class Dashboard extends Component {
                   onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
                 >
                   <img className="addImg" src={add} alt="Add icon" />
-                  <span className="add-doc-text">Update requirements/instructions</span>
+                  <span className="add-doc-text">{text.update}</span>
                 </Button>
               </Col>
               <Col md="12">
                 <Button color="success" onClick={this.handleFinish}>
-                  Finish Process
+                  {text.finish}
                 </Button>
               </Col>
             </Row>

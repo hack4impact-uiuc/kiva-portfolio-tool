@@ -13,7 +13,7 @@ exports[`Basic whole app rendering with snapshot 1`] = `
     tag="div"
   >
     <h1>
-      Due Date: 
+      Due date: undefined
     </h1>
     <Row
       tag="div"
