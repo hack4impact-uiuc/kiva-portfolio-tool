@@ -259,7 +259,7 @@ def create_fp():
                 "pm_id": pm_id,
                 "org_name": org_name,
                 "app_status": app_status,
-                "due_date": due_date
+                "due_date": due_date,
             },
         )
     ).json()
