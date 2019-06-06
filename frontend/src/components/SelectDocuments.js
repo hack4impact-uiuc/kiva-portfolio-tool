@@ -251,7 +251,7 @@ export class SelectDocumentsPage extends Component {
         </div>
 
         <div className="pageSD margin-top-sm">
-          <h1>S{text.select}</h1>
+          <h1>{text.select}</h1>
 
           <form onSubmit={this.handleSubmit}>
             <img src={search} width="18" alt="Search icon" />
