@@ -47,8 +47,7 @@ def get_fp_by_id(id):
 @fp.route("/field_partners", methods=["POST"])
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
-    data = request.form
-
+    data = request.form.to_dict()
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
 
@@ -64,10 +63,10 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
-    if "due_date" not in data:
-        data["due_date"] = ""
-        # set it to blank at first because you create the FP and then set the due date
 
+    if "due_date" not in data:
+        data["due_date"] = -1
+        # set it to blank at first because you create the FP and then set the due date
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
 
