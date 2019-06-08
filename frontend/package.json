@@ -8,7 +8,7 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "babel-loader": "^8.0.5",
     "bootstrap": "^4.3.1",
     "box-react-ui": "^30.0.0",
