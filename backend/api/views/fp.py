@@ -65,8 +65,8 @@ def new_fp():
         )
 
     if "due_date" not in data:
+        # set it to an invalid date at first because you create the FP and then set the due date
         data["due_date"] = -1
-        # set it to blank at first because you create the FP and then set the due date
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
 
