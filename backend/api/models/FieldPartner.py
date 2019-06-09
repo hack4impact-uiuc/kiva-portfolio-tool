@@ -27,7 +27,7 @@ class FieldPartner(Mixin, db.Model):
         self.org_name = data["org_name"]
         self.pm_id = data["pm_id"]
         self.app_status = data["app_status"]
-        self.due_date = data["due_date"]
+        self.due_date = int(data["due_date"])
 
         # upon construction, default to empty instructions
         self.instructions = ""

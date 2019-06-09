@@ -12,31 +12,31 @@ exports[` renders correctly 1`] = `
     defaultInputValue=""
     defaultMenuIsOpen={false}
     defaultValue={null}
+    onChange={[Function]}
     options={
       Array [
         Object {
           "flag": "english.png",
-          "label": "English (US)",
-          "value": "english",
+          "label": "English",
+          "value": "English",
         },
         Object {
           "flag": "french.png",
-          "label": "French",
-          "value": "french",
+          "label": "Français",
+          "value": "French",
         },
         Object {
           "flag": "spanish.png",
-          "label": "Spanish",
-          "value": "spanish",
+          "label": "Español",
+          "value": "Spanish",
         },
         Object {
           "flag": "portuguese.png",
-          "label": "Portuguese",
-          "value": "portuguese",
+          "label": "Português",
+          "value": "Portuguese",
         },
       ]
     }
-    placeholder="English (US)"
   >
     <Select
       backspaceRemovesValue={true}
@@ -82,28 +82,28 @@ exports[` renders correctly 1`] = `
         Array [
           Object {
             "flag": "english.png",
-            "label": "English (US)",
-            "value": "english",
+            "label": "English",
+            "value": "English",
           },
           Object {
             "flag": "french.png",
-            "label": "French",
-            "value": "french",
+            "label": "Français",
+            "value": "French",
           },
           Object {
             "flag": "spanish.png",
-            "label": "Spanish",
-            "value": "spanish",
+            "label": "Español",
+            "value": "Spanish",
           },
           Object {
             "flag": "portuguese.png",
-            "label": "Portuguese",
-            "value": "portuguese",
+            "label": "Português",
+            "value": "Portuguese",
           },
         ]
       }
       pageSize={5}
-      placeholder="English (US)"
+      placeholder="Select..."
       screenReaderStatus={[Function]}
       styles={Object {}}
       tabIndex="0"
@@ -131,23 +131,23 @@ exports[` renders correctly 1`] = `
           Array [
             Object {
               "flag": "english.png",
-              "label": "English (US)",
-              "value": "english",
+              "label": "English",
+              "value": "English",
             },
             Object {
               "flag": "french.png",
-              "label": "French",
-              "value": "french",
+              "label": "Français",
+              "value": "French",
             },
             Object {
               "flag": "spanish.png",
-              "label": "Spanish",
-              "value": "spanish",
+              "label": "Español",
+              "value": "Spanish",
             },
             Object {
               "flag": "portuguese.png",
-              "label": "Portuguese",
-              "value": "portuguese",
+              "label": "Português",
+              "value": "Portuguese",
             },
           ]
         }
@@ -194,27 +194,27 @@ exports[` renders correctly 1`] = `
             "options": Array [
               Object {
                 "flag": "english.png",
-                "label": "English (US)",
-                "value": "english",
+                "label": "English",
+                "value": "English",
               },
               Object {
                 "flag": "french.png",
-                "label": "French",
-                "value": "french",
+                "label": "Français",
+                "value": "French",
               },
               Object {
                 "flag": "spanish.png",
-                "label": "Spanish",
-                "value": "spanish",
+                "label": "Español",
+                "value": "Spanish",
               },
               Object {
                 "flag": "portuguese.png",
-                "label": "Portuguese",
-                "value": "portuguese",
+                "label": "Português",
+                "value": "Portuguese",
               },
             ],
             "pageSize": 5,
-            "placeholder": "English (US)",
+            "placeholder": "Select...",
             "screenReaderStatus": [Function],
             "styles": Object {},
             "tabIndex": "0",
@@ -279,23 +279,23 @@ exports[` renders correctly 1`] = `
               Array [
                 Object {
                   "flag": "english.png",
-                  "label": "English (US)",
-                  "value": "english",
+                  "label": "English",
+                  "value": "English",
                 },
                 Object {
                   "flag": "french.png",
-                  "label": "French",
-                  "value": "french",
+                  "label": "Français",
+                  "value": "French",
                 },
                 Object {
                   "flag": "spanish.png",
-                  "label": "Spanish",
-                  "value": "spanish",
+                  "label": "Español",
+                  "value": "Spanish",
                 },
                 Object {
                   "flag": "portuguese.png",
-                  "label": "Portuguese",
-                  "value": "portuguese",
+                  "label": "Português",
+                  "value": "Portuguese",
                 },
               ]
             }
@@ -342,27 +342,27 @@ exports[` renders correctly 1`] = `
                 "options": Array [
                   Object {
                     "flag": "english.png",
-                    "label": "English (US)",
-                    "value": "english",
+                    "label": "English",
+                    "value": "English",
                   },
                   Object {
                     "flag": "french.png",
-                    "label": "French",
-                    "value": "french",
+                    "label": "Français",
+                    "value": "French",
                   },
                   Object {
                     "flag": "spanish.png",
-                    "label": "Spanish",
-                    "value": "spanish",
+                    "label": "Español",
+                    "value": "Spanish",
                   },
                   Object {
                     "flag": "portuguese.png",
-                    "label": "Portuguese",
-                    "value": "portuguese",
+                    "label": "Português",
+                    "value": "Portuguese",
                   },
                 ],
                 "pageSize": 5,
-                "placeholder": "English (US)",
+                "placeholder": "Select...",
                 "screenReaderStatus": [Function],
                 "styles": Object {},
                 "tabIndex": "0",
@@ -419,23 +419,23 @@ exports[` renders correctly 1`] = `
                   Array [
                     Object {
                       "flag": "english.png",
-                      "label": "English (US)",
-                      "value": "english",
+                      "label": "English",
+                      "value": "English",
                     },
                     Object {
                       "flag": "french.png",
-                      "label": "French",
-                      "value": "french",
+                      "label": "Français",
+                      "value": "French",
                     },
                     Object {
                       "flag": "spanish.png",
-                      "label": "Spanish",
-                      "value": "spanish",
+                      "label": "Español",
+                      "value": "Spanish",
                     },
                     Object {
                       "flag": "portuguese.png",
-                      "label": "Portuguese",
-                      "value": "portuguese",
+                      "label": "Português",
+                      "value": "Portuguese",
                     },
                   ]
                 }
@@ -482,27 +482,27 @@ exports[` renders correctly 1`] = `
                     "options": Array [
                       Object {
                         "flag": "english.png",
-                        "label": "English (US)",
-                        "value": "english",
+                        "label": "English",
+                        "value": "English",
                       },
                       Object {
                         "flag": "french.png",
-                        "label": "French",
-                        "value": "french",
+                        "label": "Français",
+                        "value": "French",
                       },
                       Object {
                         "flag": "spanish.png",
-                        "label": "Spanish",
-                        "value": "spanish",
+                        "label": "Español",
+                        "value": "Spanish",
                       },
                       Object {
                         "flag": "portuguese.png",
-                        "label": "Portuguese",
-                        "value": "portuguese",
+                        "label": "Português",
+                        "value": "Portuguese",
                       },
                     ],
                     "pageSize": 5,
-                    "placeholder": "English (US)",
+                    "placeholder": "Select...",
                     "screenReaderStatus": [Function],
                     "styles": Object {},
                     "tabIndex": "0",
@@ -559,23 +559,23 @@ exports[` renders correctly 1`] = `
                       Array [
                         Object {
                           "flag": "english.png",
-                          "label": "English (US)",
-                          "value": "english",
+                          "label": "English",
+                          "value": "English",
                         },
                         Object {
                           "flag": "french.png",
-                          "label": "French",
-                          "value": "french",
+                          "label": "Français",
+                          "value": "French",
                         },
                         Object {
                           "flag": "spanish.png",
-                          "label": "Spanish",
-                          "value": "spanish",
+                          "label": "Español",
+                          "value": "Spanish",
                         },
                         Object {
                           "flag": "portuguese.png",
-                          "label": "Portuguese",
-                          "value": "portuguese",
+                          "label": "Português",
+                          "value": "Portuguese",
                         },
                       ]
                     }
@@ -622,27 +622,27 @@ exports[` renders correctly 1`] = `
                         "options": Array [
                           Object {
                             "flag": "english.png",
-                            "label": "English (US)",
-                            "value": "english",
+                            "label": "English",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
-                        "placeholder": "English (US)",
+                        "placeholder": "Select...",
                         "screenReaderStatus": [Function],
                         "styles": Object {},
                         "tabIndex": "0",
@@ -684,7 +684,7 @@ exports[` renders correctly 1`] = `
                     <div
                       className="css-151xaom-placeholder"
                     >
-                      English (US)
+                      Select...
                     </div>
                   </Placeholder>
                   <Input
@@ -743,27 +743,27 @@ exports[` renders correctly 1`] = `
                         "options": Array [
                           Object {
                             "flag": "english.png",
-                            "label": "English (US)",
-                            "value": "english",
+                            "label": "English",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
-                        "placeholder": "English (US)",
+                        "placeholder": "Select...",
                         "screenReaderStatus": [Function],
                         "styles": Object {},
                         "tabIndex": "0",
@@ -908,23 +908,23 @@ exports[` renders correctly 1`] = `
                   Array [
                     Object {
                       "flag": "english.png",
-                      "label": "English (US)",
-                      "value": "english",
+                      "label": "English",
+                      "value": "English",
                     },
                     Object {
                       "flag": "french.png",
-                      "label": "French",
-                      "value": "french",
+                      "label": "Français",
+                      "value": "French",
                     },
                     Object {
                       "flag": "spanish.png",
-                      "label": "Spanish",
-                      "value": "spanish",
+                      "label": "Español",
+                      "value": "Spanish",
                     },
                     Object {
                       "flag": "portuguese.png",
-                      "label": "Portuguese",
-                      "value": "portuguese",
+                      "label": "Português",
+                      "value": "Portuguese",
                     },
                   ]
                 }
@@ -971,27 +971,27 @@ exports[` renders correctly 1`] = `
                     "options": Array [
                       Object {
                         "flag": "english.png",
-                        "label": "English (US)",
-                        "value": "english",
+                        "label": "English",
+                        "value": "English",
                       },
                       Object {
                         "flag": "french.png",
-                        "label": "French",
-                        "value": "french",
+                        "label": "Français",
+                        "value": "French",
                       },
                       Object {
                         "flag": "spanish.png",
-                        "label": "Spanish",
-                        "value": "spanish",
+                        "label": "Español",
+                        "value": "Spanish",
                       },
                       Object {
                         "flag": "portuguese.png",
-                        "label": "Portuguese",
-                        "value": "portuguese",
+                        "label": "Português",
+                        "value": "Portuguese",
                       },
                     ],
                     "pageSize": 5,
-                    "placeholder": "English (US)",
+                    "placeholder": "Select...",
                     "screenReaderStatus": [Function],
                     "styles": Object {},
                     "tabIndex": "0",
@@ -1047,23 +1047,23 @@ exports[` renders correctly 1`] = `
                       Array [
                         Object {
                           "flag": "english.png",
-                          "label": "English (US)",
-                          "value": "english",
+                          "label": "English",
+                          "value": "English",
                         },
                         Object {
                           "flag": "french.png",
-                          "label": "French",
-                          "value": "french",
+                          "label": "Français",
+                          "value": "French",
                         },
                         Object {
                           "flag": "spanish.png",
-                          "label": "Spanish",
-                          "value": "spanish",
+                          "label": "Español",
+                          "value": "Spanish",
                         },
                         Object {
                           "flag": "portuguese.png",
-                          "label": "Portuguese",
-                          "value": "portuguese",
+                          "label": "Português",
+                          "value": "Portuguese",
                         },
                       ]
                     }
@@ -1110,27 +1110,27 @@ exports[` renders correctly 1`] = `
                         "options": Array [
                           Object {
                             "flag": "english.png",
-                            "label": "English (US)",
-                            "value": "english",
+                            "label": "English",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
-                        "placeholder": "English (US)",
+                        "placeholder": "Select...",
                         "screenReaderStatus": [Function],
                         "styles": Object {},
                         "tabIndex": "0",
@@ -1194,23 +1194,23 @@ exports[` renders correctly 1`] = `
                       Array [
                         Object {
                           "flag": "english.png",
-                          "label": "English (US)",
-                          "value": "english",
+                          "label": "English",
+                          "value": "English",
                         },
                         Object {
                           "flag": "french.png",
-                          "label": "French",
-                          "value": "french",
+                          "label": "Français",
+                          "value": "French",
                         },
                         Object {
                           "flag": "spanish.png",
-                          "label": "Spanish",
-                          "value": "spanish",
+                          "label": "Español",
+                          "value": "Spanish",
                         },
                         Object {
                           "flag": "portuguese.png",
-                          "label": "Portuguese",
-                          "value": "portuguese",
+                          "label": "Português",
+                          "value": "Portuguese",
                         },
                       ]
                     }
@@ -1257,27 +1257,27 @@ exports[` renders correctly 1`] = `
                         "options": Array [
                           Object {
                             "flag": "english.png",
-                            "label": "English (US)",
-                            "value": "english",
+                            "label": "English",
+                            "value": "English",
                           },
                           Object {
                             "flag": "french.png",
-                            "label": "French",
-                            "value": "french",
+                            "label": "Français",
+                            "value": "French",
                           },
                           Object {
                             "flag": "spanish.png",
-                            "label": "Spanish",
-                            "value": "spanish",
+                            "label": "Español",
+                            "value": "Spanish",
                           },
                           Object {
                             "flag": "portuguese.png",
-                            "label": "Portuguese",
-                            "value": "portuguese",
+                            "label": "Português",
+                            "value": "Portuguese",
                           },
                         ],
                         "pageSize": 5,
-                        "placeholder": "English (US)",
+                        "placeholder": "Select...",
                         "screenReaderStatus": [Function],
                         "styles": Object {},
                         "tabIndex": "0",

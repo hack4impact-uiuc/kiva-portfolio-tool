@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import {
   Form,
   Button,
@@ -14,12 +13,14 @@ import {
   DropdownToggle,
   DropdownMenu
 } from 'reactstrap'
-import { setCookie } from '../../utils/cookie'
-import { register, verifyPIN, resendPIN, getSecurityQuestions } from '../../utils/ApiWrapper'
 import BackgroundSlideshow from 'react-background-slideshow'
+
+import { connect } from 'react-redux'
+
 import Navbar from '../NavBar'
 
-import '../../styles/login.scss'
+import { setCookie } from '../../utils/cookie'
+import { register, verifyPIN, resendPIN, getSecurityQuestions } from '../../utils/ApiWrapper'
 
 import kivaLogo from '../../media/kivaPlainLogo.png'
 import b1 from '../../media/b1-min.jpg'
@@ -28,9 +29,15 @@ import b4 from '../../media/b4-min.jpg'
 import b5 from '../../media/b5-min.jpg'
 import b6 from '../../media/b6-min.jpg'
 
+import '../../styles/login.css'
+
 // michael's baby
 const EMAIL_REGEX =
   "([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+).([a-zA-Z]{2,3}).?([a-zA-Z]{0,3})"
+
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 /**
  * Page that handles a new user registering
@@ -188,172 +195,230 @@ class Register extends Component {
     this.setState({ roleDropdownOpen: !this.state.roleDropdownOpen })
   }
 
-  render = () => (
-    <div>
-      <Navbar className="nav-absolute" />
-      <div className="background">
-        <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
-      </div>
-      {!this.state.successfulSubmit ? (
-        <div className="foreground" id="register-foreground">
-          <Card className="interview-card center-background">
-            <CardTitle>
-              <div className="text-centered" id="login-kiva-logo">
-                <img src={kivaLogo} alt="Kiva logo" />
-              </div>
-            </CardTitle>
-            <CardBody>
-              {!!this.state.questions ? (
-                <React.Fragment>
+  languages = {
+    English: {
+      securityQuestion: 'Security question',
+      answer: 'Answer',
+      email: 'Email',
+      password: 'Password',
+      confirm: 'Confirm password',
+      register: 'Register',
+      logIn: 'Log in',
+      pin: 'PIN',
+      resendPin: 'Resend PIN',
+      verify: 'Verify email',
+      skip: 'Skip verification'
+    },
+    Spanish: {
+      securityQuestion: 'Security question (Spanish)',
+      answer: 'Answer (Spanish)',
+      email: 'Email (Spanish)',
+      password: 'Password (Spanish)',
+      confirm: 'Confirm password (Spanish)',
+      register: 'Register (Spanish)',
+      logIn: 'Log in (Spanish)',
+      pin: 'PIN (Spanish)',
+      resendPin: 'Resend PIN (Spanish)',
+      verify: 'Verify email (Spanish)',
+      skip: 'Skip verification (Spanish)'
+    },
+    French: {
+      securityQuestion: 'Security question (French)',
+      answer: 'Answer (French)',
+      email: 'Email (French)',
+      password: 'Password (French)',
+      confirm: 'Confirm password (French)',
+      register: 'Register (French)',
+      logIn: 'Log in (French)',
+      pin: 'PIN (French)',
+      resendPin: 'Resend PIN (French)',
+      verify: 'Verify email (French)',
+      skip: 'Skip verification (French)'
+    },
+    Portuguese: {
+      securityQuestion: 'Security question (Portuguese)',
+      answer: 'Answer (Portuguese)',
+      email: 'Email (Portuguese)',
+      password: 'Password (Portuguese)',
+      confirm: 'Confirm password (Portuguese)',
+      register: 'Register (Portuguese)',
+      logIn: 'Log in (Portuguese)',
+      pin: 'PIN (Portuguese)',
+      resendPin: 'Resend PIN (Portuguese)',
+      verify: 'Verify email (Portuguese)',
+      skip: 'Skip verification (Portuguese)'
+    }
+  }
+
+  render() {
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
+    return (
+      <div>
+        <Navbar className="nav-absolute" />
+        <div className="background">
+          <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
+        </div>
+        {!this.state.successfulSubmit ? (
+          <div className="foreground" id="register-foreground">
+            <Card className="interview-card center-background">
+              <CardTitle>
+                <div className="text-centered" id="login-kiva-logo">
+                  <img src={kivaLogo} alt="Kiva logo" />
+                </div>
+              </CardTitle>
+              <CardBody>
+                {!!this.state.questions ? (
+                  <React.Fragment>
+                    <div className="text-centered">
+                      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <DropdownToggle caret color="transparent">
+                          {this.state.questionIdx === -1
+                            ? text.securityQuestion
+                            : this.state.questions[this.state.questionIdx]}
+                        </DropdownToggle>
+                        <DropdownMenu>
+                          {this.state.questions.map((question, idx) => (
+                            <DropdownItem onClick={this.pickDropDown.bind(null, idx)}>
+                              {question}
+                            </DropdownItem>
+                          ))}
+                        </DropdownMenu>
+                      </Dropdown>
+                    </div>
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder={text.answer}
+                      id="exampleAnswer"
+                      maxLength="64"
+                      pattern={EMAIL_REGEX}
+                      value={this.state.securityQuestionAnswer}
+                      onChange={this.handleChangeSecurityAnswer}
+                      required
+                    />
+                  </React.Fragment>
+                ) : null}
+                <Form>
+                  <FormGroup>
+                    <Input
+                      type="email"
+                      name="email"
+                      placeholder={text.email}
+                      id="exampleEmail"
+                      maxLength="64"
+                      pattern={EMAIL_REGEX}
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Input
+                      type="password"
+                      name="password"
+                      placeholder={text.password}
+                      id="registerPassword"
+                      minLength="8"
+                      maxLength="64"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Input
+                      type="password"
+                      name="password2"
+                      placeholder={text.confirm}
+                      id="exampleConfirm"
+                      minLength="8"
+                      maxLength="64"
+                      value={this.state.password2}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </FormGroup>
                   <div className="text-centered">
-                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                      <DropdownToggle caret color="transparent">
-                        {this.state.questionIdx === -1
-                          ? 'Security Question'
-                          : this.state.questions[this.state.questionIdx]}
-                      </DropdownToggle>
-                      <DropdownMenu>
-                        {this.state.questions.map((question, idx) => (
-                          <DropdownItem onClick={this.pickDropDown.bind(null, idx)}>
-                            {question}
-                          </DropdownItem>
-                        ))}
-                      </DropdownMenu>
-                    </Dropdown>
+                    <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
+                      {text.register}
+                    </Button>{' '}
+                    <Button
+                      color="success"
+                      size="lg"
+                      onClick={() => this.props.history.push('/login')}
+                      className="left"
+                    >
+                      {text.logIn}
+                    </Button>
+                    <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
                   </div>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Answer"
-                    id="exampleAnswer"
-                    maxLength="64"
-                    pattern={EMAIL_REGEX}
-                    value={this.state.securityQuestionAnswer}
-                    onChange={this.handleChangeSecurityAnswer}
-                    required
-                  />
-                </React.Fragment>
-              ) : null}
-              <Form>
-                <FormGroup>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    id="exampleEmail"
-                    maxLength="64"
-                    pattern={EMAIL_REGEX}
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    id="registerPassword"
-                    minLength="8"
-                    maxLength="64"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Input
-                    type="password"
-                    name="password2"
-                    placeholder="Confirm Password"
-                    id="exampleConfirm"
-                    minLength="8"
-                    maxLength="64"
-                    value={this.state.password2}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </FormGroup>
-                <div className="text-centered">
-                  <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
-                    Register
-                  </Button>{' '}
+                </Form>
+              </CardBody>
+            </Card>
+          </div>
+        ) : (
+          <div className="check">
+            <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
+              <CardBody>
+                <Form>
+                  <FormGroup>
+                    <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
+                    <Label>{text.pin}</Label>
+                    <Input
+                      name="pin"
+                      type="number"
+                      maxLength="10"
+                      minLength="4"
+                      value={this.state.pin}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </FormGroup>
                   <Button
                     color="success"
                     size="lg"
                     onClick={() => this.props.history.push('/login')}
                     className="left left-margin-lg"
                   >
-                    Login
+                    {text.resendPin}
                   </Button>
-                  <p style={{ color: 'red' }}>{this.state.errorMessage}</p>
-                </div>
-              </Form>
-            </CardBody>
-          </Card>
-        </div>
-      ) : (
-        <div className="check">
-          <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
-            <CardBody>
-              <Form>
-                <FormGroup>
-                  <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
-                  <Label>PIN</Label>
-                  <Input
-                    name="pin"
-                    type="number"
-                    maxLength="10"
-                    minLength="4"
-                    value={this.state.pin}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </FormGroup>
-                <Button
-                  color="success"
-                  size="lg"
-                  onClick={this.handlePINResend}
-                  style={{
-                    float: 'left',
-                    marginBottom: '3%',
-                    width: '100%'
-                  }}
-                >
-                  Resend PIN
-                </Button>
-                <Button
-                  color="success"
-                  size="lg"
-                  onClick={this.handlePINVerify}
-                  style={{
-                    float: 'left',
-                    marginBotton: '3%',
-                    width: '100%'
-                  }}
-                >
-                  Verify Email
-                </Button>
-                <Button
-                  color="link"
-                  size="sm"
-                  onClick={() => this.props.history.push('/')}
-                  style={{
-                    float: 'right',
-                    width: '25%',
-                    marginRight: '6%'
-                  }}
-                >
-                  Skip Verification
-                </Button>
-              </Form>
-              {this.state.passwordChangeMessage}
-            </CardBody>
-          </Card>
-        </div>
-      )}
-    </div>
-  )
+                  <Button
+                    color="success"
+                    size="lg"
+                    onClick={this.handlePINVerify}
+                    style={{
+                      float: 'left',
+                      marginBotton: '3%',
+                      width: '100%'
+                    }}
+                  >
+                    {text.verify}
+                  </Button>
+                  <Button
+                    color="link"
+                    size="sm"
+                    onClick={() => this.props.history.push('/')}
+                    style={{
+                      float: 'right',
+                      width: '25%',
+                      marginRight: '6%'
+                    }}
+                  >
+                    {text.skip}
+                  </Button>
+                </Form>
+                {this.state.passwordChangeMessage}
+              </CardBody>
+            </Card>
+          </div>
+        )}
+      </div>
+    )
+  }
 }
 
-export default connect()(Register)
+export default connect(mapStateToProps)(Register)

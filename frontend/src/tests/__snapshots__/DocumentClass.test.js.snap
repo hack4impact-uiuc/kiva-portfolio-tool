@@ -1,14 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DocumentClass renders correctly 1`] = `
-<DocumentClass
-  documentClass={
-    Object {
-      "description": "testingaswell",
-      "name": "testing",
-    }
-  }
->
+<Fragment>
   <Modal
     autoFocus={true}
     backdrop={true}
@@ -32,7 +25,75 @@ exports[`DocumentClass renders correctly 1`] = `
     role="dialog"
     toggle={[Function]}
     zIndex={1050}
-  />
+  >
+    <ModalBody
+      tag="div"
+    >
+      <form>
+        <span>
+          Name:
+        </span>
+        <Input
+          className="textarea-input"
+          onChange={[Function]}
+          type="textarea"
+        />
+        <br />
+        <span>
+          Description:
+        </span>
+        <Input
+          className="textarea-input"
+          onChange={[Function]}
+          style={
+            Object {
+              "height": "200px",
+            }
+          }
+          type="textarea"
+          value="testingaswell"
+        />
+        <br />
+        <div
+          className="dropPage"
+        >
+          <section
+            className="droppedBox"
+          >
+            <div
+              className="dropZone"
+            >
+              <Dropzone
+                onDrop={[Function]}
+              >
+                <Component />
+              </Dropzone>
+            </div>
+          </section>
+          <hr />
+        </div>
+      </form>
+    </ModalBody>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        className="invalidSearchButton"
+        color="secondary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Return
+      </Button>
+      <Button
+        color="success"
+        onClick={[Function]}
+        tag="button"
+      >
+        Update document class
+      </Button>
+    </ModalFooter>
+  </Modal>
   <tr
     className="hoverable"
   >
@@ -45,107 +106,35 @@ exports[`DocumentClass renders correctly 1`] = `
       className="interaction"
       data-testid="interaction"
     >
-      <DocumentClassPreview
+      <Connect(DocumentClassPreview)
         documentClass={
           Object {
             "description": "testingaswell",
             "name": "testing",
           }
         }
-      >
-        <Button
-          color="transparent"
-          onClick={[Function]}
-          tag="button"
-        >
-          <button
-            aria-label={null}
-            className="btn btn-transparent"
-            onClick={[Function]}
-            type="button"
-          >
-            <img
-              alt="preview icon"
-              className="buttonimg"
-              src="preview.png"
-            />
-          </button>
-        </Button>
-        <Modal
-          autoFocus={true}
-          backdrop={true}
-          backdropTransition={
-            Object {
-              "mountOnEnter": true,
-              "timeout": 150,
-            }
-          }
-          centered={false}
-          external={
-            <button
-              className="close"
-              onClick={[Function]}
-              style={
-                Object {
-                  "position": "absolute",
-                  "right": "15px",
-                  "top": "15px",
-                }
-              }
-            >
-              ×
-            </button>
-          }
-          fade={true}
-          isOpen={false}
-          keyboard={true}
-          modalTransition={
-            Object {
-              "timeout": 300,
-            }
-          }
-          onClosed={[Function]}
-          onOpened={[Function]}
-          role="dialog"
-          toggle={[Function]}
-          zIndex={1050}
-        />
-      </DocumentClassPreview>
+      />
       <Button
         color="transparent"
         onClick={[Function]}
         tag="button"
       >
-        <button
-          aria-label={null}
-          className="btn btn-transparent"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Edit icon"
-            className="buttonimg"
-            src="greyEdit.png"
-          />
-        </button>
+        <img
+          alt="Edit icon"
+          className="buttonimg"
+          src="greyEdit.png"
+        />
       </Button>
       <Button
         color="transparent"
         onClick={[Function]}
         tag="button"
       >
-        <button
-          aria-label={null}
-          className="btn btn-transparent"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Remove icon"
-            className="buttonimg"
-            src="remove.png"
-          />
-        </button>
+        <img
+          alt="Remove icon"
+          className="buttonimg"
+          src="remove.png"
+        />
       </Button>
       <Modal
         autoFocus={true}
@@ -170,8 +159,36 @@ exports[`DocumentClass renders correctly 1`] = `
         role="dialog"
         toggle={[Function]}
         zIndex={1050}
-      />
+      >
+        <ModalBody
+          tag="div"
+        >
+          <p>
+            Are you sure you want to delete testingAre you sure you want to delete 
+          </p>
+        </ModalBody>
+        <ModalFooter
+          tag="div"
+        >
+          <Button
+            className="invalidSearchButton"
+            color="primary"
+            onClick={[Function]}
+            tag="button"
+          >
+            Delete and return
+          </Button>
+          <Button
+            className="invalidSearchButton"
+            color="secondary"
+            onClick={[Function]}
+            tag="button"
+          >
+            Return
+          </Button>
+        </ModalFooter>
+      </Modal>
     </td>
   </tr>
-</DocumentClass>
+</Fragment>
 `;

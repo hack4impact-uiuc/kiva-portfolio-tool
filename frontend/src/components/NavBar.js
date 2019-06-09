@@ -28,7 +28,8 @@ import { getUser, getFPByEmail, getPMByEmail } from '../utils/ApiWrapper'
 import '../styles/navbar.scss'
 
 const mapStateToProps = state => ({
-  isPM: state.user.isPM
+  isPM: state.user.isPM,
+  language: state.user.language
 })
 
 const sidebarClassName = ['closed', 'opened']
@@ -111,8 +112,40 @@ export class NavBar extends Component {
     })
   }
 
+  languages = {
+    English: {
+      manage: 'Manage documents',
+      changePassword: 'Change password',
+      changeSecurityQuestion: 'Change security question',
+      logOut: 'Log out'
+    },
+    Spanish: {
+      manage: 'Manage documents (Spanish)',
+      changePassword: 'Change password (Spanish)',
+      changeSecurityQuestion: 'Change security question (Spanish)',
+      logOut: 'Log out (Spanish)'
+    },
+    French: {
+      manage: 'Manage documents (French)',
+      changePassword: 'Change password (French)',
+      changeSecurityQuestion: 'Change security question (French)',
+      logOut: 'Log out (French)'
+    },
+    Portuguese: {
+      manage: 'Manage documents (Portuguese)',
+      changePassword: 'Change password (Portuguese)',
+      changeSecurityQuestion: 'Change security question (Portuguese)',
+      logOut: 'Log out (Portuguese)'
+    }
+  }
+
   render() {
     const { isPM } = this.props
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <div>
         {this.state.sidebarOpen ? (
@@ -168,6 +201,14 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
+            <Nav className="margin-left-sm">
+              <NavItem>
+                <LanguageSelector />
+              </NavItem>
+            </Nav>
+          )}
+
+          {!this.state.isLoginPage && (
             <Nav className="ml-auto" navbar pullRight>
               <NavItem>
                 <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
@@ -184,20 +225,20 @@ export class NavBar extends Component {
                     {isPM && (
                       <div>
                         <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
-                          Manage Documents
+                          {text.manage}
                         </DropdownItem>
                         <DropdownItem onClick={this.redirect}>Dashboard</DropdownItem>
                       </div>
                     )}
                     <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
-                      Change Password
+                      {text.changePassword}
                     </DropdownItem>
                     <DropdownItem
                       onClick={() => this.props.history.push('/changeSecurityQuestion')}
                     >
-                      Change Security Question
+                      {text.changeSecurityQuestion}
                     </DropdownItem>
-                    <DropdownItem onClick={this.logout}>Log Out</DropdownItem>
+                    <DropdownItem onClick={this.logout}>{text.logOut}</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </NavItem>
