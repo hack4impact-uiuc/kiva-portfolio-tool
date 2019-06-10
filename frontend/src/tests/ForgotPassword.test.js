@@ -1,13 +1,12 @@
 import React from 'react'
 import { ForgotPassword } from '../components/auth/ForgotPassword'
-import { Form, Button, FormGroup, Label, Input, Card, Alert, CardBody, CardTitle } from 'reactstrap'
+import { Form, Button, FormGroup, Input, Card, CardBody, CardTitle } from 'reactstrap'
 import Adapter from 'enzyme-adapter-react-16'
-import { shallowToJson, mountToJson } from 'enzyme-to-json'
-import { configure, shallow, mount } from 'enzyme'
+import { shallowToJson } from 'enzyme-to-json'
+import { configure, shallow } from 'enzyme'
 import chai from 'chai'
 global.jestExpect = global.expect
 global.expect = chai.expect
-import sinon from 'sinon'
 
 beforeAll(() => {
   configure({ adapter: new Adapter() })

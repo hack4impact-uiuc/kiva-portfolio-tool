@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import WithAuth from './WithAuth'
 import Navbar from '../NavBar'
-import {
-  changePassword,
-  updateSecurityQuestion,
-  getSecurityQuestions
-} from '../../utils/ApiWrapper'
+import { updateSecurityQuestion, getSecurityQuestions } from '../../utils/ApiWrapper'
 import {
   Form,
   Button,
@@ -22,7 +18,6 @@ import {
   DropdownMenu
 } from 'reactstrap'
 import { connect } from 'react-redux'
-import { setCookie } from '../../utils/cookie'
 import BackgroundSlideshow from 'react-background-slideshow'
 
 import '../../styles/login.scss'
