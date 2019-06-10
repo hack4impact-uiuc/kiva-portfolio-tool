@@ -56,7 +56,6 @@ class LogIn extends Component {
       result.error != null &&
       (result.error.response.status === 400 || result.error.response.status === 500)
     ) {
-      console.log(result.error.response.message)
       this.setState({
         wrongInfo: !this.state.wrongInfo,
         errorMessage: result.error.response.data.message
@@ -77,7 +76,6 @@ class LogIn extends Component {
       })
       await setCookie('token', token)
       let role = await verify()
-      console.log(role)
       if (role.error) {
         this.props.history.push('/oops')
       } else {
