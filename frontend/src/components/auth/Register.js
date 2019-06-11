@@ -361,15 +361,21 @@ class Register extends Component {
             </Card>
           </div>
         ) : (
-          <div className="check">
-            <Card className="interview-card" style={{ width: '400px', height: '60%' }}>
-              <CardBody>
+          <div className="foreground">
+            <Card className="interview-card center-background">
+              <CardTitle>
+                <div className="text-centered" id="login-kiva-logo">
+                  <img src={kivaLogo} alt="Kiva logo" />
+                </div>
+              </CardTitle>
+              <CardBody className="text-centered">
                 <Form>
                   <FormGroup>
                     <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
-                    <Label>{text.pin}</Label>
                     <Input
                       name="pin"
+                      placeholder="Pin"
+                      id="examplePin"
                       type="number"
                       maxLength="10"
                       minLength="4"
@@ -382,7 +388,7 @@ class Register extends Component {
                     color="success"
                     size="lg"
                     onClick={() => this.props.history.push('/login')}
-                    className="left left-margin-lg"
+                    className="left"
                   >
                     {text.resendPin}
                   </Button>
@@ -390,11 +396,7 @@ class Register extends Component {
                     color="success"
                     size="lg"
                     onClick={this.handlePINVerify}
-                    style={{
-                      float: 'left',
-                      marginBotton: '3%',
-                      width: '100%'
-                    }}
+                    className="right left-margin-lg"
                   >
                     {text.verify}
                   </Button>
@@ -405,7 +407,7 @@ class Register extends Component {
                     style={{
                       float: 'right',
                       width: '25%',
-                      marginRight: '6%'
+                      marginRight: '10%'
                     }}
                   >
                     {text.skip}
