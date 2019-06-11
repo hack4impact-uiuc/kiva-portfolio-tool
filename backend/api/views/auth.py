@@ -232,6 +232,7 @@ def create_fp():
     pm_id = data.get("pm_id")
     app_status = data.get("app_status")
     org_name = data.get("org_name")
+    due_date = -1 if not data.get("due_date") else data.get("due_date")
 
     r = (
         requests.post(
@@ -258,6 +259,7 @@ def create_fp():
                 "pm_id": pm_id,
                 "org_name": org_name,
                 "app_status": app_status,
+                "due_date": due_date,
             },
         )
     ).json()

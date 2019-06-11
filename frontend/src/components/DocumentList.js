@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
 import { Table } from 'reactstrap'
 
+import { connect } from 'react-redux'
+
 import DocumentListItem from './DocumentListItem'
 
 import expand from '../media/expand.png'
 import collapse from '../media/collapse.png'
 
 import '../styles/documentlist.scss'
+
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 /**
  * Displays all documents for a given document status in its own box
@@ -32,7 +38,59 @@ export class DocumentList extends Component {
     this.setState({ expanded: !this.state.expanded })
   }
 
+  languages = {
+    English: {
+      statuses: {
+        Missing: 'Missing',
+        Pending: 'Pending',
+        Rejected: 'Rejected',
+        Approved: 'Approved'
+      },
+      documents: ' documents',
+      documentName: 'Document name',
+      file: 'File'
+    },
+    Spanish: {
+      statuses: {
+        Missing: 'Missing (Spanish)',
+        Pending: 'Pending (Spanish)',
+        Rejected: 'Rejected (Spanish)',
+        Approved: 'Approved (Spanish)'
+      },
+      documents: ' documents (Spanish)',
+      documentName: 'Document name (Spanish)',
+      file: 'File (Spanish)'
+    },
+    French: {
+      statuses: {
+        Missing: 'Missing (French)',
+        Pending: 'Pending (French)',
+        Rejected: 'Rejected (French)',
+        Approved: 'Approved (French)'
+      },
+      documents: ' documents (French)',
+      documentName: 'Document name (French)',
+      file: 'File (French)'
+    },
+    Portuguese: {
+      statuses: {
+        Missing: 'Missing (Portuguese)',
+        Pending: 'Pending (Portuguese)',
+        Rejected: 'Rejected (Portuguese)',
+        Approved: 'Approved (Portuguese)'
+      },
+      documents: ' documents (Portuguese)',
+      documentName: 'Document name (Portuguese)',
+      file: 'File (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <Table className="document-table">
         <tbody>
@@ -45,12 +103,12 @@ export class DocumentList extends Component {
                 ' text-white'
               }
             >
-              {this.props.status + ' Documents'}
+              {text.statuses[this.props.status] + text.documents}
             </th>
           </tr>
           <tr>
-            <th className="text-centered">Document Name</th>
-            <th className="text-centered">File</th>
+            <th className="text-centered">{text.documentName}</th>
+            <th className="text-centered">{text.file}</th>
             <th />
           </tr>
           {this.props.documents
@@ -111,4 +169,4 @@ export class DocumentList extends Component {
   }
 }
 
-export default DocumentList
+export default connect(mapStateToProps)(DocumentList)
