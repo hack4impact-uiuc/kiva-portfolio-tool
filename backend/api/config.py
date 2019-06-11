@@ -6,6 +6,7 @@ docker-compose. Production is used in Heroku as well as Zeit now. You may change
 DO NOT HARD CODE YOUR PRODUCTION URLS EVER. Either use creds.ini or use environment variables.
 """
 import os
+from api.core import get_pg_url
 
 # more configuration options here http://flask.pocoo.org/docs/1.0/config/
 class Config:
