@@ -350,7 +350,7 @@ class Register extends Component {
                       color="success"
                       size="lg"
                       onClick={() => this.props.history.push('/login')}
-                      className="left"
+                      className="left left-margin-lg"
                     >
                       {text.logIn}
                     </Button>
