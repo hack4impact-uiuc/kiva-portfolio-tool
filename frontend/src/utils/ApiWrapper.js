@@ -108,7 +108,6 @@ export const verify = () => {
       }
     })
     .then(response => {
-      console.log(response)
       return {
         type: 'REGISTER_SUCCESS',
         response

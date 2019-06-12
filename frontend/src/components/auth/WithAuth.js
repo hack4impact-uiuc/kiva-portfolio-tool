@@ -19,7 +19,6 @@ const withAuth = WrappedComponent => {
 
     async componentDidMount() {
       const verifyResponse = await verify()
-      console.log(verifyResponse)
       if (verifyResponse.error) {
         return
       }

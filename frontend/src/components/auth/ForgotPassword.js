@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
-import { Form, Button, FormGroup, Label, Input, Card, Alert, CardBody, CardTitle } from 'reactstrap'
+import { Form, Button, FormGroup, Input, Card, Alert, CardBody, CardTitle } from 'reactstrap'
 import BackgroundSlideshow from 'react-background-slideshow'
 
 import { connect } from 'react-redux'

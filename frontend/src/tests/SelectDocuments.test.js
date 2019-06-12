@@ -2,8 +2,7 @@ import React from 'react'
 import { SelectDocumentsPage } from '../components/SelectDocuments'
 import { Selector } from '../components/Selector'
 import Adapter from 'enzyme-adapter-react-16'
-import { shallowToJson } from 'enzyme-to-json'
-import { configure, shallow, mount } from 'enzyme'
+import { configure, shallow } from 'enzyme'
 import chai from 'chai'
 global.jestExpect = global.expect
 global.expect = chai.expect

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import WithAuth from './WithAuth'
 import Navbar from '../NavBar'
 import { changePassword } from '../../utils/ApiWrapper'
-import { Form, Button, FormGroup, Label, Input, CardTitle, Card, CardBody, Row } from 'reactstrap'
+import { Form, Button, FormGroup, Input, CardTitle, Card, CardBody, Row } from 'reactstrap'
 import { connect } from 'react-redux'
 import { setCookie } from '../../utils/cookie'
 import BackgroundSlideshow from 'react-background-slideshow'
@@ -47,6 +47,9 @@ class ChangePassword extends Component {
       let token = result.response.data.result.token
       setCookie('token', token)
       this.setState({ correctMessage: 'Your password has been changed!' })
+
+      // redirect to next step of account onboarding
+      this.props.history.push('/changeSecurityQuestion')
     } else {
       this.setState({ responseMessage: 'Passwords do not match' })
     }
@@ -113,14 +116,6 @@ class ChangePassword extends Component {
                     className="right securitybtn"
                   >
                     Change Password
-                  </Button>
-                  <Button
-                    color="success"
-                    size="lg"
-                    onClick={() => this.props.history.push('/changeSecurityQuestion')}
-                    className="left left-margin-md securitybtn"
-                  >
-                    Change Question
                   </Button>
                 </Form>
                 <p style={{ color: 'red', textAlign: 'center' }}>
