@@ -21,7 +21,9 @@ class PortfolioManager(Mixin, db.Model):
         # required fields should be checked for existence by the request
         self.email = data["email"]
         self.name = data["name"]
-        self.folder_id = data["folder_id"]
+
+        # if no folderID provided, default to "0"
+        self.folder_id = data["folder_id"] if "folder_id" in data else "0"
 
     def __repr__(self):
-        return f"<Portfolio Manager\nID: {self.id}\nEmail: {self.email}\nName: {self.name}\n>"
+        return f"<Portfolio Manager\nID: {self.id}\nEmail: {self.email}\nName: {self.name}\n Folder ID: {self.folder_id}\n>"

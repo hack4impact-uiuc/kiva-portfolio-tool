@@ -286,6 +286,6 @@ def clear_box():
 
 def create_folder(name, folder_id="0"):
     """
-    creates a folder for a portfolio manager with the root as the parent
+    creates a folder
     """
-    return client.folder(str(folder_id)).create_subfolder(str(name))["id"]
+    return client.folder(str(folder_id)).create_subfolder(str(name)).id

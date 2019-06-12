@@ -65,9 +65,8 @@ def new_fp():
             status=400, message="No application status provided for new FP"
         )
 
-    pm_folder_id = PortfolioManager.query.get(data["pm_id"])
-    fp_folder_id = create_folder(data["org_name"], pm_folder_id)["id"]
-    data["folder_id"] = fp_folder_id
+    pm_folder_id = PortfolioManager.query.get(data["pm_id"]).folder_id
+    data["folder_id"] = create_folder(data["org_name"], pm_folder_id)
 
     if "due_date" not in data:
         # set it to an invalid date at first because you create the FP and then set the due date
