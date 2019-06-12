@@ -355,4 +355,4 @@ export class ForgotPassword extends Component {
     )
   }
 }
-export default connect()(ForgotPassword)
+export default connect(mapStateToProps)(ForgotPassword)
