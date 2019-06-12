@@ -131,7 +131,10 @@ def create_new_documents():
 
     for document_class_id in document_class_ids:
         data = {"userID": userID, "status": status, "docClassID": document_class_id}
-        data["folderID"] = create_folder(DocumentClass.query.get(document_class_id).name, FieldPartner.query.get(data["userID"]).folder_id)
+        data["folderID"] = create_folder(
+            DocumentClass.query.get(document_class_id).name,
+            FieldPartner.query.get(data["userID"]).folder_id,
+        )
         new_doc = Document(data)
         doc_dict = new_doc.to_dict()
         document_ids.append(doc_dict["_id"])

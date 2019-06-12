@@ -16,14 +16,17 @@ import {
   getDocumentsByUser,
   updateFPInstructions,
   getFPByID,
-  updateFieldPartnerStatus
+  updateFieldPartnerStatus,
+  updateFieldPartnerDueDate
 } from '../utils/ApiWrapper'
 
 import search from '../media/search.png'
 
 import '../styles/selectdocuments.scss'
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -92,6 +95,7 @@ export class SelectDocumentsPage extends Component {
       available: available,
       filtered: filtered,
       fp_id: this.props.match.params.id,
+      dueDate: fp_info.due_date ? new Date(fp_info.due_date) : new Date(),
       fp_org_name: fp_info.org_name,
       instructions: fp_info.instructions
     })
@@ -178,11 +182,57 @@ export class SelectDocumentsPage extends Component {
 
     await updateFieldPartnerStatus(this.state.fp_id, 'In Process')
 
+    await updateFieldPartnerDueDate(this.state.fp_id, this.state.dueDate.getTime())
+
     this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)
   }
 
+  languages = {
+    English: {
+      select: 'Select documents',
+      search: 'Search for documents here',
+      available: 'Available',
+      selected: 'Selected',
+      setDueDate: 'Set a due date:',
+      addInstructions: 'Add additional instructions:',
+      assign: 'Assign'
+    },
+    Spanish: {
+      select: 'Select documents (Spanish)',
+      search: 'Search for documents here (Spanish)',
+      available: 'Available (Spanish)',
+      selected: 'Selected (Spanish)',
+      setDueDate: 'Set a due date: (Spanish)',
+      addInstructions: 'Add additional instructions: (Spanish)',
+      assign: 'Assign (Spanish)'
+    },
+    French: {
+      select: 'Select documents (French)',
+      search: 'Search for documents here (French)',
+      available: 'Available (French)',
+      selected: 'Selected (French)',
+      setDueDate: 'Set a due date: (French)',
+      addInstructions: 'Add additional instructions: (French)',
+      assign: 'Assign (French)'
+    },
+    Portuguese: {
+      select: 'Select documents (Portuguese)',
+      search: 'Search for documents here (Portuguese)',
+      available: 'Available (Portuguese)',
+      selected: 'Selected (Portuguese)',
+      setDueDate: 'Set a due date: (Portuguese)',
+      addInstructions: 'Add additional instructions: (Portuguese)',
+      assign: 'Assign (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <div className="background-wave-blue maxheight">
         <Navbar />
@@ -201,7 +251,7 @@ export class SelectDocumentsPage extends Component {
         </div>
 
         <div className="pageSD margin-top-sm">
-          <h1>Select Documents</h1>
+          <h1>{text.select}</h1>
 
           <form onSubmit={this.handleSubmit}>
             <img src={search} width="18" alt="Search icon" />
@@ -209,7 +259,7 @@ export class SelectDocumentsPage extends Component {
               className="input-master"
               type="text"
               value={this.state.query}
-              placeholder="Search For Documents Here"
+              placeholder={text.search}
               onChange={this.handleQueryChange}
             />
           </form>
@@ -217,7 +267,7 @@ export class SelectDocumentsPage extends Component {
           <div className="displayView">
             <div className="displayCell blockCustom">
               <Selector
-                name="Available"
+                name={text.available}
                 documents={this.state.documentClasses.filter(
                   docClass => this.state.filtered[docClass.name]
                 )}
@@ -227,7 +277,7 @@ export class SelectDocumentsPage extends Component {
 
             <div className="blockCustom displayCell">
               <Selector
-                name="Selected"
+                name={text.selected}
                 documents={this.state.documentClasses.filter(
                   docClass => this.state.filtered[docClass.name] === false
                 )}
@@ -237,7 +287,7 @@ export class SelectDocumentsPage extends Component {
           </div>
 
           <div className="blockCustom dateDisplay">
-            Set a due date:
+            {text.setDueDate}
             <DatePicker
               selected={this.state.dueDate}
               onChange={this.newDueDate}
@@ -246,7 +296,7 @@ export class SelectDocumentsPage extends Component {
           </div>
 
           <div className="blockCustom instructionsDisplay">
-            Add additional instructions:
+            {text.addInstructions}
             <br />
             <Input
               type="textarea"
@@ -258,7 +308,7 @@ export class SelectDocumentsPage extends Component {
           </div>
 
           <button className="nextButton margin-bottom-sm" onClick={this.handleSubmit}>
-            Assign
+            {text.assign}
           </button>
         </div>
       </div>

@@ -4,7 +4,7 @@ from flask_migrate import Migrate, MigrateCommand
 from api import create_app
 from api.models import db, Document, FieldPartner, PortfolioManager, DocumentClass
 from api.views.box import create_folder, clear_box
-from datetime import datetime
+import time
 
 # sets up the app
 app = create_app()
@@ -41,11 +41,17 @@ def recreate_db():
 
     db.session.commit()
 
-    fp1_id = create_mock_fp("fp1@kiva.org", "FP 1", "In Process", pm_id)
+    date = int(time.time()) * 1000
 
-    fp2_id = create_mock_fp("fp2@kiva.org", "FP 2", "New Partner", pm_id)
+    fp1_id = create_mock_fp(
+        "fp1@kiva.org", "FP 1", "In Process", pm_id, date + 30000000
+    )
 
-    fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id)
+    fp2_id = create_mock_fp(
+        "fp2@kiva.org", "FP 2", "New Partner", pm_id, date + 3000000
+    )
+
+    fp3_id = create_mock_fp("fp3@kiva.org", "FP 3", "Complete", pm_id, date + 10000000)
 
     db.session.commit()
 
@@ -188,7 +194,7 @@ def create_mock_pm(email, name):
     return pm.id
 
 
-def create_mock_fp(email, org_name, app_status, pm_id):
+def create_mock_fp(email, org_name, app_status, pm_id, due_date):
     folder_id = create_folder(org_name, PortfolioManager.query.get(pm_id).folder_id)
     fp = FieldPartner(
         {
@@ -197,6 +203,7 @@ def create_mock_fp(email, org_name, app_status, pm_id):
             "app_status": app_status,
             "pm_id": pm_id,
             "folder_id": folder_id,
+            "due_date": due_date,
         }
     )
     db.session.add(fp)
@@ -212,7 +219,10 @@ def create_mock_docclass(docclass_name, docclass_description=None):
 
 
 def create_mock_document(data):
-    data["folderID"] = create_folder(DocumentClass.query.get(data["docClassID"]).name, FieldPartner.query.get(data["userID"]).folder_id)
+    data["folderID"] = create_folder(
+        DocumentClass.query.get(data["docClassID"]).name,
+        FieldPartner.query.get(data["userID"]).folder_id,
+    )
     d = Document(data)
 
     db.session.add(d)

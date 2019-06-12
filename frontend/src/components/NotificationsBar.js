@@ -14,7 +14,8 @@ import '../styles/notifbar.scss'
 
 const mapStateToProps = state => ({
   allMessages: state.user.messages,
-  instructions: state.user.instructions
+  instructions: state.user.instructions,
+  language: state.user.language
 })
 
 const mapDispatchToProps = dispatch => {
@@ -46,22 +47,34 @@ export class NotificationsBar extends Component {
     this.props.closeFunc(open)
   }
 
+  languages = {
+    English: {
+      activity: 'Activity',
+      instructions: 'Instructions'
+    }
+  }
+
   render() {
     const allMessages = this.props.allMessages
     const instructions = this.props.instructions
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <Tabs className="notifications-tabs">
         <TabList>
           <Tab className="tab">
-            <span className="tab-font">Activity</span>
+            <span className="tab-font">{text.activity}</span>
           </Tab>
           {this.props.inDashboard ? (
             <Tab className="tab">
-              <span className="tab-font">Instructions</span>
+              <span className="tab-font">{text.instructions}</span>
             </Tab>
           ) : null}
           <Button
-            id="sidebar-close-button"
+            id={this.props.inDashboard ? 'sidebar-close-button' : 'pm-sidebar-close'}
             color="transparent"
             onClick={() => {
               this.closeSidebar(false)
@@ -88,7 +101,7 @@ export class NotificationsBar extends Component {
         {this.props.inDashboard ? (
           <TabPanel>
             <div className="instruction">
-              <b>Instructions</b>
+              <b>{text.instructions}</b>
               <p>{instructions}</p>
             </div>
           </TabPanel>

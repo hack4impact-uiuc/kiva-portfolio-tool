@@ -75,8 +75,6 @@ router.post(
       await sendMail(body);
       sendResponse(res, 200, "Sent password reset PIN to user if they exist");
     } else {
-      console.log(user.answer);
-      console.log(req.body.answer);
       sendResponse(res, 400, "Answer to security question doesn't match");
     }
   })

@@ -29,7 +29,8 @@ const mapStateToProps = state => ({
   isPM: state.user.isPM,
   documents: state.user.documents,
   messages: state.user.messages,
-  information: state.user.information
+  information: state.user.information,
+  language: state.user.language
 })
 
 const mapDispatchToProps = dispatch => {
@@ -82,8 +83,17 @@ export class Dashboard extends Component {
      * Contains all information received from backend
      */
     const fp = await getFPByID(this.props.match.params.id)
-    const instructionsReceived = fp ? fp.instructions : null
-    this.setState({ pm_id: fp.pm_id })
+
+    const instructionsReceived = fp ? fp.instructionsReceived : null
+
+    // Processing the date to a readable string
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }
+    let due_date = new Date(fp.due_date).toLocaleDateString('en-US', options)
+
+    this.setState({
+      pm_id: fp ? fp.pm_id : null,
+      dueDate: due_date
+    })
 
     if (documentsReceived) {
       this.props.updateDocuments(documentsReceived)
@@ -119,26 +129,55 @@ export class Dashboard extends Component {
     margin: 'auto'
   }
 
+  languages = {
+    English: {
+      dueDate: 'Due date: ',
+      update: 'Update requirements/instructions',
+      finish: 'Finish process'
+    },
+    Spanish: {
+      dueDate: 'Due date: (Spanish)',
+      update: 'Update requirements/instructions (Spanish)',
+      finish: 'Finish process (Spanish)'
+    },
+    French: {
+      dueDate: 'Due date: (French)',
+      update: 'Update requirements/instructions (French)',
+      finish: 'Finish process (French)'
+    },
+    Portuguese: {
+      dueDate: 'Due date: (Portuguese)',
+      update: 'Update requirements/instructions (Portuguese)',
+      finish: 'Finish process (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <div className="background-rectangles maxheight">
         <NavBar inDashboard />
-        <Container id="dashboard-container">
+        <Container className="text-centered" id="dashboard-container">
+          <h1>{text.dueDate + this.state.dueDate}</h1>
           {this.props.isPM ? (
             <Row>
-              <Col className="text-centered" md="12">
+              <Col md="12">
                 <Button
                   className="add-doc-text"
                   color="transparent"
                   onClick={() => this.props.history.push('/setup/' + this.props.match.params.id)}
                 >
                   <img className="addImg" src={add} alt="Add icon" />
-                  <span className="add-doc-text">Update requirements/instructions</span>
+                  <span className="add-doc-text">{text.update}</span>
                 </Button>
               </Col>
-              <Col className="text-centered" md="12">
+              <Col md="12">
                 <Button color="success" onClick={this.handleFinish}>
-                  Finish Process
+                  {text.finish}
                 </Button>
               </Col>
             </Row>

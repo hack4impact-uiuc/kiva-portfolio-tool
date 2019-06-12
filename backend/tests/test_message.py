@@ -25,6 +25,7 @@ def create_fp(email, org_name, helper_portfolio_manager, app_status):
             "org_name": org_name,
             "pm_id": helper_portfolio_manager.id,
             "app_status": app_status,
+            "due_date": 1559354885979,
         }
     )
     db.session.add(temp_field_partner)

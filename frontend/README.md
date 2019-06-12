@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Docker
+
+To run it locally at port 3000. You can run it on any other port by changing the port number after the colon.
+```
+docker build . -t kiva-frontend
+docker run -p 80:3000 kiva-frontend
+```
+To run in background, add a `-d` in the `docker run` command.
+
 ## Available Scripts
 
 In the project directory, you can run:

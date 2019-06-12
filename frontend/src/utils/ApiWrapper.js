@@ -108,7 +108,6 @@ export const verify = () => {
       }
     })
     .then(response => {
-      console.log(response)
       return {
         type: 'REGISTER_SUCCESS',
         response
@@ -587,6 +586,41 @@ export const updateFPInstructions = (id, instructions) => {
   let requestString = BACKEND_URL + '/field_partner/' + id
   let data = new FormData()
   data.append('instructions', instructions)
+  return axios
+    .put(requestString, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        token: getCookieFromBrowser('token')
+      }
+    })
+    .then(response => {
+      return {
+        type: 'UPDATE_FP_SUCCESS',
+        response
+      }
+    })
+    .catch(error => {
+      return {
+        type: 'UPDATE_FP_FAIL',
+        error
+      }
+    })
+}
+
+export const updateFieldPartnerDueDate = (id, dueDate) => {
+  /**
+   * Given
+   * FP id
+   * dueDate
+   *
+   * Updates the field partners due date
+   *
+   * Returns UPDATE_FP_SUCCESS upon success
+   * Returns UPDATE_FP_FAIL upon failure
+   */
+  let requestString = BACKEND_URL + '/field_partner/' + id
+  let data = new FormData()
+  data.append('due_date', dueDate)
   return axios
     .put(requestString, data, {
       headers: {

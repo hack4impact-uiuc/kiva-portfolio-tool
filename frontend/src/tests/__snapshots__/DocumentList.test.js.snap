@@ -14,14 +14,14 @@ exports[`DocumentList renders correctly when there are no documents 1`] = `
         className="background-null text-white"
         colSpan="3"
       >
-        undefined Documents
+        undefined documents
       </th>
     </tr>
     <tr>
       <th
         className="text-centered"
       >
-        Document Name
+        Document name
       </th>
       <th
         className="text-centered"
@@ -48,14 +48,14 @@ exports[`DocumentList renders correctly with documents 1`] = `
         className="background-null text-white"
         colSpan="3"
       >
-        undefined Documents
+        undefined documents
       </th>
     </tr>
     <tr>
       <th
         className="text-centered"
       >
-        Document Name
+        Document name
       </th>
       <th
         className="text-centered"

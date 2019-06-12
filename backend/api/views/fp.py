@@ -17,6 +17,7 @@ def get_field_partner():
     kwargs["email"] = request.args.get("email")
     kwargs["org_name"] = request.args.get("org_name")
     kwargs["pm_id"] = request.args.get("pm_id")
+    kwargs["due_date"] = request.args.get("due_date")
     kwargs["app_status"] = request.args.get("app_status")
     kwargs["instructions"] = request.args.get("instructions")
 
@@ -47,8 +48,7 @@ def get_fp_by_id(id):
 @fp.route("/field_partners", methods=["POST"])
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
-    data = request.form
-
+    data = request.form.to_dict()
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
 
@@ -69,6 +69,9 @@ def new_fp():
     fp_folder_id = create_folder(data["org_name"], pm_folder_id)["id"]
     data["folder_id"] = fp_folder_id
 
+    if "due_date" not in data:
+        # set it to an invalid date at first because you create the FP and then set the due date
+        data["due_date"] = -1
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
 
@@ -102,6 +105,9 @@ def update_app_status(id):
 
     if "pm_id" in data:
         fp.pm_id = data.get("pm_id")
+
+    if "due_date" in data:
+        fp.due_date = data.get("due_date")
 
     ret = fp.to_dict()
 

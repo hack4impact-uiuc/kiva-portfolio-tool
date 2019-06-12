@@ -37,7 +37,9 @@ import add from '../media/add.png'
 import '../styles/partnerbar.scss'
 import '../styles/documentclasspage.scss'
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  language: state.user.language
+})
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -222,30 +224,114 @@ export class PMMainPage extends Component {
     this.props.history.push('/setup/' + id)
   }
 
+  languages = {
+    English: {
+      addFP: 'Add new field partner',
+      orgName: 'Organization name:',
+      enterOrgName: "Enter the field partner's organization name here...",
+      email: 'Email:',
+      enterEmail: "Enter the field partner's email here...",
+      create: 'Create',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner.',
+      exit: 'Exit',
+      view: 'View dashboard',
+      restart: 'Restart process',
+      add: 'Add new',
+      inProcess: 'In process',
+      newPartner: 'New partner',
+      complete: 'Complete',
+      search: 'Search for a field partner...',
+      fieldPartners: 'Field Partners'
+    },
+    Spanish: {
+      addFP: 'Add new field partner (Spanish)',
+      orgName: 'Organization name: (Spanish)',
+      enterOrgName: "Enter the field partner's organization name here... (Spanish)",
+      email: 'Email: (Spanish)',
+      enterEmail: "Enter the field partner's email here... (Spanish)",
+      create: 'Create (Spanish)',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (Spanish)',
+      exit: 'Exit (Spanish)',
+      view: 'View dashboard (Spanish)',
+      restart: 'Restart process (Spanish)',
+      add: 'Add new (Spanish)',
+      inProcess: 'In process (Spanish)',
+      newPartner: 'New partner (Spanish)',
+      complete: 'Complete (Spanish)',
+      search: 'Search for a field partner... (Spanish)',
+      fieldPartners: 'Field Partners (Spanish)'
+    },
+    French: {
+      addFP: 'Add new field partner (French)',
+      orgName: 'Organization name: (French)',
+      enterOrgName: "Enter the field partner's organization name here... (French)",
+      email: 'Email: (French)',
+      enterEmail: "Enter the field partner's email here... (French)",
+      create: 'Create (French)',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (French)',
+      exit: 'Exit (French)',
+      view: 'View dashboard (French)',
+      restart: 'Restart process (French)',
+      add: 'Add new (French)',
+      inProcess: 'In process (French)',
+      newPartner: 'New partner (French)',
+      complete: 'Complete (French)',
+      search: 'Search for a field partner... (French)',
+      fieldPartners: 'Field Partners (French)'
+    },
+    Portuguese: {
+      addFP: 'Add new field partner (Portuguese)',
+      orgName: 'Organization name: (Portuguese)',
+      enterOrgName: "Enter the field partner's organization name here... (Portuguese)",
+      email: 'Email: (Portuguese)',
+      enterEmail: "Enter the field partner's email here... (Portuguese)",
+      create: 'Create (Portuguese)',
+      confirm:
+        'Are you sure you want to restart the process? This will delete all documents associated with this field partner. (Portuguese)',
+      exit: 'Exit (Portuguese)',
+      view: 'View dashboard (Portuguese)',
+      restart: 'Restart process (Portuguese)',
+      add: 'Add new (Portuguese)',
+      inProcess: 'In process (Portuguese)',
+      newPartner: 'New partner (Portuguese)',
+      complete: 'Complete (Portuguese)',
+      search: 'Search for a field partner... (Portuguese)',
+      fieldPartners: 'Field Partners (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     return (
       <div className="page background-circles-green maxheight">
         <Navbar />
         <Modal isOpen={this.state.newModal} toggle={this.newToggle}>
-          <ModalHeader>Add New Field Partner</ModalHeader>
+          <ModalHeader>{text.addFP}</ModalHeader>
           <ModalBody>
             <form onSubmit={this.handleNewFP}>
-              <label className="margin-top-sm">Organization Name:</label>
+              <label className="margin-top-sm">{text.orgName}</label>
               <input
                 className="modal-input-master"
                 type="text"
                 value={this.state.name}
                 size="50"
-                placeholder="Enter the Field Partner's organization name here..."
+                placeholder={text.enterOrgName}
                 onChange={this.handleNameChange}
               />
-              <label className="margin-top-sm">Email:</label>
+              <label className="margin-top-sm">{text.email}</label>
               <input
                 className="modal-input-master"
                 type="text"
                 value={this.state.email}
                 size="50"
-                placeholder="Enter the Field Partner's email here..."
+                placeholder={text.enterEmail}
                 onChange={this.handleEmailChange}
               />
             </form>
@@ -253,7 +339,7 @@ export class PMMainPage extends Component {
           <ModalFooter>
             <Button onClick={this.newToggle}>Exit</Button>
             <Button onClick={this.handleNewFP} color="success ">
-              Create
+              {text.create}
             </Button>
           </ModalFooter>
         </Modal>
@@ -267,17 +353,14 @@ export class PMMainPage extends Component {
           </Modal>
         ) : null}
         <Modal isOpen={this.state.completeModal} toggle={this.completeToggle}>
-          <ModalHeader>
-            Are you sure you want to restart the process? This will delete all documents associated
-            with this field partner.
-          </ModalHeader>
+          <ModalHeader>{text.confirm}</ModalHeader>
           <ModalFooter>
-            <Button onClick={this.completeToggle}>Exit</Button>
+            <Button onClick={this.completeToggle}>{text.exit}</Button>
             <Button onClick={this.handleClickComplete} color="primary">
-              View dashboard
+              {text.view}
             </Button>
             <Button onClick={this.handleClickCompleteRestart} color="success">
-              Restart Process
+              {text.restart}
             </Button>
           </ModalFooter>
         </Modal>
@@ -288,19 +371,19 @@ export class PMMainPage extends Component {
               <Col className="text-centered sidebar-background" sm="12" md="2">
                 <Button className="add-doc-text" id="new-fp-button" onClick={this.newToggle}>
                   <img className="addImg" src={add} alt="Add icon" />
-                  <span>Add New</span>
+                  <span>{text.add}</span>
                 </Button>
                 <TabList className="react-tabs__tab-list">
-                  <Tab>In Process</Tab>
-                  <Tab>New Partner</Tab>
-                  <Tab>Complete</Tab>
+                  <Tab>{text.inProcess}</Tab>
+                  <Tab>{text.newPartner}</Tab>
+                  <Tab>{text.complete}</Tab>
                 </TabList>
               </Col>
 
               <Col className="fp-background" sm="12" md="10">
                 <Row className="text-centered">
                   <Col md="12">
-                    <h2 className="margin-top-sm">Field Partners</h2>
+                    <h2 className="margin-top-sm">{text.fieldPartners}</h2>
                     <form onSubmit={this.handleSubmit}>
                       <img src={search} width="23" alt="Search icon" />
                       <span>
@@ -308,7 +391,7 @@ export class PMMainPage extends Component {
                           className="input-master margin-bottom-xs margin-top-xs"
                           type="text"
                           value={this.state.query}
-                          placeholder="Search for a Field Partner..."
+                          placeholder={text.search}
                           onChange={this.handleQueryChange}
                         />
                       </span>
@@ -323,7 +406,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'In Process')
                         .map(partner => {
                           return (
-                            <Col md="6">
+                            <Col md="6" className="panel-tabletbreak">
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -343,7 +426,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'New Partner')
                         .map(partner => {
                           return (
-                            <Col md="6">
+                            <Col md="6" className="panel-tabletbreak">
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -363,7 +446,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'Complete')
                         .map(partner => {
                           return (
-                            <Col md="6">
+                            <Col md="6" className="panel-tabletbreak">
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -398,6 +481,18 @@ class PartnerBar extends Component {
     const partner = this.props.partner
     const documents = partner.documents
 
+    const dueDate = new Date(partner.due_date)
+    let displayDate =
+      dueDate.getMonth() +
+      1 +
+      '/' +
+      dueDate.getDate() +
+      '/' +
+      dueDate
+        .getFullYear()
+        .toString()
+        .substring(2)
+
     let approved = 0
     let pending = 0
     let rejected = 0
@@ -430,7 +525,7 @@ class PartnerBar extends Component {
       <div className="partnerBox">
         <div className="duedate">
           <div className="due">Due</div>
-          {partner.duedate}
+          {displayDate}
         </div>
         <div className="partner-icon">
           <p className="partner-org-initials">{partner.org_name[0]}</p>
