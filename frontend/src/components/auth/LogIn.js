@@ -83,10 +83,24 @@ class LogIn extends Component {
 
         if (role === 'fp') {
           let fp = await getFPByEmail(this.state.email)
-          this.props.history.push('/dashboard/fp/' + fp._id)
+          if (fp) {
+            this.props.history.push('/dashboard/fp/' + fp._id)
+          } else {
+            this.setState({
+              wrongInfo: !this.state.wrongInfo,
+              errorMessage: 'Provided Field Partner does not exist!'
+            })
+          }
         } else {
           let pm = await getPMByEmail(this.state.email)
-          this.props.history.push('/overview/' + pm._id)
+          if (pm) {
+            this.props.history.push('/overview/' + pm._id)
+          } else {
+            this.setState({
+              wrongInfo: !this.state.wrongInfo,
+              errorMessage: 'Provided Portfolio Manager does not exist!'
+            })
+          }
         }
       }
     }
