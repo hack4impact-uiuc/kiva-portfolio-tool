@@ -41,7 +41,7 @@ const withAuth = WrappedComponent => {
           ) : (
             <div>
               <p>You are not authenticated.</p>
-              <a href='/'>Back to login</a>
+              <a href="/">Back to login</a>
             </div>
           )}
         </div>
