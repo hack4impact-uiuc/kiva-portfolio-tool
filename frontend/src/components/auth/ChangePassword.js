@@ -63,7 +63,7 @@ class ChangePassword extends Component {
           <BackgroundSlideshow images={[b1, b3, b4, b5, b6]} animationDelay={5000} />
         </div>
         <Row>
-          <div className="foreground">
+          <div className="foreground text-centered">
             <Card className="interview-card">
               <CardTitle>
                 <div className="text-centered" id="login-kiva-logo">
