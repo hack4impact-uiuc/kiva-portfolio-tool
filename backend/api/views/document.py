@@ -75,9 +75,7 @@ def update_document(id):
             delete_file(doc.fileID)
         fileName = data.get("fileName")
         file = request.files.get("file")
-        file_info = upload_file(
-            file, fileName, FieldPartner.query.get(doc.userID).folder_id
-        )
+        file_info = upload_file(file, fileName, doc.folderID)
         doc.fileID = file_info["file"].id
         doc.link = file_info["link"]
         doc.fileName = fileName

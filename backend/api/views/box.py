@@ -165,12 +165,11 @@ def upload_file(file, file_name, folder_id="0"):
     ### Return the id of the file if successful
     ### Return None if otherwise
     """
-
     stream = BytesIO()
     stream.write(file.read())
     stream.seek(0)
     try:
-        box_file = client.folder(str(folder_id)).upload_stream(
+        box_file = client.folder(folder_id).upload_stream(
             stream, file_name, preflight_check=True
         )
 
@@ -288,4 +287,4 @@ def create_folder(name, folder_id="0"):
     """
     creates a folder
     """
-    return client.folder(str(folder_id)).create_subfolder(str(name)).id
+    return client.folder(folder_id).create_subfolder(str(name)).id
