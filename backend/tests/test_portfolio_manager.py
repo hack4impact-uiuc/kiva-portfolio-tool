@@ -140,7 +140,7 @@ def test_new_pm(client):
         data={"email": "angad", "name": name},
         headers=headers,
     )
-    print(rs)
+
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True

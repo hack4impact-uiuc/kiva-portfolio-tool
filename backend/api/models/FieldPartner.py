@@ -34,7 +34,7 @@ class FieldPartner(Mixin, db.Model):
         self.instructions = ""
 
         # if no folderID provided, default to "0"
-        self.folder_id = data["folderID"] if "folderID" in data else "0"
+        self.folder_id = data["folder_id"] if "folder_id" in data else "0"
 
     def __repr__(self):
         return f"<Field Partner\nID: {self.id}\nApp Status: {self.app_status}\nEmail: {self.email}\nOrg Name: {self.org_name}\n PM ID: {self.pm_id}\n Due Date: {self.due_date}\n Instructions: {self.instructions}\n Folder ID: {self.folder_id}\n>"

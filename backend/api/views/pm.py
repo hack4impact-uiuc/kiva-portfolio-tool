@@ -15,7 +15,6 @@ def get_portfolio_manager():
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
-    print(message, info)
     if message != None:
         return create_response(status=400, message=message)
     if info == "fp":

@@ -20,7 +20,6 @@ class Document(Mixin, db.Model):
         db.String, db.ForeignKey("document_class.id"), nullable=False
     )
     fileName = db.Column(db.String, unique=False, nullable=True)
-    description = db.Column(db.String, unique=False, nullable=True)
     link = db.Column(db.String, unique=False, nullable=True)
     folderID = db.Column(db.String)
 
