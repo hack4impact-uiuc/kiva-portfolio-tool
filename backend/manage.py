@@ -3,6 +3,7 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from api import create_app
 from api.models import db, Document, FieldPartner, PortfolioManager, DocumentClass
+from api.views.box import create_folder, clear_box
 import time
 
 # sets up the app
@@ -34,6 +35,7 @@ def recreate_db():
     """
     db.drop_all()
     db.create_all()
+    clear_box()
 
     pm_id = create_mock_pm("kivaportfolio@gmail.com", "PM")
 
@@ -186,18 +188,21 @@ def recreate_db():
 
 
 def create_mock_pm(email, name):
-    pm = PortfolioManager({"email": email, "name": name})
+    folder_id = create_folder(name)
+    pm = PortfolioManager({"email": email, "name": name, "folder_id": folder_id})
     db.session.add(pm)
     return pm.id
 
 
 def create_mock_fp(email, org_name, app_status, pm_id, due_date):
+    folder_id = create_folder(org_name, PortfolioManager.query.get(pm_id).folder_id)
     fp = FieldPartner(
         {
             "email": email,
             "org_name": org_name,
             "app_status": app_status,
             "pm_id": pm_id,
+            "folder_id": folder_id,
             "due_date": due_date,
         }
     )
@@ -214,6 +219,10 @@ def create_mock_docclass(docclass_name, docclass_description=None):
 
 
 def create_mock_document(data):
+    data["folderID"] = create_folder(
+        DocumentClass.query.get(data["docClassID"]).name,
+        FieldPartner.query.get(data["userID"]).folder_id,
+    )
     d = Document(data)
 
     db.session.add(d)

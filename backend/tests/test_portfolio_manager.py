@@ -1,5 +1,5 @@
 from api.models import db, PortfolioManager, FieldPartner, Message
-import enum, requests, json, random, string
+import enum, requests, json, random, string, uuid
 
 BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
 
@@ -94,7 +94,7 @@ def test_get_pm_by_id(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["portfolio_manager"]) == 3
+    assert len(ret_dict["result"]["portfolio_manager"]) == 4
     assert ret_dict["result"]["portfolio_manager"]["email"] == "hello"
     assert ret_dict["result"]["portfolio_manager"]["name"] == "Tim"
 
@@ -132,19 +132,22 @@ def test_new_pm(client):
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == False
 
+    name = str(uuid.uuid4())
+
     rs = client.post(
         "/portfolio_managers",
         content_type="multipart/form-data",
-        data={"email": "angad", "name": "royuwu"},
+        data={"email": "angad", "name": name},
         headers=headers,
     )
+
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
     assert ret_dict["success"] == True
 
-    assert len(ret_dict["result"]["portfolio_manager"]) == 3
+    assert len(ret_dict["result"]["portfolio_manager"]) == 4
     assert ret_dict["result"]["portfolio_manager"]["email"] == "angad"
-    assert ret_dict["result"]["portfolio_manager"]["name"] == "royuwu"
+    assert ret_dict["result"]["portfolio_manager"]["name"] == name
 
     # Tests for if not all fields are provided
     rs = client.post(

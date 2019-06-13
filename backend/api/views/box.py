@@ -159,18 +159,17 @@ def upload_file_redirect():
 """
 
 
-def upload_file(file, file_name):
+def upload_file(file, file_name, folder_id="0"):
     """
     Upload the file with the given content and file.
     ### Return the id of the file if successful
     ### Return None if otherwise
     """
-
     stream = BytesIO()
     stream.write(file.read())
     stream.seek(0)
     try:
-        box_file = client.folder("0").upload_stream(
+        box_file = client.folder(folder_id).upload_stream(
             stream, file_name, preflight_check=True
         )
 
@@ -183,6 +182,18 @@ def upload_file(file, file_name):
         return {"file": box_file, "link": embed_link}
     except BoxAPIException:
         return None
+
+
+def delete_file(id):
+    """
+    deletes file with the given id
+    returns True on success and False on failure
+    """
+    try:
+        client.file(file_id=str(id)).delete()
+        return True
+    except BoxAPIException:
+        return False
 
 
 def get_file_info(client, file_id):
@@ -261,3 +272,19 @@ def find_files_by_content(content_query):
         output.append(i)
 
     return output
+
+
+def clear_box():
+    items = client.folder(folder_id="0").get_items()
+    for item in items:
+        if item["type"] == "folder":
+            client.folder(folder_id=(item["id"])).delete()
+        else:
+            client.file(file_id=item["id"]).delete()
+
+
+def create_folder(name, folder_id="0"):
+    """
+    creates a folder
+    """
+    return client.folder(folder_id).create_subfolder(str(name)).id
