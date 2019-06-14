@@ -140,7 +140,7 @@ export class DocumentPreview extends Component {
           <div className="maxheight">
             <Iframe
               className="iframe-relative maxheight"
-              url={this.state.fileURL}
+              url={this.props.match ? this.props.location.state.link : this.props.document.link}
               allowFullScreen
             />
             <div id="review-fullscreen">
