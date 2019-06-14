@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import { verify } from '../../utils/ApiWrapper'
 import { setCookie } from '../../utils/cookie'
 
@@ -18,7 +19,6 @@ const withAuth = WrappedComponent => {
 
     async componentDidMount() {
       const verifyResponse = await verify()
-      console.log(verifyResponse)
       if (verifyResponse.error) {
         return
       }
@@ -32,6 +32,7 @@ const withAuth = WrappedComponent => {
         this.props.history.push('/register')
       }
     }
+
     render() {
       return (
         <div>
@@ -39,7 +40,8 @@ const withAuth = WrappedComponent => {
             <WrappedComponent {...this.props} verified={this.state.verified} />
           ) : (
             <div>
-              <p> You are not authenticated </p>
+              <p>You are not authenticated.</p>
+              <a href="/">Back to login</a>
             </div>
           )}
         </div>

@@ -13,8 +13,8 @@ Client Example: https://github.com/hack4impact-uiuc/infra-authentication-client
 # To Run Locally
 
 ```
-yarn
-yarn start
+yarn (or npm install)
+yarn start (or npm start)
 ```
 
 # Deployment

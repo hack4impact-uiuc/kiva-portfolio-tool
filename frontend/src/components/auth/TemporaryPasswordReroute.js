@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import { login, verify, getFPByEmail, getPMByEmail } from '../../utils/ApiWrapper'
+import { login, verify } from '../../utils/ApiWrapper'
 import { Form, Button, FormGroup, Input, Card, CardBody } from 'reactstrap'
 import { setCookie } from '../../utils/cookie'
 import React, { Component } from 'react'

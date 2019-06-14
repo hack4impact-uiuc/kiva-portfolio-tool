@@ -6,7 +6,8 @@ import { connect } from 'react-redux'
 import '../styles/load.scss'
 
 const mapStateToProps = state => ({
-  loading: state.user.loading
+  loading: state.user.loading,
+  language: state.user.langgage
 })
 
 /**
@@ -14,11 +15,31 @@ const mapStateToProps = state => ({
  * for anything to load from the database
  */
 class Load extends Component {
+  languages = {
+    English: {
+      loading: 'Loading'
+    },
+    Spanish: {
+      loading: 'Loading (Spanish)'
+    },
+    French: {
+      loading: 'Loading (French)'
+    },
+    Portuguese: {
+      loading: 'Loading (Portuguese)'
+    }
+  }
+
   render() {
+    let text = this.languages[this.props.language]
+    if (!text) {
+      text = this.languages['English']
+    }
+
     if (this.props.loading) {
       return (
         <div className="load" style={{ paddingTop: '15%' }}>
-          <h1>Loading</h1>
+          <h1>{text.loading}</h1>
           <Loader type="Puff" color="#4FAF4E" height="10%" width="10%" />
         </div>
       )

@@ -1,6 +1,7 @@
 from flask import Blueprint, request, json
-from api.models import FieldPartner, Document, db
+from api.models import FieldPartner, Document, db, PortfolioManager
 from api.core import create_response, serialize_list, logger
+from api.views.box import create_folder
 
 import requests, json
 
@@ -47,8 +48,7 @@ def get_fp_by_id(id):
 @fp.route("/field_partners", methods=["POST"])
 def new_fp():
     """ function that is called when you visit /field_partner/new, creates a new FP """
-    data = request.form
-
+    data = request.form.to_dict()
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
 
@@ -64,10 +64,13 @@ def new_fp():
         return create_response(
             status=400, message="No application status provided for new FP"
         )
-    if "due_date" not in data:
-        data["due_date"] = ""
-        # set it to blank at first because you create the FP and then set the due date
 
+    pm_folder_id = PortfolioManager.query.get(data["pm_id"]).folder_id
+    data["folder_id"] = create_folder(data["org_name"], pm_folder_id)
+
+    if "due_date" not in data:
+        # set it to an invalid date at first because you create the FP and then set the due date
+        data["due_date"] = -1
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
 

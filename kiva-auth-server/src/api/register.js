@@ -96,7 +96,9 @@ router.post(
         subject: "New User Verification",
         text:
           "Thanks for signing up! Please enter the following PIN on the new user confirmation page: " +
-          user.pin
+          user.pin +
+          ". It is important that you keep this PIN for future use, as some actions related to your account " +
+          "will require this PIN to be entered."
       };
       try {
         await sendMail(body);

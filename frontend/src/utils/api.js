@@ -127,7 +127,6 @@ function changePassword(currentPassword, newPassword) {
 }
 
 function getUsersForRolesPage() {
-  console.log('ROLES')
   try {
     return fetch(`http://localhost:5000/roles`, {
       method: 'GET',
