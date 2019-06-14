@@ -243,7 +243,6 @@ export class DocumentListItem extends Component {
                     <img className="buttonimg" src={remove} width="23" alt="Remove icon" />
                   </Button>
                 ) : (
-                  <div>
                   <Dropzone onDrop={this.onDrop}>
                     {({ getRootProps, getInputProps }) => (
                       <section>
@@ -254,11 +253,14 @@ export class DocumentListItem extends Component {
                       </section>
                     )}
                   </Dropzone>
-                  <Button color="transparent" download={this.props.document.fileName} href={"/view/" + this.props.document.fileName + "/" + this.props.document._id}>
-                    <img className="buttonimg" src={visit} alt="Visit icon" />
-                </Button>
-                </div>
                 )}
+                <Button
+                  color="transparent"
+                  download={this.props.document.fileName}
+                  href={'/view/' + this.props.document.fileName + '/' + this.props.document._id}
+                >
+                  <img className="buttonimg" src={visit} alt="Visit icon" />
+                </Button>
               </Col>
             </Row>
           </td>
