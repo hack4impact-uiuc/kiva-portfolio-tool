@@ -891,7 +891,7 @@ export const downloadDocument = id => {
     })
 }
 
-export const updateDocumentStatus = (userID, id, status) => {
+export const updateDocumentStatus = (userID, id, status, reason) => {
   // I (Kelley) made it take the userID for notification generation
   /**
    * Given
@@ -914,7 +914,9 @@ export const updateDocumentStatus = (userID, id, status) => {
       }
     })
     .then(response => {
-      createMessage(userID, false, true, id)
+      reason
+        ? createMessage(userID, false, true, id, reason)
+        : createMessage(userID, false, true, id)
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
         response
