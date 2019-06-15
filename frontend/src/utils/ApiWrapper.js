@@ -905,7 +905,7 @@ export const updateDocumentStatus = (userID, id, status, reason) => {
    */
   var data = new FormData()
   data.append('status', status)
-
+  console.log(reason)
   return axios
     .put(BACKEND_URL + '/document/' + id, data, {
       headers: {
@@ -1073,7 +1073,7 @@ export const getMessagesByPM = pm_id => {
     })
 }
 
-export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
+export const createMessage = (user_id, is_pm_id, to_fp, document_id, reason) => {
   /*
    * user_id: either fp or pm, will be determined by is_pm_id
    * status: document status that it is being changed to
@@ -1089,6 +1089,11 @@ export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
 
   data.append('to_fp', to_fp)
   data.append('doc_id', document_id)
+
+  if (reason) {
+    console.log('hello')
+    data.append('reason', reason)
+  }
 
   return axios
     .post(requestString, data)

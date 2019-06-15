@@ -108,6 +108,12 @@ def add_message():
         f"Your Field Partner from {organization} has uploaded a document for {docclass_name}.",  # organization, document class name
     ]
 
+    if "reason" in data:
+        reason = data.get("reason")
+        contents[
+            1
+        ] = f"Your document, {docclass_name}, has been reviewed and was {status} for the following reason: {reason}."
+
     # Add the contents as a description field
     data["description"] = contents[message_type.value]
 

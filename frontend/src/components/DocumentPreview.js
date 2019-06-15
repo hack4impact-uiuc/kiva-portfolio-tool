@@ -88,7 +88,7 @@ export class DocumentPreview extends Component {
         this.props.document.userID,
         this.props.document._id,
         'Rejected',
-        this.setState.rejectReason
+        this.state.rejectReason
       )
     }
     const res = await getDocumentsByUser(this.props.document.userID)
