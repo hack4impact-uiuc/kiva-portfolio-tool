@@ -18,7 +18,6 @@ import {
 } from '../utils/ApiWrapper'
 
 import uploadImg from '../media/greyUpload.png'
-import downloadImg from '../media/downloadGrey.png'
 import visit from '../media/visit.png'
 import remove from '../media/remove.png'
 
@@ -228,7 +227,12 @@ export class DocumentListItem extends Component {
                     <Link
                       to={{
                         pathname:
-                          '/view/' + this.props.document.fileName + '/' + this.props.document._id,
+                          '/view/' +
+                          this.props.document.docClass.name +
+                          '/' +
+                          this.props.document.userID +
+                          '/' +
+                          this.props.document._id,
                         state: { link: this.props.document.link }
                       }}
                     >
