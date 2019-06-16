@@ -189,7 +189,7 @@ export class DocumentListItem extends Component {
           external={externalCloseBtn}
         >
           <ModalHeader>{this.props.document.docClass.name}</ModalHeader>
-          <ModalBody style={customStyles}>
+          <ModalBody className="docclass-modalbody">
             <p>{this.props.document.docClass.description}</p>
             <Iframe
               url={this.props.document.docClass.example}

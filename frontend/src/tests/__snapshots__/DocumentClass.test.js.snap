@@ -43,13 +43,8 @@ exports[`DocumentClass renders correctly 1`] = `
           Description:
         </span>
         <Input
-          className="textarea-input"
+          className="textarea-input textarea-height"
           onChange={[Function]}
-          style={
-            Object {
-              "height": "200px",
-            }
-          }
           type="textarea"
           value="testingaswell"
         />
