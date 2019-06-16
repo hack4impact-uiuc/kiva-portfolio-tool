@@ -179,8 +179,7 @@ export class DocumentClassPage extends Component {
               <span>{text.description}</span>
               <Input
                 type="textarea"
-                className="textarea-input"
-                style={{ height: '200px' }}
+                className="textarea-input textarea-height"
                 onChange={this.updateDescription}
               />
               <br />

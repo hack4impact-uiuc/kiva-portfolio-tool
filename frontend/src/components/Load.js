@@ -38,7 +38,10 @@ class Load extends Component {
 
     if (this.props.loading) {
       return (
-        <div className="load" style={{ paddingTop: '15%' }}>
+        <div
+          className="load"
+          style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, paddingTop: '15%' }}
+        >
           <h1>{text.loading}</h1>
           <Loader type="Puff" color="#4FAF4E" height="10%" width="10%" />
         </div>
