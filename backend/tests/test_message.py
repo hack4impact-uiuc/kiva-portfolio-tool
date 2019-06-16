@@ -241,7 +241,7 @@ def test_add_message(client):
         data={
             "pm_id": helper_portfolio_manager.id,
             "fp_id": helper_field_partner.id,
-            "to_fp": 1,
+            "to_fp": True,
             "doc_id": helper_doc.id,
         },
     )
