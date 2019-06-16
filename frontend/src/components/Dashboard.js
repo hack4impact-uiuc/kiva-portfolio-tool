@@ -83,14 +83,15 @@ export class Dashboard extends Component {
      * Contains all information received from backend
      */
     const fp = await getFPByID(this.props.match.params.id)
-    const instructionsReceived = fp.instructions
+
+    const instructionsReceived = fp ? fp.instructionsReceived : null
 
     // Processing the date to a readable string
     const options = { year: 'numeric', month: 'long', day: 'numeric' }
     let due_date = new Date(fp.due_date).toLocaleDateString('en-US', options)
 
     this.setState({
-      pm_id: fp.pm_id,
+      pm_id: fp ? fp.pm_id : null,
       dueDate: due_date
     })
 

@@ -169,7 +169,7 @@ exports[`DocumentListItem renders correctly 1`] = `
             ]
           }
         >
-          <Connect(HOC)
+          <Connect(DocumentPreview)
             document={
               Object {
                 "docClass": "Board of Directors",

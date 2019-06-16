@@ -1,8 +1,8 @@
 import React from 'react'
 import { PMMainPage } from '../components/PMMainPage'
 import Adapter from 'enzyme-adapter-react-16'
-import { shallowToJson, mountToJson } from 'enzyme-to-json'
-import { configure, shallow, mount } from 'enzyme'
+import { mountToJson } from 'enzyme-to-json'
+import { configure, shallow } from 'enzyme'
 import chai from 'chai'
 global.jestExpect = global.expect
 global.expect = chai.expect

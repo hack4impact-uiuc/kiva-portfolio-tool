@@ -56,7 +56,6 @@ class LogIn extends Component {
       result.error != null &&
       (result.error.response.status === 400 || result.error.response.status === 500)
     ) {
-      console.log(result.error.response.message)
       this.setState({
         wrongInfo: !this.state.wrongInfo,
         errorMessage: result.error.response.data.message
@@ -77,7 +76,6 @@ class LogIn extends Component {
       })
       await setCookie('token', token)
       let role = await verify()
-      console.log(role)
       if (role.error) {
         this.props.history.push('/oops')
       } else {
@@ -85,10 +83,24 @@ class LogIn extends Component {
 
         if (role === 'fp') {
           let fp = await getFPByEmail(this.state.email)
-          this.props.history.push('/dashboard/fp/' + fp._id)
+          if (fp) {
+            this.props.history.push('/dashboard/fp/' + fp._id)
+          } else {
+            this.setState({
+              wrongInfo: !this.state.wrongInfo,
+              errorMessage: 'Provided Field Partner does not exist!'
+            })
+          }
         } else {
           let pm = await getPMByEmail(this.state.email)
-          this.props.history.push('/overview/' + pm._id)
+          if (pm) {
+            this.props.history.push('/overview/' + pm._id)
+          } else {
+            this.setState({
+              wrongInfo: !this.state.wrongInfo,
+              errorMessage: 'Provided Portfolio Manager does not exist!'
+            })
+          }
         }
       }
     }

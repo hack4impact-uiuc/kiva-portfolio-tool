@@ -82,7 +82,7 @@ class ChangePassword extends Component {
     this.setState({ modal: !this.state.modal, failed: !this.state.failed })
   }
 
-  handlePassChange = async e => {
+  handleQuestionChange = async e => {
     e.preventDefault()
     const result = await updateSecurityQuestion(
       this.state.questionIdx,
@@ -100,6 +100,9 @@ class ChangePassword extends Component {
     }
 
     this.setState({ correctMessage: 'Security Question has been changed!' })
+
+    // continue walking through registration flow
+    this.props.history.push('/')
   }
 
   render() {
@@ -176,7 +179,7 @@ class ChangePassword extends Component {
                     <Button
                       color="success"
                       size="lg"
-                      onClick={this.handlePassChange}
+                      onClick={this.handleQuestionChange}
                       className="left left-margin-lg securitybtn"
                     >
                       Change Question

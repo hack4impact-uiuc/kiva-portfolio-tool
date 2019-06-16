@@ -20,8 +20,8 @@ class Document(Mixin, db.Model):
         db.String, db.ForeignKey("document_class.id"), nullable=False
     )
     fileName = db.Column(db.String, unique=False, nullable=True)
-    description = db.Column(db.String, unique=False, nullable=True)
     link = db.Column(db.String, unique=False, nullable=True)
+    folderID = db.Column(db.String)
 
     # use dictionary to load params to avoid weird issue with values being placed in lists
     def __init__(self, data):
@@ -32,6 +32,9 @@ class Document(Mixin, db.Model):
         self.status = data["status"]
         self.docClassID = data["docClassID"]
 
+        # if no folderID provided, default to "0"
+        self.folderID = data["folderID"] if "folderID" in data else "0"
+
         # optional fields checked manually
         if "fileID" in data:
             self.fileID = data["fileID"]
@@ -41,7 +44,7 @@ class Document(Mixin, db.Model):
             self.link = data["link"]
 
     def __repr__(self):
-        return f"<ID: {self.id}>\n <FileID: {self.fileID}>\n <userID: {self.userID}>\n <date: {self.date}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n <latest {self.latest}>\n <description: {self.description}>\n <link: {self.link}>\n"
+        return f"<ID: {self.id}>\n <FileID: {self.fileID}>\n <userID: {self.userID}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n  <link: {self.link}>\n <folderID: {self.folderID}>\n"
 
     def get_docclass_id(self):
         return self.docClassID

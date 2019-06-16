@@ -38,75 +38,6 @@ client = Client(sdk)
 SPACE = 1073741824
 
 
-@box.route("/box/token", methods=["GET"])
-def get_access_token():
-    token = request.headers.get("token")
-    message, info = verify_token(token)
-
-    # if message != None:
-    #    return create_response(status=400, message=message)
-
-    config = json.load(open("api/views/171399529_b8tan54x_config.json"))
-
-    keyId = config["boxAppSettings"]["appAuth"]["publicKeyID"]
-
-    appAuth = config["boxAppSettings"]["appAuth"]
-    privateKey = appAuth["privateKey"]
-    passphrase = appAuth["passphrase"]
-
-    # To decrypt the private key we use the cryptography library
-    key = load_pem_private_key(
-        data=privateKey.encode("utf8"),
-        password=passphrase.encode("utf8"),
-        backend=default_backend(),
-    )
-
-    authentication_url = "https://api.box.com/oauth2/token"
-
-    claims = {
-        "iss": config["boxAppSettings"]["clientID"],
-        "sub": config["enterpriseID"],
-        "box_sub_type": "enterprise",
-        "aud": authentication_url,
-        # This is an identifier that helps protect against
-        # replay attacks
-        "jti": secrets.token_hex(64),
-        # We give the assertion a lifetime of 45 seconds
-        # before it expires
-        "exp": round(time.time()) + 45,
-    }
-
-    # Rather than constructing the JWT assertion manually, we are
-    # using the pyjwt library.
-    assertion = jwt.encode(
-        claims,
-        key,
-        # The API support "RS256", "RS384", and "RS512" encryption
-        algorithm="RS512",
-        headers={"kid": keyId},
-    )
-
-    params = urlencode(
-        {
-            # This specifies that we are using a JWT assertion
-            # to authenticate
-            "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
-            # Our JWT assertion
-            "assertion": assertion,
-            # The OAuth 2 client ID and secret
-            "client_id": config["boxAppSettings"]["clientID"],
-            "client_secret": config["boxAppSettings"]["clientSecret"],
-        }
-    ).encode()
-
-    # Make the request, parse the JSON,
-    # and extract the access token
-    check = Request(authentication_url, params)
-    response = urlopen(check).read()
-    access_token = json.loads(response)["access_token"]
-    return create_response(data={"access_token": access_token})
-
-
 def create_user(username):
     user = client.create_user(username, None, space_amount=SPACE)
 
@@ -159,18 +90,17 @@ def upload_file_redirect():
 """
 
 
-def upload_file(file, file_name):
+def upload_file(file, file_name, folder_id="0"):
     """
     Upload the file with the given content and file.
     ### Return the id of the file if successful
     ### Return None if otherwise
     """
-
     stream = BytesIO()
     stream.write(file.read())
     stream.seek(0)
     try:
-        box_file = client.folder("0").upload_stream(
+        box_file = client.folder(folder_id).upload_stream(
             stream, file_name, preflight_check=True
         )
 
@@ -183,6 +113,18 @@ def upload_file(file, file_name):
         return {"file": box_file, "link": embed_link}
     except BoxAPIException:
         return None
+
+
+def delete_file(id):
+    """
+    deletes file with the given id
+    returns True on success and False on failure
+    """
+    try:
+        client.file(file_id=str(id)).delete()
+        return True
+    except BoxAPIException:
+        return False
 
 
 def get_file_info(client, file_id):
@@ -261,3 +203,19 @@ def find_files_by_content(content_query):
         output.append(i)
 
     return output
+
+
+def clear_box():
+    items = client.folder(folder_id="0").get_items()
+    for item in items:
+        if item["type"] == "folder":
+            client.folder(folder_id=(item["id"])).delete()
+        else:
+            client.file(file_id=item["id"]).delete()
+
+
+def create_folder(name, folder_id="0"):
+    """
+    creates a folder
+    """
+    return client.folder(folder_id).create_subfolder(str(name)).id

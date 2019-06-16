@@ -2,6 +2,7 @@ from flask import Blueprint, request, json
 from api.models import PortfolioManager, db
 from api.core import create_response, serialize_list, logger
 from api.views.auth import verify_token
+from api.views.box import create_folder
 
 pm = Blueprint("pm", __name__)  # initialize blueprint
 
@@ -14,7 +15,6 @@ def get_portfolio_manager():
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
-    print(message, info)
     if message != None:
         return create_response(status=400, message=message)
     if info == "fp":
@@ -68,16 +68,16 @@ def new_pm():
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
-    print(message, info)
+
     if message != None:
         return create_response(status=400, message=message)
-    print("asdf")
+
     if info == "fp":
         return create_response(
             status=400, message="You do not have permission to create new documents!"
         )
 
-    data = request.form
+    data = request.form.to_dict()
 
     if data is None:
         return create_response(status=400, message="No data provided for new FP")
@@ -87,10 +87,13 @@ def new_pm():
     if "name" not in data:
         return create_response(status=400, message="No name provided for new PM")
 
-    sample_args = request.args
+    data["folder_id"] = create_folder(data["name"])
+
     new_pm = PortfolioManager(data)
+
     pm_dict = new_pm.to_dict()
 
     db.session.add(new_pm)
     db.session.commit()
+
     return create_response(data={"portfolio_manager": pm_dict})
