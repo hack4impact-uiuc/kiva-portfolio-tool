@@ -111,12 +111,12 @@ def add_message():
     # Add the contents as a description field
     data["description"] = contents[message_type.value]
 
-    print(data["to_fp"])
     if data["to_fp"] == "true" or data["to_fp"] == "false":
         data["to_fp"] = data["to_fp"] == "true"
+    elif data["to_fp"] == "True" or data["to_fp"] == "False":
+        data["to_fp"] = data["to_fp"] == "True"
     else:
         data["to_fp"] == bool(data["to_fp"])
-    print(data["to_fp"])
 
     recipient = (
         FieldPartner.query.get(data["fp_id"])
@@ -135,16 +135,11 @@ def add_message():
     )
 
     mail.send(email)
-    print("here")
     new_message = Message(data)
-    print("here2")
     ret = new_message.to_dict()
-    print("here3")
 
     db.session.add(new_message)
-    print("here4")
     db.session.commit()
-    print("here5")
 
     return create_response(data={"message": ret})
 
