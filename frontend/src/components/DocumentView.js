@@ -14,7 +14,6 @@ import '../styles/documentpreview.scss'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
-  documents: state.user.documents,
   language: state.user.language
 })
 
@@ -108,16 +107,18 @@ export class DocumentView extends Component {
           url={this.props.location.state.link}
           allowFullScreen
         />
-        <div id="review-fullscreen">
-          <div id="button-space">
-            <Button color="success" onClick={this.handleApproveClick}>
-              {text.approve}
-            </Button>
-            <Button color="danger" onClick={this.handleRejectClick}>
-              {text.reject}
-            </Button>
+        {this.props.isPM && (
+          <div id="review-fullscreen">
+            <div id="button-space">
+              <Button color="success" onClick={this.handleApproveClick}>
+                {text.approve}
+              </Button>
+              <Button color="danger" onClick={this.handleRejectClick}>
+                {text.reject}
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }
