@@ -131,7 +131,7 @@ export class DocumentPreview extends Component {
 
   languages = {
     English: {
-      rejectInstructions: 'Please provide some reasoning as to why you rejected this document',
+      rejectInstructions: 'Please provide some reasoning as to why you rejected this document:',
       submit: 'Submit',
       approve: 'Approve',
       reject: 'Reject',
@@ -139,7 +139,7 @@ export class DocumentPreview extends Component {
     },
     Spanish: {
       rejectInstructions:
-        'Please provide some reasoning as to why you rejected this document (Spanish)',
+        'Please provide some reasoning as to why you rejected this document: (Spanish)',
       submit: 'Submit (Spanish)',
       approve: 'Approve (Spanish)',
       reject: 'Reject (Spanish)',
@@ -147,7 +147,7 @@ export class DocumentPreview extends Component {
     },
     French: {
       rejectInstructions:
-        'Please provide some reasoning as to why you rejected this document (French)',
+        'Please provide some reasoning as to why you rejected this document: (French)',
       submit: 'Submit (French)',
       approve: 'Approve (French)',
       reject: 'Reject (French)',
@@ -155,7 +155,7 @@ export class DocumentPreview extends Component {
     },
     Portuguese: {
       rejectInstructions:
-        'Please provide some reasoning as to why you rejected this document (Portuguese)',
+        'Please provide some reasoning as to why you rejected this document: (Portuguese)',
       submit: 'Submit (Portuguese)',
       approve: 'Approve (Portuguese)',
       reject: 'Reject (Portuguese)',
