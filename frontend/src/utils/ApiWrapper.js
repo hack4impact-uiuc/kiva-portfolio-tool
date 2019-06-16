@@ -905,7 +905,6 @@ export const updateDocumentStatus = (userID, id, status, reason) => {
    */
   var data = new FormData()
   data.append('status', status)
-  console.log(reason)
   return axios
     .put(BACKEND_URL + '/document/' + id, data, {
       headers: {
@@ -1091,7 +1090,6 @@ export const createMessage = (user_id, is_pm_id, to_fp, document_id, reason) => 
   data.append('doc_id', document_id)
 
   if (reason) {
-    console.log('hello')
     data.append('reason', reason)
   }
 

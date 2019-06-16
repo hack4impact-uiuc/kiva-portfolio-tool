@@ -140,7 +140,7 @@ export class DocumentPreview extends Component {
     Spanish: {
       rejectInstructions:
         'Please provide some reasoning as to why you rejected this document (Spanish)',
-      submit: 'Submit',
+      submit: 'Submit (Spanish)',
       approve: 'Approve (Spanish)',
       reject: 'Reject (Spanish)',
       close: 'Close (Spanish)'
@@ -148,7 +148,7 @@ export class DocumentPreview extends Component {
     French: {
       rejectInstructions:
         'Please provide some reasoning as to why you rejected this document (French)',
-      submit: 'Submit',
+      submit: 'Submit (French)',
       approve: 'Approve (French)',
       reject: 'Reject (French)',
       close: 'Close (French)'
@@ -156,7 +156,7 @@ export class DocumentPreview extends Component {
     Portuguese: {
       rejectInstructions:
         'Please provide some reasoning as to why you rejected this document (Portuguese)',
-      submit: 'Submit',
+      submit: 'Submit (Portuguese)',
       approve: 'Approve (Portuguese)',
       reject: 'Reject (Portuguese)',
       close: 'Close (Portuguese)'
