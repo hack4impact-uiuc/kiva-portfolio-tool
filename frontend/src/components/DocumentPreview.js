@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Iframe from 'react-iframe'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Button, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -41,10 +41,14 @@ export class DocumentPreview extends Component {
     super(props)
 
     this.state = {
-      modal: false
+      modal: false,
+      rejectModal: false,
+      accessToken: null,
+      rejectReason: ''
     }
 
     this.toggle = this.toggle.bind(this)
+    this.rejectToggle = this.rejectToggle.bind(this)
     this.handleApproveClick = this.handleApproveClick.bind(this)
     this.handleRejectClick = this.handleRejectClick.bind(this)
   }
@@ -64,8 +68,14 @@ export class DocumentPreview extends Component {
 
   async handleRejectClick() {
     this.props.beginLoading()
+    this.rejectToggle()
     this.toggle()
-    await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Rejected')
+    await updateDocumentStatus(
+      this.props.document.userID,
+      this.props.document._id,
+      'Rejected',
+      this.state.rejectReason
+    )
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
       this.props.updateDocuments(res)
@@ -81,23 +91,44 @@ export class DocumentPreview extends Component {
     }))
   }
 
+  rejectToggle() {
+    this.setState(prevState => ({
+      rejectModal: !prevState.rejectModal
+    }))
+  }
+
+  updateRejectReason = event => {
+    this.setState({ rejectReason: event.target.value })
+  }
+
   languages = {
     English: {
+      rejectInstructions: 'Please provide some reasoning as to why you rejected this document:',
+      submit: 'Submit',
       approve: 'Approve',
       reject: 'Reject',
       close: 'Close'
     },
     Spanish: {
+      rejectInstructions:
+        'Please provide some reasoning as to why you rejected this document: (Spanish)',
+      submit: 'Submit (Spanish)',
       approve: 'Approve (Spanish)',
       reject: 'Reject (Spanish)',
       close: 'Close (Spanish)'
     },
     French: {
+      rejectInstructions:
+        'Please provide some reasoning as to why you rejected this document: (French)',
+      submit: 'Submit (French)',
       approve: 'Approve (French)',
       reject: 'Reject (French)',
       close: 'Close (French)'
     },
     Portuguese: {
+      rejectInstructions:
+        'Please provide some reasoning as to why you rejected this document: (Portuguese)',
+      submit: 'Submit (Portuguese)',
       approve: 'Approve (Portuguese)',
       reject: 'Reject (Portuguese)',
       close: 'Close (Portuguese)'
@@ -113,6 +144,23 @@ export class DocumentPreview extends Component {
 
     return (
       <>
+        <Modal isOpen={this.state.rejectModal} toggle={this.rejectToggle}>
+          <ModalHeader>{text.rejectInstructions}</ModalHeader>
+          <ModalBody>
+            <Input
+              type="textarea"
+              className="textarea-input"
+              style={{ height: '200px' }}
+              onChange={this.updateRejectReason}
+              value={this.state.rejectReason}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleRejectClick}>
+              {text.submit}
+            </Button>
+          </ModalFooter>
+        </Modal>
         {this.props.document.fileName && (
           <Button color="transparent" onClick={this.toggle}>
             <img className="buttonimg" src={preview} alt="Preview icon" />
@@ -133,7 +181,7 @@ export class DocumentPreview extends Component {
                 <Button color="success" onClick={this.handleApproveClick}>
                   {text.approve}
                 </Button>
-                <Button color="danger" onClick={this.handleRejectClick}>
+                <Button color="danger" onClick={this.rejectToggle}>
                   {text.reject}
                 </Button>
               </div>

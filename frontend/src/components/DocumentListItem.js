@@ -155,11 +155,6 @@ export class DocumentListItem extends Component {
 
   render() {
     const { isPM } = this.props
-    const customStyles = {
-      height: '500px',
-      width: '500px',
-      overflow: 'scroll'
-    }
     const externalCloseBtn = (
       <button
         className="close"

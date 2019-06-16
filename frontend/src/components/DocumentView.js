@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Iframe from 'react-iframe'
-import { Button } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -32,17 +32,17 @@ export class DocumentView extends Component {
     super(props)
 
     this.state = {
-      modal: false
+      rejectModal: false,
+      rejectInstructions: ''
     }
 
-    this.toggle = this.toggle.bind(this)
+    this.rejectToggle = this.rejectToggle.bind(this)
     this.handleApproveClick = this.handleApproveClick.bind(this)
     this.handleRejectClick = this.handleRejectClick.bind(this)
   }
 
   async handleApproveClick() {
     this.props.beginLoading()
-    this.toggle()
     await updateDocumentStatus(this.props.match.params.user, this.props.match.params.id, 'Approved')
     const res = await getDocumentsByUser(this.props.match.params.user)
     if (res) {
@@ -56,8 +56,13 @@ export class DocumentView extends Component {
 
   async handleRejectClick() {
     this.props.beginLoading()
-    this.toggle()
-    await updateDocumentStatus(this.props.match.params.user, this.props.match.params.id, 'Rejected')
+    this.rejectToggle()
+    await updateDocumentStatus(
+      this.props.match.params.user,
+      this.props.match.params.id,
+      'Rejected',
+      this.state.rejectReason
+    )
     const res = await getDocumentsByUser(this.props.match.params.user)
     if (res) {
       this.props.updateDocuments(res)
@@ -68,26 +73,41 @@ export class DocumentView extends Component {
     this.props.endLoading()
   }
 
-  toggle() {
+  rejectToggle() {
     this.setState(prevState => ({
-      modal: !prevState.modal
+      rejectModal: !prevState.rejectModal
     }))
+  }
+
+  updateRejectReason = event => {
+    this.setState({ rejectReason: event.target.value })
   }
 
   languages = {
     English: {
+      rejectInstructions: 'Please provide some reasoning as to why you rejected this document:',
+      submit: 'Submit',
       approve: 'Approve',
       reject: 'Reject'
     },
     Spanish: {
+      rejectInstructions:
+        'Please provide some reasoning as to why you rejected this document: (Spanish)',
+      submit: 'Submit (Spanish)',
       approve: 'Approve (Spanish)',
       reject: 'Reject (Spanish)'
     },
     French: {
+      rejectInstructions:
+        'Please provide some reasoning as to why you rejected this document: (French)',
+      submit: 'Submit (French)',
       approve: 'Approve (French)',
       reject: 'Reject (French)'
     },
     Portuguese: {
+      rejectInstructions:
+        'Please provide some reasoning as to why you rejected this document: (Portuguese)',
+      submit: 'Submit (Portuguese)',
       approve: 'Approve (Portuguese)',
       reject: 'Reject (Portuguese)'
     }
@@ -101,6 +121,23 @@ export class DocumentView extends Component {
 
     return (
       <div className="maxheight text-centered">
+        <Modal isOpen={this.state.rejectModal} toggle={this.rejectToggle}>
+          <ModalHeader>{text.rejectInstructions}</ModalHeader>
+          <ModalBody>
+            <Input
+              type="textarea"
+              className="textarea-input"
+              style={{ height: '200px' }}
+              onChange={this.updateRejectReason}
+              value={this.state.rejectReason}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleRejectClick}>
+              {text.submit}
+            </Button>
+          </ModalFooter>
+        </Modal>
         <h1>{this.props.match.params.name}</h1>
         <Iframe
           className="iframe-relative maxheight"
@@ -113,7 +150,7 @@ export class DocumentView extends Component {
               <Button color="success" onClick={this.handleApproveClick}>
                 {text.approve}
               </Button>
-              <Button color="danger" onClick={this.handleRejectClick}>
+              <Button color="danger" onClick={this.rejectToggle}>
                 {text.reject}
               </Button>
             </div>

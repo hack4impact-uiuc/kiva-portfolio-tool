@@ -869,7 +869,7 @@ export const downloadDocument = id => {
     })
 }
 
-export const updateDocumentStatus = (userID, id, status) => {
+export const updateDocumentStatus = (userID, id, status, reason) => {
   // I (Kelley) made it take the userID for notification generation
   /**
    * Given
@@ -883,7 +883,6 @@ export const updateDocumentStatus = (userID, id, status) => {
    */
   var data = new FormData()
   data.append('status', status)
-
   return axios
     .put(BACKEND_URL + '/document/' + id, data, {
       headers: {
@@ -892,7 +891,7 @@ export const updateDocumentStatus = (userID, id, status) => {
       }
     })
     .then(response => {
-      createMessage(userID, false, true, id)
+      createMessage(userID, false, true, id, reason)
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
         response
@@ -1049,7 +1048,7 @@ export const getMessagesByPM = pm_id => {
     })
 }
 
-export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
+export const createMessage = (user_id, is_pm_id, to_fp, document_id, reason) => {
   /*
    * user_id: either fp or pm, will be determined by is_pm_id
    * status: document status that it is being changed to
@@ -1065,6 +1064,10 @@ export const createMessage = (user_id, is_pm_id, to_fp, document_id) => {
 
   data.append('to_fp', to_fp)
   data.append('doc_id', document_id)
+
+  if (reason) {
+    data.append('reason', reason)
+  }
 
   return axios
     .post(requestString, data)
