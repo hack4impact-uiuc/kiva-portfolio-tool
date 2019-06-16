@@ -1,5 +1,5 @@
 import Dashboard from './Dashboard'
-import DocumentPreview from './DocumentPreview'
+import DocumentView from './DocumentView'
 
 import SelectDocumentsPage from './SelectDocuments'
 import BoxPreview from './DocumentPreview'
@@ -26,7 +26,7 @@ export {
   PMMainPage,
   ForgotPassword,
   DocumentClassPage,
-  DocumentPreview,
+  DocumentView,
   Load,
   WrongPage,
   ErrorMessage,

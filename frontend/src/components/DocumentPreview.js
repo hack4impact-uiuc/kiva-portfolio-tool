@@ -6,8 +6,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
 
-import WithAuth from './auth/WithAuth'
-
 import { updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
 
 import preview from '../media/preview.png'
@@ -54,11 +52,7 @@ export class DocumentPreview extends Component {
   async handleApproveClick() {
     this.props.beginLoading()
     this.toggle()
-    if (this.props.match) {
-      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Approved')
-    } else {
-      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Approved')
-    }
+    await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Approved')
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
       this.props.updateDocuments(res)
@@ -71,11 +65,7 @@ export class DocumentPreview extends Component {
   async handleRejectClick() {
     this.props.beginLoading()
     this.toggle()
-    if (this.props.match) {
-      await updateDocumentStatus(this.props.document.userID, this.props.match.params.id, 'Rejected')
-    } else {
-      await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Rejected')
-    }
+    await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Rejected')
     const res = await getDocumentsByUser(this.props.document.userID)
     if (res) {
       this.props.updateDocuments(res)
@@ -123,15 +113,23 @@ export class DocumentPreview extends Component {
 
     return (
       <>
-        {this.props.location ? (
-          <div className="maxheight">
+        {this.props.document.fileName && (
+          <Button color="transparent" onClick={this.toggle}>
+            <img className="buttonimg" src={preview} alt="Preview icon" />
+          </Button>
+        )}
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          <ModalHeader>{this.props.document.fileName}</ModalHeader>
+          <ModalBody id="modal-box">
             <Iframe
-              className="iframe-relative maxheight"
-              url={this.props.match ? this.props.location.state.link : this.props.document.link}
+              className="iframe-relative iframe-modal"
+              url={this.props.document.link}
               allowFullScreen
             />
-            <div id="review-fullscreen">
-              <div id="button-space">
+          </ModalBody>
+          <ModalFooter>
+            {isPM && (
+              <div>
                 <Button color="success" onClick={this.handleApproveClick}>
                   {text.approve}
                 </Button>
@@ -139,45 +137,12 @@ export class DocumentPreview extends Component {
                   {text.reject}
                 </Button>
               </div>
-            </div>
-          </div>
-        ) : (
-          <>
-            {(this.props.match && this.props.match.params.name) ||
-              (this.props.document.fileName && (
-                <Button color="transparent" onClick={this.toggle}>
-                  <img className="buttonimg" src={preview} alt="Preview icon" />
-                </Button>
-              ))}
-            <Modal isOpen={this.state.modal} toggle={this.toggle}>
-              <ModalHeader>
-                {this.props.match ? this.props.match.params.name : this.props.document.fileName}
-              </ModalHeader>
-              <ModalBody id="modal-box">
-                <Iframe
-                  className="iframe-relative iframe-modal"
-                  url={this.props.match ? this.props.location.state.link : this.props.document.link}
-                  allowFullScreen
-                />
-              </ModalBody>
-              <ModalFooter>
-                {isPM && (
-                  <div>
-                    <Button color="success" onClick={this.handleApproveClick}>
-                      {text.approve}
-                    </Button>
-                    <Button color="danger" onClick={this.handleRejectClick}>
-                      {text.reject}
-                    </Button>
-                  </div>
-                )}
-                <Button color="secondary" onClick={this.toggle}>
-                  {text.close}
-                </Button>
-              </ModalFooter>
-            </Modal>
-          </>
-        )}
+            )}
+            <Button color="secondary" onClick={this.toggle}>
+              {text.close}
+            </Button>
+          </ModalFooter>
+        </Modal>
       </>
     )
   }
@@ -186,4 +151,4 @@ export class DocumentPreview extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WithAuth(DocumentPreview))
+)(DocumentPreview)
