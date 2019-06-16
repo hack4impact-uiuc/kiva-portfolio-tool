@@ -52,11 +52,6 @@ export class DocumentClassPreview extends Component {
   }
 
   render() {
-    const customStyles = {
-      height: '500px',
-      width: '500px',
-      overflow: 'scroll'
-    }
     const externalCloseBtn = (
       <button
         className="close"
@@ -79,7 +74,7 @@ export class DocumentClassPreview extends Component {
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} external={externalCloseBtn}>
           <ModalHeader>{this.props.documentClass.name}</ModalHeader>
-          <ModalBody style={customStyles}>
+          <ModalBody className="docclass-modalbody">
             <p>{this.props.documentClass.description}</p>
             <Iframe
               url={this.props.documentClass.example}

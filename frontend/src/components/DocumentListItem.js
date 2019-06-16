@@ -18,7 +18,6 @@ import {
 } from '../utils/ApiWrapper'
 
 import uploadImg from '../media/greyUpload.png'
-import downloadImg from '../media/downloadGrey.png'
 import visit from '../media/visit.png'
 import remove from '../media/remove.png'
 
@@ -156,11 +155,6 @@ export class DocumentListItem extends Component {
 
   render() {
     const { isPM } = this.props
-    const customStyles = {
-      height: '500px',
-      width: '500px',
-      overflow: 'scroll'
-    }
     const externalCloseBtn = (
       <button
         className="close"
@@ -190,7 +184,7 @@ export class DocumentListItem extends Component {
           external={externalCloseBtn}
         >
           <ModalHeader>{this.props.document.docClass.name}</ModalHeader>
-          <ModalBody style={customStyles}>
+          <ModalBody className="docclass-modalbody">
             <p>{this.props.document.docClass.description}</p>
             <Iframe
               url={this.props.document.docClass.example}
@@ -228,7 +222,12 @@ export class DocumentListItem extends Component {
                     <Link
                       to={{
                         pathname:
-                          '/view/' + this.props.document.fileName + '/' + this.props.document._id,
+                          '/view/' +
+                          this.props.document.docClass.name +
+                          '/' +
+                          this.props.document.userID +
+                          '/' +
+                          this.props.document._id,
                         state: { link: this.props.document.link }
                       }}
                     >

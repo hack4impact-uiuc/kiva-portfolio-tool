@@ -848,28 +848,6 @@ export const deleteDocumentsByFP = id => {
     })
 }
 
-export const getAccessToken = () => {
-  /**
-   * Returns Box Access Token on success
-   * Returns "Error: error info"
-   */
-  let requestString = BACKEND_URL + '/box/token'
-  return axios
-    .get(requestString, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        token: getCookieFromBrowser('token')
-      }
-    })
-    .then(response => {
-      return response.data.result.access_token
-    })
-    .catch(error => {
-      console.log('ERROR: ', error)
-      return null
-    })
-}
-
 export const downloadDocument = id => {
   /**
    *

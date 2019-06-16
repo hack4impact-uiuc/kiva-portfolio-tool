@@ -9,7 +9,7 @@ import {
   PMMainPage,
   SelectDocumentsPage,
   DocumentClassPage,
-  DocumentPreview,
+  DocumentView,
   Register,
   LogIn,
   ForgotPassword,
@@ -47,7 +47,7 @@ ReactDOM.render(
           <Route path="/overview/:id" component={PMMainPage} />
           <Route path="/setup/:id" component={SelectDocumentsPage} />
           <Route path="/documentclasses" component={DocumentClassPage} />
-          <Route path="/view/:name/:id" component={DocumentPreview} />
+          <Route path="/view/:name/:user/:id" component={DocumentView} />
           <Route path="/oops" component={WrongPage} />
           <Route path="*" component={ErrorMessage} />
         </Switch>

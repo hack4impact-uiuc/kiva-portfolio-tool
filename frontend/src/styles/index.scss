@@ -115,3 +115,14 @@ html, body {
 .modal-input-master {
   width: 100%;
 }
+
+.modal-body .textarea-height {
+  /* textarea inputs in modals */
+  height: 200px;
+}
+
+.docclass-modalbody {
+  height: 500px;
+  width: 500px;
+  overflow: scroll;
+}

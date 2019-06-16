@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import Iframe from 'react-iframe'
-import { Button, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
 
-import { updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
+import WithAuth from './auth/WithAuth'
 
-import preview from '../media/preview.png'
+import { updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
 
 import '../styles/documentpreview.scss'
 
 const mapStateToProps = state => ({
   isPM: state.user.isPM,
-  documents: state.user.documents,
   language: state.user.language
 })
 
@@ -28,26 +27,15 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
-
-/**
- * This page allows a small modal to open up that is connected to BOX
- * It allows the user to preview and look at any documents that are in BOX that are related to
- * what the user clicked on to open this modal
- * In case of a PM, it allows them to accept or reject documents
- * For both parties, they are able to upload documents to the backend through this component
- */
-export class DocumentPreview extends Component {
+export class DocumentView extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      modal: false,
       rejectModal: false,
-      accessToken: null,
-      rejectReason: ''
+      rejectInstructions: ''
     }
 
-    this.toggle = this.toggle.bind(this)
     this.rejectToggle = this.rejectToggle.bind(this)
     this.handleApproveClick = this.handleApproveClick.bind(this)
     this.handleRejectClick = this.handleRejectClick.bind(this)
@@ -55,40 +43,34 @@ export class DocumentPreview extends Component {
 
   async handleApproveClick() {
     this.props.beginLoading()
-    this.toggle()
-    await updateDocumentStatus(this.props.document.userID, this.props.document._id, 'Approved')
-    const res = await getDocumentsByUser(this.props.document.userID)
+    await updateDocumentStatus(this.props.match.params.user, this.props.match.params.id, 'Approved')
+    const res = await getDocumentsByUser(this.props.match.params.user)
     if (res) {
       this.props.updateDocuments(res)
     } else {
       this.props.updateDocuments([])
     }
+    this.props.history.push('/dashboard/pm/' + this.props.match.params.user)
     this.props.endLoading()
   }
 
   async handleRejectClick() {
     this.props.beginLoading()
     this.rejectToggle()
-    this.toggle()
     await updateDocumentStatus(
-      this.props.document.userID,
-      this.props.document._id,
+      this.props.match.params.user,
+      this.props.match.params.id,
       'Rejected',
       this.state.rejectReason
     )
-    const res = await getDocumentsByUser(this.props.document.userID)
+    const res = await getDocumentsByUser(this.props.match.params.user)
     if (res) {
       this.props.updateDocuments(res)
     } else {
       this.props.updateDocuments([])
     }
+    this.props.history.push('/dashboard/pm/' + this.props.match.params.user)
     this.props.endLoading()
-  }
-
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }))
   }
 
   rejectToggle() {
@@ -106,44 +88,39 @@ export class DocumentPreview extends Component {
       rejectInstructions: 'Please provide some reasoning as to why you rejected this document:',
       submit: 'Submit',
       approve: 'Approve',
-      reject: 'Reject',
-      close: 'Close'
+      reject: 'Reject'
     },
     Spanish: {
       rejectInstructions:
         'Please provide some reasoning as to why you rejected this document: (Spanish)',
       submit: 'Submit (Spanish)',
       approve: 'Approve (Spanish)',
-      reject: 'Reject (Spanish)',
-      close: 'Close (Spanish)'
+      reject: 'Reject (Spanish)'
     },
     French: {
       rejectInstructions:
         'Please provide some reasoning as to why you rejected this document: (French)',
       submit: 'Submit (French)',
       approve: 'Approve (French)',
-      reject: 'Reject (French)',
-      close: 'Close (French)'
+      reject: 'Reject (French)'
     },
     Portuguese: {
       rejectInstructions:
         'Please provide some reasoning as to why you rejected this document: (Portuguese)',
       submit: 'Submit (Portuguese)',
       approve: 'Approve (Portuguese)',
-      reject: 'Reject (Portuguese)',
-      close: 'Close (Portuguese)'
+      reject: 'Reject (Portuguese)'
     }
   }
 
   render() {
-    const { isPM } = this.props
     let text = this.languages[this.props.language]
     if (!text) {
       text = this.languages['English']
     }
 
     return (
-      <>
+      <div className="maxheight text-centered">
         <Modal isOpen={this.state.rejectModal} toggle={this.rejectToggle}>
           <ModalHeader>{text.rejectInstructions}</ModalHeader>
           <ModalBody>
@@ -161,37 +138,25 @@ export class DocumentPreview extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-        {this.props.document.fileName && (
-          <Button color="transparent" onClick={this.toggle}>
-            <img className="buttonimg" src={preview} alt="Preview icon" />
-          </Button>
+        <h1>{this.props.match.params.name}</h1>
+        <Iframe
+          className="iframe-relative maxheight"
+          url={this.props.location.state.link}
+          allowFullScreen
+        />
+        {this.props.isPM && (
+          <div id="review-fullscreen">
+            <div id="button-space">
+              <Button color="success" onClick={this.handleApproveClick}>
+                {text.approve}
+              </Button>
+              <Button color="danger" onClick={this.rejectToggle}>
+                {text.reject}
+              </Button>
+            </div>
+          </div>
         )}
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader>{this.props.document.fileName}</ModalHeader>
-          <ModalBody id="modal-box">
-            <Iframe
-              className="iframe-relative iframe-modal"
-              url={this.props.document.link}
-              allowFullScreen
-            />
-          </ModalBody>
-          <ModalFooter>
-            {isPM && (
-              <div>
-                <Button color="success" onClick={this.handleApproveClick}>
-                  {text.approve}
-                </Button>
-                <Button color="danger" onClick={this.rejectToggle}>
-                  {text.reject}
-                </Button>
-              </div>
-            )}
-            <Button color="secondary" onClick={this.toggle}>
-              {text.close}
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </>
+      </div>
     )
   }
 }
@@ -199,4 +164,4 @@ export class DocumentPreview extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DocumentPreview)
+)(WithAuth(DocumentView))

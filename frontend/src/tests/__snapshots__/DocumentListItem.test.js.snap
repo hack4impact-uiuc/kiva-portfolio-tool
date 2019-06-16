@@ -98,13 +98,7 @@ exports[`DocumentListItem renders correctly 1`] = `
       wrapTag="div"
     />
     <ModalBody
-      style={
-        Object {
-          "height": "500px",
-          "overflow": "scroll",
-          "width": "500px",
-        }
-      }
+      className="docclass-modalbody"
       tag="div"
     >
       <p />
@@ -169,7 +163,7 @@ exports[`DocumentListItem renders correctly 1`] = `
             ]
           }
         >
-          <Connect(HOC)
+          <Connect(DocumentPreview)
             document={
               Object {
                 "docClass": "Board of Directors",
