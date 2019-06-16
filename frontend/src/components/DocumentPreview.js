@@ -8,7 +8,7 @@ import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user
 
 import WithAuth from './auth/WithAuth'
 
-import { getAccessToken, updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
+import { updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
 
 import preview from '../media/preview.png'
 
@@ -43,7 +43,7 @@ export class DocumentPreview extends Component {
     super(props)
 
     this.state = {
-      accessToken: null
+      modal: false
     }
 
     this.toggle = this.toggle.bind(this)
@@ -89,19 +89,6 @@ export class DocumentPreview extends Component {
     this.setState(prevState => ({
       modal: !prevState.modal
     }))
-  }
-
-  async componentDidMount() {
-    const res = await getAccessToken()
-    if (res) {
-      this.setState({
-        accessToken: res
-      })
-    } else {
-      this.setState({
-        accessToken: null
-      })
-    }
   }
 
   languages = {
