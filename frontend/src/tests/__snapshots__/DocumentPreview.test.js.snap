@@ -32,7 +32,7 @@ exports[`DocumentPreview renders correctly 1`] = `
       tag="h5"
       wrapTag="div"
     >
-      Please provide some reasoning as to why you rejected this document
+      Please provide some reasoning as to why you rejected this document:
     </ModalHeader>
     <ModalBody
       tag="div"
