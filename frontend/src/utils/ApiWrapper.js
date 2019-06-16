@@ -913,9 +913,7 @@ export const updateDocumentStatus = (userID, id, status, reason) => {
       }
     })
     .then(response => {
-      reason
-        ? createMessage(userID, false, true, id, reason)
-        : createMessage(userID, false, true, id)
+      createMessage(userID, false, true, id, reason)
       return {
         type: 'UPDATE_DOC_STATUS_SUCCESS',
         response
