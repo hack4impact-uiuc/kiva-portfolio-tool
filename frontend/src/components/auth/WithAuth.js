@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
 
+import { connect } from 'react-redux'
+import { bindActionCreators, compose } from 'redux'
+import { beginLoading, endLoading } from '../../redux/modules/user'
+
 import { verify } from '../../utils/ApiWrapper'
 import { setCookie } from '../../utils/cookie'
+
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
 
 /**
  * Page that shows up when user authenticates,
@@ -9,6 +25,7 @@ import { setCookie } from '../../utils/cookie'
  * else shows not authenticated
  */
 const withAuth = WrappedComponent => {
+  //const { clientName, dispatch, ...rest } = props;
   class HOC extends Component {
     constructor(props) {
       super(props)
@@ -18,6 +35,7 @@ const withAuth = WrappedComponent => {
     }
 
     async componentDidMount() {
+      this.props.beginLoading()
       const verifyResponse = await verify()
       if (verifyResponse.error) {
         return
@@ -31,13 +49,14 @@ const withAuth = WrappedComponent => {
       } else {
         this.props.history.push('/register')
       }
+      this.props.endLoading()
     }
 
     render() {
       return (
         <div>
           {this.state.verified ? (
-            <WrappedComponent {...this.props} verified={this.state.verified} />
+            <WrappedComponent verified={this.state.verified} {...this.props} />
           ) : (
             <div>
               <p>You are not authenticated.</p>
@@ -49,7 +68,10 @@ const withAuth = WrappedComponent => {
     }
   }
 
-  return HOC
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(HOC)
 }
 
 export default withAuth
