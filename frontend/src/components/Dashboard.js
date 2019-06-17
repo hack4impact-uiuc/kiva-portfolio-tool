@@ -185,17 +185,26 @@ export class Dashboard extends Component {
           <Row>
             {this.props.documents
               ? this.props.isPM
-                ? this.state.pm_statuses.map(key => {
+                ? this.state.pm_statuses.map((docstatus, index) => {
+                    /* based on the code the index should suffice as a unique key since no new tables
+                    are going to be added and thus there doesn't seem to be a risk of collision; also
+                    only one of these blocks will run */
                     return (
-                      <Col sm="12" md="6" className="dashboard-width-override">
-                        <DocumentList documents={this.props.documents[key]} status={key} />
+                      <Col sm="12" md="6" className="dashboard-width-override" key={index}>
+                        <DocumentList
+                          documents={this.props.documents[docstatus]}
+                          status={docstatus}
+                        />
                       </Col>
                     )
                   })
-                : this.state.fp_statuses.map(key => {
+                : this.state.fp_statuses.map((docstatus, index) => {
                     return (
-                      <Col sm="12" md="6" className="dashboard-width-override">
-                        <DocumentList documents={this.props.documents[key]} status={key} />
+                      <Col sm="12" md="6" className="dashboard-width-override" key={index}>
+                        <DocumentList
+                          documents={this.props.documents[docstatus]}
+                          status={docstatus}
+                        />
                       </Col>
                     )
                   })

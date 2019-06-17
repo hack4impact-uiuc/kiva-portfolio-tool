@@ -231,32 +231,28 @@ export class NavBar extends Component {
                 </Button>
               </NavItem>
 
-              <NavItem className="sandwich">
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    <img src={sandwich_image} width="30" height="35" alt="Sandwich icon" />
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    {isPM && (
-                      <div>
-                        <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
-                          {text.manage}
-                        </DropdownItem>
-                        <DropdownItem onClick={this.redirect}>Dashboard</DropdownItem>
-                      </div>
-                    )}
-                    <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
-                      {text.changePassword}
-                    </DropdownItem>
-                    <DropdownItem
-                      onClick={() => this.props.history.push('/changeSecurityQuestion')}
-                    >
-                      {text.changeSecurityQuestion}
-                    </DropdownItem>
-                    <DropdownItem onClick={this.logout}>{text.logOut}</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </NavItem>
+              <UncontrolledDropdown className="sandwich" nav inNavbar>
+                <DropdownToggle nav caret>
+                  <img src={sandwich_image} width="30" height="35" alt="Sandwich icon" />
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {isPM && (
+                    <div>
+                      <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
+                        {text.manage}
+                      </DropdownItem>
+                      <DropdownItem onClick={this.redirect}>Dashboard</DropdownItem>
+                    </div>
+                  )}
+                  <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
+                    {text.changePassword}
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.props.history.push('/changeSecurityQuestion')}>
+                    {text.changeSecurityQuestion}
+                  </DropdownItem>
+                  <DropdownItem onClick={this.logout}>{text.logOut}</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
           )}
         </Navbar>
