@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
-import { bindActionCreators, compose } from 'redux'
+import { bindActionCreators } from 'redux'
 import { beginLoading, endLoading } from '../../redux/modules/user'
 
 import { verify } from '../../utils/ApiWrapper'
 import { setCookie } from '../../utils/cookie'
+
+import { Load } from '../'
 
 const mapStateToProps = state => ({})
 
@@ -25,12 +27,11 @@ const mapDispatchToProps = dispatch => {
  * else shows not authenticated
  */
 const withAuth = WrappedComponent => {
-  //const { clientName, dispatch, ...rest } = props;
   class HOC extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        verified: false
+        verified: null
       }
     }
 
@@ -57,6 +58,8 @@ const withAuth = WrappedComponent => {
         <div>
           {this.state.verified ? (
             <WrappedComponent verified={this.state.verified} {...this.props} />
+          ) : this.state.verified === null ? (
+            <Load />
           ) : (
             <div>
               <p>You are not authenticated.</p>
