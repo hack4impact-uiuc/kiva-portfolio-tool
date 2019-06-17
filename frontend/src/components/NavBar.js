@@ -209,7 +209,7 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar pullRight>
+            <Nav className="ml-auto" navbar>
               <NavItem>
                 <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
                   <img src={info_image} width="29" height="29" alt="Info icon" />
