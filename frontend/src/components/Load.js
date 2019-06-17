@@ -36,7 +36,7 @@ class Load extends Component {
       text = this.languages['English']
     }
 
-    if (this.props.loading > 0) {
+    if (this.props.loading) {
       return (
         <div
           className="load"

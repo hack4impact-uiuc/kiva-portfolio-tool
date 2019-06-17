@@ -54,6 +54,13 @@ const withAuth = WrappedComponent => {
     }
 
     render() {
+      /**
+       * Cases:
+       * verified: true - show wrapped component
+       * verified: null (waiting on response) - show loading
+       * verified: false (failure) - show error message
+       */
+
       return (
         <div>
           {this.state.verified ? (
