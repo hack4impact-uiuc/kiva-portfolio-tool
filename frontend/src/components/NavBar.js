@@ -148,12 +148,21 @@ export class NavBar extends Component {
 
     return (
       <div>
+        {/* Currently the sidebar requires the children prop but seems like it doesn't do too much,
+          so I copied the notifications bar component into the childrens prop for now to remove the console error
+        */}
         {this.state.sidebarOpen ? (
           <Sidebar
             className={this.state.sidebarClass}
             rootClassName="sidebar-root"
             sidebarClassName="sidebar-styles"
             sidebar={
+              <NotificationsBar
+                closeFunc={this.onSetSidebarOpen}
+                inDashboard={this.props.inDashboard}
+              />
+            }
+            children={
               <NotificationsBar
                 closeFunc={this.onSetSidebarOpen}
                 inDashboard={this.props.inDashboard}
@@ -169,6 +178,12 @@ export class NavBar extends Component {
             rootClassName="sidebar-root hide"
             sidebarClassName="sidebar-styles"
             sidebar={
+              <NotificationsBar
+                closeFunc={this.onSetSidebarOpen}
+                inDashboard={this.props.inDashboard}
+              />
+            }
+            children={
               <NotificationsBar
                 closeFunc={this.onSetSidebarOpen}
                 inDashboard={this.props.inDashboard}
