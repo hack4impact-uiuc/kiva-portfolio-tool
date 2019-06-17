@@ -50,6 +50,15 @@
   margin: 0;
 }
 
+.interaction > .row {
+  margin: 0;
+}
+
+.interaction > .button-tablerow > div[class^="col-"] {
+  /* pattern match the columns within the subtructure of the table */
+  padding: 0;
+}
+
 .button-tablerow {
   width: 100%;
   display: flex;
