@@ -113,8 +113,10 @@ export class DocumentList extends Component {
           </tr>
           {this.props.documents
             ? this.state.expanded
-              ? this.props.documents.map(document => (
+              ? this.props.documents.map((document, index) => (
+                  /* using index should differentiate the documents from the siblings */
                   <DocumentListItem
+                    key={index}
                     document={document}
                     docClass={document.docClass}
                     fileName={document.fileName}
@@ -123,8 +125,9 @@ export class DocumentList extends Component {
                 ))
               : this.props.documents
                   .slice(0, this.state.showLess)
-                  .map(document => (
+                  .map((document, index) => (
                     <DocumentListItem
+                      key={index}
                       document={document}
                       docClass={document.docClass}
                       fileName={document.fileName}

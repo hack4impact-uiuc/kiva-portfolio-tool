@@ -259,9 +259,7 @@ export class ForgotPassword extends Component {
                 </Form>
               </CardBody>
               <div style={{ textAlign: 'center' }}>
-                <Link to="/login" prefetch href="/login">
-                  <a href="/login">{text.back}</a>
-                </Link>
+                <Link to="/login">{text.back}</Link>
               </div>
             </Card>
           </div>
@@ -303,9 +301,7 @@ export class ForgotPassword extends Component {
                   </Form>
                 </CardBody>
                 <div style={{ textAlign: 'center' }}>
-                  <Link to="/login" prefetch href="/login">
-                    <a href="/login">{text.back}</a>
-                  </Link>
+                  <Link to="/login">{text.back}</Link>
                 </div>
               </Card>
             ) : (
@@ -343,9 +339,7 @@ export class ForgotPassword extends Component {
                   </Form>
                 </CardBody>
                 <div style={{ textAlign: 'center' }}>
-                  <Link to="/login" prefetch href="/login">
-                    <a href="/login">{text.back}</a>
-                  </Link>
+                  <Link to="/login">{text.back}</Link>
                 </div>
               </Card>
             )}
@@ -355,4 +349,4 @@ export class ForgotPassword extends Component {
     )
   }
 }
-export default connect()(ForgotPassword)
+export default connect(mapStateToProps)(ForgotPassword)

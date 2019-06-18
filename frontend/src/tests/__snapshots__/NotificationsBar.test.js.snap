@@ -46,6 +46,7 @@ exports[` renders correctly 1`] = `
   >
     <Notification
       index={0}
+      key="0"
       removeMessage={[Function]}
     />
   </TabPanel>

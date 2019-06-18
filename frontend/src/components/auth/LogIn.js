@@ -204,7 +204,6 @@ class LogIn extends Component {
                 id="forgot"
                 className="text-centered margin-center"
                 to="/forgotPassword"
-                prefetch
                 href="/forgotPassword"
               >
                 {text.forgotPassword}

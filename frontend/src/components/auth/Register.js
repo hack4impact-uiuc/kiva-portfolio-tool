@@ -3,7 +3,6 @@ import {
   Form,
   Button,
   FormGroup,
-  Label,
   Input,
   Card,
   CardBody,
@@ -282,7 +281,7 @@ class Register extends Component {
                         </DropdownToggle>
                         <DropdownMenu>
                           {this.state.questions.map((question, idx) => (
-                            <DropdownItem onClick={this.pickDropDown.bind(null, idx)}>
+                            <DropdownItem key={idx} onClick={this.pickDropDown.bind(null, idx)}>
                               {question}
                             </DropdownItem>
                           ))}
