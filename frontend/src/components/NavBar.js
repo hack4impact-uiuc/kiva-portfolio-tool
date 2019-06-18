@@ -216,17 +216,13 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="margin-left-sm">
-              <NavItem>
+            <Nav className="ml-auto" id="navbar-vertical-centered" navbar>
+              <NavItem className="margin-right-sm">
                 <LanguageSelector />
               </NavItem>
-            </Nav>
-          )}
 
-          {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar>
               <NavItem>
-                <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
+                <Button id="info-icon" color="clear" onClick={() => this.onSetSidebarOpen(true)}>
                   <img src={info_image} width="29" height="29" alt="Info icon" />
                 </Button>
               </NavItem>
