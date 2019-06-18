@@ -241,7 +241,7 @@ export class DocumentClassPage extends Component {
               </tr>
               {this.props.documentClasses
                 ? this.props.documentClasses.map(documentClass => (
-                    <DocumentClass documentClass={documentClass} />
+                    <DocumentClass documentClass={documentClass} key={documentClass.name} />
                   ))
                 : null}
             </tbody>
