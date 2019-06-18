@@ -1,7 +1,25 @@
 import React, { Component } from 'react'
 
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { beginLoading, endLoading } from '../../redux/modules/user'
+
 import { verify } from '../../utils/ApiWrapper'
 import { setCookie } from '../../utils/cookie'
+
+import { Load } from '../Load'
+
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      beginLoading,
+      endLoading
+    },
+    dispatch
+  )
+}
 
 /**
  * Page that shows up when user authenticates,
@@ -13,11 +31,12 @@ const withAuth = WrappedComponent => {
     constructor(props) {
       super(props)
       this.state = {
-        verified: false
+        verified: null
       }
     }
 
     async componentDidMount() {
+      this.props.beginLoading()
       const verifyResponse = await verify()
       if (verifyResponse.error) {
         return
@@ -31,13 +50,23 @@ const withAuth = WrappedComponent => {
       } else {
         this.props.history.push('/register')
       }
+      this.props.endLoading()
     }
 
     render() {
+      /**
+       * Cases:
+       * verified: true - show wrapped component
+       * verified: null (waiting on response) - show loading
+       * verified: false (failure) - show error message
+       */
+
       return (
         <div>
           {this.state.verified ? (
-            <WrappedComponent {...this.props} verified={this.state.verified} />
+            <WrappedComponent verified={this.state.verified} {...this.props} />
+          ) : this.state.verified === null ? (
+            <Load />
           ) : (
             <div>
               <p>You are not authenticated.</p>
@@ -49,7 +78,10 @@ const withAuth = WrappedComponent => {
     }
   }
 
-  return HOC
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(HOC)
 }
 
 export default withAuth

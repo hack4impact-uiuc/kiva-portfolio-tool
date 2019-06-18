@@ -217,7 +217,6 @@ export class PMMainPage extends Component {
    */
   async handleClickCompleteRestart() {
     this.completeToggle()
-    this.props.beginLoading()
     let id = this.state.complete_id
     await deleteDocumentsByFP(id)
     await updateFPInstructions(id, '')

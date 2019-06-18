@@ -3,7 +3,8 @@ const UPDATE_DOCUMENTS = 'user/update_documents'
 const UPDATE_DOCUMENT_CLASSES = 'user/update_document_classes'
 const UPDATE_MESSAGES = 'user/update_messages'
 const UPDATE_INSTRUCTIONS = 'user/update_instructions'
-const LOAD = 'user/begin_loading'
+const BEGIN_LOAD = 'user/begin_loading'
+const END_LOAD = 'user/end_loading'
 const UPDATE_LANGUAGE = 'user/update_language'
 
 const initialState = {
@@ -12,7 +13,7 @@ const initialState = {
   documentClasses: [],
   messages: [],
   instructions: '',
-  loading: false,
+  loading: 0,
   language: 'English'
 }
 export default function reducer(state = initialState, action) {
@@ -42,10 +43,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         instructions: action.value
       }
-    case LOAD:
+    case BEGIN_LOAD:
       return {
         ...state,
-        loading: action.value
+        loading: state.loading + 1
+      }
+    case END_LOAD:
+      return {
+        ...state,
+        loading: state.loading - 1
       }
     case UPDATE_LANGUAGE:
       return {
@@ -83,13 +89,11 @@ export const updateInstructions = value => ({
 })
 
 export const beginLoading = () => ({
-  type: LOAD,
-  value: true
+  type: BEGIN_LOAD
 })
 
 export const endLoading = () => ({
-  type: LOAD,
-  value: false
+  type: END_LOAD
 })
 
 export const updateLanguage = value => ({
