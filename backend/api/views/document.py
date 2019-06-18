@@ -117,7 +117,12 @@ def create_new_documents():
     if "docClassIDs" not in data:
         return create_response(status=400, message="No document classes provided")
 
+    if "dueDate" not in data:
+        return create_response(status=400, message="No due date provided")
+
     userID = data.get("userID")
+
+    dueDate = data.get("dueDate")
 
     status = "Missing"
 
@@ -127,19 +132,21 @@ def create_new_documents():
     if type(document_class_ids) != list:
         document_class_ids = document_class_ids.split(",")
 
+    fp = FieldPartner.query.get(userID)
+    fp.app_status = "In Process"
+    fp.due_date = dueDate
+
+    due_date_folder_id = create_folder(dueDate, fp.folder_id)
+
     for document_class_id in document_class_ids:
         data = {"userID": userID, "status": status, "docClassID": document_class_id}
-        data["folderID"] = create_folder(
-            DocumentClass.query.get(document_class_id).name,
-            FieldPartner.query.get(data["userID"]).folder_id,
-        )
+        data["folderID"] = due_date_folder_id
         new_doc = Document(data)
         doc_dict = new_doc.to_dict()
         document_ids.append(doc_dict["_id"])
         db.session.add(new_doc)
 
-    fp = FieldPartner.query.get(userID)
-    fp.app_status = "In Process"
+    
 
     ret = {"docIDs": document_ids}
 
