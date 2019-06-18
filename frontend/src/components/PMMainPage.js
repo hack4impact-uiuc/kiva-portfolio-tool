@@ -406,7 +406,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'In Process')
                         .map(partner => {
                           return (
-                            <Col md="6" className="panel-tabletbreak">
+                            <Col md="6" className="panel-tabletbreak" key={partner._id}>
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -426,7 +426,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'New Partner')
                         .map(partner => {
                           return (
-                            <Col md="6" className="panel-tabletbreak">
+                            <Col md="6" className="panel-tabletbreak" key={partner._id}>
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -446,7 +446,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'Complete')
                         .map(partner => {
                           return (
-                            <Col md="6" className="panel-tabletbreak">
+                            <Col md="6" className="panel-tabletbreak" key={partner._id}>
                               <Button
                                 className="partnerButton"
                                 color="transparent"
