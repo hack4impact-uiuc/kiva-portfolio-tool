@@ -89,7 +89,7 @@ class TemporaryPasswordReroute extends Component {
               <div className="text-centered" id="login-kiva-logo">
                 <img src={kivaLogo} alt="Kiva logo" />
               </div>
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
                   <Input
                     type="email"
@@ -117,7 +117,13 @@ class TemporaryPasswordReroute extends Component {
                   />
                 </FormGroup>
                 <div className="text-centered">
-                  <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
+                  <Button
+                    type="submit"
+                    color="success"
+                    size="lg"
+                    onClick={this.handleSubmit}
+                    className="right"
+                  >
                     Log In
                   </Button>
                   {''}

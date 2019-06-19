@@ -153,7 +153,7 @@ class ChangePassword extends Component {
                     />
                   </React.Fragment>
                 ) : null}
-                <Form>
+                <Form onsubmit={this.handleQuestionChange}>
                   <FormGroup>
                     <Input
                       name="oldPassword"
@@ -177,6 +177,7 @@ class ChangePassword extends Component {
                     </Button>
                     {''}
                     <Button
+                      type="submit"
                       color="success"
                       size="lg"
                       onClick={this.handleQuestionChange}

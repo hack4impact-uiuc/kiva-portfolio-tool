@@ -155,7 +155,7 @@ class LogIn extends Component {
               <div className="text-centered" id="login-kiva-logo">
                 <img src={kivaLogo} alt="Kiva logo" />
               </div>
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
                   <Input
                     type="email"
@@ -183,7 +183,13 @@ class LogIn extends Component {
                   />
                 </FormGroup>
                 <div className="text-centered">
-                  <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
+                  <Button
+                    type="submit"
+                    color="success"
+                    size="lg"
+                    onClick={this.handleSubmit}
+                    className="right"
+                  >
                     {text.logIn}
                   </Button>
                   {''}
