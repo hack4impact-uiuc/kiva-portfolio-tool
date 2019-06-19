@@ -22,6 +22,7 @@ class Document(Mixin, db.Model):
     fileName = db.Column(db.String, unique=False, nullable=True)
     link = db.Column(db.String, unique=False, nullable=True)
     folderID = db.Column(db.String)
+    version = db.Column(db.Integer)
 
     # use dictionary to load params to avoid weird issue with values being placed in lists
     def __init__(self, data):
@@ -42,9 +43,10 @@ class Document(Mixin, db.Model):
             self.fileName = data["fileName"]
         if "link" in data:
             self.link = data["link"]
+        self.version = 0
 
     def __repr__(self):
-        return f"<ID: {self.id}>\n <FileID: {self.fileID}>\n <userID: {self.userID}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n  <link: {self.link}>\n <folderID: {self.folderID}>\n"
+        return f"<ID: {self.id}>\n <FileID: {self.fileID}>\n <userID: {self.userID}>\n <status: {self.status}>\n <docClassID: {self.docClassID}>\n <fileName {self.fileName}>\n  <link: {self.link}>\n <folderID: {self.folderID}> \n<version: {self.version}>\n"
 
     def get_docclass_id(self):
         return self.docClassID

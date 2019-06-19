@@ -173,7 +173,7 @@ export class SelectDocumentsPage extends Component {
         ' ' +
         this.state.dueDate.getFullYear()
 
-      await createDocuments(this.state.fp_id, docClassIDs, date)
+      await createDocuments(this.state.fp_id, docClassIDs, this.state.dueDate.getTime().toFixed(0))
       const documents = await getDocumentsByUser(this.state.fp_id)
       this.props.updateDocuments(documents)
     }
@@ -182,7 +182,10 @@ export class SelectDocumentsPage extends Component {
 
     await updateFieldPartnerStatus(this.state.fp_id, 'In Process')
 
-    await updateFieldPartnerDueDate(this.state.fp_id, this.state.dueDate.getTime())
+    await updateFieldPartnerDueDate(
+      this.state.fp_id,
+      parseInt(this.state.dueDate.getTime().toFixed(0))
+    )
 
     this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)
