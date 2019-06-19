@@ -7,7 +7,7 @@ import '../styles/load.scss'
 
 const mapStateToProps = state => ({
   loading: state.user.loading,
-  language: state.user.langgage
+  language: state.user.language
 })
 
 /**

@@ -7,7 +7,7 @@ import { beginLoading, endLoading } from '../../redux/modules/user'
 import { verify } from '../../utils/ApiWrapper'
 import { setCookie } from '../../utils/cookie'
 
-import { Load } from '../Load'
+import Load from '../Load'
 
 const mapStateToProps = state => ({})
 
