@@ -9,7 +9,9 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Form,
+  Input
 } from 'reactstrap'
 
 import { bindActionCreators } from 'redux'
@@ -314,9 +316,9 @@ export class PMMainPage extends Component {
         <Modal isOpen={this.state.newModal} toggle={this.newToggle}>
           <ModalHeader>{text.addFP}</ModalHeader>
           <ModalBody>
-            <form onSubmit={this.handleNewFP}>
+            <Form onSubmit={this.handleNewFP}>
               <label className="margin-top-sm">{text.orgName}</label>
-              <input
+              <Input
                 className="modal-input-master"
                 type="text"
                 value={this.state.name}
@@ -325,7 +327,7 @@ export class PMMainPage extends Component {
                 onChange={this.handleNameChange}
               />
               <label className="margin-top-sm">{text.email}</label>
-              <input
+              <Input
                 className="modal-input-master"
                 type="text"
                 value={this.state.email}
@@ -333,11 +335,11 @@ export class PMMainPage extends Component {
                 placeholder={text.enterEmail}
                 onChange={this.handleEmailChange}
               />
-            </form>
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button onClick={this.newToggle}>Exit</Button>
-            <Button onClick={this.handleNewFP} color="success ">
+            <Button type="submit" onClick={this.handleNewFP} color="success ">
               {text.create}
             </Button>
           </ModalFooter>
@@ -383,10 +385,10 @@ export class PMMainPage extends Component {
                 <Row className="text-centered">
                   <Col md="12">
                     <h2 className="margin-top-sm">{text.fieldPartners}</h2>
-                    <form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit}>
                       <img src={search} width="23" alt="Search icon" />
                       <span>
-                        <input
+                        <Input
                           className="input-master margin-bottom-xs margin-top-xs"
                           type="text"
                           value={this.state.query}
@@ -394,7 +396,7 @@ export class PMMainPage extends Component {
                           onChange={this.handleQueryChange}
                         />
                       </span>
-                    </form>
+                    </Form>
                   </Col>
                 </Row>
 

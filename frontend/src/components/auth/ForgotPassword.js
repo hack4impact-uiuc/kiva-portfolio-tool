@@ -329,6 +329,7 @@ export class ForgotPassword extends Component {
                     </FormGroup>
                     <div className="text-centered">
                       <Button
+                        type="submit"
                         color="success"
                         size="lg"
                         onClick={this.handleSubmitSecurityAnswer}
