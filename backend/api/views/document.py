@@ -77,7 +77,7 @@ def update_document(id):
     if "fileName" in data and request.files is not None and "file" in request.files:
         if doc.status != "Missing":
             delete_file(doc.fileID)
-        dueDate = FieldPartner.query.get(doc.userID).due_date
+        dueDate = FieldPartner.query.get(doc.userID).due_date / 1000
         fileName = data.get("fileName")
         filePrefix, fileExt = os.path.splitext(fileName)
         uploadName = (

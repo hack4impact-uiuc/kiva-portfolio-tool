@@ -69,7 +69,7 @@ def new_fp():
     pm_folder_id = PortfolioManager.query.get(data["pm_id"]).folder_id
     data["folder_id"] = create_folder(data["org_name"], pm_folder_id)
 
-    data["due_date"] = time.time()
+    data["due_date"] = time.time() * 1000
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
 
