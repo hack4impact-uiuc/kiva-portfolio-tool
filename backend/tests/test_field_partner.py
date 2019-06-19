@@ -23,7 +23,6 @@ def create_fp(helper_portfolio_manager):
             "org_name": "hack4impact",
             "pm_id": helper_portfolio_manager.id,
             "app_status": "Complete",
-            "due_date": 1559354885971,
         }
     )
 
@@ -56,7 +55,6 @@ def test_get_field_partner(client):
         ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Complete"
-    assert ret_dict["result"]["field_partner"][0]["due_date"] == 1559354885971
 
 
 def test_get_fp_by_id(client):
@@ -83,7 +81,6 @@ def test_get_fp_by_id(client):
     assert ret_dict["result"]["field_partner"]["org_name"] == "hack4impact"
     assert ret_dict["result"]["field_partner"]["pm_id"] == helper_portfolio_manager.id
     assert ret_dict["result"]["field_partner"]["app_status"] == "Complete"
-    assert ret_dict["result"]["field_partner"]["due_date"] == 1559354885971
 
 
 def test_get_fp_by_org_name(client):
@@ -135,7 +132,6 @@ def test_get_fp_by_email(client):
         ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Complete"
-    assert ret_dict["result"]["field_partner"][0]["due_date"] == 1559354885971
 
 
 def test_get_fp_by_pm(client):
@@ -165,7 +161,6 @@ def test_get_fp_by_pm(client):
         ret_dict["result"]["field_partner"][0]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][0]["app_status"] == "Complete"
-    assert ret_dict["result"]["field_partner"][0]["due_date"] == 1559354885971
 
     assert ret_dict["result"]["field_partner"][1]["email"] == "test@gmail.com"
     assert ret_dict["result"]["field_partner"][1]["org_name"] == "hack4impact"
@@ -173,7 +168,6 @@ def test_get_fp_by_pm(client):
         ret_dict["result"]["field_partner"][1]["pm_id"] == helper_portfolio_manager.id
     )
     assert ret_dict["result"]["field_partner"][1]["app_status"] == "Complete"
-    assert ret_dict["result"]["field_partner"][1]["due_date"] == 1559354885971
 
 
 def test_new_fp(client):
@@ -200,7 +194,6 @@ def test_new_fp(client):
             "org_name": name,
             "pm_id": pm.id,
             "app_status": "New Partner",
-            "due_date": 1559354885979,
         },
     )
     assert rs.status_code == 200
@@ -212,7 +205,6 @@ def test_new_fp(client):
     assert ret_dict["result"]["field_partner"]["org_name"] == name
     assert ret_dict["result"]["field_partner"]["pm_id"] == pm.id
     assert ret_dict["result"]["field_partner"]["app_status"] == "New Partner"
-    assert ret_dict["result"]["field_partner"]["due_date"] == 1559354885979
 
     # Tests for if not all fields are provided
     rs = client.post(
