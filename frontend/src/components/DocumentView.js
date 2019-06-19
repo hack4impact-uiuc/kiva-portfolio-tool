@@ -122,7 +122,7 @@ export class DocumentView extends Component {
 
     return (
       <div className="maxheight text-centered">
-        <NavBar/>
+        <NavBar />
         <Modal isOpen={this.state.rejectModal} toggle={this.rejectToggle}>
           <ModalHeader>{text.rejectInstructions}</ModalHeader>
           <ModalBody>
