@@ -148,12 +148,21 @@ export class NavBar extends Component {
 
     return (
       <div>
+        {/* Currently the sidebar requires the children prop but seems like it doesn't do too much,
+          so I copied the notifications bar component into the childrens prop for now to remove the console error
+        */}
         {this.state.sidebarOpen ? (
           <Sidebar
             className={this.state.sidebarClass}
             rootClassName="sidebar-root"
             sidebarClassName="sidebar-styles"
             sidebar={
+              <NotificationsBar
+                closeFunc={this.onSetSidebarOpen}
+                inDashboard={this.props.inDashboard}
+              />
+            }
+            children={
               <NotificationsBar
                 closeFunc={this.onSetSidebarOpen}
                 inDashboard={this.props.inDashboard}
@@ -169,6 +178,12 @@ export class NavBar extends Component {
             rootClassName="sidebar-root hide"
             sidebarClassName="sidebar-styles"
             sidebar={
+              <NotificationsBar
+                closeFunc={this.onSetSidebarOpen}
+                inDashboard={this.props.inDashboard}
+              />
+            }
+            children={
               <NotificationsBar
                 closeFunc={this.onSetSidebarOpen}
                 inDashboard={this.props.inDashboard}
@@ -201,47 +216,39 @@ export class NavBar extends Component {
           )}
 
           {!this.state.isLoginPage && (
-            <Nav className="margin-left-sm">
-              <NavItem>
+            <Nav className="ml-auto" id="navbar-vertical-centered" navbar>
+              <NavItem className="margin-right-sm">
                 <LanguageSelector />
               </NavItem>
-            </Nav>
-          )}
 
-          {!this.state.isLoginPage && (
-            <Nav className="ml-auto" navbar pullRight>
               <NavItem>
-                <Button color="clear" onClick={() => this.onSetSidebarOpen(true)}>
+                <Button id="info-icon" color="clear" onClick={() => this.onSetSidebarOpen(true)}>
                   <img src={info_image} width="29" height="29" alt="Info icon" />
                 </Button>
               </NavItem>
 
-              <NavItem className="sandwich">
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    <img src={sandwich_image} width="30" height="35" alt="Sandwich icon" />
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    {isPM && (
-                      <div>
-                        <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
-                          {text.manage}
-                        </DropdownItem>
-                        <DropdownItem onClick={this.redirect}>Dashboard</DropdownItem>
-                      </div>
-                    )}
-                    <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
-                      {text.changePassword}
-                    </DropdownItem>
-                    <DropdownItem
-                      onClick={() => this.props.history.push('/changeSecurityQuestion')}
-                    >
-                      {text.changeSecurityQuestion}
-                    </DropdownItem>
-                    <DropdownItem onClick={this.logout}>{text.logOut}</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </NavItem>
+              <UncontrolledDropdown className="sandwich" nav inNavbar>
+                <DropdownToggle nav caret>
+                  <img src={sandwich_image} width="30" height="35" alt="Sandwich icon" />
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {isPM && (
+                    <div>
+                      <DropdownItem onClick={() => this.props.history.push('/documentclasses')}>
+                        {text.manage}
+                      </DropdownItem>
+                      <DropdownItem onClick={this.redirect}>Dashboard</DropdownItem>
+                    </div>
+                  )}
+                  <DropdownItem onClick={() => this.props.history.push('/changePassword')}>
+                    {text.changePassword}
+                  </DropdownItem>
+                  <DropdownItem onClick={() => this.props.history.push('/changeSecurityQuestion')}>
+                    {text.changeSecurityQuestion}
+                  </DropdownItem>
+                  <DropdownItem onClick={this.logout}>{text.logOut}</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
           )}
         </Navbar>

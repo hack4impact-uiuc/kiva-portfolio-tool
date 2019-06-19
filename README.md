@@ -74,6 +74,8 @@ The backend directory contains all of the files required for maintaining the Fla
 ## Product Resources
 [Product Requirements Document](https://docs.google.com/document/d/18AB0JTP9kXW2ywRGYXVPJkWVdHS9fCZ2O18cF_Ws7qI/edit?usp=sharing)
 
+[Revised Product Requirements Document](https://docs.google.com/document/d/1lN7d78bfFMMYT5PvtWIke0O2d7F7zZfobO457U0edvs/edit?usp=sharing)
+
 ## Design Resources
 [Brand Assets (Courtesy of Kiva)](https://drive.google.com/drive/folders/1oo-Q-B_khVYbN4nrJADlI1S0dr823jQL)
 

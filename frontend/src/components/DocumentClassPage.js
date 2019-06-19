@@ -54,12 +54,14 @@ export class DocumentClassPage extends Component {
    * Gets all document classes once component is ready
    */
   async componentDidMount() {
+    this.props.beginLoading()
     const document_classes = await getAllDocumentClasses()
     if (document_classes) {
       this.props.updateDocumentClasses(document_classes)
     } else {
       this.props.updateDocumentClasses([])
     }
+    this.props.endLoading()
   }
 
   /**
@@ -241,7 +243,7 @@ export class DocumentClassPage extends Component {
               </tr>
               {this.props.documentClasses
                 ? this.props.documentClasses.map(documentClass => (
-                    <DocumentClass documentClass={documentClass} key={documentClass.name} />
+                    <DocumentClass key={documentClass.name} documentClass={documentClass} />
                   ))
                 : null}
             </tbody>
