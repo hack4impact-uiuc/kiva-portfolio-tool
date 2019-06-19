@@ -40,6 +40,8 @@ GMAIL_PASSWORD={app password}
 ```
 with your information instead of {these}.
 
+The actual email templates can be found in `/backend/api/views/message.py`, and the authentication-related templates are located within the `kiva-auth-server` directory.
+
 ## Directory Breakdown
 ### Frontend
 The frontend directory contains all of the relevant files for the actual pages that are viewed on the web application. The files in the top-level directory are related to Node, Docker, and Git. When running the application, the entry point of React into the application is through the `frontend/src/index.js` file. This file also contains all of the route definitions as well as top level application structure. The `src` directory also contains other important files:
