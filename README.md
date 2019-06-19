@@ -111,21 +111,21 @@ Over the course of the 3 month timeline for building out this tool, we accumulat
 Special thanks to the team of developers and product designer that contributed to building the product:
 
 ### Product Manager
-Arpan Laha (arpanlaha)
+Arpan Laha ([arpanlaha](https://github.com/arpanlaha))
 
 ### Technical Lead
-Roy Chiu (rgychiu)
+Roy Chiu ([rgychiu](https://github.com/rgychiu))
 
 ### Product Designer
-Chloe Chan (chloegchan)
+Chloe Chan ([chloegchan](https://github.com/chloegchan))
 
 ### Software Developers
-Kelley Chau (chyku)
+Kelley Chau ([chyku](https://github.com/chyku))
 
-Danielle Yang (dyang5200)
+Danielle Yang ([dyang5200](https://github.com/dyang5200))
 
-Jeffy Lin (jeffylin)
+Jeffy Lin ([jeffylin](https://github.com/jeffylin))
 
-Daniel Choi (choiboy98)
+Daniel Choi ([choiboy98](https://github.com/choiboy98))
 
-Navam Awasthi (uawasth2)
+Navam Awasthi ([uawasth2](https://github.com/uawasth2))
