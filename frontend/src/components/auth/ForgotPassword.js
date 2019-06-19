@@ -209,7 +209,7 @@ export class ForgotPassword extends Component {
               </CardTitle>
 
               <CardBody>
-                <Form>
+                <Form onSubmit={this.handleSubmitNewPassword}>
                   <FormGroup>
                     <Input
                       name="pin"
@@ -248,6 +248,7 @@ export class ForgotPassword extends Component {
                   </FormGroup>
                   <div className="text-centered">
                     <Button
+                      type="submit"
                       color="success"
                       size="lg"
                       onClick={this.handleSubmitNewPassword}
@@ -274,7 +275,7 @@ export class ForgotPassword extends Component {
                 </CardTitle>
 
                 <CardBody>
-                  <Form>
+                  <Form onSubmit={this.handleGetSecurityQuestion}>
                     <FormGroup>
                       <Input
                         type="email"
@@ -290,6 +291,7 @@ export class ForgotPassword extends Component {
                     </FormGroup>
                     <div className="text-centered">
                       <Button
+                        type="submit"
                         color="success"
                         size="lg"
                         onClick={this.handleGetSecurityQuestion}
@@ -313,7 +315,7 @@ export class ForgotPassword extends Component {
                 </CardTitle>
 
                 <CardBody>
-                  <Form>
+                  <Form onSubmit={this.handleSubmitSecurityAnswer}>
                     <FormGroup>
                       <p> {this.state.question}</p>
                       <Input

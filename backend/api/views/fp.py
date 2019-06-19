@@ -2,6 +2,7 @@ from flask import Blueprint, request, json
 from api.models import FieldPartner, Document, db, PortfolioManager
 from api.core import create_response, serialize_list, logger
 from api.views.box import create_folder
+import time
 
 import requests, json
 
@@ -68,9 +69,7 @@ def new_fp():
     pm_folder_id = PortfolioManager.query.get(data["pm_id"]).folder_id
     data["folder_id"] = create_folder(data["org_name"], pm_folder_id)
 
-    if "due_date" not in data:
-        # set it to an invalid date at first because you create the FP and then set the due date
-        data["due_date"] = -1
+    data["due_date"] = time.time() * 1000
     new_fp = FieldPartner(data)
     res = new_fp.to_dict()
 

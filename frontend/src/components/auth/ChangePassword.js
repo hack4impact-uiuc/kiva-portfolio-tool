@@ -72,7 +72,7 @@ class ChangePassword extends Component {
               </CardTitle>
 
               <CardBody>
-                <Form>
+                <Form onSubmit={this.handlePassChange}>
                   <FormGroup>
                     <Input
                       name="oldPassword"
@@ -110,6 +110,7 @@ class ChangePassword extends Component {
                     />
                   </FormGroup>
                   <Button
+                    type="submit"
                     color="success"
                     size="lg"
                     onClick={this.handlePassChange}
