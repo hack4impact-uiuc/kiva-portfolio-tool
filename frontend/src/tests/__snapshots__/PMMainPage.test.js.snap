@@ -40,15 +40,16 @@ exports[`PMMainPage renders correctly 1`] = `
     <ModalBody
       tag="div"
     >
-      <form
+      <Form
         onSubmit={[Function]}
+        tag="form"
       >
         <label
           className="margin-top-sm"
         >
           Organization name:
         </label>
-        <input
+        <Input
           className="modal-input-master"
           onChange={[Function]}
           placeholder="Enter the field partner's organization name here..."
@@ -60,7 +61,7 @@ exports[`PMMainPage renders correctly 1`] = `
         >
           Email:
         </label>
-        <input
+        <Input
           className="modal-input-master"
           onChange={[Function]}
           placeholder="Enter the field partner's email here..."
@@ -68,7 +69,7 @@ exports[`PMMainPage renders correctly 1`] = `
           type="text"
           value=""
         />
-      </form>
+      </Form>
     </ModalBody>
     <ModalFooter
       tag="div"
@@ -84,6 +85,7 @@ exports[`PMMainPage renders correctly 1`] = `
         color="success "
         onClick={[Function]}
         tag="button"
+        type="submit"
       >
         Create
       </Button>
@@ -268,14 +270,16 @@ exports[`PMMainPage renders correctly 1`] = `
               >
                 Field Partners
               </h2>
-              <form>
+              <Form
+                tag="form"
+              >
                 <img
                   alt="Search icon"
                   src="search.png"
                   width="23"
                 />
                 <span>
-                  <input
+                  <Input
                     className="input-master margin-bottom-xs margin-top-xs"
                     onChange={[Function]}
                     placeholder="Search for a field partner..."
@@ -283,7 +287,7 @@ exports[`PMMainPage renders correctly 1`] = `
                     value=""
                   />
                 </span>
-              </form>
+              </Form>
             </Col>
           </Row>
           <Row

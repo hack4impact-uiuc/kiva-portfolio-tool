@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input } from 'reactstrap'
+import { Input, Form } from 'reactstrap'
 import DatePicker from 'react-datepicker'
 
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
@@ -256,7 +256,7 @@ export class SelectDocumentsPage extends Component {
         <div className="pageSD margin-top-sm">
           <h1>{text.select}</h1>
 
-          <form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit}>
             <img src={search} width="18" alt="Search icon" />
             <input
               className="input-master"
@@ -265,7 +265,7 @@ export class SelectDocumentsPage extends Component {
               placeholder={text.search}
               onChange={this.handleQueryChange}
             />
-          </form>
+          </Form>
 
           <div className="displayView">
             <div className="displayCell blockCustom">
@@ -310,7 +310,7 @@ export class SelectDocumentsPage extends Component {
             />
           </div>
 
-          <button className="nextButton margin-bottom-sm" onClick={this.handleSubmit}>
+          <button type="submit" className="nextButton margin-bottom-sm" onClick={this.handleSubmit}>
             {text.assign}
           </button>
         </div>

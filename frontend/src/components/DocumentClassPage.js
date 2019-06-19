@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalBody, ModalFooter, Table, Input } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Table, Input, Form } from 'reactstrap'
 import Dropzone from 'react-dropzone'
 
 import { bindActionCreators } from 'redux'
@@ -174,7 +174,7 @@ export class DocumentClassPage extends Component {
         <NavBar />
         <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
-            <form>
+            <Form onSubmit={this.handleSubmit}>
               <span>{text.name}</span>
               <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
@@ -206,13 +206,14 @@ export class DocumentClassPage extends Component {
                 </section>
                 <hr />
               </div>
-            </form>
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button className="invalidSearchButton" onClick={this.toggle}>
               {text.close}
             </Button>
             <Button
+              type="submit"
               disabled={this.state.files.length === 0}
               color="success"
               onClick={this.handleSubmit}
