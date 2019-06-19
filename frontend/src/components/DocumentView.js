@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
 
 import WithAuth from './auth/WithAuth'
+import NavBar from './NavBar'
 
 import { updateDocumentStatus, getDocumentsByUser } from '../utils/ApiWrapper'
 
@@ -121,6 +122,7 @@ export class DocumentView extends Component {
 
     return (
       <div className="maxheight text-centered">
+        <NavBar/>
         <Modal isOpen={this.state.rejectModal} toggle={this.rejectToggle}>
           <ModalHeader>{text.rejectInstructions}</ModalHeader>
           <ModalBody>
