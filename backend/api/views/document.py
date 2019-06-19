@@ -3,6 +3,8 @@ from api.models import Document, Message, db, DocumentClass, FieldPartner
 from api.views.box import upload_file, delete_file, create_folder
 from api.core import create_response, serialize_list, logger
 from api.views.auth import verify_token
+import os
+from datetime import datetime
 
 document = Blueprint("document", __name__)
 
@@ -70,12 +72,24 @@ def update_document(id):
 
     doc = Document.query.get(id)
 
+    doc.version = doc.version + 1
+
     if "fileName" in data and request.files is not None and "file" in request.files:
         if doc.status != "Missing":
             delete_file(doc.fileID)
+        dueDate = FieldPartner.query.get(doc.userID).due_date
         fileName = data.get("fileName")
+        filePrefix, fileExt = os.path.splitext(fileName)
+        uploadName = (
+            filePrefix
+            + "-"
+            + datetime.utcfromtimestamp(dueDate).strftime("%m-%d-%Y")
+            + "-"
+            + str(doc.version)
+            + fileExt
+        )
         file = request.files.get("file")
-        file_info = upload_file(file, fileName, doc.folderID)
+        file_info = upload_file(file, uploadName, doc.folderID)
         doc.fileID = file_info["file"].id
         doc.link = file_info["link"]
         doc.fileName = fileName
@@ -136,17 +150,15 @@ def create_new_documents():
     fp.app_status = "In Process"
     fp.due_date = dueDate
 
-    due_date_folder_id = create_folder(dueDate, fp.folder_id)
-
     for document_class_id in document_class_ids:
         data = {"userID": userID, "status": status, "docClassID": document_class_id}
-        data["folderID"] = due_date_folder_id
+        data["folderID"] = create_folder(
+            DocumentClass.query.get(document_class_id).name, fp.folder_id
+        )
         new_doc = Document(data)
         doc_dict = new_doc.to_dict()
         document_ids.append(doc_dict["_id"])
         db.session.add(new_doc)
-
-    
 
     ret = {"docIDs": document_ids}
 
