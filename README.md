@@ -110,6 +110,12 @@ Over the course of the 3 month timeline for building out this tool, we accumulat
 ## Team
 Special thanks to the team of developers and product designer that contributed to building the product:
 
+### Product Manager
+Arpan Laha (arpanlaha)
+
+### Technical Lead
+Roy Chiu (rgychiu)
+
 ### Product Designer
 Chloe Chan (chloegchan)
 
