@@ -84,7 +84,7 @@ export class Dashboard extends Component {
      */
     const fp = await getFPByID(this.props.match.params.id)
 
-    const instructionsReceived = fp ? fp.instructionsReceived : null
+    const instructionsReceived = fp ? fp.instructions : null
 
     // Processing the date to a readable string
     const options = { year: 'numeric', month: 'long', day: 'numeric' }
