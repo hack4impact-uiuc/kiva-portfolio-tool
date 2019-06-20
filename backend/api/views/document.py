@@ -197,6 +197,7 @@ def delete_documents_by_fp(id):
     Deletes all documents belonging to the specified user
     """
 
+    Message.query.filter((Message.fp_id == str(id))).delete()
     Document.query.filter((Document.userID == str(id))).delete()
 
     db.session.commit()
