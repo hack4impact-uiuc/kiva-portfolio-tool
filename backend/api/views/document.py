@@ -77,7 +77,8 @@ def update_document(id):
     if "fileName" in data and request.files is not None and "file" in request.files:
         if doc.status != "Missing":
             delete_file(doc.fileID)
-        dueDate = FieldPartner.query.get(doc.userID).due_date / 1000
+        fp = FieldPartner.query.get(doc.userID)
+        dueDate = fp.due_date / 1000
         fileName = data.get("fileName")
         filePrefix, fileExt = os.path.splitext(fileName)
         uploadName = (
@@ -89,7 +90,7 @@ def update_document(id):
             + fileExt
         )
         file = request.files.get("file")
-        file_info = upload_file(file, uploadName, doc.folderID)
+        file_info = upload_file(file, uploadName, fp.folder_id)
         doc.fileID = file_info["file"].id
         doc.link = file_info["link"]
         doc.fileName = fileName
@@ -152,9 +153,6 @@ def create_new_documents():
 
     for document_class_id in document_class_ids:
         data = {"userID": userID, "status": status, "docClassID": document_class_id}
-        data["folderID"] = create_folder(
-            DocumentClass.query.get(document_class_id).name, fp.folder_id
-        )
         new_doc = Document(data)
         doc_dict = new_doc.to_dict()
         document_ids.append(doc_dict["_id"])

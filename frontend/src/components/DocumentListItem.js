@@ -65,6 +65,8 @@ export class DocumentListItem extends Component {
     // The MIME types of common filetypes
     const docTypes = [
       'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'application/vnd.ms-excel',
       'application/vnd.ms-powerpoint',
       'application/pdf',
@@ -72,6 +74,7 @@ export class DocumentListItem extends Component {
       'image/png',
       'text/plain'
     ]
+    console.log(files[0].type)
 
     if (!docTypes.includes(files[0].type)) {
       window.alert('Document type not acceptable')
