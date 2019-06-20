@@ -55,6 +55,7 @@ exports[`PMMainPage renders correctly 1`] = `
           placeholder="Enter the field partner's organization name here..."
           size="50"
           type="text"
+          value=""
         />
         <label
           className="margin-top-sm"
@@ -279,7 +280,7 @@ exports[`PMMainPage renders correctly 1`] = `
                   width="23"
                 />
                 <span>
-                  <Input
+                  <input
                     className="input-master margin-bottom-xs margin-top-xs"
                     onChange={[Function]}
                     placeholder="Search for a field partner..."

@@ -166,13 +166,6 @@ export class SelectDocumentsPage extends Component {
 
     // Currently breaks when no docClassIDs provided, so I (Arpan) wrapped it in an if statement - need to fix
     if (docClassIDs.length > 0) {
-      const date =
-        this.state.dueDate.getMonth() +
-        ' ' +
-        this.state.dueDate.getDate() +
-        ' ' +
-        this.state.dueDate.getFullYear()
-
       await createDocuments(this.state.fp_id, docClassIDs, this.state.dueDate.getTime().toFixed(0))
       const documents = await getDocumentsByUser(this.state.fp_id)
       this.props.updateDocuments(documents)

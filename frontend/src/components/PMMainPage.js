@@ -321,7 +321,7 @@ export class PMMainPage extends Component {
               <Input
                 className="modal-input-master"
                 type="text"
-                value={this.state.name}
+                value={this.state.org_name}
                 size="50"
                 placeholder={text.enterOrgName}
                 onChange={this.handleNameChange}
@@ -388,7 +388,7 @@ export class PMMainPage extends Component {
                     <Form onSubmit={this.handleSubmit}>
                       <img src={search} width="23" alt="Search icon" />
                       <span>
-                        <Input
+                        <input
                           className="input-master margin-bottom-xs margin-top-xs"
                           type="text"
                           value={this.state.query}
