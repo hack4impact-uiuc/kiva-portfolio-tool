@@ -106,7 +106,7 @@ export class Selector extends Component {
                 buttonType = add // placeholder for green add button (see chloe design documentation)
               }
               return (
-                <div className="panel">
+                <div className="panel" key={docClass.name}>
                   <div className="docClassValue">{docClass.name}</div>
                   <Button
                     color="transparent"
