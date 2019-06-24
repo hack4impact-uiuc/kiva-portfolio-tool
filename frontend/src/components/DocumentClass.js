@@ -227,7 +227,7 @@ export class DocumentClass extends Component {
                             {this.state.files.length > 0 ? (
                               <p>{text.fileUploaded + this.state.files[0].name}</p>
                             ) : (
-                              <p>{text.click}</p>
+                              <Button>{text.click}</Button>
                             )}
                           </div>
                         </section>
