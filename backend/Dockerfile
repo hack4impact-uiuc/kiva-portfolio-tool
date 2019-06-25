@@ -10,7 +10,7 @@ COPY . /app
 WORKDIR /app
 
 # for the flask config
-ENV FLASK_ENV=prod
+ENV FLASK_ENV="prod"
 
 EXPOSE 5000
-ENTRYPOINT [ "gunicorn", "-b", "0.0.0.0:5000", "--log-level", "INFO", "manage:app" ]
+CMD [ "python", "manage.py", "runserver"]
