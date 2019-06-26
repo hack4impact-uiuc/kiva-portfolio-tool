@@ -19,6 +19,4 @@ COPY --from=build-stage /app/build/ /usr/share/nginx/html
 # copy nginx config file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# runs at port 80
-# to run do `docker run -p [localhost port]:80 [image name that you built]
-# 80 is the port in the container and you are mapping it to the 1st port number in your host computer
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'

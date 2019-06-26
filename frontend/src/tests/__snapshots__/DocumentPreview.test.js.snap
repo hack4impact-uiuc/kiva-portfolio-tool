@@ -31,6 +31,65 @@ exports[`DocumentPreview renders correctly 1`] = `
       closeAriaLabel="Close"
       tag="h5"
       wrapTag="div"
+    >
+      Please provide some reasoning as to why you rejected this document:
+    </ModalHeader>
+    <ModalBody
+      tag="div"
+    >
+      <Input
+        className="textarea-input"
+        onChange={[Function]}
+        style={
+          Object {
+            "height": "200px",
+          }
+        }
+        type="textarea"
+        value=""
+      />
+    </ModalBody>
+    <ModalFooter
+      tag="div"
+    >
+      <Button
+        color="primary"
+        onClick={[Function]}
+        tag="button"
+      >
+        Submit
+      </Button>
+    </ModalFooter>
+  </Modal>
+  <Modal
+    autoFocus={true}
+    backdrop={true}
+    backdropTransition={
+      Object {
+        "mountOnEnter": true,
+        "timeout": 150,
+      }
+    }
+    centered={false}
+    fade={true}
+    isOpen={false}
+    keyboard={true}
+    modalTransition={
+      Object {
+        "timeout": 300,
+      }
+    }
+    onClosed={[Function]}
+    onOpened={[Function]}
+    role="dialog"
+    toggle={[Function]}
+    zIndex={1050}
+  >
+    <ModalHeader
+      charCode={215}
+      closeAriaLabel="Close"
+      tag="h5"
+      wrapTag="div"
     />
     <ModalBody
       id="modal-box"

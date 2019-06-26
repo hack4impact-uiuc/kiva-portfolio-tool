@@ -9,7 +9,9 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Form,
+  Input
 } from 'reactstrap'
 
 import { bindActionCreators } from 'redux'
@@ -217,7 +219,6 @@ export class PMMainPage extends Component {
    */
   async handleClickCompleteRestart() {
     this.completeToggle()
-    this.props.beginLoading()
     let id = this.state.complete_id
     await deleteDocumentsByFP(id)
     await updateFPInstructions(id, '')
@@ -315,18 +316,18 @@ export class PMMainPage extends Component {
         <Modal isOpen={this.state.newModal} toggle={this.newToggle}>
           <ModalHeader>{text.addFP}</ModalHeader>
           <ModalBody>
-            <form onSubmit={this.handleNewFP}>
+            <Form onSubmit={this.handleNewFP}>
               <label className="margin-top-sm">{text.orgName}</label>
-              <input
+              <Input
                 className="modal-input-master"
                 type="text"
-                value={this.state.name}
+                value={this.state.org_name}
                 size="50"
                 placeholder={text.enterOrgName}
                 onChange={this.handleNameChange}
               />
               <label className="margin-top-sm">{text.email}</label>
-              <input
+              <Input
                 className="modal-input-master"
                 type="text"
                 value={this.state.email}
@@ -334,11 +335,11 @@ export class PMMainPage extends Component {
                 placeholder={text.enterEmail}
                 onChange={this.handleEmailChange}
               />
-            </form>
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button onClick={this.newToggle}>Exit</Button>
-            <Button onClick={this.handleNewFP} color="success ">
+            <Button type="submit" onClick={this.handleNewFP} color="success ">
               {text.create}
             </Button>
           </ModalFooter>
@@ -384,7 +385,7 @@ export class PMMainPage extends Component {
                 <Row className="text-centered">
                   <Col md="12">
                     <h2 className="margin-top-sm">{text.fieldPartners}</h2>
-                    <form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit}>
                       <img src={search} width="23" alt="Search icon" />
                       <span>
                         <input
@@ -395,7 +396,7 @@ export class PMMainPage extends Component {
                           onChange={this.handleQueryChange}
                         />
                       </span>
-                    </form>
+                    </Form>
                   </Col>
                 </Row>
 
@@ -406,7 +407,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'In Process')
                         .map(partner => {
                           return (
-                            <Col md="6" className="panel-tabletbreak">
+                            <Col md="6" className="panel-tabletbreak" key={partner._id}>
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -426,7 +427,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'New Partner')
                         .map(partner => {
                           return (
-                            <Col md="6" className="panel-tabletbreak">
+                            <Col md="6" className="panel-tabletbreak" key={partner._id}>
                               <Button
                                 className="partnerButton"
                                 color="transparent"
@@ -446,7 +447,7 @@ export class PMMainPage extends Component {
                         .filter(partner => partner.app_status === 'Complete')
                         .map(partner => {
                           return (
-                            <Col md="6" className="panel-tabletbreak">
+                            <Col md="6" className="panel-tabletbreak" key={partner._id}>
                               <Button
                                 className="partnerButton"
                                 color="transparent"

@@ -7,11 +7,6 @@
     margin-left: 1%;
 }
 
-.sandwich {
-    margin-left: 8%;
-    margin-top: 1%;
-}
-
 .hide {
     display: none;
 }
@@ -47,8 +42,12 @@
 }
 
 .nav-absolute {
-    position: absolute;
+    position: relative;
     z-index: 999;
+}
+
+.nav-item {
+    margin: 0 1%;
 }
 
 .closed {
@@ -57,4 +56,9 @@
 
 .kivalogo:hover {
     cursor: pointer;
+}
+
+#navbar-vertical-centered {
+    display: flex;
+    align-items: center;
 }

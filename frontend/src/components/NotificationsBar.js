@@ -88,6 +88,7 @@ export class NotificationsBar extends Component {
           {allMessages.map((message, index) => {
             return (
               <Notification
+                key={index}
                 index={index}
                 name={message.name}
                 time={message.time}

@@ -40,6 +40,8 @@ GMAIL_PASSWORD={app password}
 ```
 with your information instead of {these}.
 
+The actual email templates can be found in `/backend/api/views/message.py`, and the authentication-related templates are located within the `kiva-auth-server` directory.
+
 ## Directory Breakdown
 ### Frontend
 The frontend directory contains all of the relevant files for the actual pages that are viewed on the web application. The files in the top-level directory are related to Node, Docker, and Git. When running the application, the entry point of React into the application is through the `frontend/src/index.js` file. This file also contains all of the route definitions as well as top level application structure. The `src` directory also contains other important files:
@@ -74,6 +76,8 @@ The backend directory contains all of the files required for maintaining the Fla
 ## Product Resources
 [Product Requirements Document](https://docs.google.com/document/d/18AB0JTP9kXW2ywRGYXVPJkWVdHS9fCZ2O18cF_Ws7qI/edit?usp=sharing)
 
+[Revised Product Requirements Document](https://docs.google.com/document/d/1lN7d78bfFMMYT5PvtWIke0O2d7F7zZfobO457U0edvs/edit?usp=sharing)
+
 ## Design Resources
 [Brand Assets (Courtesy of Kiva)](https://drive.google.com/drive/folders/1oo-Q-B_khVYbN4nrJADlI1S0dr823jQL)
 
@@ -106,16 +110,22 @@ Over the course of the 3 month timeline for building out this tool, we accumulat
 ## Team
 Special thanks to the team of developers and product designer that contributed to building the product:
 
+### Product Manager
+Arpan Laha ([arpanlaha](https://github.com/arpanlaha))
+
+### Technical Lead
+Roy Chiu ([rgychiu](https://github.com/rgychiu))
+
 ### Product Designer
-Chloe Chan (chloegchan)
+Chloe Chan ([chloegchan](https://github.com/chloegchan))
 
 ### Software Developers
-Kelley Chau (chyku)
+Kelley Chau ([chyku](https://github.com/chyku))
 
-Danielle Yang (dyang5200)
+Danielle Yang ([dyang5200](https://github.com/dyang5200))
 
-Jeffy Lin (jeffylin)
+Jeffy Lin ([jeffylin](https://github.com/jeffylin))
 
-Daniel Choi (choiboy98)
+Daniel Choi ([choiboy98](https://github.com/choiboy98))
 
-Navam Awasthi (uawasth2)
+Navam Awasthi ([uawasth2](https://github.com/uawasth2))

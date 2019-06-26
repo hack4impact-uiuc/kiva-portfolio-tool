@@ -209,7 +209,7 @@ export class ForgotPassword extends Component {
               </CardTitle>
 
               <CardBody>
-                <Form>
+                <Form onSubmit={this.handleSubmitNewPassword}>
                   <FormGroup>
                     <Input
                       name="pin"
@@ -248,6 +248,7 @@ export class ForgotPassword extends Component {
                   </FormGroup>
                   <div className="text-centered">
                     <Button
+                      type="submit"
                       color="success"
                       size="lg"
                       onClick={this.handleSubmitNewPassword}
@@ -259,9 +260,7 @@ export class ForgotPassword extends Component {
                 </Form>
               </CardBody>
               <div style={{ textAlign: 'center' }}>
-                <Link to="/login" prefetch href="/login">
-                  <a href="/login">{text.back}</a>
-                </Link>
+                <Link to="/login">{text.back}</Link>
               </div>
             </Card>
           </div>
@@ -276,7 +275,7 @@ export class ForgotPassword extends Component {
                 </CardTitle>
 
                 <CardBody>
-                  <Form>
+                  <Form onSubmit={this.handleGetSecurityQuestion}>
                     <FormGroup>
                       <Input
                         type="email"
@@ -292,6 +291,7 @@ export class ForgotPassword extends Component {
                     </FormGroup>
                     <div className="text-centered">
                       <Button
+                        type="submit"
                         color="success"
                         size="lg"
                         onClick={this.handleGetSecurityQuestion}
@@ -303,9 +303,7 @@ export class ForgotPassword extends Component {
                   </Form>
                 </CardBody>
                 <div style={{ textAlign: 'center' }}>
-                  <Link to="/login" prefetch href="/login">
-                    <a href="/login">{text.back}</a>
-                  </Link>
+                  <Link to="/login">{text.back}</Link>
                 </div>
               </Card>
             ) : (
@@ -317,7 +315,7 @@ export class ForgotPassword extends Component {
                 </CardTitle>
 
                 <CardBody>
-                  <Form>
+                  <Form onSubmit={this.handleSubmitSecurityAnswer}>
                     <FormGroup>
                       <p> {this.state.question}</p>
                       <Input
@@ -331,6 +329,7 @@ export class ForgotPassword extends Component {
                     </FormGroup>
                     <div className="text-centered">
                       <Button
+                        type="submit"
                         color="success"
                         size="lg"
                         onClick={this.handleSubmitSecurityAnswer}
@@ -343,9 +342,7 @@ export class ForgotPassword extends Component {
                   </Form>
                 </CardBody>
                 <div style={{ textAlign: 'center' }}>
-                  <Link to="/login" prefetch href="/login">
-                    <a href="/login">{text.back}</a>
-                  </Link>
+                  <Link to="/login">{text.back}</Link>
                 </div>
               </Card>
             )}
@@ -355,4 +352,4 @@ export class ForgotPassword extends Component {
     )
   }
 }
-export default connect()(ForgotPassword)
+export default connect(mapStateToProps)(ForgotPassword)

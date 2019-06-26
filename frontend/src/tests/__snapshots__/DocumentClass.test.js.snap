@@ -29,7 +29,10 @@ exports[`DocumentClass renders correctly 1`] = `
     <ModalBody
       tag="div"
     >
-      <form>
+      <Form
+        onSubmit={[Function]}
+        tag="form"
+      >
         <span>
           Name:
         </span>
@@ -37,19 +40,15 @@ exports[`DocumentClass renders correctly 1`] = `
           className="textarea-input"
           onChange={[Function]}
           type="textarea"
+          value="testing"
         />
         <br />
         <span>
           Description:
         </span>
         <Input
-          className="textarea-input"
+          className="textarea-input textarea-height"
           onChange={[Function]}
-          style={
-            Object {
-              "height": "200px",
-            }
-          }
           type="textarea"
           value="testingaswell"
         />
@@ -72,7 +71,7 @@ exports[`DocumentClass renders correctly 1`] = `
           </section>
           <hr />
         </div>
-      </form>
+      </Form>
     </ModalBody>
     <ModalFooter
       tag="div"
@@ -89,6 +88,7 @@ exports[`DocumentClass renders correctly 1`] = `
         color="success"
         onClick={[Function]}
         tag="button"
+        type="submit"
       >
         Update document class
       </Button>

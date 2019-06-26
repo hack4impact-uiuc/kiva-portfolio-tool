@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalBody, ModalFooter, Table, Input } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Table, Input, Form } from 'reactstrap'
 import Dropzone from 'react-dropzone'
 
 import { bindActionCreators } from 'redux'
@@ -54,12 +54,14 @@ export class DocumentClassPage extends Component {
    * Gets all document classes once component is ready
    */
   async componentDidMount() {
+    this.props.beginLoading()
     const document_classes = await getAllDocumentClasses()
     if (document_classes) {
       this.props.updateDocumentClasses(document_classes)
     } else {
       this.props.updateDocumentClasses([])
     }
+    this.props.endLoading()
   }
 
   /**
@@ -172,15 +174,14 @@ export class DocumentClassPage extends Component {
         <NavBar />
         <Modal isOpen={this.state.addModal} toggle={this.toggle}>
           <ModalBody>
-            <form>
+            <Form onSubmit={this.handleSubmit}>
               <span>{text.name}</span>
               <Input type="textarea" className="textarea-input" onChange={this.updateName} />
               <br />
               <span>{text.description}</span>
               <Input
                 type="textarea"
-                className="textarea-input"
-                style={{ height: '200px' }}
+                className="textarea-input textarea-height"
                 onChange={this.updateDescription}
               />
               <br />
@@ -195,7 +196,7 @@ export class DocumentClassPage extends Component {
                             {this.state.files.length > 0 ? (
                               <p>{text.fileUploaded + this.state.files[0].name}</p>
                             ) : (
-                              <p>{text.click}</p>
+                              <Button>{text.click}</Button>
                             )}
                           </div>
                         </section>
@@ -205,13 +206,14 @@ export class DocumentClassPage extends Component {
                 </section>
                 <hr />
               </div>
-            </form>
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button className="invalidSearchButton" onClick={this.toggle}>
               {text.close}
             </Button>
             <Button
+              type="submit"
               disabled={this.state.files.length === 0}
               color="success"
               onClick={this.handleSubmit}
@@ -242,7 +244,7 @@ export class DocumentClassPage extends Component {
               </tr>
               {this.props.documentClasses
                 ? this.props.documentClasses.map(documentClass => (
-                    <DocumentClass documentClass={documentClass} />
+                    <DocumentClass key={documentClass.name} documentClass={documentClass} />
                   ))
                 : null}
             </tbody>

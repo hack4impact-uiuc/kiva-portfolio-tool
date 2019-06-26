@@ -108,10 +108,21 @@ def add_message():
         f"Your Field Partner from {organization} has uploaded a document for {docclass_name}.",  # organization, document class name
     ]
 
+    if "reason" in data:
+        reason = data.get("reason")
+        contents[
+            1
+        ] = f"Your document, {docclass_name}, has been reviewed and was {status} for the following reason: {reason}."
+
     # Add the contents as a description field
     data["description"] = contents[message_type.value]
 
-    data["to_fp"] = bool(data["to_fp"])
+    if data["to_fp"] == "true" or data["to_fp"] == "false":
+        data["to_fp"] = data["to_fp"] == "true"
+    elif data["to_fp"] == "True" or data["to_fp"] == "False":
+        data["to_fp"] = data["to_fp"] == "True"
+    else:
+        data["to_fp"] == bool(data["to_fp"])
 
     recipient = (
         FieldPartner.query.get(data["fp_id"])

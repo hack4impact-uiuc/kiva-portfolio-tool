@@ -5,6 +5,7 @@ from api import create_app
 from api.models import db, Document, FieldPartner, PortfolioManager, DocumentClass
 from api.views.box import create_folder, clear_box
 import time
+import os
 
 # sets up the app
 app = create_app()
@@ -18,7 +19,7 @@ manager.add_command("db", MigrateCommand)
 
 @manager.command
 def runserver():
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=os.environ.get('PORT', '5000'))
 
 
 @manager.command

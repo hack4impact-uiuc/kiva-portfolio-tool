@@ -133,7 +133,7 @@ class ChangePassword extends Component {
                         </DropdownToggle>
                         <DropdownMenu>
                           {this.state.questions.map((question, idx) => (
-                            <DropdownItem onClick={this.pickDropDown.bind(null, idx)}>
+                            <DropdownItem key={idx} onClick={this.pickDropDown.bind(null, idx)}>
                               {question}
                             </DropdownItem>
                           ))}
@@ -153,7 +153,7 @@ class ChangePassword extends Component {
                     />
                   </React.Fragment>
                 ) : null}
-                <Form>
+                <Form onSubmit={this.handleQuestionChange}>
                   <FormGroup>
                     <Input
                       name="oldPassword"
@@ -177,6 +177,7 @@ class ChangePassword extends Component {
                     </Button>
                     {''}
                     <Button
+                      type="submit"
                       color="success"
                       size="lg"
                       onClick={this.handleQuestionChange}

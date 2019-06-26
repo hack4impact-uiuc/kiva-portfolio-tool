@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input } from 'reactstrap'
+import { Input, Form } from 'reactstrap'
 import DatePicker from 'react-datepicker'
 
 import { updateDocuments, beginLoading, endLoading } from '../redux/modules/user'
@@ -166,14 +166,7 @@ export class SelectDocumentsPage extends Component {
 
     // Currently breaks when no docClassIDs provided, so I (Arpan) wrapped it in an if statement - need to fix
     if (docClassIDs.length > 0) {
-      const date =
-        this.state.dueDate.getMonth() +
-        ' ' +
-        this.state.dueDate.getDate() +
-        ' ' +
-        this.state.dueDate.getFullYear()
-
-      await createDocuments(this.state.fp_id, docClassIDs, date)
+      await createDocuments(this.state.fp_id, docClassIDs, this.state.dueDate.getTime().toFixed(0))
       const documents = await getDocumentsByUser(this.state.fp_id)
       this.props.updateDocuments(documents)
     }
@@ -182,7 +175,10 @@ export class SelectDocumentsPage extends Component {
 
     await updateFieldPartnerStatus(this.state.fp_id, 'In Process')
 
-    await updateFieldPartnerDueDate(this.state.fp_id, this.state.dueDate.getTime())
+    await updateFieldPartnerDueDate(
+      this.state.fp_id,
+      parseInt(this.state.dueDate.getTime().toFixed(0))
+    )
 
     this.props.endLoading()
     this.props.history.push('/dashboard/pm/' + this.state.fp_id)
@@ -253,7 +249,7 @@ export class SelectDocumentsPage extends Component {
         <div className="pageSD margin-top-sm">
           <h1>{text.select}</h1>
 
-          <form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit}>
             <img src={search} width="18" alt="Search icon" />
             <input
               className="input-master"
@@ -262,7 +258,7 @@ export class SelectDocumentsPage extends Component {
               placeholder={text.search}
               onChange={this.handleQueryChange}
             />
-          </form>
+          </Form>
 
           <div className="displayView">
             <div className="displayCell blockCustom">
@@ -307,7 +303,7 @@ export class SelectDocumentsPage extends Component {
             />
           </div>
 
-          <button className="nextButton margin-bottom-sm" onClick={this.handleSubmit}>
+          <button type="submit" className="nextButton margin-bottom-sm" onClick={this.handleSubmit}>
             {text.assign}
           </button>
         </div>

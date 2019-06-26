@@ -3,7 +3,6 @@ import {
   Form,
   Button,
   FormGroup,
-  Label,
   Input,
   Card,
   CardBody,
@@ -20,7 +19,7 @@ import { connect } from 'react-redux'
 import Navbar from '../NavBar'
 
 import { setCookie } from '../../utils/cookie'
-import { register, verifyPIN, resendPIN, getSecurityQuestions } from '../../utils/ApiWrapper'
+import { register, verifyPIN, getSecurityQuestions } from '../../utils/ApiWrapper'
 
 import kivaLogo from '../../media/kivaPlainLogo.png'
 import b1 from '../../media/b1-min.jpg'
@@ -175,22 +174,6 @@ class Register extends Component {
     }
   }
 
-  handlePINResend = async e => {
-    e.preventDefault()
-    const result = await resendPIN()
-
-    if (result.type === 'LOGIN_FAIL') {
-      this.setState({
-        modal: !this.state.modal,
-        failed: !this.state.failed
-      })
-      return
-    }
-
-    let pinMessage = result.response.message
-    this.setState({ pinMessage: pinMessage })
-  }
-
   roletoggle = () => {
     this.setState({ roleDropdownOpen: !this.state.roleDropdownOpen })
   }
@@ -282,7 +265,7 @@ class Register extends Component {
                         </DropdownToggle>
                         <DropdownMenu>
                           {this.state.questions.map((question, idx) => (
-                            <DropdownItem onClick={this.pickDropDown.bind(null, idx)}>
+                            <DropdownItem key={idx} onClick={this.pickDropDown.bind(null, idx)}>
                               {question}
                             </DropdownItem>
                           ))}
@@ -302,7 +285,7 @@ class Register extends Component {
                     />
                   </React.Fragment>
                 ) : null}
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                   <FormGroup>
                     <Input
                       type="email"
@@ -343,7 +326,13 @@ class Register extends Component {
                     />
                   </FormGroup>
                   <div className="text-centered">
-                    <Button color="success" size="lg" onClick={this.handleSubmit} className="right">
+                    <Button
+                      type="submit"
+                      color="success"
+                      size="lg"
+                      onClick={this.handleSubmit}
+                      className="right"
+                    >
                       {text.register}
                     </Button>{' '}
                     <Button
@@ -369,7 +358,7 @@ class Register extends Component {
                 </div>
               </CardTitle>
               <CardBody className="text-centered">
-                <Form>
+                <Form onSubmit={this.handlePINVerify}>
                   <FormGroup>
                     <p style={{ color: 'green' }}>{this.state.pinMessage}</p>
                     <Input
@@ -393,6 +382,7 @@ class Register extends Component {
                     {text.resendPin}
                   </Button>
                   <Button
+                    type="submit"
                     color="success"
                     size="lg"
                     onClick={this.handlePINVerify}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Modal, ModalBody, ModalFooter, Input } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalFooter, Input, Form } from 'reactstrap'
 import Dropzone from 'react-dropzone'
 
 import { bindActionCreators } from 'redux'
@@ -199,15 +199,19 @@ export class DocumentClass extends Component {
       <>
         <Modal isOpen={this.state.editModal} toggle={this.editToggle}>
           <ModalBody>
-            <form>
+            <Form onSubmit={this.handleSubmit}>
               <span>{text.name}</span>
-              <Input type="textarea" className="textarea-input" onChange={this.updateName} />
+              <Input
+                type="textarea"
+                className="textarea-input"
+                onChange={this.updateName}
+                value={this.state.name}
+              />
               <br />
               <span>{text.description}</span>
               <Input
                 type="textarea"
-                className="textarea-input"
-                style={{ height: '200px' }}
+                className="textarea-input textarea-height"
                 onChange={this.updateDescription}
                 value={this.state.description}
               />
@@ -223,7 +227,7 @@ export class DocumentClass extends Component {
                             {this.state.files.length > 0 ? (
                               <p>{text.fileUploaded + this.state.files[0].name}</p>
                             ) : (
-                              <p>{text.click}</p>
+                              <Button>{text.click}</Button>
                             )}
                           </div>
                         </section>
@@ -233,13 +237,13 @@ export class DocumentClass extends Component {
                 </section>
                 <hr />
               </div>
-            </form>
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button className="invalidSearchButton" onClick={this.editToggle}>
               {text.return}
             </Button>
-            <Button onClick={this.handleSubmit} color="success">
+            <Button type="submit" onClick={this.handleSubmit} color="success">
               {text.update}
             </Button>
           </ModalFooter>
