@@ -6,7 +6,7 @@ import requests, json, random, string
 
 auth = Blueprint("auth", __name__)
 
-BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh"
+BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh/"
 
 
 @auth.route("/register", methods=["POST"])
@@ -65,7 +65,7 @@ def register_user():
 
     local_r = (
         requests.post(
-            "http://localhost:5000/portfolio_manager/new",
+            "https://blooming-spire-15234.herokuapp.com/portfolio_managers",
             data={"email": email, "name": "Daniel"},
             headers=headers,
         )
@@ -253,7 +253,7 @@ def create_fp():
 
     local_r = (
         requests.post(
-            "http://localhost:5000/field_partners",
+            "https://blooming-spire-15234.herokuapp.com/field_partners",
             data={
                 "email": email,
                 "pm_id": pm_id,
@@ -270,7 +270,7 @@ def create_fp():
         )
     another_r = (
         requests.post(
-            "http://localhost:5000/messagesToFP",
+            "https://blooming-spire-15234.herokuapp.com/messagesToFP",
             data={"email": email, "pm_id": pm_id, "password": password},
         )
     ).json()
