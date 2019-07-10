@@ -55,7 +55,7 @@ def register_user():
             },
         )
     ).json()
-    print(r)
+
     if r.get("status") == 400:
         return create_response(status=400, message=r.get("message"))
 

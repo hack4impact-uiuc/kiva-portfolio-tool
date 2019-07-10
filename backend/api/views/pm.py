@@ -64,14 +64,10 @@ def get_pm_by_id(id):
 def new_pm():
     """ function that is called when you visit /portfolio_manager/new, creates a new PM """
 
-    print("entered new pm function")
     token = request.headers.get("token")
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-    print("grabbed token")
 
     message, info = verify_token(token)
-    print("verified token")
-    print(message, info)
     if message != None:
         return create_response(status=400, message=message)
 
@@ -79,7 +75,6 @@ def new_pm():
         return create_response(
             status=400, message="You do not have permission to create new documents!"
         )
-    print("token verified, permissions checked")
 
     data = request.form.to_dict()
 
@@ -92,15 +87,12 @@ def new_pm():
         return create_response(status=400, message="No name provided for new PM")
 
     data["folder_id"] = create_folder(data["name"])
-    print("box folder created")
 
     new_pm = PortfolioManager(data)
-    print("new pm created")
 
     pm_dict = new_pm.to_dict()
 
     db.session.add(new_pm)
     db.session.commit()
-    print("committed")
 
     return create_response(data={"portfolio_manager": pm_dict})

@@ -17,10 +17,10 @@ const getCookieFromServer = (key, req) => {
 
 export const setCookie = (key, value) => {
   console.log(1)
-    cookie.set(key, value, {
-      expires: 1,
-      path: '/'
-    })
+  cookie.set(key, value, {
+    expires: 1,
+    path: '/'
+  })
   if (process.browser) {
     console.log(1)
     cookie.set(key, value, {
