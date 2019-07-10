@@ -71,7 +71,7 @@ def new_pm():
 
     message, info = verify_token(token)
     print("verified token")
-
+    print(message, info)
     if message != None:
         return create_response(status=400, message=message)
 

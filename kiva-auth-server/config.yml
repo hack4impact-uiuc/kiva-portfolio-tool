@@ -9,11 +9,12 @@ roles:
   pm: null
   fp: null
 security_questions:
-  - Do you love this shit?
-  - Are you high right now?
-  - Do you ever get nervous?
-  - Are you single?
-  - 'I heard you fucked your girl, is it true?'
+  - What is the name of the streets you grew up on?
+  - What is your mother's maiden name?
+  - What is the name of the city you were born in?
+  - What is your high school best friend's name?
+  - What is your favorite high school teacher's name?
+  - What is your pet's name?
 useGoogleAuth: true
 security_question: true
 gmail: true
