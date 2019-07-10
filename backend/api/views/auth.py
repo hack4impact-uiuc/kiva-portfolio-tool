@@ -6,7 +6,7 @@ import requests, json, random, string
 
 auth = Blueprint("auth", __name__)
 
-BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh"
+BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh/"
 
 
 @auth.route("/register", methods=["POST"])
@@ -65,7 +65,7 @@ def register_user():
 
     local_r = (
         requests.post(
-            "http://localhost:5000/portfolio_manager/new",
+            "http://localhost:5000/portfolio_managers",
             data={"email": email, "name": "Daniel"},
             headers=headers,
         )
