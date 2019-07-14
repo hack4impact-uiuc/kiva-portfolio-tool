@@ -124,7 +124,7 @@ class Register extends Component {
         })
         return
       }
-      
+
       let token = result.response.data.result.token
       if (!token) {
         this.setState({
