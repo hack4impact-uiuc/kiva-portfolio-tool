@@ -124,9 +124,8 @@ class Register extends Component {
         })
         return
       }
-      console.log(result)
+      
       let token = result.response.data.result.token
-      console.log(token)
       if (!token) {
         this.setState({
           errorMessage: result.response.message,
