@@ -59,15 +59,10 @@ def register_user():
     if r.get("status") == 400:
         return create_response(status=400, message=r.get("message"))
 
-    token = r.get("token")
-
-    headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
-
     local_r = (
         requests.post(
-            "https://blooming-spire-15234.herokuapp.com/portfolio_managers",
+            "http://localhost:5000/portfolio_managers",
             data={"email": email, "name": "Daniel"},
-            headers=headers,
         )
     ).json()
 
@@ -253,7 +248,7 @@ def create_fp():
 
     local_r = (
         requests.post(
-            "https://blooming-spire-15234.herokuapp.com/field_partners",
+            "http://localhost:5000/field_partners",
             data={
                 "email": email,
                 "pm_id": pm_id,
@@ -270,7 +265,7 @@ def create_fp():
         )
     another_r = (
         requests.post(
-            "https://blooming-spire-15234.herokuapp.com/messagesToFP",
+            "http://localhost:5000/messagesToFP",
             data={"email": email, "pm_id": pm_id, "password": password},
         )
     ).json()
