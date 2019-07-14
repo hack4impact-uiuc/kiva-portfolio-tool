@@ -1,7 +1,7 @@
 from api.models import db, PortfolioManager, FieldPartner, Message
 import enum, requests, json, random, string, uuid
 
-BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh"
+BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh/"
 
 r = (
     requests.post(

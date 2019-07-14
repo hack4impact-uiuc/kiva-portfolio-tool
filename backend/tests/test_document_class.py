@@ -2,7 +2,7 @@ from api.models import db, DocumentClass, Document
 
 import requests
 
-BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh"
+BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh/"
 
 r = (
     requests.post(
