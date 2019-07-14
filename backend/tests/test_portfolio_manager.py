@@ -58,7 +58,6 @@ def test_get_portfolio_manager(client):
     db.session.commit()
 
     rs = client.get("/portfolio_managers", headers=headers)
-    print(rs.json)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
