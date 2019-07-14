@@ -2,7 +2,7 @@ from api.models import db, Document, DocumentClass
 from datetime import date
 import enum, requests, json, random, string
 
-BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
+BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh"
 
 
 class MyEnum(enum.Enum):

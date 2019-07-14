@@ -1,7 +1,7 @@
 from api.models import db, PortfolioManager, FieldPartner, Message
 import enum, requests, json, random, string, uuid
 
-BACKEND_URL = "https://h4i-infra-server.danielwonchoi.now.sh/"
+BACKEND_URL = "https://h4i-infra-server.kivaportfolio.now.sh"
 
 r = (
     requests.post(
@@ -58,6 +58,7 @@ def test_get_portfolio_manager(client):
     db.session.commit()
 
     rs = client.get("/portfolio_managers", headers=headers)
+    print(rs.json)
 
     assert rs.status_code == 200
     ret_dict = rs.json  # gives you a dictionary
