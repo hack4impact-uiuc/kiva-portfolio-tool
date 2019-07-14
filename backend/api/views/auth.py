@@ -66,7 +66,7 @@ def register_user():
     local_r = (
         requests.post(
             "https://blooming-spire-15234.herokuapp.com/portfolio_managers",
-            data={"email": email, "name": "Daniel"}
+            data={"email": email, "name": "Daniel"},
         )
     ).json()
 
