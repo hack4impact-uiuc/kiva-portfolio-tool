@@ -16,13 +16,13 @@ export class ErrorMessage extends Component {
       error: 'ERROR 404. This page could not be found. :('
     },
     Spanish: {
-      error: 'ERROR 404. This page could not be found. :( (Spanish)'
+      error: 'Error 404. Esta página de web no puede ser ubica. :('
     },
     French: {
-      error: 'ERROR 404. This page could not be found. :( (French)'
+      error: 'Erreur 404. Page non trouvée. :('
     },
     Portuguese: {
-      error: 'ERROR 404. This page could not be found. :( (Portuguese)'
+      error: 'Oops, você encontrou nossa página 404.'
     }
   }
 
