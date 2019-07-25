@@ -19,13 +19,13 @@ class Wrong extends Component {
       message: '404: Wrong Information Provided!'
     },
     Spanish: {
-      message: '404: Wrong Information Provided! (Spanish)'
+      message: '404: Information incorrecte!'
     },
     French: {
-      message: '404: Wrong Information Provided! (French)'
+      message: '404: Information incorrecte!'
     },
     Portuguese: {
-      message: '404: Wrong Information Provided! (Portuguese)'
+      message: '404: Informação errada fornecida!'
     }
   }
 

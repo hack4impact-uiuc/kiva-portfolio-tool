@@ -136,19 +136,19 @@ export class Dashboard extends Component {
       finish: 'Finish process'
     },
     Spanish: {
-      dueDate: 'Due date: (Spanish)',
-      update: 'Update requirements/instructions (Spanish)',
-      finish: 'Finish process (Spanish)'
+      dueDate: 'Fecha de vencimiento: ',
+      update: 'Actualizar requisitos/instrucciones',
+      finish: 'Finalizar proceso'
     },
     French: {
-      dueDate: 'Due date: (French)',
-      update: 'Update requirements/instructions (French)',
-      finish: 'Finish process (French)'
+      dueDate: 'Date limite: ',
+      update: 'Actualiser conditions/instructions',
+      finish: 'Finir processus'
     },
     Portuguese: {
-      dueDate: 'Due date: (Portuguese)',
-      update: 'Update requirements/instructions (Portuguese)',
-      finish: 'Finish process (Portuguese)'
+      dueDate: 'Data de vencimento: ',
+      update: 'Atualize os requisitos e instruções',
+      finish: 'Finalizar / concluir o processo'
     }
   }
 
