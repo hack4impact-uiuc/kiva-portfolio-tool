@@ -119,7 +119,7 @@ export class DocumentPreview extends Component {
     },
     French: {
       rejectInstructions: "Merci d'expliquer pourquoi vous avez rejeté ce document:",
-      submit: 'Envoyer ',
+      submit: 'Envoyer',
       approve: 'Approuver',
       reject: 'Rejeter',
       close: 'Fermer'

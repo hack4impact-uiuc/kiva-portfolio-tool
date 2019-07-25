@@ -141,7 +141,7 @@ export class DocumentClassPage extends Component {
       name: 'Nom:',
       description: 'Description:',
       fileUploaded: 'Fichier téléchargé: ',
-      click: 'Click to upload (French)',
+      click: 'Cliquez pour téléharger',
       return: 'Retour',
       close: 'Fermer',
       create: 'Créer nouveau type de document',
