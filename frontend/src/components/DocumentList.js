@@ -52,36 +52,36 @@ export class DocumentList extends Component {
     },
     Spanish: {
       statuses: {
-        Missing: 'Missing (Spanish)',
-        Pending: 'Pending (Spanish)',
-        Rejected: 'Rejected (Spanish)',
-        Approved: 'Approved (Spanish)'
+        Missing: 'Incompleto',
+        Pending: 'Pendiente',
+        Rejected: 'Rechazado',
+        Approved: 'Aprobado'
       },
-      documents: ' documents (Spanish)',
-      documentName: 'Document name (Spanish)',
-      file: 'File (Spanish)'
+      documents: ' documentos',
+      documentName: 'Nombre de documento',
+      file: 'Archivo'
     },
     French: {
       statuses: {
-        Missing: 'Missing (French)',
-        Pending: 'Pending (French)',
-        Rejected: 'Rejected (French)',
-        Approved: 'Approved (French)'
+        Missing: 'Manquant',
+        Pending: 'En attente',
+        Rejected: 'Rejeté',
+        Approved: 'Approuvé'
       },
-      documents: ' documents (French)',
-      documentName: 'Document name (French)',
-      file: 'File (French)'
+      documents: ' documents',
+      documentName: 'Nom du document',
+      file: 'Fichier'
     },
     Portuguese: {
       statuses: {
-        Missing: 'Missing (Portuguese)',
-        Pending: 'Pending (Portuguese)',
-        Rejected: 'Rejected (Portuguese)',
-        Approved: 'Approved (Portuguese)'
+        Missing: 'Falta',
+        Pending: 'Pendente ',
+        Rejected: 'Rejeitado',
+        Approved: 'Aprovado'
       },
-      documents: ' documents (Portuguese)',
-      documentName: 'Document name (Portuguese)',
-      file: 'File (Portuguese)'
+      documents: ' documentos',
+      documentName: 'Nome do documento',
+      file: 'Arquivo'
     }
   }
 

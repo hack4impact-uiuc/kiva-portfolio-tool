@@ -137,22 +137,22 @@ export class DocumentListItem extends Component {
       close: 'Close'
     },
     Spanish: {
-      confirm: 'Are you sure you want to delete this document? (Spanish)',
-      no: 'No (Spanish)',
-      yes: 'Yes (Spanish)',
-      close: 'Close (Spanish)'
+      confirm: 'Estás seguro que quieres borrar este documento?',
+      no: 'No',
+      yes: 'Sí',
+      close: 'Cerrar'
     },
     French: {
-      confirm: 'Are you sure you want to delete this document? (French)',
-      no: 'No (French)',
-      yes: 'Yes (French)',
-      close: 'Close (French)'
+      confirm: 'Êtes-vous sur de vouloir supprimer ce document?',
+      no: 'Non',
+      yes: 'Oui',
+      close: 'Fermer'
     },
     Portuguese: {
-      confirm: 'Are you sure you want to delete this document? (Portuguese)',
-      no: 'No (Portuguese)',
-      yes: 'Yes (Portuguese)',
-      close: 'Close (Portuguese)'
+      confirm: 'Você tem certeza que quer apagar (deletar) este documento?',
+      no: 'Não',
+      yes: 'Sim',
+      close: 'Fechar'
     }
   }
 

@@ -93,24 +93,22 @@ export class DocumentView extends Component {
     },
     Spanish: {
       rejectInstructions:
-        'Please provide some reasoning as to why you rejected this document: (Spanish)',
-      submit: 'Submit (Spanish)',
-      approve: 'Approve (Spanish)',
-      reject: 'Reject (Spanish)'
+        'Por Favor incluye una explicación de porque has rechazado este documento: ',
+      submit: 'Someter/Enviar',
+      approve: 'Aprobar',
+      reject: 'Rechazar'
     },
     French: {
-      rejectInstructions:
-        'Please provide some reasoning as to why you rejected this document: (French)',
-      submit: 'Submit (French)',
-      approve: 'Approve (French)',
-      reject: 'Reject (French)'
+      rejectInstructions: "Merci d'expliquer pourquoi vous avez rejeté ce document:",
+      submit: 'Envoyer',
+      approve: 'Approuver',
+      reject: 'Rejeter'
     },
     Portuguese: {
-      rejectInstructions:
-        'Please provide some reasoning as to why you rejected this document: (Portuguese)',
-      submit: 'Submit (Portuguese)',
-      approve: 'Approve (Portuguese)',
-      reject: 'Reject (Portuguese)'
+      rejectInstructions: 'Por favor explicar o motivo pelo qual você rejeitou este documento:',
+      submit: 'Submeter/Enviar',
+      approve: 'Aprovar',
+      reject: 'Rejeitar'
     }
   }
 

@@ -152,37 +152,37 @@ export class ForgotPassword extends Component {
       submit: 'Submit answer'
     },
     Spanish: {
-      pin: 'PIN (Spanish)',
-      password: 'Password (Spanish)',
-      confirm: 'Confirm password (Spanish)',
-      reset: 'Reset password (Spanish)',
-      back: 'Back to login page (Spanish)',
-      email: 'Email (Spanish)',
-      getSecurityQuestion: 'Get security question (Spanish)',
-      answer: 'Answer (Spanish)',
-      submit: 'Submit answer (Spanish)'
+      pin: 'PIN (código de acceso)',
+      password: 'Contraseña',
+      confirm: 'Confirme tu contraseña',
+      reset: 'Restablecer tu contraseña',
+      back: 'Regresar a la pagina de acceso',
+      email: 'Correo electronico',
+      getSecurityQuestion: 'Conseguir la pregunta de seguridad',
+      answer: 'Respuesta',
+      submit: 'Enviar respuesta'
     },
     French: {
-      pin: 'PIN (French)',
-      password: 'Password (French)',
-      confirm: 'Confirm password (French)',
-      reset: 'Reset password (French)',
-      back: 'Back to login page (French)',
-      email: 'Email (French)',
-      getSecurityQuestion: 'Get security question (French)',
-      answer: 'Answer (French)',
-      submit: 'Submit answer (French)'
+      pin: "PIN (code d'accès)",
+      password: 'Mot de passe',
+      confirm: 'Confirmer mot de passe',
+      reset: 'Réinitialiser mot de passe',
+      back: "Retour à la page d'identification",
+      email: 'Courrier électronique',
+      getSecurityQuestion: 'Recevoir question de sécurité',
+      answer: 'Réponse',
+      submit: 'Envoyer réponse'
     },
     Portuguese: {
-      pin: 'PIN (Portuguese)',
-      password: 'Password (Portuguese)',
-      confirm: 'Confirm password (Portuguese)',
-      reset: 'Reset password (Portuguese)',
-      back: 'Back to login page (Portuguese)',
-      email: 'Email (Portuguese)',
-      getSecurityQuestion: 'Get security question (Portuguese)',
-      answer: 'Answer (Portuguese)',
-      submit: 'Submit answer (Portuguese)'
+      pin: 'PIN (código de acceso)',
+      password: 'Senha',
+      confirm: 'Confirmar senha',
+      reset: 'Redefinir senha',
+      back: 'Voltar à página de acesso',
+      email: 'Email',
+      getSecurityQuestion: 'Receber a pergunta de segurança',
+      answer: 'Resposta',
+      submit: 'Enviar resposta'
     }
   }
 

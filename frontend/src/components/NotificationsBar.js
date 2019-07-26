@@ -51,6 +51,18 @@ export class NotificationsBar extends Component {
     English: {
       activity: 'Activity',
       instructions: 'Instructions'
+    },
+    Spanish: {
+      activity: 'Actividad',
+      instructions: 'Instrucciones'
+    },
+    French: {
+      activity: 'Activité',
+      instructions: 'Instructions'
+    },
+    Portuguese: {
+      activity: 'Atividade',
+      instructions: 'Instruções'
     }
   }
 
