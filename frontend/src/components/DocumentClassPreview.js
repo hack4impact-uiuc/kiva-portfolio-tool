@@ -41,13 +41,13 @@ export class DocumentClassPreview extends Component {
       close: 'Close'
     },
     Spanish: {
-      close: 'Close (Spanish)'
+      close: 'Cerrar'
     },
     French: {
-      close: 'Close (French)'
+      close: 'Fermer'
     },
     Portuguese: {
-      close: 'Close (Portuguese)'
+      close: 'Fechar'
     }
   }
 

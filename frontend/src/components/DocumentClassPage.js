@@ -126,40 +126,40 @@ export class DocumentClassPage extends Component {
       docClassName: 'Document class name'
     },
     Spanish: {
-      name: 'Name: (Spanish)',
-      description: 'Description: (Spanish)',
-      fileUploaded: 'File uploaded:  (Spanish)',
-      click: 'Click to upload (Spanish)',
-      return: 'Return (Spanish)',
-      close: 'Close (Spanish)',
-      create: 'Create new document class (Spanish)',
-      edit: 'Edit document classes (Spanish)',
-      add: 'Add new document class (Spanish)',
-      docClassName: 'Document class name (Spanish)'
+      name: 'Nombre:',
+      description: 'Descripción:',
+      fileUploaded: 'Archivo cargado: ',
+      click: 'Haga clic para cargar el archivo',
+      return: 'Regresar',
+      close: 'Cerrar',
+      create: 'Crear una nueva clase de documento',
+      edit: 'Editar classe de documento existente',
+      add: 'Agregar una nueva clase de documento',
+      docClassName: 'Nombre de clase de documento'
     },
     French: {
-      name: 'Name: (French)',
-      description: 'Description: (French)',
-      fileUploaded: 'File uploaded:  (French)',
-      click: 'Click to upload (French)',
-      return: 'Return (French)',
-      close: 'Close (French)',
-      create: 'Create new document class (French)',
-      edit: 'Edit document classes (French)',
-      add: 'Add new document class (French)',
-      docClassName: 'Document class name (French)'
+      name: 'Nom:',
+      description: 'Description:',
+      fileUploaded: 'Fichier téléchargé: ',
+      click: 'Cliquez pour téléharger',
+      return: 'Retour',
+      close: 'Fermer',
+      create: 'Créer nouveau type de document',
+      edit: 'Modifier type de document',
+      add: 'Ajouter nouveau type de document',
+      docClassName: 'Nom du type de document'
     },
     Portuguese: {
-      name: 'Name: (Portuguese)',
-      description: 'Description: (Portuguese)',
-      fileUploaded: 'File uploaded:  (Portuguese)',
-      click: 'Click to upload (Portuguese)',
-      return: 'Return (Portuguese)',
-      close: 'Close (Portuguese)',
-      create: 'Create new document class (Portuguese)',
-      edit: 'Edit document classes (Portuguese)',
-      add: 'Add new document class (Portuguese)',
-      docClassName: 'Document class name (Portuguese)'
+      name: 'Nome',
+      description: 'Descrição:',
+      fileUploaded: 'Arquivo carregado: ',
+      click: 'Clique para carregar',
+      return: 'Retornar',
+      close: 'Fechar',
+      create: 'Criar a nova classe de documento',
+      edit: 'Editar classes de documento',
+      add: 'Adicionar nova classe de documento',
+      docClassName: 'Nome de classe de documento'
     }
   }
 

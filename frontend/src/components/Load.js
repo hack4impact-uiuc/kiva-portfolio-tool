@@ -20,13 +20,13 @@ class Load extends Component {
       loading: 'Loading'
     },
     Spanish: {
-      loading: 'Loading (Spanish)'
+      loading: 'Cargando'
     },
     French: {
-      loading: 'Loading (French)'
+      loading: 'Téléchargement'
     },
     Portuguese: {
-      loading: 'Loading (Portuguese)'
+      loading: 'Carregando'
     }
   }
 

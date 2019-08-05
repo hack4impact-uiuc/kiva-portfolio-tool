@@ -155,37 +155,37 @@ export class DocumentClass extends Component {
       deleteReturn: 'Delete and return'
     },
     Spanish: {
-      name: 'Name: (Spanish)',
-      description: 'Description: (Spanish)',
-      fileUploaded: 'File uploaded:  (Spanish)',
-      click: 'Click to upload (Spanish)',
-      return: 'Return (Spanish)',
-      update: 'Update document class (Spanish)',
-      confirm1: 'Are you sure you want to delete  (Spanish)',
-      confirm2: '? This will delete every document of this type for all users. (Spanish)',
-      deleteReturn: 'Delete and return (Spanish)'
+      name: 'Nombre:',
+      description: 'Descripción:',
+      fileUploaded: 'Archivo cargado: ',
+      click: 'Haga clic para cargar el archivo',
+      return: 'Regresar',
+      update: 'Actualizar la clase de documento',
+      confirm1: 'Estás seguro de borrar ',
+      confirm2: '? Esto borrará todos los documentos de esta clase para todos los usarios.',
+      deleteReturn: 'Borrar y regresar'
     },
     French: {
-      name: 'Name: (French)',
-      description: 'Description: (French)',
-      fileUploaded: 'File uploaded:  (French)',
-      click: 'Click to upload (French)',
-      return: 'Return (French)',
-      update: 'Update document class (French)',
-      confirm1: 'Are you sure you want to delete  (French)',
-      confirm2: '? This will delete every document of this type for all users. (French)',
-      deleteReturn: 'Delete and return (French)'
+      name: 'Nom:',
+      description: 'Description:',
+      fileUploaded: 'Fichier téléchargé: ',
+      click: 'Cliquez pour téléharger',
+      return: 'Retour',
+      update: 'Actualiser type de document',
+      confirm1: 'Êtes-vous sur de vouloir supprimer ',
+      confirm2: ' ? Cela supprimera tous les documents de ce type pour tous les utilisateurs.',
+      deleteReturn: 'Supprimer et retourner'
     },
     Portuguese: {
-      name: 'Name: (Portuguese)',
-      description: 'Description: (Portuguese)',
-      fileUploaded: 'File uploaded:  (Portuguese)',
-      click: 'Click to upload (Portuguese)',
-      return: 'Return (Portuguese)',
-      update: 'Update document class (Portuguese)',
-      confirm1: 'Are you sure you want to delete  (Portuguese)',
-      confirm2: '? This will delete every document of this type for all users. (Portuguese)',
-      deleteReturn: 'Delete and return (Portuguese)'
+      name: 'Nome:',
+      description: 'Descrição:',
+      fileUploaded: 'Arquivo carregado: ',
+      click: 'Clique para carregar',
+      return: 'Retornar',
+      update: 'Atualizar a classe de documento',
+      confirm1: 'Tem certeza que quer apagar (deletar) ',
+      confirm2: ' ? Isto irá apagar todos os documentos deste tipo para todos os usuários.',
+      deleteReturn: 'Apagar e retornar'
     }
   }
 

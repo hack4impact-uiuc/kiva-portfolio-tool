@@ -114,25 +114,25 @@ class LogIn extends Component {
       forgotPassword: 'Forgot password?'
     },
     Spanish: {
-      email: 'Email (Spanish)',
-      password: 'Password (Spanish)',
-      logIn: 'Log in (Spanish)',
-      register: 'Register (Spanish)',
-      forgotPassword: 'Forgot password? (Spanish)'
+      email: 'Correo electronico',
+      password: 'Contraseña',
+      logIn: 'Iniciar sesión',
+      register: 'Regístrate',
+      forgotPassword: 'Olvidaste la contraseña?'
     },
     French: {
-      email: 'Email (French)',
-      password: 'Password (French)',
-      logIn: 'Log in (French)',
-      register: 'Register (French)',
-      forgotPassword: 'Forgot password? (French)'
+      email: 'Courrier électronique',
+      password: 'Mot de passe',
+      logIn: 'Se connecter',
+      register: "S'enregistrer",
+      forgotPassword: 'Mot de passe oublié?'
     },
     Portuguese: {
-      email: 'Email (Portuguese)',
-      password: 'Password (Portuguese)',
-      logIn: 'Log in (Portuguese)',
-      register: 'Register (Portuguese)',
-      forgotPassword: 'Forgot password? (Portuguese)'
+      email: 'Email',
+      password: 'Senha',
+      logIn: 'Acessar',
+      register: 'Inscrever-se',
+      forgotPassword: 'Esqueceu a senha?'
     }
   }
 

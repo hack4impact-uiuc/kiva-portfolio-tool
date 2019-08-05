@@ -120,22 +120,22 @@ export class NavBar extends Component {
       logOut: 'Log out'
     },
     Spanish: {
-      manage: 'Manage documents (Spanish)',
-      changePassword: 'Change password (Spanish)',
-      changeSecurityQuestion: 'Change security question (Spanish)',
-      logOut: 'Log out (Spanish)'
+      manage: 'Manejar documentos',
+      changePassword: 'Cambiar contraseña',
+      changeSecurityQuestion: 'Cambiar pregunta de seguridad',
+      logOut: 'Cerrar sesión'
     },
     French: {
-      manage: 'Manage documents (French)',
-      changePassword: 'Change password (French)',
-      changeSecurityQuestion: 'Change security question (French)',
-      logOut: 'Log out (French)'
+      manage: 'Gérer documents',
+      changePassword: 'Changer mot de passe',
+      changeSecurityQuestion: 'Changer question de sécurité',
+      logOut: 'Fermer session'
     },
     Portuguese: {
-      manage: 'Manage documents (Portuguese)',
-      changePassword: 'Change password (Portuguese)',
-      changeSecurityQuestion: 'Change security question (Portuguese)',
-      logOut: 'Log out (Portuguese)'
+      manage: 'Gerenciar documentos',
+      changePassword: 'Mudar senha',
+      changeSecurityQuestion: 'Mudar pergunta de segurança',
+      logOut: 'Sair'
     }
   }
 

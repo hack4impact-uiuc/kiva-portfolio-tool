@@ -195,31 +195,31 @@ export class SelectDocumentsPage extends Component {
       assign: 'Assign'
     },
     Spanish: {
-      select: 'Select documents (Spanish)',
-      search: 'Search for documents here (Spanish)',
-      available: 'Available (Spanish)',
-      selected: 'Selected (Spanish)',
-      setDueDate: 'Set a due date: (Spanish)',
-      addInstructions: 'Add additional instructions: (Spanish)',
-      assign: 'Assign (Spanish)'
+      select: 'Seleccionar documentos',
+      search: 'Busque por documentos aquí',
+      available: 'Disponible',
+      selected: 'Selecionado',
+      setDueDate: 'Establecer una fecha de vencimiento:',
+      addInstructions: 'Añadir instrucciones adicionales:',
+      assign: 'Asignar'
     },
     French: {
-      select: 'Select documents (French)',
-      search: 'Search for documents here (French)',
-      available: 'Available (French)',
-      selected: 'Selected (French)',
-      setDueDate: 'Set a due date: (French)',
-      addInstructions: 'Add additional instructions: (French)',
-      assign: 'Assign (French)'
+      select: 'Selectionner documents',
+      search: 'Rechercher par documents ici',
+      available: 'Disponible',
+      selected: 'Sélectionné',
+      setDueDate: 'Définir une date limite:',
+      addInstructions: 'Ajouter instructions supplémentaires:',
+      assign: 'Attribuer'
     },
     Portuguese: {
-      select: 'Select documents (Portuguese)',
-      search: 'Search for documents here (Portuguese)',
-      available: 'Available (Portuguese)',
-      selected: 'Selected (Portuguese)',
-      setDueDate: 'Set a due date: (Portuguese)',
-      addInstructions: 'Add additional instructions: (Portuguese)',
-      assign: 'Assign (Portuguese)'
+      select: 'Selecionar documentos',
+      search: 'Buscar por dcumentos aqui',
+      available: 'Disponível',
+      selected: 'Selecionado',
+      setDueDate: 'Estabelecer prazo:',
+      addInstructions: 'Incuir instruções adicionais',
+      assign: 'Atribuir'
     }
   }
 
