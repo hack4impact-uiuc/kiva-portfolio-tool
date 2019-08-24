@@ -64,7 +64,6 @@ class LogIn extends Component {
     }
 
     let token = result.response.data.result.token
-
     if (!token) {
       this.setState({
         wrongInfo: !this.state.wrongInfo,

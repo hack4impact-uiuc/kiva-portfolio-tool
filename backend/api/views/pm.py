@@ -68,7 +68,6 @@ def new_pm():
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
     message, info = verify_token(token)
-
     if message != None:
         return create_response(status=400, message=message)
 

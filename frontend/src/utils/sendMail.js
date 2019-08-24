@@ -25,7 +25,7 @@ export async function sendChangePasswordEmail(email, password, pm) {
       password +
       '.',
     html:
-      '<p>Click <a href="http://localhost:3000/temporary">here</a> to login with your temporary password and reset your password</p>'
+      '<p>Click <a href="https://vast-cove-61975.herokuapp.com/temporary">here</a> to login with your temporary password and reset your password</p>'
   }
   await sendMail(mail_body)
 }

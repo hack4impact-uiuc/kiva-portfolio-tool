@@ -74,7 +74,6 @@ export class DocumentListItem extends Component {
       'image/png',
       'text/plain'
     ]
-    console.log(files[0].type)
 
     if (!docTypes.includes(files[0].type)) {
       window.alert('Document type not acceptable')
