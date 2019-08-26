@@ -1,6 +1,7 @@
 from flask import Blueprint, request, json
 from api.models import DocumentClass, db
 from api.core import create_response, serialize_list, logger
+from uuid import uuid4
 
 import requests, json, random, string
 
@@ -63,10 +64,12 @@ def register_user():
 
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
+    name = str(uuid4())
+
     local_r = (
         requests.post(
             "http://localhost:5000/portfolio_managers",
-            data={"email": email, "name": "Daniel"},
+            data={"email": email, "name": name},
             headers=headers,
         )
     ).json()
