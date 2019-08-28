@@ -1,7 +1,6 @@
 from flask import Blueprint, request, json
 from api.models import DocumentClass, db
 from api.core import create_response, serialize_list, logger
-from uuid import uuid4
 
 import requests, json, random, string
 
