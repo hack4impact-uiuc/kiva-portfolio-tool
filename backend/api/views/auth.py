@@ -66,7 +66,7 @@ def register_user():
     local_r = (
         requests.post(
             "http://localhost:5000/portfolio_managers",
-            data={"email": email, "name": "Daniel"},
+            data={"email": email, "name": email},
             headers=headers,
         )
     ).json()
