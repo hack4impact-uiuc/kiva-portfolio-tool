@@ -64,12 +64,10 @@ def register_user():
 
     headers = {"Content-type": "application/x-www-form-urlencoded", "token": token}
 
-    name = str(uuid4())
-
     local_r = (
         requests.post(
             "http://localhost:5000/portfolio_managers",
-            data={"email": email, "name": name},
+            data={"email": email, "name": email},
             headers=headers,
         )
     ).json()
